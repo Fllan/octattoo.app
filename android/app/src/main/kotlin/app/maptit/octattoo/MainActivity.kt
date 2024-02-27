@@ -1,4 +1,4 @@
-package com.example.octattoo_app
+package app.maptit.octattoo
 
 import io.flutter.embedding.android.FlutterActivity
 

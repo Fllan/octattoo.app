@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:octattoo_app/home/home.dart';
+import 'package:octattoo_app/loading.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:octattoo_app/services/locale_manager.dart'; // Import LocaleManager
+import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const App());
+  LocaleManager localeManager = LocaleManager();
+  await localeManager.initializeLocale();
+  runApp(
+    ChangeNotifierProvider<LocaleManager>(
+      create: (context) => LocaleManager(),
+      child: const App(),
+    ),
+  );
 }
 
 class App extends StatefulWidget {
@@ -11,72 +24,50 @@ class App extends StatefulWidget {
 
   @override
   State<App> createState() => _AppState();
-
-  static void setLocale(BuildContext context, Locale newLocale) {
-    _AppState? state = context.findAncestorStateOfType<_AppState>();
-    state?.setLocale(newLocale);
-  }
 }
 
 class _AppState extends State<App> {
-  Locale? _locale;
-
-  setLocale(Locale locale) {
-    setState(() {
-      _locale = locale;
-    });
-  }
+  late final Future<FirebaseApp> _initialization;
 
   @override
   void initState() {
     super.initState();
-    setLocaleBasedOnDeviceLanguage();
-  }
-
-  void setLocaleBasedOnDeviceLanguage() {
-    Locale deviceLocale = WidgetsBinding.instance.platformDispatcher.locale;
-    if (AppLocalizations.supportedLocales.contains(deviceLocale)) {
-      setLocale(deviceLocale);
-    } else {
-      setLocale(const Locale('en'));
-    }
+    _initialization = Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    // Check if appLoc can be retrieved before accessing properties
-    return MaterialApp(
-      title: 'octattoo.app',
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      locale: _locale,
-      home: Builder(
-        builder: (BuildContext context) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                AppLocalizations.of(context)!
-                    .helloWorld, // localized "helloWorld"
+    final localeManager = Provider.of<LocaleManager>(context);
+    
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          return const MaterialApp(
+            home: Scaffold(
+              body: Center(
+                child: Text('Error initializing Firebase'),
               ),
             ),
-            body: Column(
-              children: [
-                Text(
-                  AppLocalizations.of(context)!
-                      .helloWorld, // localized "helloWorld"
-                ),
-                Text(
-                  Localizations.localeOf(context)
-                      .languageCode, // device language code
-                ),
-                Text(
-                  _locale?.languageCode ?? 'No locale set', // app language code
-                ),
-              ],
-            ),
           );
-        },
-      ),
+        }
+
+        // Show a loading screen while waiting for initialization to complete
+        if (snapshot.connectionState != ConnectionState.done) {
+          return const MaterialApp(home: LoadingScreen());
+        }
+
+        // Once complete, show your application
+        return MaterialApp(
+          home: const HomeScreen(),
+          locale: localeManager.locale, // Use LocaleManager's locale
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+        );
+      },
     );
   }
 }
