@@ -2,31 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:octattoo_app/home/home.dart';
 import 'package:octattoo_app/loading.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:octattoo_app/services/locale_manager.dart'; // Import LocaleManager
+import 'package:octattoo_app/providers/locale_manager_provider.dart';
+import 'package:octattoo_app/services/locale_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:provider/provider.dart';
 import 'firebase_options.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  LocaleManager localeManager = LocaleManager();
-  await localeManager.initializeLocale();
+  await LocaleManager().initializeLocale();
   runApp(
-    ChangeNotifierProvider<LocaleManager>(
-      create: (context) => LocaleManager(),
-      child: const App(),
+    const ProviderScope(
+      child: App(),
     ),
   );
 }
 
-class App extends StatefulWidget {
+class App extends ConsumerStatefulWidget {
   const App({super.key});
 
   @override
-  State<App> createState() => _AppState();
+  ConsumerState<App> createState() => _AppState();
 }
 
-class _AppState extends State<App> {
+class _AppState extends ConsumerState<App> {
   late final Future<FirebaseApp> _initialization;
 
   @override
@@ -39,7 +38,7 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    final localeManager = Provider.of<LocaleManager>(context);
+    final localeManager = ref.watch(localeManagerProvider);
     
     return FutureBuilder(
       future: _initialization,
@@ -63,7 +62,7 @@ class _AppState extends State<App> {
         // Once complete, show your application
         return MaterialApp(
           home: const HomeScreen(),
-          locale: localeManager.locale, // Use LocaleManager's locale
+          locale: localeManager.locale,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
         );
