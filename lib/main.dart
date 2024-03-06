@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:octattoo_app/home/home.dart';
 import 'package:octattoo_app/loading.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:octattoo_app/providers/locale_manager_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:octattoo_app/router/app_router.dart';
 import 'firebase_options.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,7 +23,7 @@ class AppInitializer extends StatelessWidget {
         if (snapshot.hasError) {
           return const MaterialApp(
               home: Scaffold(
-                  body: Center(child: Text('Error initializing app'))));
+                  body: Center(child: Text('Error initializing app'),),),);
         }
         // Show a loading screen while waiting for initialization to complete
         if (snapshot.connectionState != ConnectionState.done) {
@@ -56,8 +56,10 @@ class _AppState extends ConsumerState<App> {
   Widget build(BuildContext context) {
     final localeManager = ref.watch(localeManagerProvider);
 
-    return MaterialApp(
-      home: const HomeScreen(),
+    return MaterialApp.router(
+      routerDelegate: AppRouter.router.routerDelegate,
+      routeInformationParser: AppRouter.router.routeInformationParser,
+      routeInformationProvider: AppRouter.router.routeInformationProvider,
       locale: localeManager.locale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,

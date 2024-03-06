@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:octattoo_app/providers/locale_manager_provider.dart';
 import 'package:octattoo_app/services/auth.dart';
 
@@ -35,8 +36,7 @@ class AboutScreen extends ConsumerWidget {
               onPressed: () async {
                 await AuthService().signOut();
                 if (context.mounted) {
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/', (route) => false);
+                  context.go('/login');
                 }
               },
               child: const Text('Logout'),

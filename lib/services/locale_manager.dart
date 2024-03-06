@@ -13,15 +13,6 @@ class LocaleManager extends ChangeNotifier {
     }
   }
 
-  // void setLocaleBasedOnDeviceLanguage(BuildContext context) {
-  //   Locale deviceLocale = Localizations.localeOf(context);
-  //   if (AppLocalizations.supportedLocales.contains(deviceLocale)) {
-  //     setLocale(deviceLocale);
-  //   } else {
-  //     setLocale(const Locale('en'));
-  //   }
-  // }
-
   Future<void> initializeLocale() async {
     Locale deviceLocale = WidgetsBinding.instance.platformDispatcher.locale;
     if (AppLocalizations.supportedLocales.contains(deviceLocale)) {
