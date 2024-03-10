@@ -1,24 +1,24 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:octattoo_app/about/about.dart';
-import 'package:octattoo_app/home/home.dart';
-import 'package:octattoo_app/login/login.dart';
+import 'package:octattoo_app/presentation/screens/login_register/login_register_screen.dart';
+import 'package:octattoo_app/presentation/screens/login_register/forgot_password_screen.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
     routes: [
       GoRoute(
         path: '/',
-        builder: (BuildContext context, GoRouterState state) => const HomeScreen(),
+        name: 'login',
+        builder: (context, state) => const LoginRegisterScreen(),
+        routes: [
+          GoRoute(
+            path: 'forgotPassword',
+            name: 'forgotPassword',
+            builder: (context, state) => const ForgotPasswordScreen(),
+          ),
+          // Define other nested routes if needed
+        ],
       ),
-      GoRoute(
-        path: '/about',
-        builder: (BuildContext context, GoRouterState state) => const AboutScreen(),
-      ),
-      GoRoute(
-        path: '/login',
-        builder: (BuildContext context, GoRouterState state) => const LoginScreen(),
-      ),
+      // ... other top-level routes
     ],
   );
 }

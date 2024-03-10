@@ -2,9 +2,56 @@
     "@@locale": "en",
     "@@context": "Login",
 
-
-    "helloWorld": "Hello World!",
-    "@helloWorld": {
-        "description": "The conventional newborn programmer greeting"
+    "appInitError": "Error initializing app",
+    "@appInitError": {
+        "description": "Shown when the app fails to initialize."
+    },
+    "continueGuest": "Continue as Guest",
+    "@continueGuest": {
+        "description": "Button text for continuing without signing in."
+    },
+    "emailLabel": "Email",
+    "@emailLabel": {
+        "description": "Label for email input field."
+    },
+    "passwordLabel": "Password",
+    "@passwordLabel": {
+        "description": "Label for password input field."
+    },
+    "loginAction": "Login",
+    "@loginAction": {
+        "description": "Button text for login action."
+    },
+    "forgotPwd": "Forgot Password?",
+    "@forgotPwd": {
+        "description": "Link text for resetting a forgotten password."
+    },
+    "appTitle": "octattoo.app",
+    "@appTitle": {
+        "description": "Title of the app shown on the login/register screen."
+    },
+    "registerTab": "Register",
+    "@registerTab": {
+        "description": "Tab label for navigating to the registration page."
+    },
+    "loginTab": "Login",
+    "@loginTab": {
+        "description": "Tab label for navigating to the login page."
+    },
+    "forgotPwdTitle": "Forgot Password",
+    "@forgotPwdTitle": {
+        "description": "Title for the forgot password screen."
+    },
+    "resetLinkPrompt": "Enter your email to receive a reset link.",
+    "@resetLinkPrompt": {
+        "description": "Prompt instructing users to enter their email to receive a password reset link."
+    },
+    "sendResetLink": "Send Reset Link",
+    "@sendResetLink": {
+        "description": "Button text to send the password reset link."
+    },
+    "signInWithGoogle": "Sign in with Google",
+    "@signInWithGoogle" : {
+        "description": "Button text to sign in using Google."
     }
 }

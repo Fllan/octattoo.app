@@ -37,6 +37,34 @@ class AuthService {
     }
   }
 
+
+  Future<void> signUpWithEmail(String email, String password) async {
+    try {
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      // Handle errors (e.g., email already in use)
+    }
+  }
+
+  Future<void> signInWithEmail(String email, String password) async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      // Handle errors (e.g., wrong password)
+    }
+  }
+
+  Future<void> sendPasswordResetEmail(String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      // Handle errors
+    }
+  }
+
+
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
   }
