@@ -14,5 +14,7 @@
     "forgotPwdTitle": "Mot de passe oublié",
     "resetLinkPrompt": "Entrez votre email pour recevoir un lien de réinitialisation.",
     "sendResetLink": "Envoyer le lien de réinitialisation",
-    "signInWithGoogle": "Se connecter avec Google"
+    "signInWithGoogle": "Se connecter avec Google",
+    "onboardingTitle": "Enregistrement",
+    "artistProfileTitle": "Profil d'artiste"
 }

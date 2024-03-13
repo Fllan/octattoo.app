@@ -53,5 +53,13 @@
     "signInWithGoogle": "Sign in with Google",
     "@signInWithGoogle" : {
         "description": "Button text to sign in using Google."
+    },
+    "onboardingTitle": "Onboarding",
+    "@onboardingTitle" : {
+        "description": "Title for Onboarding Screen."
+    },
+    "artistProfileTitle": "Artist profile",
+    "@artistProfileTitle" : {
+        "description": "Title for Artist profile Screen."
     }
 }

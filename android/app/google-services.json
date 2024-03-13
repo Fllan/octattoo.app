@@ -37,6 +37,13 @@
             {
               "client_id": "908944485443-5gapcmjkkin6594eq4qihc2ukrkblse1.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "908944485443-rknpt9kva7lg2f8s32eho7ld4p52h28m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.octattooApp.RunnerTests"
+              }
             }
           ]
         }
