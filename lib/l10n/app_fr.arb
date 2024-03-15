@@ -16,5 +16,7 @@
     "sendResetLink": "Envoyer le lien de réinitialisation",
     "signInWithGoogle": "Se connecter avec Google",
     "onboardingTitle": "Enregistrement",
-    "artistProfileTitle": "Profil d'artiste"
+    "artistProfileTitle": "Profil d'artiste",
+    "welcomeMessage": "Bienvenue sur octattoo.app !",
+    "welcomeTitle": "Content de te voir ici !"
 }

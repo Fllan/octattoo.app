@@ -58,6 +58,14 @@
     "@onboardingTitle" : {
         "description": "Title for Onboarding Screen."
     },
+    "welcomeTitle": "Glad to see you here !",
+    "@welcomeTitle" : {
+        "description": "Title for Welcome screen."
+    },
+    "welcomeMessage": "Welcome in octattoo.app !",
+    "@welcomeMessage" : {
+        "description": "Message for Welcome screen."
+    },
     "artistProfileTitle": "Artist profile",
     "@artistProfileTitle" : {
         "description": "Title for Artist profile Screen."
