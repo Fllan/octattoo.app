@@ -10,7 +10,6 @@ import 'package:octattoo_app/src/features/welcome/welcome_screen.dart';
 
 enum RoutePath {
   root(path: '/'),
-  welcome(path: 'welcome'),
   signin(path: 'signin'),
   onboarding(path: 'onboarding'),
   settings(path: 'settings'),
@@ -27,6 +26,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
   // final accountNaveKey = GlobalKey<NavigatorState>(debugLabel: 'accountNav');
 
   final listenable = ref.watch(appRouterListenableProvider);
+  
   return GoRouter(
       navigatorKey: rootNaveKey,
       refreshListenable: listenable,

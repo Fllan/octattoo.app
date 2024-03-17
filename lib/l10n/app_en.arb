@@ -1,6 +1,14 @@
 {
     "@@locale": "en",
-    "@@context": "Login",
+
+    "signinTitle": "Sign in",
+    "@signinTitle": {
+        "description": "Title for signin screen."
+    },
+    "signOutAction": "Sign out",
+    "@signOutAction": {
+        "description": "Action to sign out."
+    },
 
     "appInitError": "Error initializing app",
     "@appInitError": {
@@ -30,30 +38,6 @@
     "@appTitle": {
         "description": "Title of the app shown on the login/register screen."
     },
-    "registerTab": "Register",
-    "@registerTab": {
-        "description": "Tab label for navigating to the registration page."
-    },
-    "loginTab": "Login",
-    "@loginTab": {
-        "description": "Tab label for navigating to the login page."
-    },
-    "forgotPwdTitle": "Forgot Password",
-    "@forgotPwdTitle": {
-        "description": "Title for the forgot password screen."
-    },
-    "resetLinkPrompt": "Enter your email to receive a reset link.",
-    "@resetLinkPrompt": {
-        "description": "Prompt instructing users to enter their email to receive a password reset link."
-    },
-    "sendResetLink": "Send Reset Link",
-    "@sendResetLink": {
-        "description": "Button text to send the password reset link."
-    },
-    "signInWithGoogle": "Sign in with Google",
-    "@signInWithGoogle" : {
-        "description": "Button text to sign in using Google."
-    },
     "onboardingTitle": "Onboarding",
     "@onboardingTitle" : {
         "description": "Title for Onboarding Screen."
@@ -69,5 +53,9 @@
     "artistProfileTitle": "Artist profile",
     "@artistProfileTitle" : {
         "description": "Title for Artist profile Screen."
+    },
+    "test": "test",
+    "@test" : {
+        "description": "test"
     }
 }

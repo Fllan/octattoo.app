@@ -9,7 +9,6 @@ class LanguagePopupMenu extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final language = ref.watch(languageProvider);
     return PopupMenuButton<Language>(
       onSelected: (value) =>
           ref.read(languageRepositoryProvider).setLanguage(value),
@@ -21,7 +20,7 @@ class LanguagePopupMenu extends ConsumerWidget {
                 children: [Text(value.flag), gapW8, Text(value.name)],
               ))
       ],
-      child: Text('${language.name} ${language.flag}'),
+      child: const Icon(Icons.language),
     );
   }
 }

@@ -1,6 +1,8 @@
 {
     "@@locale": "fr",
-    "@@context": "Login",
+
+    "signinTitle": "Se connecter",
+    "signOutAction": "Se déconnecter",
 
     "appInitError": "Erreur lors de l'initialisation de l'application",
     "continueGuest": "Continuer en tant qu'invité",
@@ -18,5 +20,6 @@
     "onboardingTitle": "Enregistrement",
     "artistProfileTitle": "Profil d'artiste",
     "welcomeMessage": "Bienvenue sur octattoo.app !",
-    "welcomeTitle": "Content de te voir ici !"
+    "welcomeTitle": "Content de te voir ici !",
+    "test": "test"
 }

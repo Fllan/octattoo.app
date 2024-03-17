@@ -10,6 +10,11 @@ class AppRouterListenable extends ChangeNotifier {
       .read(authRepositoryProvider)
       .signOut()
       .then((value) => notifyListeners());
+  
+  Future<void> signInAnonymously() => ref
+      .read(authRepositoryProvider)
+      .signInAnonymously()
+      .then((value) => notifyListeners());
 }
 
 final appRouterListenableProvider =
