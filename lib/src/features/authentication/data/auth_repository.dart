@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:octattoo_app/src/constants/user_roles.dart';
+import 'package:octattoo_app/src/services/firestore/database_service.dart';
 import 'package:octattoo_app/src/utils/handle_async_error.dart';
 
 class AuthRepository {
@@ -44,9 +47,31 @@ class AuthRepository {
 
   Future<void> signInAnonymously() async {
     await handleAsyncError(
-      title: 'Sign in anounymously failed',
-      operation: () => auth.signInAnonymously(),
-    );
+        title: 'Sign in anounymously failed',
+        operation: () => handleAsyncError(
+            title: 'User document creation failed',
+            operation: () async {
+              UserCredential userCredential = await auth.signInAnonymously();
+              User? user = userCredential.user;
+              final userDoc = await FirebaseFirestore.instance
+                  .collection(usersCollectionRef)
+                  .doc(user!.uid)
+                  .get();
+              if (!userDoc.exists) {
+                await FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(user.uid)
+                    .set(
+                  {
+                    'uid': user.uid,
+                    'createdAt': DateTime.now(),
+                    'updatedAt': DateTime.now(),
+                    'role': UserRoles.artist.toString(),
+                    'hasCompletedOnboarding': false,
+                  },
+                );
+              }
+            }));
   }
 
   Future<void> googleLogin() async {
@@ -67,11 +92,6 @@ class AuthRepository {
       },
     );
   }
-
-
-
-
-  
 }
 
 final firebaseAuthProvider =
