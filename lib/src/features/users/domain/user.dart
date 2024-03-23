@@ -12,6 +12,7 @@ class User with _$User  {
     required DateTime updatedAt,
     required UserRoles role,
     required bool hasCompletedOnboarding,
+    required bool hasAnonymousAccount,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) =>

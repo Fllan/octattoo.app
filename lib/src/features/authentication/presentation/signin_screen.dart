@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,7 +17,7 @@ class SigninScreen extends ConsumerWidget {
         title: Text(context.loc.signinTitle),
       ),
       body: Container(
-        margin: EdgeInsets.all(13),
+        margin: const EdgeInsets.all(13),
         width: double.infinity,
         height: double.infinity,
         child: Column(

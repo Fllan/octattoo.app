@@ -25,6 +25,7 @@ mixin _$User {
   DateTime get updatedAt => throw _privateConstructorUsedError;
   UserRoles get role => throw _privateConstructorUsedError;
   bool get hasCompletedOnboarding => throw _privateConstructorUsedError;
+  bool get hasAnonymousAccount => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +42,8 @@ abstract class $UserCopyWith<$Res> {
       DateTime createdAt,
       DateTime updatedAt,
       UserRoles role,
-      bool hasCompletedOnboarding});
+      bool hasCompletedOnboarding,
+      bool hasAnonymousAccount});
 }
 
 /// @nodoc
@@ -62,6 +64,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? updatedAt = null,
     Object? role = null,
     Object? hasCompletedOnboarding = null,
+    Object? hasAnonymousAccount = null,
   }) {
     return _then(_value.copyWith(
       uid: null == uid
@@ -84,6 +87,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.hasCompletedOnboarding
           : hasCompletedOnboarding // ignore: cast_nullable_to_non_nullable
               as bool,
+      hasAnonymousAccount: null == hasAnonymousAccount
+          ? _value.hasAnonymousAccount
+          : hasAnonymousAccount // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -100,7 +107,8 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       DateTime createdAt,
       DateTime updatedAt,
       UserRoles role,
-      bool hasCompletedOnboarding});
+      bool hasCompletedOnboarding,
+      bool hasAnonymousAccount});
 }
 
 /// @nodoc
@@ -118,6 +126,7 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? updatedAt = null,
     Object? role = null,
     Object? hasCompletedOnboarding = null,
+    Object? hasAnonymousAccount = null,
   }) {
     return _then(_$UserImpl(
       uid: null == uid
@@ -140,6 +149,10 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.hasCompletedOnboarding
           : hasCompletedOnboarding // ignore: cast_nullable_to_non_nullable
               as bool,
+      hasAnonymousAccount: null == hasAnonymousAccount
+          ? _value.hasAnonymousAccount
+          : hasAnonymousAccount // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -152,7 +165,8 @@ class _$UserImpl implements _User {
       required this.createdAt,
       required this.updatedAt,
       required this.role,
-      required this.hasCompletedOnboarding});
+      required this.hasCompletedOnboarding,
+      required this.hasAnonymousAccount});
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserImplFromJson(json);
@@ -167,10 +181,12 @@ class _$UserImpl implements _User {
   final UserRoles role;
   @override
   final bool hasCompletedOnboarding;
+  @override
+  final bool hasAnonymousAccount;
 
   @override
   String toString() {
-    return 'User(uid: $uid, createdAt: $createdAt, updatedAt: $updatedAt, role: $role, hasCompletedOnboarding: $hasCompletedOnboarding)';
+    return 'User(uid: $uid, createdAt: $createdAt, updatedAt: $updatedAt, role: $role, hasCompletedOnboarding: $hasCompletedOnboarding, hasAnonymousAccount: $hasAnonymousAccount)';
   }
 
   @override
@@ -185,13 +201,15 @@ class _$UserImpl implements _User {
                 other.updatedAt == updatedAt) &&
             (identical(other.role, role) || other.role == role) &&
             (identical(other.hasCompletedOnboarding, hasCompletedOnboarding) ||
-                other.hasCompletedOnboarding == hasCompletedOnboarding));
+                other.hasCompletedOnboarding == hasCompletedOnboarding) &&
+            (identical(other.hasAnonymousAccount, hasAnonymousAccount) ||
+                other.hasAnonymousAccount == hasAnonymousAccount));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, uid, createdAt, updatedAt, role, hasCompletedOnboarding);
+  int get hashCode => Object.hash(runtimeType, uid, createdAt, updatedAt, role,
+      hasCompletedOnboarding, hasAnonymousAccount);
 
   @JsonKey(ignore: true)
   @override
@@ -213,7 +231,8 @@ abstract class _User implements User {
       required final DateTime createdAt,
       required final DateTime updatedAt,
       required final UserRoles role,
-      required final bool hasCompletedOnboarding}) = _$UserImpl;
+      required final bool hasCompletedOnboarding,
+      required final bool hasAnonymousAccount}) = _$UserImpl;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
@@ -227,6 +246,8 @@ abstract class _User implements User {
   UserRoles get role;
   @override
   bool get hasCompletedOnboarding;
+  @override
+  bool get hasAnonymousAccount;
   @override
   @JsonKey(ignore: true)
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>

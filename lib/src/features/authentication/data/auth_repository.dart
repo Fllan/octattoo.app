@@ -68,6 +68,7 @@ class AuthRepository {
                     'updatedAt': DateTime.now(),
                     'role': UserRoles.artist.toString(),
                     'hasCompletedOnboarding': false,
+                    'hasAnonymousAccount': true,
                   },
                 );
               }

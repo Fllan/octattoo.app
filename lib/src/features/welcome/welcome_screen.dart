@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:octattoo_app/src/common_widgets/async_button.dart';
 import 'package:octattoo_app/src/constants/sizes.dart';
 import 'package:octattoo_app/src/features/language/localization.dart';
 import 'package:octattoo_app/src/features/language/language_popup_menu.dart';
@@ -38,9 +39,11 @@ class WelcomeScreen extends ConsumerWidget {
               gapH12,
               SizedBox(
                 width: 200,
-                child: ElevatedButton(
-                  child: Text(context.loc.continueGuest),
-                  onPressed: () => appRouterListenable.signInAnonymously(),
+                child: AsyncButton(
+                  label: context.loc.continueGuest,
+                  onPressed: () async {
+                    await appRouterListenable.signInAnonymously();
+                  },
                 ),
               ),
             ],
