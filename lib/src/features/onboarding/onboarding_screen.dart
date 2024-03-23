@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:octattoo_app/src/constants/sizes.dart';
-import 'package:octattoo_app/src/features/authentication/data/auth_repository.dart';
 import 'package:octattoo_app/src/features/language/localization.dart';
 import 'package:octattoo_app/src/features/router/app_router_listenable.dart';
 
@@ -11,7 +10,6 @@ class OnboardingScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appRouterListenable = ref.watch(appRouterListenableProvider);
-    final currentUser = ref.watch(currentUserProvider);
 
     return Scaffold(
         appBar: AppBar(
@@ -33,7 +31,6 @@ class OnboardingScreen extends ConsumerWidget {
                 ),
               ),
             ),
-            Text(currentUser!.uid),
 
           ],
         ));

@@ -17,34 +17,35 @@ class WelcomeScreen extends ConsumerWidget {
   final appRouterListenable = ref.watch(appRouterListenableProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        leading: LanguagePopupMenu(context),
-        actions: [ThemeModeToggleButton(context)],
-      ),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(context.loc.welcomeMessage),
-            gapH48,
-            SizedBox(
-              width: 200,
-              child: ElevatedButton(
-                child: Text(context.loc.signinTitle),
-                onPressed: () => context.pushNamed(RoutePath.signin.name),
-              ),
-            ),
-            gapH12,
-            SizedBox(
-              width: 200,
-              child: ElevatedButton(
-                child: Text(context.loc.continueGuest),
-                onPressed: () => appRouterListenable.signInAnonymously(),
-              ),
-            ),
-          ],
+        appBar: AppBar(
+          title: Text(context.loc.appTitle),
+          centerTitle: true,
+          actions: [ThemeModeToggleButton(context),LanguagePopupMenu(context)],
         ),
-      ),
-    );
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(context.loc.welcomeMessage),
+              gapH48,
+              SizedBox(
+                width: 200,
+                child: ElevatedButton(
+                  child: Text(context.loc.signinTitle),
+                  onPressed: () => context.pushNamed(RoutePath.signin.name),
+                ),
+              ),
+              gapH12,
+              SizedBox(
+                width: 200,
+                child: ElevatedButton(
+                  child: Text(context.loc.continueGuest),
+                  onPressed: () => appRouterListenable.signInAnonymously(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
   }
 }

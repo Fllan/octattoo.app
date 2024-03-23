@@ -20,7 +20,7 @@ class LanguagePopupMenu extends ConsumerWidget {
                 children: [Text(value.flag), gapW8, Text(value.name)],
               ))
       ],
-      child: const Icon(Icons.language),
+      icon: const Icon(Icons.language),
     );
   }
 }
