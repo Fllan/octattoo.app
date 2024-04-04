@@ -1,47 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AsyncButton extends ConsumerStatefulWidget {
+final asyncButtonLoadingProvider = StateProvider<bool>((ref) => false);
+
+class AsyncButton extends ConsumerWidget {
   final Future<void> Function() onPressed;
   final String label;
+  final IconData? icon; // Optional icon data
 
   const AsyncButton({
     super.key,
     required this.onPressed,
     required this.label,
+    this.icon,
   });
 
   @override
-  ConsumerState<AsyncButton> createState() => _AsyncButtonState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final isLoading = ref.watch(asyncButtonLoadingProvider);
+    final buttonStyle = ElevatedButton.styleFrom(
+      shape: const StadiumBorder(),
+    );
 
-class _AsyncButtonState extends ConsumerState<AsyncButton> {
-  bool _isLoading = false;
+    Widget buttonChild = isLoading
+        ? const CircularProgressIndicator(
+            strokeWidth: 2.0,
+            color: Colors.white,
+          )
+        : icon != null
+            ? Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(icon, color: theme.colorScheme.onPrimary),
+                  const SizedBox(width: 8), // Space between icon and text
+                  Text(label),
+                ],
+              )
+            : Text(label);
 
-  @override
-  Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: !_isLoading ? _handlePressed : null,
-      child: _isLoading
-          ? SizedBox(
-              height: 24,
-              width: 24,
-              child: CircularProgressIndicator(
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
-            )
-          : Text(widget.label),
+      style: buttonStyle,
+      onPressed: isLoading ? null : () => _handlePressed(context, ref),
+      child: buttonChild,
     );
   }
 
-  Future<void> _handlePressed() async {
-    setState(() => _isLoading = true);
+  Future<void> _handlePressed(BuildContext context, WidgetRef ref) async {
+    ref.read(asyncButtonLoadingProvider.notifier).state = true;
     try {
-      await widget.onPressed();
+      await onPressed();
     } finally {
-      if (mounted) {
-        setState(() => _isLoading = false);
-      }
+      ref.read(asyncButtonLoadingProvider.notifier).state = false;
     }
   }
 }

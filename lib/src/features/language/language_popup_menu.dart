@@ -5,7 +5,7 @@ import 'package:octattoo_app/src/features/language/data/language_repository.dart
 import 'package:octattoo_app/src/features/language/language.dart';
 
 class LanguagePopupMenu extends ConsumerWidget {
-  const LanguagePopupMenu(BuildContext context, {super.key});
+  const LanguagePopupMenu({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

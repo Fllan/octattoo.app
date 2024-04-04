@@ -4,7 +4,7 @@ import 'package:octattoo_app/src/theme/theme_mode_provider.dart';
 import 'package:octattoo_app/src/theme/theme_mode_repository.dart';
 
 class ThemeModeToggleButton extends ConsumerWidget {
-  const ThemeModeToggleButton(BuildContext context, {super.key});
+  const ThemeModeToggleButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

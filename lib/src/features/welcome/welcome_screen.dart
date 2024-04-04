@@ -21,7 +21,10 @@ class WelcomeScreen extends ConsumerWidget {
         appBar: AppBar(
           title: Text(context.loc.appTitle),
           centerTitle: true,
-          actions: [ThemeModeToggleButton(context),LanguagePopupMenu(context)],
+          actions: const [
+            ThemeModeToggleButton(),
+            LanguagePopupMenu(),
+          ],
         ),
         body: Center(
           child: Column(
