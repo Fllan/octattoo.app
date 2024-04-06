@@ -5,6 +5,7 @@ class CustomTextField extends StatelessWidget {
   final bool isPassword;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final dynamic Function(dynamic)? onChanged;
 
   const CustomTextField({
     super.key,
@@ -12,6 +13,7 @@ class CustomTextField extends StatelessWidget {
     this.isPassword = false,
     this.controller,
     this.validator,
+    this.onChanged,
   });
 
   @override
@@ -27,6 +29,7 @@ class CustomTextField extends StatelessWidget {
       ),
       validator: validator,
       obscureText: isPassword,
+      onChanged: onChanged,
     );
   }
 }

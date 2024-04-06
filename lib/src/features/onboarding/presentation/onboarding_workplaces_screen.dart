@@ -41,14 +41,14 @@ class _OnboardingWorkplacesScreenState
                 Expanded(
                   child: Container(
                     color: Colors.red,
-                    child: Text('Left'),
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
+                    child: const Text('Left'),
                   ),
                 ),
                 Container(
                   color: Colors.green,
-                  child: Text('Right'),
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
+                  child: const Text('Right'),
                 ),
               ],
             ),

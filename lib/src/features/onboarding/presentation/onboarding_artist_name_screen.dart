@@ -4,40 +4,29 @@ import 'package:octattoo_app/src/common_widgets/custom_switch_list_tile.dart';
 import 'package:octattoo_app/src/common_widgets/custom_textfield.dart';
 import 'package:octattoo_app/src/constants/sizes.dart';
 import 'package:octattoo_app/src/features/language/localization.dart';
+import 'package:octattoo_app/src/features/onboarding/presentation/controllers/onboarding_artist_name_controller.dart';
 import 'package:octattoo_app/src/features/onboarding/presentation/pronoun_switch_notifier.dart';
+import 'package:octattoo_app/src/features/onboarding/presentation/names_switch_notifier.dart';
 import 'package:octattoo_app/src/features/router/app_router_listenable.dart';
 
-class OnboardingArtistNameScreen extends ConsumerStatefulWidget {
+class OnboardingArtistNameScreen extends ConsumerWidget {
   const OnboardingArtistNameScreen({super.key});
 
   @override
-  ConsumerState<OnboardingArtistNameScreen> createState() => _OnboardingArtistNameScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final artistName = ref.watch(onboardingArtistNameControllerProvider.select((info) => info.artistName));
 
-class _OnboardingArtistNameScreenState extends ConsumerState<OnboardingArtistNameScreen> {
-  final TextEditingController _artistNameController = TextEditingController();
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    final pronounSwitchValue = ref.watch(pronounSwitchProvider);
+    final pronounSwitchNotifier = ref.read(pronounSwitchProvider.notifier);
+    final namesSwitchValue = ref.watch(namesSwitchProvider);
+    final namesSwitchNotifier = ref.read(namesSwitchProvider.notifier);
 
-  @override
-  void dispose() {
-    _firstNameController.dispose();
-    _lastNameController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final switchValue = ref.watch(pronounSwitchProvider);
-    final switchNotifier = ref.read(pronounSwitchProvider.notifier);
     final appRouterListenable = ref.watch(appRouterListenableProvider);
 
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Form(
-          key: _formKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,70 +44,76 @@ class _OnboardingArtistNameScreenState extends ConsumerState<OnboardingArtistNam
               gapH32,
               CustomTextField(
                 label: "Artist name".hardcoded,
-                controller: _artistNameController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text'.hardcoded;
-                  }
-                  return null;
-                },
-              ),
-              gapH16,
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomTextField(
-                      label: "Firstname".hardcoded,
-                      controller: _firstNameController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text'.hardcoded;
-                        } else if (!RegExp(r'', unicode: true)
-                            .hasMatch(value)) {
-                          return 'Please enter a valid name'.hardcoded;
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  gapW8,
-                  Expanded(
-                    child: CustomTextField(
-                      label: "Lastname".hardcoded,
-                      controller: _lastNameController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text'.hardcoded;
-                        } else if (!RegExp(r"^[\p{Letter}\s\-.']+$", unicode: true)
-                            .hasMatch(value)) {
-                          return 'Please enter a valid name'.hardcoded;
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                ],
+                controller: TextEditingController(text: artistName),
+                onChanged: (value) => ref.read(onboardingArtistNameControllerProvider.notifier).setArtistName(value),
               ),
               gapH16,
               CustomSwitchListTile(
                 title: 'I want to specify my pronoun'.hardcoded,
-                value: switchValue,
-                onChanged: (newValue) => switchNotifier.toggleSwitch(newValue),
+                value: pronounSwitchValue,
+                onChanged: (newValue) =>
+                    pronounSwitchNotifier.toggleSwitch(newValue),
               ),
               gapH16,
-              if (switchValue)
+              if (pronounSwitchValue)
                 TextField(
                   decoration: InputDecoration(
                     label: Text('Pronoun'.hardcoded),
                     border: const OutlineInputBorder(),
                   ),
                 ),
+              gapH16,
+              CustomSwitchListTile(
+                title: 'I want to specify my real name'.hardcoded,
+                value: namesSwitchValue,
+                onChanged: (newValue) =>
+                    namesSwitchNotifier.toggleSwitch(newValue),
+              ),
+              gapH16,
+              if (namesSwitchValue)
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: CustomTextField(
+                        label: "Firstname".hardcoded,
+                        // controller: _firstNameController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text'.hardcoded;
+                          } else if (!RegExp(r'', unicode: true)
+                              .hasMatch(value)) {
+                            return 'Please enter a valid name'.hardcoded;
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    gapW8,
+                    Expanded(
+                      flex: 3,
+                      child: CustomTextField(
+                        label: "Lastname".hardcoded,
+                        // controller: _lastNameController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text'.hardcoded;
+                          } else if (!RegExp(r"^[\p{Letter}\s\-.']+$",
+                                  unicode: true)
+                              .hasMatch(value)) {
+                            return 'Please enter a valid name'.hardcoded;
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               //
               //  TODO : remove logout button - for dev purpose
               //
-              gapH64,
               Padding(
-                padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                padding: const EdgeInsets.fromLTRB(30, 64, 30, 0),
                 child: ElevatedButton(
                   child: Text(context.loc.signOutAction),
                   onPressed: () => appRouterListenable.signOut(),
