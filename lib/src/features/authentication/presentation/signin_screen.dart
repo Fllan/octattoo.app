@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:octattoo_app/core/constants/sizes.dart';
-import 'package:octattoo_app/core/l10n/language/localization.dart';
+import 'package:octattoo_app/core/l10n/utils/localization_extensions.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class SigninScreen extends ConsumerWidget {

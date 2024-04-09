@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:octattoo_app/src/shared/custom_switch_list_tile.dart';
 import 'package:octattoo_app/src/shared/custom_textfield.dart';
 import 'package:octattoo_app/core/constants/sizes.dart';
-import 'package:octattoo_app/core/l10n/language/localization.dart';
+import 'package:octattoo_app/core/l10n/utils/localization_extensions.dart';
 import 'package:octattoo_app/src/features/onboarding/presentation/controllers/onboarding_artist_name_controller.dart';
 import 'package:octattoo_app/src/features/onboarding/presentation/pronoun_switch_notifier.dart';
 import 'package:octattoo_app/src/features/onboarding/presentation/names_switch_notifier.dart';

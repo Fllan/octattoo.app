@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:octattoo_app/core/l10n/language/language_popup_menu.dart';
-import 'package:octattoo_app/core/l10n/language/localization.dart';
+import 'package:octattoo_app/src/shared/language_popup_menu.dart';
+import 'package:octattoo_app/core/l10n/utils/localization_extensions.dart';
 import 'package:octattoo_app/src/features/onboarding/presentation/onboarding_artist_name_screen.dart';
 import 'package:octattoo_app/src/features/onboarding/presentation/onboarding_workplaces_screen.dart';
 import 'package:octattoo_app/core/router/app_router.dart';
