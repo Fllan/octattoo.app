@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:octattoo_app/src/constants/user_roles.dart';
+import 'package:octattoo_app/core/constants/user_roles.dart';
 
 part 'user.freezed.dart';
 part 'user.g.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:octattoo_app/src/theme/theme_mode_provider.dart';
+import 'package:octattoo_app/core/theme/theme_mode_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeModeRepository {

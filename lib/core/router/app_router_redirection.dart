@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app/src/features/authentication/data/auth_repository.dart';
-import 'package:octattoo_app/src/features/router/app_router.dart';
+import 'package:octattoo_app/core/router/app_router.dart';
 
 FutureOr<String?> appRouteRedirect(
     BuildContext context, Ref ref, GoRouterState state) async {

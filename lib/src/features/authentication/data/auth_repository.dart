@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:octattoo_app/src/constants/user_roles.dart';
-import 'package:octattoo_app/src/services/firestore/database_service.dart';
-import 'package:octattoo_app/src/utils/handle_async_error.dart';
+import 'package:octattoo_app/core/constants/user_roles.dart';
+import 'package:octattoo_app/core/services/firestore/database_service.dart';
+import 'package:octattoo_app/core/utils/handle_async_error.dart';
 
 class AuthRepository {
   AuthRepository({required this.auth});

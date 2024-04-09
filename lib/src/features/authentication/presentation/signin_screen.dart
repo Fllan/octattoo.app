@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:octattoo_app/src/constants/sizes.dart';
-import 'package:octattoo_app/src/features/language/localization.dart';
+import 'package:octattoo_app/core/constants/sizes.dart';
+import 'package:octattoo_app/core/l10n/language/localization.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class SigninScreen extends ConsumerWidget {
@@ -10,20 +10,18 @@ class SigninScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var emailController;
-    var passwordController;
+    // TextEditingController emailController;
+    // TextEditingController passwordController;
     return Scaffold(
       appBar: AppBar(
         title: Text(context.loc.signinTitle),
       ),
-      body: Container(
-        margin: const EdgeInsets.all(13),
-        width: double.infinity,
-        height: double.infinity,
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: [
+            gapH64,
             SignInButton(
               Buttons.Google,
               text: 'Sign In With Google'.hardcoded,
@@ -56,14 +54,14 @@ class SigninScreen extends ConsumerWidget {
               child: Column(
                 children: [
                   TextField(
-                    controller: emailController,
+    //                controller: emailController,
                     decoration: InputDecoration(
                       label: Text('Email'.hardcoded),
                     ),
                   ),
                   gapH8,
                   TextField(
-                    controller: passwordController,
+     //               controller: passwordController,
                     decoration: InputDecoration(
                       label: Text('Password'.hardcoded),
                     ),

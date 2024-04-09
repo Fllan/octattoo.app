@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:octattoo_app/src/features/language/localization.dart';
+import 'package:octattoo_app/core/l10n/language/localization.dart';
 
 class ArtistProfileScreen extends ConsumerWidget {
   const ArtistProfileScreen({super.key});

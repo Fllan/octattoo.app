@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:octattoo_app/src/theme/theme_mode_provider.dart';
-import 'package:octattoo_app/src/theme/theme_mode_repository.dart';
+import 'package:octattoo_app/core/theme/theme_mode_provider.dart';
+import 'package:octattoo_app/core/theme/theme_mode_repository.dart';
 
 class ThemeModeToggleButton extends ConsumerWidget {
   const ThemeModeToggleButton({super.key});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:octattoo_app/src/constants/sizes.dart';
-import 'package:octattoo_app/src/features/language/data/language_repository.dart';
-import 'package:octattoo_app/src/features/language/language.dart';
+import 'package:octattoo_app/core/constants/sizes.dart';
+import 'package:octattoo_app/core/l10n/language/data/language_repository.dart';
+import 'package:octattoo_app/core/l10n/language/language.dart';
 
 class LanguagePopupMenu extends ConsumerWidget {
   const LanguagePopupMenu({super.key});

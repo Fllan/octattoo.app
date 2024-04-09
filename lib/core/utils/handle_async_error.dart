@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:octattoo_app/src/exceptions/app_exception.dart';
+import 'package:octattoo_app/core/exceptions/app_exception.dart';
 
 Future<T?> handleAsyncError<T>(
     {required String title, required Future<T>? Function() operation}) async {

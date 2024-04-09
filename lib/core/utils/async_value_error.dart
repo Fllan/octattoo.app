@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:octattoo_app/src/common_widgets/alert_dialog.dart';
-import 'package:octattoo_app/src/exceptions/app_exception.dart';
+import 'package:octattoo_app/src/shared/alert_dialog.dart';
+import 'package:octattoo_app/core/exceptions/app_exception.dart';
 
 extension AsyncValueX on AsyncValue {
   void showAlertDialogOnError(BuildContext context) {

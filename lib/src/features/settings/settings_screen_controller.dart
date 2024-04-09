@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:octattoo_app/src/features/router/app_router_listenable.dart';
+import 'package:octattoo_app/core/router/app_router_listenable.dart';
 
 class SettingsScreenController extends StateNotifier<AsyncValue<void>> {
   SettingsScreenController({required this.listenable})

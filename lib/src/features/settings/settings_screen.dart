@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:octattoo_app/src/common_widgets/app_loader.dart';
+import 'package:octattoo_app/src/shared/app_loader.dart';
 import 'package:octattoo_app/src/features/settings/settings_screen_controller.dart';
-import 'package:octattoo_app/src/utils/async_value_error.dart';
+import 'package:octattoo_app/core/utils/async_value_error.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});

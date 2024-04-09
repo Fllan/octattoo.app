@@ -46,6 +46,7 @@ app.*.map.json
 # Firebase
 /lib/firebase_options.dart
 /android/google-services.json
+/lib/core/services/firebase/firebase_app_check_service.dart
 
 # Google Client ID in meta tag
 /web/index.html

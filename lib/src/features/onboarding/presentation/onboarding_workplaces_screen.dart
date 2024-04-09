@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:octattoo_app/src/constants/sizes.dart';
-import 'package:octattoo_app/src/features/language/localization.dart';
-import 'package:octattoo_app/src/features/router/app_router_listenable.dart';
+import 'package:octattoo_app/core/constants/sizes.dart';
+import 'package:octattoo_app/core/l10n/language/localization.dart';
+import 'package:octattoo_app/core/router/app_router_listenable.dart';
 
 class OnboardingWorkplacesScreen extends ConsumerStatefulWidget {
   const OnboardingWorkplacesScreen({super.key});

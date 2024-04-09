@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:octattoo_app/src/features/language/language.dart';
+import 'package:octattoo_app/core/l10n/language/language.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageRepository {

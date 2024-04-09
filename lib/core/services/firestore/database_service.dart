@@ -1,3 +1,5 @@
+// TODO : rework
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:octattoo_app/src/features/users/domain/user.dart';
 
