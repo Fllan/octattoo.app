@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:octattoo_app/core/router/models/route_path.dart';
 import 'package:octattoo_app/src/shared/language_popup_menu.dart';
 import 'package:octattoo_app/core/l10n/utils/localization_extensions.dart';
 import 'package:octattoo_app/src/features/onboarding/presentation/onboarding_artist_name_screen.dart';
 import 'package:octattoo_app/src/features/onboarding/presentation/onboarding_workplaces_screen.dart';
-import 'package:octattoo_app/core/router/app_router.dart';
 import 'package:octattoo_app/core/theme/theme_toggle_button.dart';
 
 class OnboardingWrapperScreen extends ConsumerStatefulWidget {

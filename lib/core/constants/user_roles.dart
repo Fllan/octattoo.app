@@ -1,12 +1,12 @@
 enum UserRoles { artist, customer }
 
-// extension UserRoleExtension on UserRole {
-//   String get value {
-//     switch (this) {
-//       case UserRole.artist:
-//         return "artist";
-//       case UserRole.customer:
-//         return "customer";
-//     }
-//   }
-// }
+extension UserRoleExtension on UserRoles {
+  String get value {
+    switch (this) {
+      case UserRoles.artist:
+        return "artist";
+      case UserRoles.customer:
+        return "customer";
+    }
+  }
+}

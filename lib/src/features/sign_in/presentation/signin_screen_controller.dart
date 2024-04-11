@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:octattoo_app/src/features/authentication/application/signin_service.dart';
+import 'package:octattoo_app/src/features/sign_in/application/signin_service.dart';
 import 'package:octattoo_app/core/router/app_router_listenable.dart';
 
 class SigninScreenController extends StateNotifier<AsyncValue<void>> {

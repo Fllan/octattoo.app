@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final asyncButtonLoadingProvider = StateProvider<bool>((ref) => false);
+final asyncButtonLoadingProvider = StateProvider.family<bool, String>((ref, uniqueKey) => false);
 
 class AsyncButton extends ConsumerWidget {
   final Future<void> Function() onPressed;
   final String label;
   final IconData? icon; // Optional icon data
+  final String uniqueKey; // A unique key to identify the state of each AsyncButton
 
   const AsyncButton({
     super.key,
     required this.onPressed,
     required this.label,
     this.icon,
+    required this.uniqueKey, // Require a unique key for each AsyncButton instance
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    final isLoading = ref.watch(asyncButtonLoadingProvider);
+    // Use the uniqueKey to access the correct provider instance
+    final isLoading = ref.watch(asyncButtonLoadingProvider(uniqueKey));
     final buttonStyle = ElevatedButton.styleFrom(
       shape: const StadiumBorder(),
     );
@@ -47,11 +50,12 @@ class AsyncButton extends ConsumerWidget {
   }
 
   Future<void> _handlePressed(BuildContext context, WidgetRef ref) async {
-    ref.read(asyncButtonLoadingProvider.notifier).state = true;
+    // Use the uniqueKey to access the correct provider instance
+    ref.read(asyncButtonLoadingProvider(uniqueKey).notifier).state = true;
     try {
       await onPressed();
     } finally {
-      ref.read(asyncButtonLoadingProvider.notifier).state = false;
+      ref.read(asyncButtonLoadingProvider(uniqueKey).notifier).state = false;
     }
   }
 }

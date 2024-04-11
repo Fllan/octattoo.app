@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:octattoo_app/core/router/models/route_path.dart';
 import 'package:octattoo_app/src/features/artist_profile/artist_profile_screen.dart';
-import 'package:octattoo_app/src/features/authentication/presentation/signin_screen.dart';
+import 'package:octattoo_app/src/features/sign_in/presentation/signin_screen.dart';
 import 'package:octattoo_app/src/features/onboarding/presentation/onboarding_artist_name_screen.dart';
 import 'package:octattoo_app/src/features/onboarding/presentation/onboarding_workplaces_screen.dart';
 import 'package:octattoo_app/src/features/onboarding/onboarding_wrapper_screen.dart';
@@ -10,18 +11,7 @@ import 'package:octattoo_app/core/router/app_router_listenable.dart';
 import 'package:octattoo_app/core/router/app_router_redirection.dart';
 import 'package:octattoo_app/src/features/welcome/welcome_screen.dart';
 
-enum RoutePath {
-  root(path: '/'),
-  signin(path: 'signin'),
-  onboarding(path: 'onboarding'),
-  artistName(path: 'artistName'),
-  workplaces(path: 'workplaces'),
-  settings(path: 'settings'),
-  artistProfile(path: 'artistProfile');
 
-  const RoutePath({required this.path});
-  final String path;
-}
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final rootNaveKey = GlobalKey<NavigatorState>(debugLabel: 'rootNav');

@@ -7,8 +7,7 @@ import 'package:octattoo_app/core/services/firebase/authentication/google_auth_s
 
 final firebaseAuthProvider = Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
 
+final authServiceProvider = Provider<AuthService>((ref) => AuthService(ref.read(firebaseAuthProvider)));
 final emailAuthProvider = Provider<EmailAuthService>((ref) => EmailAuthService(ref.read(firebaseAuthProvider)));
 final googleAuthProvider = Provider<GoogleAuthService>((ref) => GoogleAuthService(ref.read(firebaseAuthProvider)));
-final anonymousAuthProvider = Provider<AnonymousAuthService>((ref) => AnonymousAuthService(ref.read(firebaseAuthProvider)));
-
-final authServiceProvider = Provider<AuthService>((ref) => AuthService(ref.read(firebaseAuthProvider)));
+final anonymousAuthProvider = Provider<AnonymousAuthService>((ref) => AnonymousAuthService(ref.read(firebaseAuthProvider),ref));

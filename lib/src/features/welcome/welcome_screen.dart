@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:octattoo_app/core/router/models/route_path.dart';
 import 'package:octattoo_app/src/shared/async_button.dart';
 import 'package:octattoo_app/core/constants/sizes.dart';
 import 'package:octattoo_app/core/l10n/utils/localization_extensions.dart';
 import 'package:octattoo_app/src/shared/language_popup_menu.dart';
-import 'package:octattoo_app/core/router/app_router.dart';
 import 'package:octattoo_app/core/router/app_router_listenable.dart';
 import 'package:octattoo_app/core/theme/theme_toggle_button.dart';
 
@@ -46,7 +46,7 @@ class WelcomeScreen extends ConsumerWidget {
                   label: context.loc.continueGuest,
                   onPressed: () async {
                     await appRouterListenable.signInAnonymously();
-                  },
+                  }, uniqueKey: 'signInAnonButton',
                 ),
               ),
             ],
