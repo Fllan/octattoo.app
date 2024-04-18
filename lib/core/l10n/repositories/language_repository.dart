@@ -19,6 +19,7 @@ class LanguageRepository {
   Future<Language> getLanguage() async {
     final pref = await ref.read(sharedPreferencesProvider.future);
     final code = pref.getString(languageCodeKey);
+    logger.i("Retrieved language code: $code");
     return Language.values.firstWhere(
       (value) => value.code == code,
       orElse: () => Language.english,
@@ -26,5 +27,7 @@ class LanguageRepository {
   }
 }
 
-final sharedPreferencesProvider = FutureProvider<SharedPreferences>((ref) async => SharedPreferences.getInstance());
-final languageRepositoryProvider = Provider<LanguageRepository>((ref) => LanguageRepository(ref: ref));
+final sharedPreferencesProvider = FutureProvider<SharedPreferences>(
+    (ref) async => SharedPreferences.getInstance());
+final languageRepositoryProvider =
+    Provider<LanguageRepository>((ref) => LanguageRepository(ref: ref));

@@ -13,12 +13,12 @@ class AnonymousAuthService {
   AnonymousAuthService(this._auth, this.ref);
 
   Future<void> signInAnonymously() async {
-    logger.d("Attempting to sign in anonymously");
+    logger.i("Attempting to sign in anonymously");
     await handleAsyncError(
       title: 'Sign in anounymously failed',
       operation: () async {
         UserCredential userCredential = await _auth.signInAnonymously();
-        logger.d("Sign in anonymously successful");
+        logger.i("Sign in anonymously successful");
         User? user = userCredential.user;
 
         if (user != null) {
@@ -26,7 +26,7 @@ class AnonymousAuthService {
           final existingUser = await userRepository.getUser(user.uid);
 
           if (existingUser == null) {
-            logger.d("User with uid: ${user.uid} does not exist");
+            logger.i("User with uid: ${user.uid} does not exist");
             final newUser = AppUser(
               uid: user.uid,
               createdAt: DateTime.now(),
@@ -36,7 +36,7 @@ class AnonymousAuthService {
               hasAnonymousAccount: true,
             );
             await userRepository.addUser(newUser);
-            logger.d(
+            logger.i(
                 "Document created in Firestore for user with uid: ${user.uid}");
           }
         }

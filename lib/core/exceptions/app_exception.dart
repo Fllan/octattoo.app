@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:octattoo_app/core/utils/logger.dart';
 
 class AppException implements Exception {
   AppException({
@@ -21,6 +22,7 @@ class AppException implements Exception {
 ///Utility function to convert any Exception to AppException
 AppException convertToAppException(
     {required String title, required dynamic exception}) {
+  logger.e("Converting exception: $exception");
   if (exception is FirebaseAuthException) {
     return AppException(
         title: title,

@@ -18,7 +18,10 @@ class AuthService {
     );
   }
 
-  User? get currentUser => _auth.currentUser;
+  User? get currentUser {
+    logger.d("Checking current user");
+    return _auth.currentUser;
+  }
 
   Stream<User?> authStateChanges() => _auth.authStateChanges();
 }
