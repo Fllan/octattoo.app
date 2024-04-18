@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:octattoo_app/core/utils/handle_async_error.dart';
+import 'package:octattoo_app/core/utils/logger.dart';
 
 class AuthService {
   final FirebaseAuth _auth;
@@ -7,9 +8,13 @@ class AuthService {
   AuthService(this._auth);
 
   Future<void> signOut() async {
+    logger.d("Attempting to sign out");
     await handleAsyncError(
       title: 'Sign out failed',
-      operation: () => _auth.signOut(),
+      operation: () async {
+        await _auth.signOut();
+        logger.d("Sign out successful");
+      }
     );
   }
 

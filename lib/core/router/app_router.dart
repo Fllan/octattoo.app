@@ -16,7 +16,7 @@ import 'package:octattoo_app/src/features/welcome/welcome_screen.dart';
 final goRouterProvider = Provider<GoRouter>((ref) {
   final rootNaveKey = GlobalKey<NavigatorState>(debugLabel: 'rootNav');
 
-  final listenable = ref.watch(appRouterListenableProvider);
+  final listenable = ref.read(appRouterListenableProvider);
 
   return GoRouter(
       navigatorKey: rootNaveKey,

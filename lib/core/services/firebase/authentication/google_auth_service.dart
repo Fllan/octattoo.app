@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:octattoo_app/core/utils/handle_async_error.dart';
+import 'package:octattoo_app/core/utils/logger.dart';
 
 class GoogleAuthService {
   final FirebaseAuth _auth;
@@ -8,6 +9,7 @@ class GoogleAuthService {
   GoogleAuthService(this._auth);
 
   Future<void> signInWithGoogle() async {
+    logger.d("Attempting to sign in with Google");
     await handleAsyncError(
       title: 'Google Sign-in failed',
       operation: () async {
@@ -22,6 +24,7 @@ class GoogleAuthService {
         );
 
         await _auth.signInWithCredential(authCredential);
+        logger.d("Sign in with Google successful");
       },
     );
   }
