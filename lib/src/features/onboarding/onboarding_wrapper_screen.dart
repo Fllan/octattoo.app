@@ -85,7 +85,7 @@ class OnboardingWrapperScreenState extends ConsumerState<OnboardingWrapperScreen
             children: [
               TextButton(
                 onPressed: _currentPage > 0 ? _goToPreviousPage : null,
-                child: const Text('Back'),
+                child: Text('Back'.hardcoded),
               ),
               ElevatedButton(
                 onPressed: _goToNextPage,
