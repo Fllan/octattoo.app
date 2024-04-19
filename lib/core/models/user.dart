@@ -1,20 +1,20 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:octattoo_app/core/constants/user_roles.dart';
 
-part 'app_user.freezed.dart';
-part 'app_user.g.dart';
+part 'user.freezed.dart';
+part 'user.g.dart';
 
 @freezed
-class AppUser with _$AppUser  {
-  factory AppUser({
+class User with _$User  {
+  factory User({
     required String uid,
     required DateTime createdAt,
     required DateTime updatedAt,
     required UserRoles role,
     required bool hasCompletedOnboarding,
     required bool hasAnonymousAccount,
-  }) = _AppUser;
+  }) = _User;
 
-  factory AppUser.fromJson(Map<String, dynamic> json) =>
-    _$AppUserFromJson(json);
+  factory User.fromJson(Map<String, dynamic> json) =>
+    _$UserFromJson(json);
 }

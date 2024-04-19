@@ -1,13 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:octattoo_app/core/constants/user_roles.dart';
 import 'package:octattoo_app/core/services/firebase/firestore/firestore_providers.dart';
 import 'package:octattoo_app/core/utils/handle_async_error.dart';
-import 'package:octattoo_app/core/models/app_user.dart';
+import 'package:octattoo_app/core/models/user.dart';
 import 'package:octattoo_app/core/utils/logger.dart';
 
 class AnonymousAuthService {
-  final FirebaseAuth _auth;
+  final firebase_auth.FirebaseAuth _auth;
   final ProviderRef ref;
 
   AnonymousAuthService(this._auth, this.ref);
@@ -17,17 +17,17 @@ class AnonymousAuthService {
     await handleAsyncError(
       title: 'Sign in anounymously failed',
       operation: () async {
-        UserCredential userCredential = await _auth.signInAnonymously();
+        firebase_auth.UserCredential userCredential = await _auth.signInAnonymously();
         logger.i("Sign in anonymously successful");
-        User? user = userCredential.user;
+        firebase_auth.User? user = userCredential.user;
 
         if (user != null) {
-          final userRepository = ref.read(userRepositoryProvider);
+          final userRepository = ref.read(appUserRepositoryProvider);
           final existingUser = await userRepository.getUser(user.uid);
 
           if (existingUser == null) {
             logger.i("User with uid: ${user.uid} does not exist");
-            final newUser = AppUser(
+            final newUser = User(
               uid: user.uid,
               createdAt: DateTime.now(),
               updatedAt: DateTime.now(),

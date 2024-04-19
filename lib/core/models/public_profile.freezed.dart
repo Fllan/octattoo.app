@@ -24,6 +24,9 @@ mixin _$PublicProfile {
   String get firstname => throw _privateConstructorUsedError;
   String get lastname => throw _privateConstructorUsedError;
   String get pronoun => throw _privateConstructorUsedError;
+  DocumentReference<Object?> get tattooArtistRef =>
+      throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,7 +41,12 @@ abstract class $PublicProfileCopyWith<$Res> {
       _$PublicProfileCopyWithImpl<$Res, PublicProfile>;
   @useResult
   $Res call(
-      {String artistName, String firstname, String lastname, String pronoun});
+      {String artistName,
+      String firstname,
+      String lastname,
+      String pronoun,
+      DocumentReference<Object?> tattooArtistRef,
+      DateTime createdAt});
 }
 
 /// @nodoc
@@ -58,6 +66,8 @@ class _$PublicProfileCopyWithImpl<$Res, $Val extends PublicProfile>
     Object? firstname = null,
     Object? lastname = null,
     Object? pronoun = null,
+    Object? tattooArtistRef = null,
+    Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
       artistName: null == artistName
@@ -76,6 +86,14 @@ class _$PublicProfileCopyWithImpl<$Res, $Val extends PublicProfile>
           ? _value.pronoun
           : pronoun // ignore: cast_nullable_to_non_nullable
               as String,
+      tattooArtistRef: null == tattooArtistRef
+          ? _value.tattooArtistRef
+          : tattooArtistRef // ignore: cast_nullable_to_non_nullable
+              as DocumentReference<Object?>,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -89,7 +107,12 @@ abstract class _$$PublicProfileImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String artistName, String firstname, String lastname, String pronoun});
+      {String artistName,
+      String firstname,
+      String lastname,
+      String pronoun,
+      DocumentReference<Object?> tattooArtistRef,
+      DateTime createdAt});
 }
 
 /// @nodoc
@@ -107,6 +130,8 @@ class __$$PublicProfileImplCopyWithImpl<$Res>
     Object? firstname = null,
     Object? lastname = null,
     Object? pronoun = null,
+    Object? tattooArtistRef = null,
+    Object? createdAt = null,
   }) {
     return _then(_$PublicProfileImpl(
       artistName: null == artistName
@@ -125,18 +150,29 @@ class __$$PublicProfileImplCopyWithImpl<$Res>
           ? _value.pronoun
           : pronoun // ignore: cast_nullable_to_non_nullable
               as String,
+      tattooArtistRef: null == tattooArtistRef
+          ? _value.tattooArtistRef
+          : tattooArtistRef // ignore: cast_nullable_to_non_nullable
+              as DocumentReference<Object?>,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
+@DocumentReferenceConverter()
 class _$PublicProfileImpl implements _PublicProfile {
   _$PublicProfileImpl(
       {required this.artistName,
       required this.firstname,
       required this.lastname,
-      required this.pronoun});
+      required this.pronoun,
+      required this.tattooArtistRef,
+      required this.createdAt});
 
   factory _$PublicProfileImpl.fromJson(Map<String, dynamic> json) =>
       _$$PublicProfileImplFromJson(json);
@@ -149,10 +185,14 @@ class _$PublicProfileImpl implements _PublicProfile {
   final String lastname;
   @override
   final String pronoun;
+  @override
+  final DocumentReference<Object?> tattooArtistRef;
+  @override
+  final DateTime createdAt;
 
   @override
   String toString() {
-    return 'PublicProfile(artistName: $artistName, firstname: $firstname, lastname: $lastname, pronoun: $pronoun)';
+    return 'PublicProfile(artistName: $artistName, firstname: $firstname, lastname: $lastname, pronoun: $pronoun, tattooArtistRef: $tattooArtistRef, createdAt: $createdAt)';
   }
 
   @override
@@ -166,13 +206,17 @@ class _$PublicProfileImpl implements _PublicProfile {
                 other.firstname == firstname) &&
             (identical(other.lastname, lastname) ||
                 other.lastname == lastname) &&
-            (identical(other.pronoun, pronoun) || other.pronoun == pronoun));
+            (identical(other.pronoun, pronoun) || other.pronoun == pronoun) &&
+            (identical(other.tattooArtistRef, tattooArtistRef) ||
+                other.tattooArtistRef == tattooArtistRef) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, artistName, firstname, lastname, pronoun);
+  int get hashCode => Object.hash(runtimeType, artistName, firstname, lastname,
+      pronoun, tattooArtistRef, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -193,7 +237,9 @@ abstract class _PublicProfile implements PublicProfile {
       {required final String artistName,
       required final String firstname,
       required final String lastname,
-      required final String pronoun}) = _$PublicProfileImpl;
+      required final String pronoun,
+      required final DocumentReference<Object?> tattooArtistRef,
+      required final DateTime createdAt}) = _$PublicProfileImpl;
 
   factory _PublicProfile.fromJson(Map<String, dynamic> json) =
       _$PublicProfileImpl.fromJson;
@@ -206,6 +252,10 @@ abstract class _PublicProfile implements PublicProfile {
   String get lastname;
   @override
   String get pronoun;
+  @override
+  DocumentReference<Object?> get tattooArtistRef;
+  @override
+  DateTime get createdAt;
   @override
   @JsonKey(ignore: true)
   _$$PublicProfileImplCopyWith<_$PublicProfileImpl> get copyWith =>

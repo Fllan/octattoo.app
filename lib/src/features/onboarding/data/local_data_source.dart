@@ -11,7 +11,7 @@ class LocalDataSource {
     await prefs.setString(_onboardingInfoKey, jsonString);
   }
 
-  Future<UserOnboardingInfo?> getOnboardingInfo() async {
+  Future<AppUserOnboardingInfo?> getOnboardingInfo() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? jsonString = prefs.getString(_onboardingInfoKey);
     if (jsonString == null) return null;
