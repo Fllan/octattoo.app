@@ -20,6 +20,7 @@ PublicProfile _$PublicProfileFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PublicProfile {
+  String get uid => throw _privateConstructorUsedError;
   String get artistName => throw _privateConstructorUsedError;
   String get firstname => throw _privateConstructorUsedError;
   String get lastname => throw _privateConstructorUsedError;
@@ -41,7 +42,8 @@ abstract class $PublicProfileCopyWith<$Res> {
       _$PublicProfileCopyWithImpl<$Res, PublicProfile>;
   @useResult
   $Res call(
-      {String artistName,
+      {String uid,
+      String artistName,
       String firstname,
       String lastname,
       String pronoun,
@@ -62,6 +64,7 @@ class _$PublicProfileCopyWithImpl<$Res, $Val extends PublicProfile>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uid = null,
     Object? artistName = null,
     Object? firstname = null,
     Object? lastname = null,
@@ -70,6 +73,10 @@ class _$PublicProfileCopyWithImpl<$Res, $Val extends PublicProfile>
     Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
       artistName: null == artistName
           ? _value.artistName
           : artistName // ignore: cast_nullable_to_non_nullable
@@ -107,7 +114,8 @@ abstract class _$$PublicProfileImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String artistName,
+      {String uid,
+      String artistName,
       String firstname,
       String lastname,
       String pronoun,
@@ -126,6 +134,7 @@ class __$$PublicProfileImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uid = null,
     Object? artistName = null,
     Object? firstname = null,
     Object? lastname = null,
@@ -134,6 +143,10 @@ class __$$PublicProfileImplCopyWithImpl<$Res>
     Object? createdAt = null,
   }) {
     return _then(_$PublicProfileImpl(
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
       artistName: null == artistName
           ? _value.artistName
           : artistName // ignore: cast_nullable_to_non_nullable
@@ -167,7 +180,8 @@ class __$$PublicProfileImplCopyWithImpl<$Res>
 @DocumentReferenceConverter()
 class _$PublicProfileImpl implements _PublicProfile {
   _$PublicProfileImpl(
-      {required this.artistName,
+      {required this.uid,
+      required this.artistName,
       required this.firstname,
       required this.lastname,
       required this.pronoun,
@@ -177,6 +191,8 @@ class _$PublicProfileImpl implements _PublicProfile {
   factory _$PublicProfileImpl.fromJson(Map<String, dynamic> json) =>
       _$$PublicProfileImplFromJson(json);
 
+  @override
+  final String uid;
   @override
   final String artistName;
   @override
@@ -192,7 +208,7 @@ class _$PublicProfileImpl implements _PublicProfile {
 
   @override
   String toString() {
-    return 'PublicProfile(artistName: $artistName, firstname: $firstname, lastname: $lastname, pronoun: $pronoun, tattooArtistRef: $tattooArtistRef, createdAt: $createdAt)';
+    return 'PublicProfile(uid: $uid, artistName: $artistName, firstname: $firstname, lastname: $lastname, pronoun: $pronoun, tattooArtistRef: $tattooArtistRef, createdAt: $createdAt)';
   }
 
   @override
@@ -200,6 +216,7 @@ class _$PublicProfileImpl implements _PublicProfile {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PublicProfileImpl &&
+            (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.artistName, artistName) ||
                 other.artistName == artistName) &&
             (identical(other.firstname, firstname) ||
@@ -215,8 +232,8 @@ class _$PublicProfileImpl implements _PublicProfile {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, artistName, firstname, lastname,
-      pronoun, tattooArtistRef, createdAt);
+  int get hashCode => Object.hash(runtimeType, uid, artistName, firstname,
+      lastname, pronoun, tattooArtistRef, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -234,7 +251,8 @@ class _$PublicProfileImpl implements _PublicProfile {
 
 abstract class _PublicProfile implements PublicProfile {
   factory _PublicProfile(
-      {required final String artistName,
+      {required final String uid,
+      required final String artistName,
       required final String firstname,
       required final String lastname,
       required final String pronoun,
@@ -244,6 +262,8 @@ abstract class _PublicProfile implements PublicProfile {
   factory _PublicProfile.fromJson(Map<String, dynamic> json) =
       _$PublicProfileImpl.fromJson;
 
+  @override
+  String get uid;
   @override
   String get artistName;
   @override

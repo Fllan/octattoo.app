@@ -20,7 +20,7 @@ TattooArtist _$TattooArtistFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TattooArtist {
-  DocumentReference<Object?> get userRef => throw _privateConstructorUsedError;
+  String get uid => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +35,7 @@ abstract class $TattooArtistCopyWith<$Res> {
           TattooArtist value, $Res Function(TattooArtist) then) =
       _$TattooArtistCopyWithImpl<$Res, TattooArtist>;
   @useResult
-  $Res call({DocumentReference<Object?> userRef, DateTime createdAt});
+  $Res call({String uid, DateTime createdAt});
 }
 
 /// @nodoc
@@ -51,14 +51,14 @@ class _$TattooArtistCopyWithImpl<$Res, $Val extends TattooArtist>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userRef = null,
+    Object? uid = null,
     Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
-      userRef: null == userRef
-          ? _value.userRef
-          : userRef // ignore: cast_nullable_to_non_nullable
-              as DocumentReference<Object?>,
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -75,7 +75,7 @@ abstract class _$$TattooArtistImplCopyWith<$Res>
       __$$TattooArtistImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DocumentReference<Object?> userRef, DateTime createdAt});
+  $Res call({String uid, DateTime createdAt});
 }
 
 /// @nodoc
@@ -89,14 +89,14 @@ class __$$TattooArtistImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userRef = null,
+    Object? uid = null,
     Object? createdAt = null,
   }) {
     return _then(_$TattooArtistImpl(
-      userRef: null == userRef
-          ? _value.userRef
-          : userRef // ignore: cast_nullable_to_non_nullable
-              as DocumentReference<Object?>,
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -107,21 +107,20 @@ class __$$TattooArtistImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@DocumentReferenceConverter()
 class _$TattooArtistImpl implements _TattooArtist {
-  _$TattooArtistImpl({required this.userRef, required this.createdAt});
+  _$TattooArtistImpl({required this.uid, required this.createdAt});
 
   factory _$TattooArtistImpl.fromJson(Map<String, dynamic> json) =>
       _$$TattooArtistImplFromJson(json);
 
   @override
-  final DocumentReference<Object?> userRef;
+  final String uid;
   @override
   final DateTime createdAt;
 
   @override
   String toString() {
-    return 'TattooArtist(userRef: $userRef, createdAt: $createdAt)';
+    return 'TattooArtist(uid: $uid, createdAt: $createdAt)';
   }
 
   @override
@@ -129,14 +128,14 @@ class _$TattooArtistImpl implements _TattooArtist {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TattooArtistImpl &&
-            (identical(other.userRef, userRef) || other.userRef == userRef) &&
+            (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, userRef, createdAt);
+  int get hashCode => Object.hash(runtimeType, uid, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -154,14 +153,14 @@ class _$TattooArtistImpl implements _TattooArtist {
 
 abstract class _TattooArtist implements TattooArtist {
   factory _TattooArtist(
-      {required final DocumentReference<Object?> userRef,
+      {required final String uid,
       required final DateTime createdAt}) = _$TattooArtistImpl;
 
   factory _TattooArtist.fromJson(Map<String, dynamic> json) =
       _$TattooArtistImpl.fromJson;
 
   @override
-  DocumentReference<Object?> get userRef;
+  String get uid;
   @override
   DateTime get createdAt;
   @override

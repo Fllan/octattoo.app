@@ -1,6 +1,7 @@
 enum FirestoreCollections {
   users,
   tattooArtists,
+  publicProfiles,
 }
 
 
@@ -10,7 +11,9 @@ extension FirestoreCollectionsRef on FirestoreCollections {
       case FirestoreCollections.users:
         return "users";
       case FirestoreCollections.tattooArtists:
-        return "tattoo_artist";
+        return "tattoo_artists";
+      case FirestoreCollections.publicProfiles:
+        return "public_profiles";
     }
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:octattoo_app/src/features/onboarding/domain/save_onboarding_info_use_case.dart';
-import 'package:octattoo_app/src/features/onboarding/domain/submit_onboarding_info_use_case.dart';
-import 'package:octattoo_app/src/features/onboarding/domain/user_onboarding_repository.dart';
-import 'package:octattoo_app/src/features/onboarding/domain/user_onboarding_repository_impl.dart';
+import 'package:octattoo_app/src/features/onboarding/domain/usecases/save_onboarding_info_use_case.dart';
+import 'package:octattoo_app/src/features/onboarding/domain/usecases/submit_onboarding_info_use_case.dart';
+import 'package:octattoo_app/src/features/onboarding/domain/repositories/onboarding_repository.dart';
+import 'package:octattoo_app/src/features/onboarding/domain/repositories/onboarding_repository_impl.dart';
 import 'package:octattoo_app/src/features/onboarding/data/local_data_source.dart';
 import 'package:octattoo_app/src/features/onboarding/data/firebase_data_source.dart';
 

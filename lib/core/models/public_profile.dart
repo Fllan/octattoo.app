@@ -9,6 +9,7 @@ part 'public_profile.g.dart';
 class PublicProfile with _$PublicProfile {
   @DocumentReferenceConverter()
   factory PublicProfile({
+    required String uid,
     required String artistName,
     required String firstname,
     required String lastname,

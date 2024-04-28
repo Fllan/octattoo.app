@@ -8,13 +8,12 @@ part of 'tattoo_artist.dart';
 
 _$TattooArtistImpl _$$TattooArtistImplFromJson(Map<String, dynamic> json) =>
     _$TattooArtistImpl(
-      userRef: const DocumentReferenceConverter()
-          .fromJson(json['userRef'] as Map<String, dynamic>),
+      uid: json['uid'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
 Map<String, dynamic> _$$TattooArtistImplToJson(_$TattooArtistImpl instance) =>
     <String, dynamic>{
-      'userRef': const DocumentReferenceConverter().toJson(instance.userRef),
+      'uid': instance.uid,
       'createdAt': instance.createdAt.toIso8601String(),
     };

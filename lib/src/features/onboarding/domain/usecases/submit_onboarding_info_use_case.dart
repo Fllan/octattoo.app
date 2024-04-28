@@ -1,11 +1,11 @@
-import 'package:octattoo_app/src/features/onboarding/domain/user_onboarding_repository.dart';
+import 'package:octattoo_app/src/features/onboarding/domain/repositories/onboarding_repository.dart';
 
 abstract class SubmitOnboardingInfoUseCase {
   Future<void> call();
 }
 
 class SubmitOnboardingInfo implements SubmitOnboardingInfoUseCase {
-  final UserOnboardingRepository repository;
+  final OnboardingRepository repository;
 
   SubmitOnboardingInfo(this.repository);
 
