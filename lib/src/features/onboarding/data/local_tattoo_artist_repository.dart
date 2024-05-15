@@ -2,7 +2,7 @@ import 'package:octattoo_app/core/models/tattoo_artist.dart';
 import 'package:octattoo_app/core/utils/logger.dart';
 import 'package:octattoo_app/src/features/onboarding/domain/repositories/tattoo_artist_repository.dart';
 
-abstract class LocalTattooArtistRepository implements TattooArtistRepository {
+abstract class LocalTattooArtistRepository extends TattooArtistRepository {
 
   @override
   Future<void> saveTattooArtist(TattooArtist tattooArtist) {

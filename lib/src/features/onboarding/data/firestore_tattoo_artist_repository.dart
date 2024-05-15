@@ -50,3 +50,8 @@ abstract class FirestoreTattooArtistRepository implements TattooArtistRepository
     return docSnapshot.exists ? docSnapshot.data() : null;
   }
 }
+
+
+class ConcreteFirestoreTattooArtistRepository extends FirestoreTattooArtistRepository  {
+
+}

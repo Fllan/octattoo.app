@@ -26,7 +26,7 @@ FutureOr<String?> appRouteRedirect(
   
 bool hasCompletedOnboarding = false;
   if (isloggedIn) {
-    final userRepository = ref.read(appUserRepositoryProvider);
+    final userRepository = ref.read(userRepositoryProvider);
     final existingUser = await userRepository.getUser(user.uid);
     hasCompletedOnboarding =
         existingUser?.hasCompletedOnboarding ?? false;
