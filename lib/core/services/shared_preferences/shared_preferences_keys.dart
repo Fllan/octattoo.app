@@ -2,8 +2,8 @@ enum SharedPreferencesKey {
   languageCode,
   themeMode,
   publicProfile,
-  userToken,
-  notificationEnabled,
+  tattooArtist,
+  authUserId,
   // Add more keys here as needed
 }
 
@@ -16,10 +16,10 @@ extension SharedPreferencesKeyExtension on SharedPreferencesKey {
         return 'theme_mode';
       case SharedPreferencesKey.publicProfile:
         return 'public_profile';
-      case SharedPreferencesKey.userToken:
-        return 'user_token';
-      case SharedPreferencesKey.notificationEnabled:
-        return 'notification_enabled';
+      case SharedPreferencesKey.tattooArtist:
+        return 'tattoo_artist';
+      case SharedPreferencesKey.authUserId:
+        return 'auth_user_id';
       default:
         throw Exception('Invalid SharedPreferencesKey: $this');
     }
