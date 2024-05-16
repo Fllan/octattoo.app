@@ -4,7 +4,6 @@ import 'package:octattoo_app/src/shared/custom_switch_list_tile.dart';
 import 'package:octattoo_app/src/shared/custom_textfield.dart';
 import 'package:octattoo_app/core/constants/sizes.dart';
 import 'package:octattoo_app/core/l10n/utils/localization_extensions.dart';
-import 'package:octattoo_app/src/features/onboarding/presentation/controllers/onboarding_artist_name_controller.dart';
 import 'package:octattoo_app/src/features/onboarding/presentation/pronoun_switch_notifier.dart';
 import 'package:octattoo_app/src/features/onboarding/presentation/names_switch_notifier.dart';
 import 'package:octattoo_app/core/router/app_router_listenable.dart';
@@ -14,7 +13,8 @@ class OnboardingArtistNameScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final artistName = ref.watch(onboardingArtistNameControllerProvider.select((info) => info.artistName));
+    // final artistName = ref.watch(onboardingArtistNameControllerProvider.select((info) => info.artistName));
+    String artistName = '';
 
     final pronounSwitchValue = ref.watch(pronounSwitchProvider);
     final pronounSwitchNotifier = ref.read(pronounSwitchProvider.notifier);
@@ -45,7 +45,7 @@ class OnboardingArtistNameScreen extends ConsumerWidget {
               CustomTextField(
                 label: "Artist name".hardcoded,
                 controller: TextEditingController(text: artistName),
-                onChanged: (value) => ref.read(onboardingArtistNameControllerProvider.notifier).setArtistName(value),
+                // onChanged: (value) => ref.read(onboardingArtistNameControllerProvider.notifier).setArtistName(value),
               ),
               gapH16,
               CustomSwitchListTile(

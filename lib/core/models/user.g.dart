@@ -7,7 +7,7 @@ part of 'user.dart';
 // **************************************************************************
 
 _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
-      uid: json['uid'] as String,
+      id: json['id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       role: $enumDecode(_$UserRolesEnumMap, json['role']),
@@ -17,7 +17,7 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
 
 Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
     <String, dynamic>{
-      'uid': instance.uid,
+      'id': instance.id,
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt.toIso8601String(),
       'role': _$UserRolesEnumMap[instance.role]!,

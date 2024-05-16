@@ -20,7 +20,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$User {
-  String get uid => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   UserRoles get role => throw _privateConstructorUsedError;
@@ -38,7 +38,7 @@ abstract class $UserCopyWith<$Res> {
       _$UserCopyWithImpl<$Res, User>;
   @useResult
   $Res call(
-      {String uid,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
       UserRoles role,
@@ -59,7 +59,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uid = null,
+    Object? id = null,
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? role = null,
@@ -67,9 +67,9 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? hasAnonymousAccount = null,
   }) {
     return _then(_value.copyWith(
-      uid: null == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       createdAt: null == createdAt
           ? _value.createdAt
@@ -103,7 +103,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String uid,
+      {String id,
       DateTime createdAt,
       DateTime updatedAt,
       UserRoles role,
@@ -121,7 +121,7 @@ class __$$UserImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? uid = null,
+    Object? id = null,
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? role = null,
@@ -129,9 +129,9 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? hasAnonymousAccount = null,
   }) {
     return _then(_$UserImpl(
-      uid: null == uid
-          ? _value.uid
-          : uid // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       createdAt: null == createdAt
           ? _value.createdAt
@@ -161,7 +161,7 @@ class __$$UserImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserImpl implements _User {
   _$UserImpl(
-      {required this.uid,
+      {required this.id,
       required this.createdAt,
       required this.updatedAt,
       required this.role,
@@ -172,7 +172,7 @@ class _$UserImpl implements _User {
       _$$UserImplFromJson(json);
 
   @override
-  final String uid;
+  final String id;
   @override
   final DateTime createdAt;
   @override
@@ -186,7 +186,7 @@ class _$UserImpl implements _User {
 
   @override
   String toString() {
-    return 'User(uid: $uid, createdAt: $createdAt, updatedAt: $updatedAt, role: $role, hasCompletedOnboarding: $hasCompletedOnboarding, hasAnonymousAccount: $hasAnonymousAccount)';
+    return 'User(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, role: $role, hasCompletedOnboarding: $hasCompletedOnboarding, hasAnonymousAccount: $hasAnonymousAccount)';
   }
 
   @override
@@ -194,7 +194,7 @@ class _$UserImpl implements _User {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserImpl &&
-            (identical(other.uid, uid) || other.uid == uid) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -208,7 +208,7 @@ class _$UserImpl implements _User {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, uid, createdAt, updatedAt, role,
+  int get hashCode => Object.hash(runtimeType, id, createdAt, updatedAt, role,
       hasCompletedOnboarding, hasAnonymousAccount);
 
   @JsonKey(ignore: true)
@@ -227,7 +227,7 @@ class _$UserImpl implements _User {
 
 abstract class _User implements User {
   factory _User(
-      {required final String uid,
+      {required final String id,
       required final DateTime createdAt,
       required final DateTime updatedAt,
       required final UserRoles role,
@@ -237,7 +237,7 @@ abstract class _User implements User {
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
   @override
-  String get uid;
+  String get id;
   @override
   DateTime get createdAt;
   @override

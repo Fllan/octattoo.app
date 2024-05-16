@@ -7,7 +7,7 @@ part 'user.g.dart';
 @freezed
 class User with _$User  {
   factory User({
-    required String uid,
+    required String id,
     required DateTime createdAt,
     required DateTime updatedAt,
     required UserRoles role,

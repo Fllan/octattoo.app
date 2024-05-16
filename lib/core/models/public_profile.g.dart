@@ -8,24 +8,26 @@ part of 'public_profile.dart';
 
 _$PublicProfileImpl _$$PublicProfileImplFromJson(Map<String, dynamic> json) =>
     _$PublicProfileImpl(
-      uid: json['uid'] as String,
+      id: json['id'] as String,
+      tattooArtistRef: const DocumentReferenceConverter()
+          .fromJson(json['tattooArtistRef'] as Map<String, dynamic>),
       artistName: json['artistName'] as String,
       firstname: json['firstname'] as String,
       lastname: json['lastname'] as String,
       pronoun: json['pronoun'] as String,
-      tattooArtistRef: const DocumentReferenceConverter()
-          .fromJson(json['tattooArtistRef'] as Map<String, dynamic>),
       createdAt: DateTime.parse(json['createdAt'] as String),
+      updatedAt: DateTime.parse(json['updatedAt'] as String),
     );
 
 Map<String, dynamic> _$$PublicProfileImplToJson(_$PublicProfileImpl instance) =>
     <String, dynamic>{
-      'uid': instance.uid,
+      'id': instance.id,
+      'tattooArtistRef':
+          const DocumentReferenceConverter().toJson(instance.tattooArtistRef),
       'artistName': instance.artistName,
       'firstname': instance.firstname,
       'lastname': instance.lastname,
       'pronoun': instance.pronoun,
-      'tattooArtistRef':
-          const DocumentReferenceConverter().toJson(instance.tattooArtistRef),
       'createdAt': instance.createdAt.toIso8601String(),
+      'updatedAt': instance.updatedAt.toIso8601String(),
     };

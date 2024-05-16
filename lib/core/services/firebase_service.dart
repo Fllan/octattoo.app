@@ -5,6 +5,6 @@ class FirebaseService {
   static Future<void> initializeAll() async {
     await FirebaseInitService.initializeFirebase();
     await FirebaseAppCheckService.activateAppCheck();
-    // Any other Firebase related initializations go here
   }
+  // Any other Firebase related initializations go here
 }

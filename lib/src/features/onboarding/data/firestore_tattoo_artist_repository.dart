@@ -20,7 +20,7 @@ abstract class FirestoreTattooArtistRepository implements TattooArtistRepository
   @override
   Future<void> addTattooArtist(TattooArtist tattooArtist) async {
     try {
-      await _tattooArtistsRef.doc(tattooArtist.uid).set(tattooArtist);
+      await _tattooArtistsRef.doc(tattooArtist.id).set(tattooArtist);
     } on Exception catch (e) {
       logger.e(e);
     }
@@ -49,9 +49,4 @@ abstract class FirestoreTattooArtistRepository implements TattooArtistRepository
     final docSnapshot = await _tattooArtistsRef.doc(uid).get();
     return docSnapshot.exists ? docSnapshot.data() : null;
   }
-}
-
-
-class ConcreteFirestoreTattooArtistRepository extends FirestoreTattooArtistRepository  {
-
 }

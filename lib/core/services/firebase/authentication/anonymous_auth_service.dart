@@ -22,15 +22,15 @@ class AnonymousAuthService {
         firebase_auth.User? user = userCredential.user;
 
         if (user != null) {
-          final userRepository = ref.read(appUserRepositoryProvider);
+          final userRepository = ref.read(userRepositoryProvider);
           final existingUser = await userRepository.getUser(user.uid);
 
           if (existingUser == null) {
             logger.i("User with uid: ${user.uid} does not exist");
             final newUser = User(
-              uid: user.uid,
-              createdAt: DateTime.now(),
-              updatedAt: DateTime.now(),
+              id: user.uid,
+              createdAt: DateTime.now().toUtc(),
+              updatedAt: DateTime.now().toUtc(),
               role: UserRoles.artist,
               hasCompletedOnboarding: false,
               hasAnonymousAccount: true,

@@ -20,7 +20,7 @@ abstract class FirestorePublicProfileRepository implements PublicProfileReposito
   @override
   Future<void> addPublicProfile(PublicProfile publicProfile) async {
     try {
-      await _publicProfilesRef.doc(publicProfile.uid).set(publicProfile);
+      await _publicProfilesRef.doc(publicProfile.id).set(publicProfile);
     } on Exception catch (e) {
       logger.e(e);
     }
