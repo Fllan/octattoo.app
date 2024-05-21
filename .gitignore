@@ -42,11 +42,10 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-
 # Firebase
 /lib/firebase_options.dart
 /android/google-services.json
-/lib/core/services/firebase/firebase_app_check_service.dart
+firebase.json
 
-# Google Client ID in meta tag
-/web/index.html
+# dotenv
+.env

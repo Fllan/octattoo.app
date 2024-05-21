@@ -6,8 +6,12 @@ import 'package:octattoo_app/core/models/tattoo_artist.dart';
 part 'workplace.freezed.dart';
 part 'workplace.g.dart';
 
+/// A class that represents a workplace.
 @freezed
 class Workplace with _$Workplace {
+  /// Creates a new [Workplace].
+  ///
+  /// All parameters are required.
   @DocumentReferenceConverter()
   factory Workplace({
     required String id,
@@ -19,6 +23,7 @@ class Workplace with _$Workplace {
     required List<TattooArtist> guestTattooArtists,
   }) = _Workplace;
 
+  /// Creates a new [Workplace] from a JSON map.
   factory Workplace.fromJson(Map<String, dynamic> json) =>
       _$WorkplaceFromJson(json);
 }

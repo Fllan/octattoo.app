@@ -5,8 +5,12 @@ import 'package:octattoo_app/core/models/document_reference_converter.dart';
 part 'public_profile.freezed.dart';
 part 'public_profile.g.dart';
 
+/// A class that represents a public profile.
 @freezed
 class PublicProfile with _$PublicProfile {
+  /// Creates a new [PublicProfile].
+  ///
+  /// All parameters are required.
   @DocumentReferenceConverter()
   factory PublicProfile({
     required String id,
@@ -19,6 +23,7 @@ class PublicProfile with _$PublicProfile {
     required DateTime updatedAt,
   }) = _PublicProfile;
 
+  /// Creates a new [PublicProfile] from a JSON map.
   factory PublicProfile.fromJson(Map<String, dynamic> json) =>
       _$PublicProfileFromJson(json);
 }

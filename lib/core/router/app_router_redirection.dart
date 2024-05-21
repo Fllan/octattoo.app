@@ -7,6 +7,7 @@ import 'package:octattoo_app/core/services/firebase/authentication/auth_provider
 import 'package:octattoo_app/core/services/firebase/firestore/firestore_providers.dart';
 import 'package:octattoo_app/core/utils/logger.dart';
 
+/// Redirects the route based on the user's authentication and onboarding status.
 FutureOr<String?> appRouteRedirect(
     BuildContext context, Ref ref, GoRouterState state) async {
   final user = ref.read(authServiceProvider).currentUser;
@@ -15,28 +16,36 @@ FutureOr<String?> appRouteRedirect(
   
   logger.d("Redirect Check: isLoggedIn: $isloggedIn, Location: ${state.uri.toString()}");
 
-  if (isLoggingOut) return '/';
+  if (isLoggingOut) {
+    logger.d("User is logging out. Redirecting to root.");
+    return '/';
+  }
 
   if (!isloggedIn &&
       !isLoggingOut &&
       (state.matchedLocation == RoutePath.signin.path ||
        state.matchedLocation == RoutePath.root.path)) {
+    logger.d("User is not logged in and not on sign in or root route. No redirection.");
     return null;
   }
   
-bool hasCompletedOnboarding = false;
+  bool hasCompletedOnboarding = false;
   if (isloggedIn) {
     final userRepository = ref.read(userRepositoryProvider);
     final existingUser = await userRepository.getUser(user.uid);
     hasCompletedOnboarding =
         existingUser?.hasCompletedOnboarding ?? false;
+    logger.d("User is logged in. hasCompletedOnboarding: $hasCompletedOnboarding");
   }
 
   if (isloggedIn && hasCompletedOnboarding) {
+    logger.d("User is logged in and has completed onboarding. Redirecting to artist profile.");
     return '/artistProfile';
   } else if (isloggedIn && !hasCompletedOnboarding) {
+    logger.d("User is logged in but has not completed onboarding. Redirecting to onboarding.");
     return '/onboarding';
   }
 
+  logger.d("No redirection.");
   return null;
 }

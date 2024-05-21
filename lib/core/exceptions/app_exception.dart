@@ -1,6 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:octattoo_app/core/l10n/utils/localization_extensions.dart';
 import 'package:octattoo_app/core/utils/logger.dart';
 
+String defaultAuthErrorMessage = 'Authentication Error Occured'.hardcoded;
+String defaultInternalErrorMessage = 'Internal Error Occured'.hardcoded;
+
+/// A custom exception class that provides additional information about an error.
 class AppException implements Exception {
   AppException({
     required this.title,
@@ -8,10 +13,11 @@ class AppException implements Exception {
     required this.message,
     required this.originalException,
   });
+
   final String title;
   final String? code;
   final String message;
-  final dynamic originalException;
+  final Exception originalException;
 
   @override
   String toString() {
@@ -19,14 +25,16 @@ class AppException implements Exception {
   }
 }
 
-///Utility function to convert any Exception to AppException
+/// Converts any [Exception] to an [AppException].
+///
+/// Handles [FirebaseAuthException] and [FirebaseException] specifically, and provides a generic catch-all case for other exceptions.
 AppException convertToAppException(
-    {required String title, required dynamic exception}) {
+    {required String title, required Exception exception}) {
   logger.e("Converting exception: $exception");
   if (exception is FirebaseAuthException) {
     return AppException(
         title: title,
-        message: exception.message ?? 'Authentication Error Occured',
+        message: exception.message ?? defaultAuthErrorMessage,
         originalException: exception,
         code: exception.code);
   }
@@ -35,17 +43,14 @@ AppException convertToAppException(
     return AppException(
         title: title,
         code: exception.code,
-        message: exception.message ?? 'Internal Error Occured',
+        message: exception.message ?? defaultInternalErrorMessage,
         originalException: exception);
   }
 
-  ///You can add more converts here for different exceptions
-  ///e.g.,
-  ///
-
-  ///Default case
+  // Generic catch-all case
   return AppException(
-      title: title,
-      message: 'An internal error occurred',
-      originalException: exception);
+    title: title,
+    message: 'An error occurred'.hardcoded,
+    originalException: exception,
+  );
 }

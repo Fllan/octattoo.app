@@ -7,6 +7,6 @@ Future<T?> handleAsyncError<T>(
     return await operation();
   } catch (e) {
     debugPrint("error from: $title, error: $e ");
-    throw convertToAppException(title: title, exception: e);
+    throw convertToAppException(title: title, exception: e as Exception);
   }
 }
