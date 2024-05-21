@@ -13,7 +13,7 @@ class AppRouterListenable extends ChangeNotifier {
 
   /// Signs the user out and notifies listeners.
   Future<void> signOut() => ref
-      .watch(authServiceProvider)
+      .read(authServiceProvider)
       .signOut()
       .then((value) {
         logger.d("Notifying listeners after sign out");
@@ -22,7 +22,7 @@ class AppRouterListenable extends ChangeNotifier {
   
   /// Signs the user in anonymously and notifies listeners.
   Future<void> signInAnonymously() => ref
-      .watch(anonymousAuthProvider)
+      .read(anonymousAuthProvider)
       .signInAnonymously()
       .then((value) {
         logger.d("Notifying listeners after sign in anonymously");

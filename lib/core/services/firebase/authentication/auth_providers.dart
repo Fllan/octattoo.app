@@ -5,9 +5,17 @@ import 'package:octattoo_app/core/services/firebase/authentication/auth_service.
 import 'package:octattoo_app/core/services/firebase/authentication/email_auth_service.dart';
 import 'package:octattoo_app/core/services/firebase/authentication/google_auth_service.dart';
 
+/// Provides an instance of [FirebaseAuth]
 final firebaseAuthProvider = Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
 
-final authServiceProvider = Provider<AuthService>((ref) => AuthService(ref.read(firebaseAuthProvider)));
-final emailAuthProvider = Provider<EmailAuthService>((ref) => EmailAuthService(ref.read(firebaseAuthProvider)));
-final googleAuthProvider = Provider<GoogleAuthService>((ref) => GoogleAuthService(ref.read(firebaseAuthProvider)));
-final anonymousAuthProvider = Provider<AnonymousAuthService>((ref) => AnonymousAuthService(ref.read(firebaseAuthProvider),ref));
+/// Provides an instance of [AuthService]
+final authServiceProvider = Provider.autoDispose<AuthService>((ref) => AuthService(ref.read(firebaseAuthProvider)));
+
+/// Provides an instance of [EmailAuthService]
+final emailAuthProvider = Provider.autoDispose<EmailAuthService>((ref) => EmailAuthService(ref.read(firebaseAuthProvider)));
+
+/// Provides an instance of [GoogleAuthService]
+final googleAuthProvider = Provider.autoDispose<GoogleAuthService>((ref) => GoogleAuthService(ref.read(firebaseAuthProvider)));
+
+/// Provides an instance of [AnonymousAuthService]
+final anonymousAuthProvider = Provider.autoDispose<AnonymousAuthService>((ref) => AnonymousAuthService(ref.read(firebaseAuthProvider),ref));
