@@ -33,7 +33,11 @@ class WelcomeScreen extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(context.loc.welcomeMessage),
+            Text(
+              context.loc.welcomeMessage,
+              style: Theme.of(context).textTheme.headlineSmall,
+              textAlign: TextAlign.center,
+            ),
             gapH48,
             if (user == null) _buildGuestButtons(context, appRouterListenable),
             if (user != null) _buildUserButton(context),
@@ -52,11 +56,7 @@ class WelcomeScreen extends ConsumerWidget {
           try {
             await appRouterListenable.signInAnonymously();
           } catch (e) {
-            // Handle or log the error here
             logger.e('Failed to sign in anonymously: $e');
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Failed to sign in anonymously: $e')),
-            );
           }
         }, signInAnonButtonKey),
       ],
