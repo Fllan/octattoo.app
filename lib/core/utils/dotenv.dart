@@ -7,7 +7,7 @@ class DotenvInitializer {
     try {
       await dotenv.load(fileName: '.env');
       logger.i('Loaded .env file');
-    } catch (e) {
+    } on Exception catch (e) {
       logger.e('Failed to load .env file: $e');
     }
   }

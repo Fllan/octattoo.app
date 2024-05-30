@@ -18,7 +18,7 @@ class AppCheckInitializer {
         appleProvider: AppleProvider.appAttest,
       );
       logger.i('Firebase App Check initialized successfully');
-    } catch (e) {
+    } on FirebaseException catch (e) {
       logger.e('Failed to initialize Firebase App Check: $e');
     }
   }

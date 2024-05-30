@@ -19,6 +19,6 @@ class DocumentReferenceConverter implements JsonConverter<DocumentReference, Map
   /// Converts a [DocumentReference] to a JSON map.
   @override
   Map<String, dynamic> toJson(DocumentReference object) {
-    return {"path": object.path};
+    return {'path': object.path};
   }
 }
