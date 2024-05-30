@@ -1,0 +1,8 @@
+{
+    "@@locale": "en",
+
+    "test2": "test EN",
+    "@test2" : {
+        "description": "test"
+    }
+}

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:octattoo_app_mvp/core/services/Firebase/crashlytics.dart';
+import 'package:octattoo_app_mvp/core/services/Firebase/initialize_crashlytics.dart';
 import 'package:octattoo_app_mvp/core/services/Firebase/initialize_analytics.dart';
 import 'package:octattoo_app_mvp/core/services/Firebase/initialize_app_check.dart';
 import 'package:octattoo_app_mvp/core/services/Firebase/initialize_firebase.dart';
