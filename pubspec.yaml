@@ -24,6 +24,9 @@ dependencies:
   firebase_app_check: ^0.2.2+7
   logger: ^2.3.0
   flutter_dotenv: ^5.1.0
+  firebase_analytics: ^10.10.7
+  firebase_crashlytics: ^3.5.7
+  firebase_auth: ^4.20.0
 
 dev_dependencies:
   flutter_test:

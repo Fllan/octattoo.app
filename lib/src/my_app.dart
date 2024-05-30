@@ -10,10 +10,18 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Welcome'),
         ),
-        body: const Center(
-          child: Text(
-            'WELCOME',
-            style: TextStyle(fontSize: 24),
+        body: Center(
+          child: Column(
+            children: [
+              const Text(
+                'WELCOME',
+                style: TextStyle(fontSize: 24),
+              ),
+              TextButton(
+                onPressed: () => throw Exception(),
+                child: const Text("Throw Test Exception"),
+              ),
+            ],
           ),
         ),
       ),

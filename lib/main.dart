@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:octattoo_app_mvp/core/services/Firebase/crashlytics.dart';
+import 'package:octattoo_app_mvp/core/services/Firebase/initialize_analytics.dart';
 import 'package:octattoo_app_mvp/core/services/Firebase/initialize_app_check.dart';
 import 'package:octattoo_app_mvp/core/services/Firebase/initialize_firebase.dart';
 import 'package:octattoo_app_mvp/core/utils/dotenv.dart';
@@ -21,6 +23,12 @@ Future<void> main() async {
 
   /// Initialize Firebase App Check
   await AppCheckInitializer.initializeAppCheck();
+
+  /// Initialize Firebase Analytics
+  AnalyticsInitializer.initializeAnalytics();
+
+  /// Initialize Crashlytics
+  CrashlyticsInitializer.initializeCrashlytics();
 
   runApp(const MyApp());
 }
