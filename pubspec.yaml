@@ -30,12 +30,22 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
+  freezed: ^2.5.2
+  cloud_firestore: ^4.17.5
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
   build_runner: ^2.4.10
+  riverpod_generator: ^2.4.0
+  custom_lint: ^0.6.4
+  riverpod_lint: ^2.3.10
+  json_serializable: ^6.8.0
 
 
 
