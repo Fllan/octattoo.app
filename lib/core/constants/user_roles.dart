@@ -1,5 +1,8 @@
 /// Enum representing the different user roles.
-enum UserRoles { artist, customer }
+enum UserRoles {
+  artist,
+  customer,
+}
 
 /// An extension on [UserRoles] that provides a string representation of each role.
 extension UserRoleExtension on UserRoles {
