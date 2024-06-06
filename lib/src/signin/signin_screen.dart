@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -50,7 +51,7 @@ class SignInScreen extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  // Implement Forgot Password logic
+                  context.pushNamed('forgotPassword');
                 },
                 child: const Text('Forgot Password?'),
               ),

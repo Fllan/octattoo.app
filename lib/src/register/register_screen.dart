@@ -7,12 +7,7 @@ class RegisterScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Register'),
-      ),
-      backgroundColor: const Color(0xFFFAF4FF),
-      body: Center(
+    return Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -79,7 +74,6 @@ class RegisterScreen extends ConsumerWidget {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }

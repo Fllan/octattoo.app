@@ -19,4 +19,5 @@ FutureOr<String?> redirect(BuildContext context, GoRouterState state, Ref widget
   } else if (!isAuthenticated && isOnboarding) {
     return '/welcome';
   }
+  return null;
 }
