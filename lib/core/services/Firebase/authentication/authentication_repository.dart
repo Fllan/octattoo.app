@@ -28,7 +28,7 @@ class AuthRepository {
         password: password,
       );
     } on FirebaseAuthException catch (e) {
-      if (context.mounted == true) {
+      if (context.mounted) {
         await showDialog(
             context: context,
             builder: (ctx) => AlertDialog(
@@ -50,7 +50,7 @@ class AuthRepository {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      if (context.mounted == true) {
+      if (context.mounted) {
         await showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
@@ -90,7 +90,7 @@ class AuthRepository {
     try {
       await _auth.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {
-      if (context.mounted == true) {
+      if (context.mounted) {
         await showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
