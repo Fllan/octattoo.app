@@ -64,7 +64,7 @@ GoRouter goRouter(GoRouterRef ref) {
             path: '/welcome/register',
             name: WelcomeSubRoutes.register.name,
             pageBuilder: (context, state) {
-              return const MaterialPage(child: RegisterScreen());
+              return MaterialPage(child: RegisterScreen());
             },
           ),
           GoRoute(

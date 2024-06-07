@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:octattoo_app_mvp/core/constants/gaps.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -10,25 +11,19 @@ class SignInScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Sign In'),
       ),
-      backgroundColor: const Color(0xFFFAF4FF),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                'octattoo.app',
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 50),
               const TextField(
                 decoration: InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(),
                 ),
               ),
-              const SizedBox(height: 20),
+              gapH20,
               const TextField(
                 decoration: InputDecoration(
                   labelText: 'Password',
@@ -36,7 +31,7 @@ class SignInScreen extends StatelessWidget {
                 ),
                 obscureText: true,
               ),
-              const SizedBox(height: 20),
+              gapH20,
               ElevatedButton(
                 onPressed: () {
                   // Implement Sign In logic
@@ -49,6 +44,7 @@ class SignInScreen extends StatelessWidget {
                 ),
                 child: const Text('Sign In'),
               ),
+              gapH8,
               TextButton(
                 onPressed: () {
                   context.pushNamed('forgotPassword');
