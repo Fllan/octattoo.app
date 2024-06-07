@@ -57,7 +57,7 @@ GoRouter goRouter(GoRouterRef ref) {
             path: '/welcome/signin',
             name: WelcomeSubRoutes.signin.name,
             pageBuilder: (context, state) {
-              return const MaterialPage(child: SignInScreen());
+              return MaterialPage(child: SignInScreen());
             },
           ),
           GoRoute(
@@ -71,7 +71,7 @@ GoRouter goRouter(GoRouterRef ref) {
             path: '/welcome/signin/forgot-password',
             name: SignInSubRoutes.forgotPassword.name,
             pageBuilder: (context, state) {
-              return const MaterialPage(child: ForgotPasswordScreen());
+              return MaterialPage(child: ForgotPasswordScreen());
             },
           ),
         ],

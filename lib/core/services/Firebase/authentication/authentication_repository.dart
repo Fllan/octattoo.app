@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:octattoo_app_mvp/core/utils/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'authentication_repository.g.dart';
@@ -31,13 +32,13 @@ class AuthRepository {
       if (context.mounted) {
         await showDialog(
             context: context,
-            builder: (ctx) => AlertDialog(
+            builder: (context) => AlertDialog(
                     title: const Text('Error Occured'),
                     content: Text(e.toString()),
                     actions: [
                       TextButton(
                           onPressed: () {
-                            Navigator.of(ctx).pop();
+                            Navigator.of(context).pop();
                           },
                           child: const Text("OK"))
                     ]));
@@ -69,7 +70,31 @@ class AuthRepository {
     }
   }
 
-  Future<void> sendPasswordResetEmail(String email) {
+  Future<void> sendPasswordResetEmail(String email, BuildContext context) async {
+    try {
+      logger.d('Sending password reset email to $email');
+      await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      if (context.mounted) {
+        await showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text('Error Occured'),
+            content: Text(e.toString()),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                  },
+                  child: const Text("OK"))
+            ],
+          ),
+        );
+      }
+    }
+
+
+
     return _auth.sendPasswordResetEmail(email: email);
   }
 
