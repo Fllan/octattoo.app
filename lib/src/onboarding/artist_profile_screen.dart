@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ArtistProfileScreen extends StatelessWidget {
-  ArtistProfileScreen({super.key});
+  const ArtistProfileScreen({super.key});
 
-  bool showRealNames = false;
-  bool showPronoun = false;
+  final bool showRealNames = false;
+  final bool showPronoun = false;
 
   @override
   Widget build(BuildContext context) {

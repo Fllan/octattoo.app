@@ -93,7 +93,7 @@ GoRouter goRouter(GoRouterRef ref) {
             path: '/onboarding/artist-profile',
             name: OnboardingSubRoutes.artistProfile.name,
             pageBuilder: (context, state) {
-              return MaterialPage(child: ArtistProfileScreen());
+              return const MaterialPage(child: ArtistProfileScreen());
             },
           ),
           GoRoute(
