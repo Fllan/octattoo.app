@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:octattoo_app_mvp/core/constants/gaps.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
 import 'package:octattoo_app_mvp/core/utils/logger.dart';
 import 'package:octattoo_app_mvp/src/onboarding/artist_profile_step1.dart';
+import 'package:octattoo_app_mvp/src/onboarding/workplace_step2.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -31,7 +33,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ? StepState.complete
             : (currentStep < 1 ? StepState.indexed : StepState.editing),
         title: Text('Workplace'.hardcoded),
-        content: const Placeholder(),
+        content: const WorkplaceStep2(),
       ),
       Step(
         isActive: currentStep >= 2,
@@ -79,25 +81,30 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         }
       },
       controlsBuilder: (context, details) {
-        return Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        return Column(
           children: [
-            if (currentStep > firstStep)
-              ElevatedButton(
-                onPressed: details.onStepCancel,
-                child: Text('Back'.hardcoded),
-              ),
-            if (!isLastStep)
-              FilledButton(
-                onPressed: details.onStepContinue,
-                child: Text('Next'.hardcoded),
-              ),
-            if (isLastStep)
-              FilledButton(
-                onPressed: details.onStepContinue,
-                child: Text('Confirm'.hardcoded),
-              ),
+            gapH24,
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                if (currentStep > firstStep)
+                  ElevatedButton(
+                    onPressed: details.onStepCancel,
+                    child: Text('Back'.hardcoded),
+                  ),
+                if (!isLastStep)
+                  FilledButton(
+                    onPressed: details.onStepContinue,
+                    child: Text('Next'.hardcoded),
+                  ),
+                if (isLastStep)
+                  FilledButton(
+                    onPressed: details.onStepContinue,
+                    child: Text('Confirm'.hardcoded),
+                  ),
+              ],
+            ),
           ],
         );
       },

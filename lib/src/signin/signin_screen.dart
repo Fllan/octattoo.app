@@ -46,6 +46,12 @@ class SignInScreen extends ConsumerWidget {
                     border: OutlineInputBorder(),
                   ),
                   obscureText: true,
+                  onFieldSubmitted: (_) {
+                    if (_key.currentState!.validate()) {
+                      ref.watch(authRepositoryProvider).signInWithEmailAndPassword(_email.text, _password.text, context,
+                      );
+                    }
+                  },
                 ),
                 gapH20,
                 ElevatedButton(
@@ -54,7 +60,6 @@ class SignInScreen extends ConsumerWidget {
                       ref.watch(authRepositoryProvider).signInWithEmailAndPassword(_email.text, _password.text, context,
                       );
                     }
-                  
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
