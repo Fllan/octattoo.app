@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:octattoo_app_mvp/core/constants/gaps.dart';
+import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
 
 class ArtistProfileStep1 extends StatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -28,25 +29,25 @@ class _ArtistProfileStep1State extends State<ArtistProfileStep1> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Your artist profile is public.'),
-          const Text('Set you artist name & choose what you want to show.'),
+          Text('Your artist profile is public.'.hardcoded),
+          Text('Set you artist name & choose what you want to show.'.hardcoded),
           gapH12,
           TextFormField(
             controller: _artistNameController,
-            decoration: const InputDecoration(
-              labelText: 'Your artist name',
-              border: OutlineInputBorder(),
+            decoration: InputDecoration(
+              labelText: 'Your artist name'.hardcoded,
+              border: const OutlineInputBorder(),
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your artist name';
+                return 'Please enter your artist name'.hardcoded;
               }
               return null;
             },
           ),
           gapH20,
           SwitchListTile(
-            title: const Text('I want to show my real names'),
+            title: Text('I want to show my real names'.hardcoded),
             value: _showRealNames,
             onChanged: (value) {
               setState(() {_showRealNames = value;});
@@ -55,13 +56,13 @@ class _ArtistProfileStep1State extends State<ArtistProfileStep1> {
           if (_showRealNames) ...[
             TextFormField(
               controller: _firstnameController,
-              decoration: const InputDecoration(
-                labelText: 'Firstname',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: 'Firstname'.hardcoded,
+                border: const OutlineInputBorder(),
               ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your firstname';
+                return 'Please enter your firstname'.hardcoded;
               }
               return null;
             },
@@ -69,20 +70,20 @@ class _ArtistProfileStep1State extends State<ArtistProfileStep1> {
             gapH20,
             TextFormField(
               controller: _lastnameController,
-              decoration: const InputDecoration(
-                labelText: 'Lastname',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: 'Lastname'.hardcoded,
+                border: const OutlineInputBorder(),
               ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your lastname';
+                return 'Please enter your lastname'.hardcoded;
               }
               return null;
             },
             ),
           ],
           SwitchListTile(
-            title: const Text('I want to show my pronoun'),
+            title: Text('I want to show my pronoun'.hardcoded),
             enableFeedback: true,
             value: _showPronoun,
             onChanged: (value) {
@@ -92,13 +93,13 @@ class _ArtistProfileStep1State extends State<ArtistProfileStep1> {
           if (_showPronoun) ...[
             TextFormField(
               controller: _pronounController,
-              decoration: const InputDecoration(
-                labelText: 'Pronoun',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: 'Pronoun'.hardcoded,
+                border: const OutlineInputBorder(),
               ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your pronoun';
+                return 'Please enter your pronoun'.hardcoded;
               }
               return null;
             },
