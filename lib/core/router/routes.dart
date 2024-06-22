@@ -20,7 +20,6 @@ enum OnboardingSubRoutes {
 
 enum WorkplaceSubRoutes {
   add,
-  search,
   details,
 }
 

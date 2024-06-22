@@ -3,6 +3,9 @@ import 'package:octattoo_app_mvp/core/constants/gaps.dart';
 import 'package:octattoo_app_mvp/core/constants/worplace_types.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
 
+/// This widget is used to select the type of workplace to add.
+/// It has two options: Guest and Permanent.
+/// When the user selects one, it opens the [AddWorkplaceWidget] to add the workplace.
 class WorkplaceStep2 extends StatefulWidget {
   const WorkplaceStep2({super.key});
 
@@ -10,6 +13,7 @@ class WorkplaceStep2 extends StatefulWidget {
   State<WorkplaceStep2> createState() => _WorkplaceStep2State();
 }
 
+/// This is the state of the [WorkplaceStep2].
 class _WorkplaceStep2State extends State<WorkplaceStep2> {
   WorplaceTypes? selectedWorkplaceType;
 
@@ -171,6 +175,9 @@ class _WorkplaceStep2State extends State<WorkplaceStep2> {
   }
 }
 
+/// This widget is used to add a workplace to the user's profile.
+///
+/// It has two tabs: Search and Create new.
 class AddWorkplaceWidget extends StatefulWidget {
   const AddWorkplaceWidget({super.key});
 
@@ -178,6 +185,7 @@ class AddWorkplaceWidget extends StatefulWidget {
   State<AddWorkplaceWidget> createState() => _AddWorkplaceWidgetState();
 }
 
+/// This is the state of the [AddWorkplaceWidget].
 class _AddWorkplaceWidgetState extends State<AddWorkplaceWidget> {
   @override
   Widget build(BuildContext context) {
@@ -216,17 +224,14 @@ class _AddWorkplaceWidgetState extends State<AddWorkplaceWidget> {
                 children: [
                   Column(
                     children: [
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'Search for a workplace'.hardcoded,
-                          border: const OutlineInputBorder(),
-                        ),
+                      gapH12,
+                      SearchBar(
+                        leading: const Icon(Icons.search),
+                        hintText: 'Search for a workplace'.hardcoded,
                       ),
-                      gapH24,
-                      FilledButton(
-                        onPressed: () {},
-                        child: const Text('Search'),
-                      ),
+                      Expanded(
+                          child: ListView.builder(
+                              itemBuilder: itemBuilder, itemCount: 2)),
                     ],
                   ),
                   Form(
@@ -270,6 +275,17 @@ class _AddWorkplaceWidgetState extends State<AddWorkplaceWidget> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget? itemBuilder(BuildContext context, int index) {
+    return ListTile(
+      title: Text('Workplace $index'),
+      subtitle: Text('Address $index'),
+      onTap: () {
+        // Add the workplace to the user's profile
+        Navigator.of(context).pop();
+      },
     );
   }
 }
