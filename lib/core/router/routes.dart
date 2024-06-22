@@ -21,6 +21,7 @@ enum OnboardingSubRoutes {
 enum WorkplaceSubRoutes {
   add,
   details,
+  availabilities,
 }
 
 enum DashboardSubRoutes {

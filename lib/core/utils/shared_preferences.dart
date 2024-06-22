@@ -4,7 +4,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 enum SharedPreferencesKeys {
   locale,
   theme,
-  currentOnboardingStepIndex,
+  onboardingArtistName,
+  onboardingShowRealNames,
+  onboardingShowPronoun,
+  onboardingFirstname,
+  onboardingLastname,
+  onboardingPronoun,
 }
 
 /// SharedPreferencesService is a singleton class that provides methods to save and retrieve data from SharedPreferences.

@@ -4,7 +4,12 @@ import 'package:octattoo_app_mvp/core/router/redirections/redirect.dart';
 import 'package:octattoo_app_mvp/core/router/routes.dart';
 import 'package:octattoo_app_mvp/core/router/shells/onboarding_shell.dart';
 import 'package:octattoo_app_mvp/core/router/shells/welcome_shell.dart';
+import 'package:octattoo_app_mvp/src/onboarding/add_workplace.dart';
+import 'package:octattoo_app_mvp/src/onboarding/artist_profile_screen.dart';
 import 'package:octattoo_app_mvp/src/onboarding/onboarding_screen.dart';
+import 'package:octattoo_app_mvp/src/onboarding/workplace_availabilities.dart';
+import 'package:octattoo_app_mvp/src/onboarding/workplace_details.dart';
+import 'package:octattoo_app_mvp/src/onboarding/workplaces_type.dart';
 import 'package:octattoo_app_mvp/src/register/register_screen.dart';
 import 'package:octattoo_app_mvp/src/signin/forgot_password_screen.dart';
 import 'package:octattoo_app_mvp/src/signin/signin_screen.dart';
@@ -85,34 +90,47 @@ GoRouter goRouter(GoRouterRef ref) {
               return const MaterialPage(child: OnboardingScreen());
             },
           ),
-          // GoRoute(
-          //   path: '/onboarding/artist-profile',
-          //   name: OnboardingSubRoutes.artistProfile.name,
-          //   pageBuilder: (context, state) {
-          //     return const MaterialPage(child: ArtistProfileScreen());
-          //   },
-          // ),
-          // GoRoute(
-          //   path: '/onboarding/workplace',
-          //   name: OnboardingSubRoutes.workplace.name,
-          //   pageBuilder: (context, state) {
-          //     return const MaterialPage(child: CreateWorkplaceScreen());
-          //   },
-          // ),
-          // GoRoute(
-          //   path: '/onboarding/workplace/add',
-          //   name: WorkplaceSubRoutes.add.name,
-          //   pageBuilder: (context, state) {
-          //     return const MaterialPage(child: AddWorkplaceScreen());
-          //   },
-          // ),
-          // GoRoute(
-          //   path: '/onboarding/workplace/details',
-          //   name: WorkplaceSubRoutes.details.name,
-          //   pageBuilder: (context, state) {
-          //     return const MaterialPage(child: WorkplaceDetailsScreen());
-          //   },
-          // ),
+          GoRoute(
+            path: '/onboarding/artist-profile',
+            name: OnboardingSubRoutes.artistProfile.name,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: ArtistProfileScreen());
+            },
+          ),
+          GoRoute(
+            path: '/onboarding/workplace',
+            name: OnboardingSubRoutes.workplace.name,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: WorkplacesTypeScreen());
+            },
+          ),
+          GoRoute(
+            path: '/onboarding/workplace/add',
+            name: WorkplaceSubRoutes.add.name,
+            pageBuilder: (context, state) {
+              return const MaterialPage(child: AddWorkplaceScreen());
+            },
+          ),
+          GoRoute(
+            path: '/onboarding/workplace/details/:id',
+            name: WorkplaceSubRoutes.details.name,
+            pageBuilder: (context, state) {
+              final String workplaceId = state.pathParameters['id']!;
+              return MaterialPage(
+                  child: WorkplaceDetailsScreen(workplaceId: workplaceId));
+            },
+          ),
+          GoRoute(
+            path: '/onboarding/workplace/availabilities/:workplaceType',
+            name: WorkplaceSubRoutes.availabilities.name,
+            pageBuilder: (context, state) {
+              final String workplaceType =
+                  state.pathParameters['workplaceType']!;
+              return MaterialPage(
+                  child: WorkplaceAvailabilitiesScreen(
+                      workplaceType: workplaceType));
+            },
+          ),
         ],
       ),
     ],
