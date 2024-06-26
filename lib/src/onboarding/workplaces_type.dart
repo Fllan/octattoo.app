@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:octattoo_app_mvp/core/constants/gaps.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
 
@@ -125,6 +126,20 @@ class _WorkplacesTypeScreenState extends State<WorkplacesTypeScreen> {
               ],
             ),
           ),
+          gapH24,
+          ElevatedButton(
+            onPressed: () {
+              GoRouter.of(context).pop();
+            },
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.arrow_back),
+                gapW4,
+                Text('Back'.hardcoded),
+              ],
+            ),
+          )
         ],
       ),
     );

@@ -53,27 +53,31 @@ GoRouter goRouter(GoRouterRef ref) {
             pageBuilder: (context, state) {
               return const MaterialPage(child: WelcomeScreen());
             },
-          ),
-          GoRoute(
-            path: '/welcome/signin',
-            name: WelcomeSubRoutes.signin.name,
-            pageBuilder: (context, state) {
-              return MaterialPage(child: SignInScreen());
-            },
-          ),
-          GoRoute(
-            path: '/welcome/register',
-            name: WelcomeSubRoutes.register.name,
-            pageBuilder: (context, state) {
-              return MaterialPage(child: RegisterScreen());
-            },
-          ),
-          GoRoute(
-            path: '/welcome/signin/forgot-password',
-            name: SignInSubRoutes.forgotPassword.name,
-            pageBuilder: (context, state) {
-              return MaterialPage(child: ForgotPasswordScreen());
-            },
+            routes: [
+              GoRoute(
+                path: 'signin',
+                name: WelcomeSubRoutes.signin.name,
+                pageBuilder: (context, state) {
+                  return MaterialPage(child: SignInScreen());
+                },
+                routes: [
+                  GoRoute(
+                    path: 'forgot-password',
+                    name: SignInSubRoutes.forgotPassword.name,
+                    pageBuilder: (context, state) {
+                      return MaterialPage(child: ForgotPasswordScreen());
+                    },
+                  ),
+                ],
+              ),
+              GoRoute(
+                path: 'register',
+                name: WelcomeSubRoutes.register.name,
+                pageBuilder: (context, state) {
+                  return MaterialPage(child: RegisterScreen());
+                },
+              ),
+            ],
           ),
         ],
       ),
@@ -89,47 +93,52 @@ GoRouter goRouter(GoRouterRef ref) {
             pageBuilder: (context, state) {
               return const MaterialPage(child: OnboardingScreen());
             },
-          ),
-          GoRoute(
-            path: '/onboarding/artist-profile',
-            name: OnboardingSubRoutes.artistProfile.name,
-            pageBuilder: (context, state) {
-              return const MaterialPage(child: ArtistProfileScreen());
-            },
-          ),
-          GoRoute(
-            path: '/onboarding/workplace',
-            name: OnboardingSubRoutes.workplace.name,
-            pageBuilder: (context, state) {
-              return const MaterialPage(child: WorkplacesTypeScreen());
-            },
-          ),
-          GoRoute(
-            path: '/onboarding/workplace/add',
-            name: WorkplaceSubRoutes.add.name,
-            pageBuilder: (context, state) {
-              return const MaterialPage(child: AddWorkplaceScreen());
-            },
-          ),
-          GoRoute(
-            path: '/onboarding/workplace/details/:id',
-            name: WorkplaceSubRoutes.details.name,
-            pageBuilder: (context, state) {
-              final String workplaceId = state.pathParameters['id']!;
-              return MaterialPage(
-                  child: WorkplaceDetailsScreen(workplaceId: workplaceId));
-            },
-          ),
-          GoRoute(
-            path: '/onboarding/workplace/availabilities/:workplaceType',
-            name: WorkplaceSubRoutes.availabilities.name,
-            pageBuilder: (context, state) {
-              final String workplaceType =
-                  state.pathParameters['workplaceType']!;
-              return MaterialPage(
-                  child: WorkplaceAvailabilitiesScreen(
-                      workplaceType: workplaceType));
-            },
+            routes: [
+              GoRoute(
+                path: 'artist-profile',
+                name: OnboardingSubRoutes.artistProfile.name,
+                pageBuilder: (context, state) {
+                  return const MaterialPage(child: ArtistProfileScreen());
+                },
+              ),
+              GoRoute(
+                path: 'workplace',
+                name: OnboardingSubRoutes.workplace.name,
+                pageBuilder: (context, state) {
+                  return const MaterialPage(child: WorkplacesTypeScreen());
+                },
+                routes: [
+                  GoRoute(
+                    path: 'add',
+                    name: WorkplaceSubRoutes.add.name,
+                    pageBuilder: (context, state) {
+                      return const MaterialPage(child: AddWorkplaceScreen());
+                    },
+                  ),
+                  GoRoute(
+                    path: 'details/:id',
+                    name: WorkplaceSubRoutes.details.name,
+                    pageBuilder: (context, state) {
+                      final String workplaceId = state.pathParameters['id']!;
+                      return MaterialPage(
+                          child:
+                              WorkplaceDetailsScreen(workplaceId: workplaceId));
+                    },
+                  ),
+                  GoRoute(
+                    path: 'availabilities/:workplaceType',
+                    name: WorkplaceSubRoutes.availabilities.name,
+                    pageBuilder: (context, state) {
+                      final String workplaceType =
+                          state.pathParameters['workplaceType']!;
+                      return MaterialPage(
+                          child: WorkplaceAvailabilitiesScreen(
+                              workplaceType: workplaceType));
+                    },
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),

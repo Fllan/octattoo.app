@@ -41,7 +41,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     _updateStep();
-                    context.pushNamed(OnboardingSubRoutes.artistProfile.name);
+                    GoRouter.of(context)
+                        .pushNamed(OnboardingSubRoutes.artistProfile.name);
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.min,

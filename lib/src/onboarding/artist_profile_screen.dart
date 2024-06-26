@@ -25,162 +25,148 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
   @override
   Widget build(BuildContext context) {
     var isFormValid = _formKey.currentState?.validate();
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Form(
-        onChanged: () => setState(() {}),
-        key: _formKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Artist Profile'.hardcoded,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface,
-                    )),
-            gapH16,
-            Text("Let's set your public artist identity.".hardcoded,
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface,
-                    )),
-            gapH32,
-            TextFormField(
-              controller: _artistNameController,
-              decoration: InputDecoration(
-                labelText: 'Your artist name'.hardcoded,
-                border: const OutlineInputBorder(),
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your artist name'.hardcoded;
-                }
-                return null;
-              },
-            ),
-            gapH20,
-            SwitchListTile(
-              title: Text('I want to show my real names'.hardcoded),
-              value: _showRealNames,
-              onChanged: (value) {
-                setState(() {
-                  _showRealNames = value;
-                });
-              },
-            ),
-            if (_showRealNames) ...[
+    return ListView(children: [
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          onChanged: () => setState(() {}),
+          key: _formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Artist Profile'.hardcoded,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      )),
+              gapH16,
+              Text("Let's set your public artist identity.".hardcoded,
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      )),
+              gapH32,
               TextFormField(
-                controller: _firstnameController,
+                controller: _artistNameController,
                 decoration: InputDecoration(
-                  labelText: 'Firstname'.hardcoded,
+                  labelText: 'Your artist name'.hardcoded,
                   border: const OutlineInputBorder(),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your firstname'.hardcoded;
+                    return 'Please enter your artist name'.hardcoded;
                   }
                   return null;
                 },
               ),
-              gapH12,
-              TextFormField(
-                controller: _lastnameController,
-                decoration: InputDecoration(
-                  labelText: 'Lastname'.hardcoded,
-                  border: const OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your lastname'.hardcoded;
-                  }
-                  return null;
+              gapH20,
+              SwitchListTile(
+                title: Text('I want to show my real names'.hardcoded),
+                value: _showRealNames,
+                onChanged: (value) {
+                  setState(() {
+                    _showRealNames = value;
+                  });
                 },
               ),
-            ],
-            gapH20,
-            SwitchListTile(
-              title: Text('I want to show my pronoun'.hardcoded),
-              enableFeedback: true,
-              value: _showPronoun,
-              onChanged: (value) {
-                setState(() {
-                  _showPronoun = value;
-                });
-              },
-            ),
-            if (_showPronoun) ...[
-              TextFormField(
-                controller: _pronounController,
-                decoration: InputDecoration(
-                  labelText: 'Pronoun'.hardcoded,
-                  border: const OutlineInputBorder(),
+              if (_showRealNames) ...[
+                TextFormField(
+                  controller: _firstnameController,
+                  decoration: InputDecoration(
+                    labelText: 'Firstname'.hardcoded,
+                    border: const OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your firstname'.hardcoded;
+                    }
+                    return null;
+                  },
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your pronoun'.hardcoded;
-                  }
-                  return null;
-                },
-              ),
-            ],
-            gapH32,
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      context.pushNamed(TopLevelDestinations.onboarding.name);
-                    },
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.arrow_back),
-                        gapW4,
-                        Text('Back'.hardcoded),
-                      ],
-                    ),
+                gapH12,
+                TextFormField(
+                  controller: _lastnameController,
+                  decoration: InputDecoration(
+                    labelText: 'Lastname'.hardcoded,
+                    border: const OutlineInputBorder(),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your lastname'.hardcoded;
+                    }
+                    return null;
+                  },
                 ),
-                gapW16,
-                if (isFormValid ?? false)
-                  Expanded(
-                    flex: 1,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        _saveArtistProfile();
-                        context.pushNamed(OnboardingSubRoutes.workplace.name);
-                      },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(Icons.arrow_forward),
-                          gapW4,
-                          Text('Continue'.hardcoded),
-                        ],
-                      ),
-                    ),
-                  ),
-                if (isFormValid == null || !isFormValid)
-                  Expanded(
-                    flex: 2,
-                    child: ElevatedButton(
-                      onPressed: null,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(Icons.arrow_forward),
-                          gapW4,
-                          Text('Continue'.hardcoded),
-                        ],
-                      ),
-                    ),
-                  ),
               ],
-            ),
-          ],
+              gapH20,
+              SwitchListTile(
+                title: Text('I want to show my pronoun'.hardcoded),
+                enableFeedback: true,
+                value: _showPronoun,
+                onChanged: (value) {
+                  setState(() {
+                    _showPronoun = value;
+                  });
+                },
+              ),
+              if (_showPronoun) ...[
+                TextFormField(
+                  controller: _pronounController,
+                  decoration: InputDecoration(
+                    labelText: 'Pronoun'.hardcoded,
+                    border: const OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your pronoun'.hardcoded;
+                    }
+                    return null;
+                  },
+                ),
+              ],
+              gapH32,
+              Row(
+                children: [
+                  gapW16,
+                  if (isFormValid ?? false)
+                    Expanded(
+                      flex: 2,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _saveArtistProfile();
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.arrow_forward),
+                            gapW4,
+                            Text('Continue'.hardcoded),
+                          ],
+                        ),
+                      ),
+                    ),
+                  if (isFormValid == null || !isFormValid)
+                    Expanded(
+                      flex: 2,
+                      child: ElevatedButton(
+                        onPressed: null,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.arrow_forward),
+                            gapW4,
+                            Text('Continue'.hardcoded),
+                          ],
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
-    );
+    ]);
   }
 
   void _saveArtistProfile() async {
@@ -236,7 +222,7 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
   }
 
   void _navigateToNextScreen() {
-    context.pushNamed(OnboardingSubRoutes.workplace.name);
+    GoRouter.of(context).pushNamed(OnboardingSubRoutes.workplace.name);
   }
 
   void _showErrorMessage() {
