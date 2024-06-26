@@ -13,7 +13,7 @@ class CrashlyticsInitializer {
         FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
         return true;
       };
-      logger.i('Firebase Crashlytics initialized successfully');
+      logger.d('Firebase Crashlytics initialized successfully');
     } catch (e) {
       logger.e('Failed to initialize Firebase Crashlytics: $e');
     }

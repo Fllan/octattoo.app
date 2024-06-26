@@ -8,7 +8,7 @@ class AppCheckInitializer {
   static Future<void> initializeAppCheck() async {
     try {
       if (defaultTargetPlatform == TargetPlatform.windows) {
-        logger.i('Firebase App Check is not supported on Windows platform');
+        logger.d('Firebase App Check is not supported on Windows platform');
         return;
       }
       await FirebaseAppCheck.instance.activate(
@@ -17,7 +17,7 @@ class AppCheckInitializer {
         androidProvider: AndroidProvider.debug,
         appleProvider: AppleProvider.appAttest,
       );
-      logger.i('Firebase App Check initialized successfully');
+      logger.d('Firebase App Check initialized successfully');
     } on FirebaseException catch (e) {
       logger.e('Failed to initialize Firebase App Check: $e');
     }

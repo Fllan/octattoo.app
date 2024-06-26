@@ -7,7 +7,7 @@ import 'package:octattoo_app_mvp/core/utils/logger.dart';
 
 class ServiceInitializer {
   static Future<void> initializeAllServices() async {
-    logger.d('Initializing Services...');
+    logger.i('Initializing Services...');
 
     /// Initialize Logger
     LoggerInitializer.setupLogger();
@@ -27,6 +27,6 @@ class ServiceInitializer {
     /// Initialize Crashlytics
     CrashlyticsInitializer.initializeCrashlytics();
 
-    logger.d('All Services Initialized Successfully!');
+    logger.i('All Services Initialized Successfully!');
   }
 }

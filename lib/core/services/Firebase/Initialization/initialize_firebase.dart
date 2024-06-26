@@ -9,7 +9,7 @@ class FirebaseInitializer {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
-      logger.i('Firebase initialized successfully');
+      logger.d('Firebase initialized successfully');
     } catch (e) {
       logger.e('Failed to initialize Firebase: $e');
     }

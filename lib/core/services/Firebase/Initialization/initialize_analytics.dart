@@ -5,7 +5,7 @@ class AnalyticsInitializer {
   static void initializeAnalytics() {
     try {
       FirebaseAnalytics.instance;
-      logger.i('Firebase Analytics initialized successfully');
+      logger.d('Firebase Analytics initialized successfully');
     } catch (e) {
       logger.e('Failed to initialize Firebase Analytics: $e');
     }
