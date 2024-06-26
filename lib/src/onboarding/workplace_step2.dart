@@ -15,7 +15,7 @@ class WorkplaceStep2 extends StatefulWidget {
 
 /// This is the state of the [WorkplaceStep2].
 class _WorkplaceStep2State extends State<WorkplaceStep2> {
-  WorplaceTypes? selectedWorkplaceType;
+  WorkplaceTypes? selectedWorkplaceType;
 
   void _showAddWorkplaceModal(BuildContext context) {
     showModalBottomSheet(
@@ -105,7 +105,8 @@ class _WorkplaceStep2State extends State<WorkplaceStep2> {
                               FilledButton(
                                 onPressed: () {
                                   setState(() {
-                                    selectedWorkplaceType = WorplaceTypes.guest;
+                                    selectedWorkplaceType =
+                                        WorkplaceTypes.guest;
                                   });
                                   _showAddWorkplaceModal(context);
                                 },
@@ -153,7 +154,7 @@ class _WorkplaceStep2State extends State<WorkplaceStep2> {
                                 onPressed: () {
                                   setState(() {
                                     selectedWorkplaceType =
-                                        WorplaceTypes.permanent;
+                                        WorkplaceTypes.permanent;
                                   });
                                   _showAddWorkplaceModal(context);
                                 },

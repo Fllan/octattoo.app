@@ -228,9 +228,4 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
   void _showErrorMessage() {
     // TODO : Implement error handling UI feedback, e.g., SnackBar, AlertDialog
   }
-
-  Future<void> _updateStep() async {
-    final prefs = SharedPreferencesService.instance;
-    await prefs.saveInt(SharedPreferencesKeys.onboardingStep, 2);
-  }
 }

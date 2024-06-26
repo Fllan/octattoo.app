@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:octattoo_app_mvp/core/constants/worplace_types.dart';
 
 class WorkplaceAvailabilitiesScreen extends StatefulWidget {
-  final String workplaceType;
+  final WorkplaceTypes workplaceType;
   const WorkplaceAvailabilitiesScreen({super.key, required this.workplaceType});
 
   @override

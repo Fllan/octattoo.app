@@ -11,6 +11,7 @@ enum SharedPreferencesKeys {
   onboardingFirstname,
   onboardingLastname,
   onboardingPronoun,
+  onboardingWorkplaceType,
 }
 
 /// SharedPreferencesService is a singleton class that provides methods to save and retrieve data from SharedPreferences.

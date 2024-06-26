@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:octattoo_app_mvp/core/constants/worplace_types.dart';
 import 'package:octattoo_app_mvp/core/router/redirections/redirect.dart';
 import 'package:octattoo_app_mvp/core/router/routes.dart';
 import 'package:octattoo_app_mvp/core/router/shells/onboarding_shell.dart';
@@ -129,8 +130,8 @@ GoRouter goRouter(GoRouterRef ref) {
                     path: 'availabilities/:workplaceType',
                     name: WorkplaceSubRoutes.availabilities.name,
                     pageBuilder: (context, state) {
-                      final String workplaceType =
-                          state.pathParameters['workplaceType']!;
+                      final WorkplaceTypes workplaceType = state
+                          .pathParameters['workplaceType'] as WorkplaceTypes;
                       return MaterialPage(
                           child: WorkplaceAvailabilitiesScreen(
                               workplaceType: workplaceType));

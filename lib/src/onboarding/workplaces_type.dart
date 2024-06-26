@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app_mvp/core/constants/gaps.dart';
+import 'package:octattoo_app_mvp/core/router/routes.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
+import 'package:octattoo_app_mvp/core/constants/worplace_types.dart';
+import 'package:octattoo_app_mvp/core/utils/logger.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences.dart';
 
 class WorkplacesTypeScreen extends StatefulWidget {
   const WorkplacesTypeScreen({super.key});
@@ -68,7 +72,9 @@ class _WorkplacesTypeScreenState extends State<WorkplacesTypeScreen> {
                             ),
                             FilledButton(
                               onPressed: () {
-                                // action to add a new guest workplace
+                                _saveWorkplaceType(WorkplaceTypes.guest);
+                                GoRouter.of(context)
+                                    .pushNamed(WorkplaceSubRoutes.add.name);
                               },
                               child: const Text('New guest'),
                             ),
@@ -113,7 +119,9 @@ class _WorkplacesTypeScreenState extends State<WorkplacesTypeScreen> {
                             ),
                             FilledButton(
                               onPressed: () {
-                                // action to add a new permanent workplace
+                                _saveWorkplaceType(WorkplaceTypes.permanent);
+                                GoRouter.of(context)
+                                    .pushNamed(WorkplaceSubRoutes.add.name);
                               },
                               child: const Text('New Permanent'),
                             ),
@@ -143,5 +151,13 @@ class _WorkplacesTypeScreenState extends State<WorkplacesTypeScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> _saveWorkplaceType(WorkplaceTypes workplaceType) async {
+    final prefs = SharedPreferencesService.instance;
+    await prefs.saveString(
+        SharedPreferencesKeys.onboardingWorkplaceType, workplaceType.value);
+    logger.d(
+        'Workplace type saved: ${await prefs.getString(SharedPreferencesKeys.onboardingWorkplaceType)}');
   }
 }
