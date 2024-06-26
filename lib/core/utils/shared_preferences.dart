@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 enum SharedPreferencesKeys {
   locale,
   theme,
+  onboardingStep, // 0: Start, 1: Artist Profile, 2: Workplace Type,
   onboardingArtistName,
   onboardingShowRealNames,
   onboardingShowPronoun,

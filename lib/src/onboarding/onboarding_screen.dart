@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:octattoo_app_mvp/core/constants/gaps.dart';
 import 'package:octattoo_app_mvp/core/router/routes.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
+import 'package:octattoo_app_mvp/core/utils/logger.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -38,6 +40,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {
+                    _updateStep();
                     context.pushNamed(OnboardingSubRoutes.artistProfile.name);
                   },
                   child: Row(
@@ -54,5 +57,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> _updateStep() async {
+    final prefs = SharedPreferencesService.instance;
+    await prefs.saveInt(SharedPreferencesKeys.onboardingStep, 1);
+    logger.d(
+        'Onboarding step updated to :${await prefs.getInt(SharedPreferencesKeys.onboardingStep)}');
   }
 }

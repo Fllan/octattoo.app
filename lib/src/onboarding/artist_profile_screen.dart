@@ -124,10 +124,27 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
               ),
             ],
             gapH32,
-            if (isFormValid ?? false)
-              Row(
-                children: [
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      context.pushNamed(TopLevelDestinations.onboarding.name);
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.arrow_back),
+                        gapW4,
+                        Text('Back'.hardcoded),
+                      ],
+                    ),
+                  ),
+                ),
+                gapW16,
+                if (isFormValid ?? false)
                   Expanded(
+                    flex: 1,
                     child: ElevatedButton(
                       onPressed: () {
                         _saveArtistProfile();
@@ -143,12 +160,9 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
                       ),
                     ),
                   ),
-                ],
-              ),
-            if (isFormValid == null || !isFormValid)
-              Row(
-                children: [
+                if (isFormValid == null || !isFormValid)
                   Expanded(
+                    flex: 2,
                     child: ElevatedButton(
                       onPressed: null,
                       child: Row(
@@ -161,8 +175,8 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
                       ),
                     ),
                   ),
-                ],
-              ),
+              ],
+            ),
           ],
         ),
       ),
@@ -226,6 +240,11 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
   }
 
   void _showErrorMessage() {
-    // Implement error handling UI feedback, e.g., SnackBar, AlertDialog
+    // TODO : Implement error handling UI feedback, e.g., SnackBar, AlertDialog
+  }
+
+  Future<void> _updateStep() async {
+    final prefs = SharedPreferencesService.instance;
+    await prefs.saveInt(SharedPreferencesKeys.onboardingStep, 2);
   }
 }

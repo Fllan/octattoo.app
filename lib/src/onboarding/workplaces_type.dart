@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:octattoo_app_mvp/core/constants/gaps.dart';
+import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
 
 class WorkplacesTypeScreen extends StatefulWidget {
   const WorkplacesTypeScreen({super.key});
@@ -10,6 +12,121 @@ class WorkplacesTypeScreen extends StatefulWidget {
 class _WorkplacesTypeScreenState extends State<WorkplacesTypeScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Add a workplace'.hardcoded,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  )),
+          gapH16,
+          Text(
+            'Select a type of workplace to add your first one. You can add other workplaces later.'
+                .hardcoded,
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+          ),
+          gapH32,
+          IntrinsicHeight(
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  'Guest'.hardcoded,
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                                gapH24,
+                                Icon(
+                                  Icons.work_history_outlined,
+                                  size: 68,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant,
+                                ),
+                                gapH24,
+                                const Text(
+                                  'When you tattoo for a period of time in a specific workplace',
+                                  textAlign: TextAlign.center,
+                                ),
+                                gapH24,
+                              ],
+                            ),
+                            FilledButton(
+                              onPressed: () {
+                                // action to add a new guest workplace
+                              },
+                              child: const Text('New guest'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                gapW16,
+                Expanded(
+                  flex: 1,
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  'Permanent'.hardcoded,
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                                gapH24,
+                                Icon(
+                                  Icons.storefront_outlined,
+                                  size: 68,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant,
+                                ),
+                                gapH24,
+                                const Text(
+                                  'Where you tattoo most of your time',
+                                  textAlign: TextAlign.center,
+                                ),
+                                gapH24,
+                              ],
+                            ),
+                            FilledButton(
+                              onPressed: () {
+                                // action to add a new permanent workplace
+                              },
+                              child: const Text('New Permanent'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
