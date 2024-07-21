@@ -21,6 +21,11 @@ class Workplace with _$Workplace {
     required DocumentReference createdBy,
     required List<TattooArtist> permanentTattooArtists,
     required List<TattooArtist> guestTattooArtists,
+    required String street,
+    required String city,
+    required String province,
+    required String country,
+    required String postalCode,
   }) = _Workplace;
 
   /// Creates a new [Workplace] from a JSON map.

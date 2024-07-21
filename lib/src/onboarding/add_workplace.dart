@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:octattoo_app_mvp/core/constants/gaps.dart';
 import 'package:octattoo_app_mvp/core/constants/worplace_types.dart';
+import 'package:octattoo_app_mvp/core/router/routes.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
 import 'package:octattoo_app_mvp/core/utils/shared_preferences.dart';
 
@@ -160,57 +162,241 @@ class CreateNewTab extends StatefulWidget {
 }
 
 class _CreateNewTabState extends State<CreateNewTab> {
-  bool value = false;
+  var _isManager = false;
+
+  final _formKey = GlobalKey<FormState>();
+  final _workplaceNameController = TextEditingController();
+  final _streetController = TextEditingController();
+  final _cityController = TextEditingController();
+  final _provinceController = TextEditingController();
+  final _countryController = TextEditingController();
+  final _postalCodeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        gapH24,
-        Text('Workplace name'.hardcoded,
-            style: Theme.of(context)
-                .textTheme
-                .labelLarge
-                ?.copyWith(color: Theme.of(context).colorScheme.onSurface)),
-        gapH16,
-        const TextField(
-          decoration: InputDecoration(
-            labelText: 'Workplace name',
-            border: OutlineInputBorder(),
-          ),
+    var isFormValid = _formKey.currentState?.validate();
+    return Form(
+      onChanged: () => setState(() {}),
+      key: _formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            gapH24,
+            Text('Workplace name'.hardcoded,
+                style: Theme.of(context)
+                    .textTheme
+                    .labelLarge
+                    ?.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+            gapH16,
+            TextFormField(
+              keyboardType: TextInputType.text,
+              controller: _workplaceNameController,
+              decoration: const InputDecoration(
+                labelText: 'Workplace name',
+                border: OutlineInputBorder(),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a name'.hardcoded;
+                }
+                return null;
+              },
+            ),
+            gapH8,
+            SwitchListTile(
+              value: _isManager,
+              title: Text(
+                'I manage this place'.hardcoded,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge
+                    ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
+              ),
+              subtitle: Text(
+                'As manager of the workplace, you will be able to add photos and details about the place later.'
+                    .hardcoded,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant),
+              ),
+              onChanged: (newValue) {
+                setState(() {
+                  _isManager = newValue;
+                });
+              },
+            ),
+            gapH32,
+            Text('Address'.hardcoded,
+                style: Theme.of(context)
+                    .textTheme
+                    .labelLarge
+                    ?.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+            gapH16,
+            TextFormField(
+              keyboardType: TextInputType.streetAddress,
+              controller: _streetController,
+              decoration: InputDecoration(
+                labelText: 'Street'.hardcoded,
+                border: const OutlineInputBorder(),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a street name & number'.hardcoded;
+                }
+                return null;
+              },
+            ),
+            gapH8,
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    controller: _cityController,
+                    keyboardType: TextInputType.streetAddress,
+                    decoration: InputDecoration(
+                      labelText: 'City'.hardcoded,
+                      border: const OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a city name'.hardcoded;
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                gapW8,
+                Expanded(
+                  child: TextFormField(
+                    keyboardType: TextInputType.streetAddress,
+                    controller: _provinceController,
+                    decoration: InputDecoration(
+                      labelText: 'Province'.hardcoded,
+                      border: const OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a province name'.hardcoded;
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+              ],
+            ),
+            gapH8,
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    controller: _postalCodeController,
+                    keyboardType: TextInputType.streetAddress,
+                    decoration: InputDecoration(
+                      labelText: 'Postal Code'.hardcoded,
+                      border: const OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a postal code'.hardcoded;
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                gapW8,
+                Expanded(
+                  child: TextFormField(
+                    controller: _countryController,
+                    keyboardType: TextInputType.streetAddress,
+                    decoration: InputDecoration(
+                      labelText: 'Country'.hardcoded,
+                      border: const OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a country name'.hardcoded;
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+              ],
+            ),
+            gapH32,
+            Row(
+              children: [
+                gapW16,
+                if (isFormValid ?? false)
+                  Expanded(
+                    flex: 2,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _createGuestWorkplace();
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.add_business),
+                          gapW4,
+                          Text('Add'.hardcoded),
+                        ],
+                      ),
+                    ),
+                  ),
+                if (isFormValid == null || !isFormValid)
+                  Expanded(
+                    flex: 2,
+                    child: ElevatedButton(
+                      onPressed: null,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.add_business),
+                          gapW4,
+                          Text('Add'.hardcoded),
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ],
         ),
-        gapH8,
-        SwitchListTile(
-          value: value,
-          title: Text(
-            'I manage this place'.hardcoded,
-            style: Theme.of(context)
-                .textTheme
-                .bodyLarge
-                ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
-          ),
-          subtitle: Text(
-            'As manager of the workplace, you will be able to add photos and details about the place later.'
-                .hardcoded,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant),
-          ),
-          onChanged: (newValue) {
-            setState(() {
-              value = newValue;
-            });
-          },
-        ),
-        gapH32,
-        Text('Address'.hardcoded,
-            style: Theme.of(context)
-                .textTheme
-                .labelLarge
-                ?.copyWith(color: Theme.of(context).colorScheme.onSurface)),
-        gapH16,
-      ],
+      ),
     );
+  }
+
+  void _createGuestWorkplace() async {
+    // Implement add workplace logic
+
+    if (!_validateForm()) return;
+
+    try {
+      await _addNewWorkplaceinFirestore();
+      _navigateToNextScreen();
+    } catch (e) {
+      _showErrorMessage();
+    }
+  }
+
+  bool _validateForm() {
+    return _formKey.currentState?.validate() ?? false;
+  }
+
+  _addNewWorkplaceinFirestore() {
+    // function to create a workplace in a collection in Firestore
+    // return the workplaceID created
+  }
+
+  void _navigateToNextScreen() {
+    var workplaceIDcreated;
+    GoRouter.of(context).pushNamed(WorkplaceSubRoutes.details.name,
+        pathParameters: {'workplaceID': '$workplaceIDcreated'});
+  }
+
+  void _showErrorMessage() {
+    // TODO : Implement error handling UI feedback, e.g., SnackBar, AlertDialog
   }
 }

@@ -30,6 +30,11 @@ mixin _$Workplace {
       throw _privateConstructorUsedError;
   List<TattooArtist> get guestTattooArtists =>
       throw _privateConstructorUsedError;
+  String get street => throw _privateConstructorUsedError;
+  String get city => throw _privateConstructorUsedError;
+  String get province => throw _privateConstructorUsedError;
+  String get country => throw _privateConstructorUsedError;
+  String get postalCode => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +54,12 @@ abstract class $WorkplaceCopyWith<$Res> {
       DateTime createdAt,
       DocumentReference<Object?> createdBy,
       List<TattooArtist> permanentTattooArtists,
-      List<TattooArtist> guestTattooArtists});
+      List<TattooArtist> guestTattooArtists,
+      String street,
+      String city,
+      String province,
+      String country,
+      String postalCode});
 }
 
 /// @nodoc
@@ -72,6 +82,11 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
     Object? createdBy = null,
     Object? permanentTattooArtists = null,
     Object? guestTattooArtists = null,
+    Object? street = null,
+    Object? city = null,
+    Object? province = null,
+    Object? country = null,
+    Object? postalCode = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -102,6 +117,26 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
           ? _value.guestTattooArtists
           : guestTattooArtists // ignore: cast_nullable_to_non_nullable
               as List<TattooArtist>,
+      street: null == street
+          ? _value.street
+          : street // ignore: cast_nullable_to_non_nullable
+              as String,
+      city: null == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String,
+      province: null == province
+          ? _value.province
+          : province // ignore: cast_nullable_to_non_nullable
+              as String,
+      country: null == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String,
+      postalCode: null == postalCode
+          ? _value.postalCode
+          : postalCode // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -121,7 +156,12 @@ abstract class _$$WorkplaceImplCopyWith<$Res>
       DateTime createdAt,
       DocumentReference<Object?> createdBy,
       List<TattooArtist> permanentTattooArtists,
-      List<TattooArtist> guestTattooArtists});
+      List<TattooArtist> guestTattooArtists,
+      String street,
+      String city,
+      String province,
+      String country,
+      String postalCode});
 }
 
 /// @nodoc
@@ -142,6 +182,11 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
     Object? createdBy = null,
     Object? permanentTattooArtists = null,
     Object? guestTattooArtists = null,
+    Object? street = null,
+    Object? city = null,
+    Object? province = null,
+    Object? country = null,
+    Object? postalCode = null,
   }) {
     return _then(_$WorkplaceImpl(
       id: null == id
@@ -172,6 +217,26 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
           ? _value._guestTattooArtists
           : guestTattooArtists // ignore: cast_nullable_to_non_nullable
               as List<TattooArtist>,
+      street: null == street
+          ? _value.street
+          : street // ignore: cast_nullable_to_non_nullable
+              as String,
+      city: null == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String,
+      province: null == province
+          ? _value.province
+          : province // ignore: cast_nullable_to_non_nullable
+              as String,
+      country: null == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String,
+      postalCode: null == postalCode
+          ? _value.postalCode
+          : postalCode // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -187,7 +252,12 @@ class _$WorkplaceImpl implements _Workplace {
       required this.createdAt,
       required this.createdBy,
       required final List<TattooArtist> permanentTattooArtists,
-      required final List<TattooArtist> guestTattooArtists})
+      required final List<TattooArtist> guestTattooArtists,
+      required this.street,
+      required this.city,
+      required this.province,
+      required this.country,
+      required this.postalCode})
       : _permanentTattooArtists = permanentTattooArtists,
         _guestTattooArtists = guestTattooArtists;
 
@@ -223,8 +293,19 @@ class _$WorkplaceImpl implements _Workplace {
   }
 
   @override
+  final String street;
+  @override
+  final String city;
+  @override
+  final String province;
+  @override
+  final String country;
+  @override
+  final String postalCode;
+
+  @override
   String toString() {
-    return 'Workplace(id: $id, name: $name, updatedAt: $updatedAt, createdAt: $createdAt, createdBy: $createdBy, permanentTattooArtists: $permanentTattooArtists, guestTattooArtists: $guestTattooArtists)';
+    return 'Workplace(id: $id, name: $name, updatedAt: $updatedAt, createdAt: $createdAt, createdBy: $createdBy, permanentTattooArtists: $permanentTattooArtists, guestTattooArtists: $guestTattooArtists, street: $street, city: $city, province: $province, country: $country, postalCode: $postalCode)';
   }
 
   @override
@@ -243,7 +324,14 @@ class _$WorkplaceImpl implements _Workplace {
             const DeepCollectionEquality().equals(
                 other._permanentTattooArtists, _permanentTattooArtists) &&
             const DeepCollectionEquality()
-                .equals(other._guestTattooArtists, _guestTattooArtists));
+                .equals(other._guestTattooArtists, _guestTattooArtists) &&
+            (identical(other.street, street) || other.street == street) &&
+            (identical(other.city, city) || other.city == city) &&
+            (identical(other.province, province) ||
+                other.province == province) &&
+            (identical(other.country, country) || other.country == country) &&
+            (identical(other.postalCode, postalCode) ||
+                other.postalCode == postalCode));
   }
 
   @JsonKey(ignore: true)
@@ -256,7 +344,12 @@ class _$WorkplaceImpl implements _Workplace {
       createdAt,
       createdBy,
       const DeepCollectionEquality().hash(_permanentTattooArtists),
-      const DeepCollectionEquality().hash(_guestTattooArtists));
+      const DeepCollectionEquality().hash(_guestTattooArtists),
+      street,
+      city,
+      province,
+      country,
+      postalCode);
 
   @JsonKey(ignore: true)
   @override
@@ -280,7 +373,12 @@ abstract class _Workplace implements Workplace {
       required final DateTime createdAt,
       required final DocumentReference<Object?> createdBy,
       required final List<TattooArtist> permanentTattooArtists,
-      required final List<TattooArtist> guestTattooArtists}) = _$WorkplaceImpl;
+      required final List<TattooArtist> guestTattooArtists,
+      required final String street,
+      required final String city,
+      required final String province,
+      required final String country,
+      required final String postalCode}) = _$WorkplaceImpl;
 
   factory _Workplace.fromJson(Map<String, dynamic> json) =
       _$WorkplaceImpl.fromJson;
@@ -299,6 +397,16 @@ abstract class _Workplace implements Workplace {
   List<TattooArtist> get permanentTattooArtists;
   @override
   List<TattooArtist> get guestTattooArtists;
+  @override
+  String get street;
+  @override
+  String get city;
+  @override
+  String get province;
+  @override
+  String get country;
+  @override
+  String get postalCode;
   @override
   @JsonKey(ignore: true)
   _$$WorkplaceImplCopyWith<_$WorkplaceImpl> get copyWith =>

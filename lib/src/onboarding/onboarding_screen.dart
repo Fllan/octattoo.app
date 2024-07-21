@@ -18,44 +18,46 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          gapH64,
-          Text(
-            'Welcome in the community!'.hardcoded,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-          ),
-          gapH16,
-          const Placeholder(
-            fallbackHeight: 200,
-            fallbackWidth: 200,
-          ),
-          gapH16,
-          Row(
-            children: [
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () {
-                    _updateStep();
-                    GoRouter.of(context)
-                        .pushNamed(OnboardingSubRoutes.artistProfile.name);
-                  },
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(Icons.self_improvement_outlined),
-                      Text('Start onboarding'.hardcoded),
-                    ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            gapH64,
+            Text(
+              'Welcome in the community!'.hardcoded,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+            ),
+            gapH16,
+            const Placeholder(
+              fallbackHeight: 200,
+              fallbackWidth: 200,
+            ),
+            gapH16,
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _updateStep();
+                      GoRouter.of(context)
+                          .pushNamed(OnboardingSubRoutes.artistProfile.name);
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.self_improvement_outlined),
+                        Text('Start onboarding'.hardcoded),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

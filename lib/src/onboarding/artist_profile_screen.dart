@@ -25,13 +25,13 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
   @override
   Widget build(BuildContext context) {
     var isFormValid = _formKey.currentState?.validate();
-    return ListView(children: [
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          onChanged: () => setState(() {}),
-          key: _formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Form(
+        onChanged: () => setState(() {}),
+        key: _formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,7 +166,7 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
           ),
         ),
       ),
-    ]);
+    );
   }
 
   void _saveArtistProfile() async {

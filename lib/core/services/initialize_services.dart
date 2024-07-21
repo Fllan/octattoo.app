@@ -1,3 +1,4 @@
+import 'package:octattoo_app_mvp/core/services/firebase/initialization/initialize_firestore.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/initialization/initialize_analytics.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/initialization/initialize_app_check.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/initialization/initialize_crashlytics.dart';
@@ -26,6 +27,9 @@ class ServiceInitializer {
 
     /// Initialize Crashlytics
     CrashlyticsInitializer.initializeCrashlytics();
+
+    /// Initialize Firestore
+    FirestoreInitializer.initializeFirestore();
 
     logger.i('All Services Initialized Successfully!');
   }

@@ -20,6 +20,11 @@ _$WorkplaceImpl _$$WorkplaceImplFromJson(Map<String, dynamic> json) =>
       guestTattooArtists: (json['guestTattooArtists'] as List<dynamic>)
           .map((e) => TattooArtist.fromJson(e as Map<String, dynamic>))
           .toList(),
+      street: json['street'] as String,
+      city: json['city'] as String,
+      province: json['province'] as String,
+      country: json['country'] as String,
+      postalCode: json['postalCode'] as String,
     );
 
 Map<String, dynamic> _$$WorkplaceImplToJson(_$WorkplaceImpl instance) =>
@@ -32,4 +37,9 @@ Map<String, dynamic> _$$WorkplaceImplToJson(_$WorkplaceImpl instance) =>
           const DocumentReferenceConverter().toJson(instance.createdBy),
       'permanentTattooArtists': instance.permanentTattooArtists,
       'guestTattooArtists': instance.guestTattooArtists,
+      'street': instance.street,
+      'city': instance.city,
+      'province': instance.province,
+      'country': instance.country,
+      'postalCode': instance.postalCode,
     };
