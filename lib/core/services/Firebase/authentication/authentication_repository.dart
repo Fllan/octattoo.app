@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -70,7 +71,8 @@ class AuthRepository {
     }
   }
 
-  Future<void> sendPasswordResetEmail(String email, BuildContext context) async {
+  Future<void> sendPasswordResetEmail(
+      String email, BuildContext context) async {
     try {
       logger.d('Sending password reset email to $email');
       await _auth.sendPasswordResetEmail(email: email);
@@ -92,9 +94,6 @@ class AuthRepository {
         );
       }
     }
-
-
-
     return _auth.sendPasswordResetEmail(email: email);
   }
 

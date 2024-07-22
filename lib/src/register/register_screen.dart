@@ -18,7 +18,7 @@ class RegisterScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      resizeToAvoidBottomInset : false,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Register'),
       ),
@@ -36,12 +36,11 @@ class RegisterScreen extends ConsumerWidget {
                 gapH20,
                 ElevatedButton(
                   onPressed: () {
-                    // Implement Start as Guest logic
                     ref.read(authRepositoryProvider).signInAnonymously();
                   },
                   style: ElevatedButton.styleFrom(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
@@ -56,7 +55,8 @@ class RegisterScreen extends ConsumerWidget {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        const Text('Or sign up with your email:', style: TextStyle(fontSize: 16)),
+                        const Text('Or sign up with your email:',
+                            style: TextStyle(fontSize: 16)),
                         gapH20,
                         TextFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -102,16 +102,21 @@ class RegisterScreen extends ConsumerWidget {
                           onPressed: () {
                             if (_key.currentState!.validate()) {
                               if (_password.text == _confirmedPassword.text) {
-                                ref.watch(authRepositoryProvider).createUserWithEmailAndPassword(_email.text, _password.text, context);
+                                ref
+                                    .watch(authRepositoryProvider)
+                                    .createUserWithEmailAndPassword(
+                                        _email.text, _password.text, context);
                               } else {
-                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
                                   content: Text('Passwords do not match'),
                                 ));
                               }
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 50, vertical: 15),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
@@ -129,6 +134,4 @@ class RegisterScreen extends ConsumerWidget {
       ),
     );
   }
-
-
 }

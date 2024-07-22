@@ -10,6 +10,8 @@ _$WorkplaceImpl _$$WorkplaceImplFromJson(Map<String, dynamic> json) =>
     _$WorkplaceImpl(
       id: json['id'] as String,
       name: json['name'] as String,
+      description: json['description'] as String,
+      type: $enumDecode(_$WorkplaceTypesEnumMap, json['type']),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       createdAt: DateTime.parse(json['createdAt'] as String),
       createdBy: const DocumentReferenceConverter()
@@ -31,6 +33,8 @@ Map<String, dynamic> _$$WorkplaceImplToJson(_$WorkplaceImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
+      'description': instance.description,
+      'type': _$WorkplaceTypesEnumMap[instance.type]!,
       'updatedAt': instance.updatedAt.toIso8601String(),
       'createdAt': instance.createdAt.toIso8601String(),
       'createdBy':
@@ -43,3 +47,8 @@ Map<String, dynamic> _$$WorkplaceImplToJson(_$WorkplaceImpl instance) =>
       'country': instance.country,
       'postalCode': instance.postalCode,
     };
+
+const _$WorkplaceTypesEnumMap = {
+  WorkplaceTypes.guest: 'guest',
+  WorkplaceTypes.permanent: 'permanent',
+};

@@ -1,3 +1,4 @@
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// SharedPreferencesKeys is an enum that contains all the keys used to save and retrieve data from SharedPreferences.

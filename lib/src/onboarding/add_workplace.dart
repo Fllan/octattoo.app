@@ -1,13 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app_mvp/core/constants/gaps.dart';
 import 'package:octattoo_app_mvp/core/constants/worplace_types.dart';
+import 'package:octattoo_app_mvp/core/models/workplace.dart';
 import 'package:octattoo_app_mvp/core/router/routes.dart';
+import 'package:octattoo_app_mvp/core/services/firebase/authentication/authentication_repository.dart';
+import 'package:octattoo_app_mvp/core/services/firebase/firestore/providers/workplaces_repository.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
-import 'package:octattoo_app_mvp/core/utils/shared_preferences.dart';
 
 class AddWorkplaceScreen extends StatefulWidget {
-  const AddWorkplaceScreen({super.key});
+  final String selectedType;
+  const AddWorkplaceScreen({super.key, required this.selectedType});
 
   @override
   State<AddWorkplaceScreen> createState() => _AddWorkplaceScreenState();
@@ -15,11 +20,6 @@ class AddWorkplaceScreen extends StatefulWidget {
 
 class _AddWorkplaceScreenState extends State<AddWorkplaceScreen>
     with SingleTickerProviderStateMixin {
-  Future<String?> getselectedWorkplaceType() async {
-    final prefs = SharedPreferencesService.instance;
-    return prefs.getString(SharedPreferencesKeys.onboardingWorkplaceType);
-  }
-
   late TabController _tabController;
 
   @override
@@ -36,34 +36,16 @@ class _AddWorkplaceScreenState extends State<AddWorkplaceScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: FutureBuilder(
-        future: getselectedWorkplaceType(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-          }
-          if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          }
-          return _buildContent(snapshot.data);
-        },
-      ),
-    );
-  }
-
-  Widget _buildContent(String? data) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (data == WorkplaceTypes.permanent.value)
+        if (widget.selectedType == WorkplaceTypes.permanent.value)
           Text('Select your permanent workplace'.hardcoded,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     color: Theme.of(context).colorScheme.onSurface,
                   )),
-        if (data == WorkplaceTypes.guest.value)
+        if (widget.selectedType == WorkplaceTypes.guest.value)
           Text('Select your guest workplace'.hardcoded,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     color: Theme.of(context).colorScheme.onSurface,
@@ -89,9 +71,9 @@ class _AddWorkplaceScreenState extends State<AddWorkplaceScreen>
         Expanded(
           child: TabBarView(
             controller: _tabController,
-            children: const [
-              SearchTab(),
-              CreateNewTab(),
+            children: [
+              const SearchTab(),
+              CreateNewTab(widget.selectedType),
             ],
           ),
         ),
@@ -152,16 +134,15 @@ class _SearchTabState extends State<SearchTab> {
   }
 }
 
-class CreateNewTab extends StatefulWidget {
-  const CreateNewTab({
-    super.key,
-  });
+class CreateNewTab extends ConsumerStatefulWidget {
+  final String selectedType;
+  const CreateNewTab(this.selectedType, {super.key});
 
   @override
-  State<CreateNewTab> createState() => _CreateNewTabState();
+  ConsumerState<CreateNewTab> createState() => _CreateNewTabState();
 }
 
-class _CreateNewTabState extends State<CreateNewTab> {
+class _CreateNewTabState extends ConsumerState<CreateNewTab> {
   var _isManager = false;
 
   final _formKey = GlobalKey<FormState>();
@@ -194,9 +175,9 @@ class _CreateNewTabState extends State<CreateNewTab> {
             TextFormField(
               keyboardType: TextInputType.text,
               controller: _workplaceNameController,
-              decoration: const InputDecoration(
-                labelText: 'Workplace name',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: 'Workplace name'.hardcoded,
+                border: const OutlineInputBorder(),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -369,13 +350,11 @@ class _CreateNewTabState extends State<CreateNewTab> {
   }
 
   void _createGuestWorkplace() async {
-    // Implement add workplace logic
-
     if (!_validateForm()) return;
 
     try {
-      await _addNewWorkplaceinFirestore();
-      _navigateToNextScreen();
+      final workplaceId = await _addNewWorkplaceinFirestore();
+      _navigateToNextScreen(workplaceId);
     } catch (e) {
       _showErrorMessage();
     }
@@ -385,15 +364,35 @@ class _CreateNewTabState extends State<CreateNewTab> {
     return _formKey.currentState?.validate() ?? false;
   }
 
-  _addNewWorkplaceinFirestore() {
-    // function to create a workplace in a collection in Firestore
-    // return the workplaceID created
+  _addNewWorkplaceinFirestore() async {
+    final workplaceRepository = ref.watch(workplacesRepositoryProvider);
+    final authUserId = ref.watch(authStateChangesProvider).value!.uid;
+
+    final workplaceId = workplaceRepository.create(
+        Workplace(
+          id: '',
+          name: _workplaceNameController.text,
+          description: '',
+          type: widget.selectedType as WorkplaceTypes,
+          updatedAt: DateTime.now(),
+          createdAt: DateTime.now(),
+          createdBy: authUserId as DocumentReference,
+          permanentTattooArtists: [],
+          guestTattooArtists: [],
+          street: _streetController.text,
+          city: _cityController.text,
+          province: _provinceController.text,
+          country: _countryController.text,
+          postalCode: _postalCodeController.text,
+        ),
+        authUserId);
+
+    return workplaceId;
   }
 
-  void _navigateToNextScreen() {
-    var workplaceIDcreated;
+  void _navigateToNextScreen(String workplaceId) {
     GoRouter.of(context).pushNamed(WorkplaceSubRoutes.details.name,
-        pathParameters: {'workplaceID': '$workplaceIDcreated'});
+        pathParameters: {'workplaceID': workplaceId});
   }
 
   void _showErrorMessage() {

@@ -113,7 +113,11 @@ GoRouter goRouter(GoRouterRef ref) {
                     path: 'add',
                     name: WorkplaceSubRoutes.add.name,
                     pageBuilder: (context, state) {
-                      return const MaterialPage(child: AddWorkplaceScreen());
+                      final String selectedType =
+                          state.pathParameters['selectedType']!;
+                      return MaterialPage(
+                          child:
+                              AddWorkplaceScreen(selectedType: selectedType));
                     },
                   ),
                   GoRoute(

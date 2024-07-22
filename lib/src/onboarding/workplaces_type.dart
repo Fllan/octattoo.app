@@ -4,8 +4,6 @@ import 'package:octattoo_app_mvp/core/constants/gaps.dart';
 import 'package:octattoo_app_mvp/core/router/routes.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
 import 'package:octattoo_app_mvp/core/constants/worplace_types.dart';
-import 'package:octattoo_app_mvp/core/utils/logger.dart';
-import 'package:octattoo_app_mvp/core/utils/shared_preferences.dart';
 
 class WorkplacesTypeScreen extends StatefulWidget {
   const WorkplacesTypeScreen({super.key});
@@ -73,11 +71,14 @@ class _WorkplacesTypeScreenState extends State<WorkplacesTypeScreen> {
                               ),
                               FilledButton(
                                 onPressed: () {
-                                  _saveWorkplaceType(WorkplaceTypes.guest);
-                                  GoRouter.of(context)
-                                      .pushNamed(WorkplaceSubRoutes.add.name);
+                                  GoRouter.of(context).pushNamed(
+                                    WorkplaceSubRoutes.add.name,
+                                    pathParameters: {
+                                      'selectedType': WorkplaceTypes.guest.value
+                                    },
+                                  );
                                 },
-                                child: const Text('New guest'),
+                                child: Text('New guest'.hardcoded),
                               ),
                             ],
                           ),
@@ -120,11 +121,15 @@ class _WorkplacesTypeScreenState extends State<WorkplacesTypeScreen> {
                               ),
                               FilledButton(
                                 onPressed: () {
-                                  _saveWorkplaceType(WorkplaceTypes.permanent);
-                                  GoRouter.of(context)
-                                      .pushNamed(WorkplaceSubRoutes.add.name);
+                                  GoRouter.of(context).pushNamed(
+                                    WorkplaceSubRoutes.add.name,
+                                    pathParameters: {
+                                      'selectedType':
+                                          WorkplaceTypes.permanent.value
+                                    },
+                                  );
                                 },
-                                child: const Text('New Permanent'),
+                                child: Text('New Permanent'.hardcoded),
                               ),
                             ],
                           ),
@@ -153,13 +158,5 @@ class _WorkplacesTypeScreenState extends State<WorkplacesTypeScreen> {
         ),
       ),
     );
-  }
-
-  Future<void> _saveWorkplaceType(WorkplaceTypes workplaceType) async {
-    final prefs = SharedPreferencesService.instance;
-    await prefs.saveString(
-        SharedPreferencesKeys.onboardingWorkplaceType, workplaceType.value);
-    logger.d(
-        'Workplace type saved: ${await prefs.getString(SharedPreferencesKeys.onboardingWorkplaceType)}');
   }
 }

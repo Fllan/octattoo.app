@@ -22,6 +22,8 @@ Workplace _$WorkplaceFromJson(Map<String, dynamic> json) {
 mixin _$Workplace {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  WorkplaceTypes get type => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DocumentReference<Object?> get createdBy =>
@@ -50,6 +52,8 @@ abstract class $WorkplaceCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
+      String description,
+      WorkplaceTypes type,
       DateTime updatedAt,
       DateTime createdAt,
       DocumentReference<Object?> createdBy,
@@ -77,6 +81,8 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? description = null,
+    Object? type = null,
     Object? updatedAt = null,
     Object? createdAt = null,
     Object? createdBy = null,
@@ -97,6 +103,14 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as WorkplaceTypes,
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -152,6 +166,8 @@ abstract class _$$WorkplaceImplCopyWith<$Res>
   $Res call(
       {String id,
       String name,
+      String description,
+      WorkplaceTypes type,
       DateTime updatedAt,
       DateTime createdAt,
       DocumentReference<Object?> createdBy,
@@ -177,6 +193,8 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? description = null,
+    Object? type = null,
     Object? updatedAt = null,
     Object? createdAt = null,
     Object? createdBy = null,
@@ -197,6 +215,14 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as WorkplaceTypes,
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -248,6 +274,8 @@ class _$WorkplaceImpl implements _Workplace {
   _$WorkplaceImpl(
       {required this.id,
       required this.name,
+      required this.description,
+      required this.type,
       required this.updatedAt,
       required this.createdAt,
       required this.createdBy,
@@ -268,6 +296,10 @@ class _$WorkplaceImpl implements _Workplace {
   final String id;
   @override
   final String name;
+  @override
+  final String description;
+  @override
+  final WorkplaceTypes type;
   @override
   final DateTime updatedAt;
   @override
@@ -305,7 +337,7 @@ class _$WorkplaceImpl implements _Workplace {
 
   @override
   String toString() {
-    return 'Workplace(id: $id, name: $name, updatedAt: $updatedAt, createdAt: $createdAt, createdBy: $createdBy, permanentTattooArtists: $permanentTattooArtists, guestTattooArtists: $guestTattooArtists, street: $street, city: $city, province: $province, country: $country, postalCode: $postalCode)';
+    return 'Workplace(id: $id, name: $name, description: $description, type: $type, updatedAt: $updatedAt, createdAt: $createdAt, createdBy: $createdBy, permanentTattooArtists: $permanentTattooArtists, guestTattooArtists: $guestTattooArtists, street: $street, city: $city, province: $province, country: $country, postalCode: $postalCode)';
   }
 
   @override
@@ -315,6 +347,9 @@ class _$WorkplaceImpl implements _Workplace {
             other is _$WorkplaceImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.type, type) || other.type == type) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
             (identical(other.createdAt, createdAt) ||
@@ -340,6 +375,8 @@ class _$WorkplaceImpl implements _Workplace {
       runtimeType,
       id,
       name,
+      description,
+      type,
       updatedAt,
       createdAt,
       createdBy,
@@ -369,6 +406,8 @@ abstract class _Workplace implements Workplace {
   factory _Workplace(
       {required final String id,
       required final String name,
+      required final String description,
+      required final WorkplaceTypes type,
       required final DateTime updatedAt,
       required final DateTime createdAt,
       required final DocumentReference<Object?> createdBy,
@@ -387,6 +426,10 @@ abstract class _Workplace implements Workplace {
   String get id;
   @override
   String get name;
+  @override
+  String get description;
+  @override
+  WorkplaceTypes get type;
   @override
   DateTime get updatedAt;
   @override
