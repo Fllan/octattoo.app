@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app_mvp/core/constants/worplace_types.dart';
-import 'package:octattoo_app_mvp/core/router/redirections/redirect.dart';
+import 'package:octattoo_app_mvp/core/router/go_router_refresh_stream.dart';
+import 'package:octattoo_app_mvp/core/router/redirect.dart';
 import 'package:octattoo_app_mvp/core/router/routes.dart';
 import 'package:octattoo_app_mvp/core/router/shells/onboarding_shell.dart';
 import 'package:octattoo_app_mvp/core/router/shells/welcome_shell.dart';
+import 'package:octattoo_app_mvp/core/services/firebase/authentication/authentication_repository.dart';
+import 'package:octattoo_app_mvp/core/start/app_startup_widget.dart';
 import 'package:octattoo_app_mvp/src/onboarding/add_workplace.dart';
 import 'package:octattoo_app_mvp/src/onboarding/artist_profile_screen.dart';
 import 'package:octattoo_app_mvp/src/onboarding/onboarding_screen.dart';
@@ -34,6 +37,7 @@ final _onboardingNavigatorKey =
 
 @Riverpod(keepAlive: true)
 GoRouter goRouter(GoRouterRef ref) {
+  final authRepository = ref.watch(authRepositoryProvider);
   return GoRouter(
     initialLocation: '/welcome',
     navigatorKey: _rootNavigatorKey,
@@ -41,7 +45,16 @@ GoRouter goRouter(GoRouterRef ref) {
     redirect: (context, state) {
       return redirect(context, state, ref);
     },
+    refreshListenable: GoRouterRefreshStream(authRepository.authStateChanges()),
     routes: [
+      GoRoute(
+        path: '/startup',
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: AppStartupWidget(
+            onLoaded: (context) => const SizedBox.shrink(),
+          ),
+        ),
+      ),
       ShellRoute(
         navigatorKey: _welcomeNavigatorKey,
         builder: (context, state, child) {

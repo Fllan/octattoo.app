@@ -140,7 +140,7 @@ AuthRepository authRepository(AuthRepositoryRef ref) {
   return AuthRepository(firebaseAuth);
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 Stream<User?> authStateChanges(AuthStateChangesRef ref) {
   return ref.watch(authRepositoryProvider).authStateChanges();
 }

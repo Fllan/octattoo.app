@@ -1,7 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:octattoo_app_mvp/core/utils/utils_initializer.dart';
+import 'package:octattoo_app_mvp/firebase_options.dart';
 import 'package:octattoo_app_mvp/src/my_app.dart';
 
 Future<void> main() async {
@@ -13,6 +15,9 @@ Future<void> main() async {
 
   /// Initialize Utils
   UtilsInitializer.initializeAllUtils();
+
+  /// Initialize Firebase
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   /// Run the app
   runApp(const ProviderScope(child: MyApp()));

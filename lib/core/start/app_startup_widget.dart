@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:octattoo_app_mvp/core/constants/gaps.dart';
-import 'package:octattoo_app_mvp/core/start/appStartupProvider.dart';
-import 'package:octattoo_app_mvp/src/my_app.dart';
+import 'package:octattoo_app_mvp/core/start/app_startup_provider.dart';
+import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
 
-/// Widget class to manage asynchronous app initialization
 class AppStartupWidget extends ConsumerWidget {
-  const AppStartupWidget({super.key});
+  const AppStartupWidget({super.key, required this.onLoaded});
+  final WidgetBuilder onLoaded;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 2. eagerly initialize appStartupProvider (and all the providers it depends on)
     final appStartupState = ref.watch(appStartupProvider);
     return appStartupState.when(
-      // 3. loading state
+      data: (_) => onLoaded(context),
       loading: () => const AppStartupLoadingWidget(),
-      // 4. error state
       error: (e, st) => AppStartupErrorWidget(
         message: e.toString(),
-        // 5. invalidate the appStartupProvider
         onRetry: () => ref.invalidate(appStartupProvider),
       ),
-      // 6. success - now load the main app
-      data: (_) => const MyApp(),
     );
   }
 }
@@ -59,7 +54,7 @@ class AppStartupErrorWidget extends StatelessWidget {
             gapH16,
             ElevatedButton(
               onPressed: onRetry,
-              child: const Text('Retry'),
+              child: Text('Retry'.hardcoded),
             ),
           ],
         ),

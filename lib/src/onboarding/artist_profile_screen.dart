@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app_mvp/core/constants/gaps.dart';
 import 'package:octattoo_app_mvp/core/router/routes.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
 import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
-import 'package:octattoo_app_mvp/core/utils/shared_preferences.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences_repository.dart';
 
-class ArtistProfileScreen extends StatefulWidget {
+class ArtistProfileScreen extends ConsumerStatefulWidget {
   const ArtistProfileScreen({super.key});
 
   @override
-  State<ArtistProfileScreen> createState() => _ArtistProfileScreenState();
+  ConsumerState<ArtistProfileScreen> createState() =>
+      _ArtistProfileScreenState();
 }
 
-class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
+class _ArtistProfileScreenState extends ConsumerState<ArtistProfileScreen> {
   bool _showRealNames = false;
   bool _showPronoun = false;
   final _formKey = GlobalKey<FormState>();
@@ -173,7 +175,8 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
     if (!_validateForm()) return;
 
     try {
-      await _saveProfileData();
+      final prefs = ref.watch(sharedPreferencesRepositoryProvider);
+      await _saveProfileData(prefs);
       _navigateToNextScreen();
     } catch (e) {
       _showErrorMessage();
@@ -184,8 +187,7 @@ class _ArtistProfileScreenState extends State<ArtistProfileScreen> {
     return _formKey.currentState?.validate() ?? false;
   }
 
-  Future<void> _saveProfileData() async {
-    final prefs = SharedPreferencesService.instance;
+  Future<void> _saveProfileData(SharedPreferencesRepository prefs) async {
     await prefs.saveString(
         SharedPreferencesKeys.onboardingArtistName, _artistNameController.text);
     await prefs.saveBool(

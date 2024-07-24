@@ -6,6 +6,7 @@ import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
 
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final goRouter = ref.watch(goRouterProvider);

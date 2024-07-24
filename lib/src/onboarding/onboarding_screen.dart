@@ -9,7 +9,7 @@ import 'package:octattoo_app_mvp/core/services/firebase/authentication/authentic
 import 'package:octattoo_app_mvp/core/services/firebase/firestore/providers/users_repository.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
 import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
-import 'package:octattoo_app_mvp/core/utils/shared_preferences.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences_repository.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -48,8 +48,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     onPressed: () async {
                       _updateStep();
                       await _createUserinFirestore();
-                      GoRouter.of(context)
-                          .pushNamed(OnboardingSubRoutes.artistProfile.name);
+                      if (context.mounted) {
+                        GoRouter.of(context)
+                            .pushNamed(OnboardingSubRoutes.artistProfile.name);
+                      }
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -69,10 +71,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   Future<void> _updateStep() async {
-    final prefs = SharedPreferencesService.instance;
+    final prefs = ref.watch(sharedPreferencesRepositoryProvider);
+
     await prefs.saveInt(SharedPreferencesKeys.onboardingStep, 1);
     logger.d(
-        'Onboarding step updated to :${await prefs.getInt(SharedPreferencesKeys.onboardingStep)}');
+        'Onboarding step updated to :${prefs.getInt(SharedPreferencesKeys.onboardingStep)}');
   }
 
   Future<void> _createUserinFirestore() async {

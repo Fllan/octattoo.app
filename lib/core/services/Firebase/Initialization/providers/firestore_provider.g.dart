@@ -6,7 +6,7 @@ part of 'firestore_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$firebaseFirestoreHash() => r'22a4774bb965e9fb68813f011598faed0960b6f7';
+String _$firebaseFirestoreHash() => r'de2393ac0ba3d74621137d90802122fe9b217153';
 
 /// See also [firebaseFirestore].
 @ProviderFor(firebaseFirestore)
