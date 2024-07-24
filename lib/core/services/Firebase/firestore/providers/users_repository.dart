@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:octattoo_app_mvp/core/models/user.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/firestore/firestore_collections.dart';
-import 'package:octattoo_app_mvp/core/services/firebase/firestore/providers/firestore_repository.dart';
-import 'package:octattoo_app_mvp/core/utils/logger.dart';
+import 'package:octattoo_app_mvp/core/services/firebase/initialization/providers/firestore_provider.dart';
+import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'users_repository.g.dart';
@@ -54,5 +54,6 @@ class UsersRepository {
 
 @Riverpod(keepAlive: true)
 UsersRepository usersRepository(UsersRepositoryRef ref) {
-  return UsersRepository(ref.watch(firebaseFirestoreProvider));
+  final firestore = ref.watch(firebaseFirestoreProvider);
+  return UsersRepository(firestore);
 }

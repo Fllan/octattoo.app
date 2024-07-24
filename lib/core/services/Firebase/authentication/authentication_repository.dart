@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:octattoo_app_mvp/core/utils/logger.dart';
+import 'package:octattoo_app_mvp/core/services/firebase/initialization/providers/authentication_provider.dart';
+import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'authentication_repository.g.dart';
@@ -134,13 +135,9 @@ class AuthRepository {
 }
 
 @Riverpod(keepAlive: true)
-FirebaseAuth firebaseAuth(FirebaseAuthRef ref) {
-  return FirebaseAuth.instance;
-}
-
-@Riverpod(keepAlive: true)
 AuthRepository authRepository(AuthRepositoryRef ref) {
-  return AuthRepository(ref.watch(firebaseAuthProvider));
+  final firebaseAuth = ref.watch(firebaseAuthProvider);
+  return AuthRepository(firebaseAuth);
 }
 
 @Riverpod(keepAlive: true)

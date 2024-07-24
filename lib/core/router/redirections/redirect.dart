@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/authentication/authentication_repository.dart';
-import 'package:octattoo_app_mvp/core/utils/logger.dart';
+import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
 import 'package:octattoo_app_mvp/core/utils/shared_preferences.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

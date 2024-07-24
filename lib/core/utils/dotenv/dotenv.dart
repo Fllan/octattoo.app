@@ -1,5 +1,5 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:octattoo_app_mvp/core/utils/logger.dart';
+import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
 
 /// Initialize Dotenv
 class DotenvInitializer {

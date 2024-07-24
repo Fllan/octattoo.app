@@ -1,5 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:octattoo_app_mvp/core/utils/logger.dart';
+import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
 import 'package:octattoo_app_mvp/firebase_options.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

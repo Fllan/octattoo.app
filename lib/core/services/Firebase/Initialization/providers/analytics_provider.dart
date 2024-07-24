@@ -1,7 +1,6 @@
-// lib/core/services/firebase/initialization/providers/analytics_provider.dart
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/initialization/providers/firebase_provider.dart';
-import 'package:octattoo_app_mvp/core/utils/logger.dart';
+import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'analytics_provider.g.dart';

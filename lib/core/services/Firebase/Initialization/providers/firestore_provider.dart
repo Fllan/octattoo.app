@@ -1,7 +1,7 @@
 // lib/core/services/firebase/initialization/providers/firestore_provider.dart
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/initialization/providers/firebase_provider.dart';
-import 'package:octattoo_app_mvp/core/utils/logger.dart';
+import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'firestore_provider.g.dart';

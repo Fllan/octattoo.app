@@ -7,7 +7,7 @@ part of 'workplaces_repository.dart';
 // **************************************************************************
 
 String _$workplacesRepositoryHash() =>
-    r'f8b83d6344b99c03e43e48161a7d5ae60634c572';
+    r'fe0984152b2111d2c68ab27a93aa140c34d9c013';
 
 /// See also [workplacesRepository].
 @ProviderFor(workplacesRepository)

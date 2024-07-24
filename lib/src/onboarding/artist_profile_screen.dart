@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:octattoo_app_mvp/core/constants/gaps.dart';
 import 'package:octattoo_app_mvp/core/router/routes.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
-import 'package:octattoo_app_mvp/core/utils/logger.dart';
+import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
 import 'package:octattoo_app_mvp/core/utils/shared_preferences.dart';
 
 class ArtistProfileScreen extends StatefulWidget {

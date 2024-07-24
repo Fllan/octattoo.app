@@ -6,7 +6,7 @@ part of 'appcheck_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$firebaseAppCheckHash() => r'765169eb960f8044a9ccdc03d4cb79ac6438bef4';
+String _$firebaseAppCheckHash() => r'bde130cbd96952cd04239a3e2a3a3561515429cb';
 
 /// See also [firebaseAppCheck].
 @ProviderFor(firebaseAppCheck)
