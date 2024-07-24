@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'firestore_provider.dart';
+part of 'analytics_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$firebaseFirestoreHash() => r'2e7f8bd195d91c027c5155f34b719187867bc113';
+String _$firebaseAnalyticsHash() => r'8e66df028a90c3e6d1d30783b658de98635af492';
 
-/// See also [firebaseFirestore].
-@ProviderFor(firebaseFirestore)
-final firebaseFirestoreProvider = Provider<FirebaseFirestore>.internal(
-  firebaseFirestore,
-  name: r'firebaseFirestoreProvider',
+/// See also [firebaseAnalytics].
+@ProviderFor(firebaseAnalytics)
+final firebaseAnalyticsProvider = FutureProvider<FirebaseAnalytics>.internal(
+  firebaseAnalytics,
+  name: r'firebaseAnalyticsProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$firebaseFirestoreHash,
+      : _$firebaseAnalyticsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef FirebaseFirestoreRef = ProviderRef<FirebaseFirestore>;
+typedef FirebaseAnalyticsRef = FutureProviderRef<FirebaseAnalytics>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
