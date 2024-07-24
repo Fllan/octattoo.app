@@ -20,17 +20,17 @@ Workplace _$WorkplaceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Workplace {
-  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  WorkplaceTypes get type => throw _privateConstructorUsedError;
-  DateTime get updatedAt => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DocumentReference<Object?> get createdBy =>
       throw _privateConstructorUsedError;
-  List<TattooArtist> get permanentTattooArtists =>
+  DocumentReference<Object?>? get managedBy =>
       throw _privateConstructorUsedError;
-  List<TattooArtist> get guestTattooArtists =>
+  List<TattooArtist>? get permanentTattooArtists =>
+      throw _privateConstructorUsedError;
+  List<TattooArtist>? get guestTattooArtists =>
       throw _privateConstructorUsedError;
   String get street => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
@@ -50,15 +50,14 @@ abstract class $WorkplaceCopyWith<$Res> {
       _$WorkplaceCopyWithImpl<$Res, Workplace>;
   @useResult
   $Res call(
-      {String id,
-      String name,
-      String description,
-      WorkplaceTypes type,
-      DateTime updatedAt,
+      {String name,
+      String? description,
+      DateTime? updatedAt,
       DateTime createdAt,
       DocumentReference<Object?> createdBy,
-      List<TattooArtist> permanentTattooArtists,
-      List<TattooArtist> guestTattooArtists,
+      DocumentReference<Object?>? managedBy,
+      List<TattooArtist>? permanentTattooArtists,
+      List<TattooArtist>? guestTattooArtists,
       String street,
       String city,
       String province,
@@ -79,15 +78,14 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? name = null,
-    Object? description = null,
-    Object? type = null,
-    Object? updatedAt = null,
+    Object? description = freezed,
+    Object? updatedAt = freezed,
     Object? createdAt = null,
     Object? createdBy = null,
-    Object? permanentTattooArtists = null,
-    Object? guestTattooArtists = null,
+    Object? managedBy = freezed,
+    Object? permanentTattooArtists = freezed,
+    Object? guestTattooArtists = freezed,
     Object? street = null,
     Object? city = null,
     Object? province = null,
@@ -95,26 +93,18 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
     Object? postalCode = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as WorkplaceTypes,
-      updatedAt: null == updatedAt
+              as String?,
+      updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -123,14 +113,18 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
               as DocumentReference<Object?>,
-      permanentTattooArtists: null == permanentTattooArtists
+      managedBy: freezed == managedBy
+          ? _value.managedBy
+          : managedBy // ignore: cast_nullable_to_non_nullable
+              as DocumentReference<Object?>?,
+      permanentTattooArtists: freezed == permanentTattooArtists
           ? _value.permanentTattooArtists
           : permanentTattooArtists // ignore: cast_nullable_to_non_nullable
-              as List<TattooArtist>,
-      guestTattooArtists: null == guestTattooArtists
+              as List<TattooArtist>?,
+      guestTattooArtists: freezed == guestTattooArtists
           ? _value.guestTattooArtists
           : guestTattooArtists // ignore: cast_nullable_to_non_nullable
-              as List<TattooArtist>,
+              as List<TattooArtist>?,
       street: null == street
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
@@ -164,15 +158,14 @@ abstract class _$$WorkplaceImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
-      String name,
-      String description,
-      WorkplaceTypes type,
-      DateTime updatedAt,
+      {String name,
+      String? description,
+      DateTime? updatedAt,
       DateTime createdAt,
       DocumentReference<Object?> createdBy,
-      List<TattooArtist> permanentTattooArtists,
-      List<TattooArtist> guestTattooArtists,
+      DocumentReference<Object?>? managedBy,
+      List<TattooArtist>? permanentTattooArtists,
+      List<TattooArtist>? guestTattooArtists,
       String street,
       String city,
       String province,
@@ -191,15 +184,14 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? name = null,
-    Object? description = null,
-    Object? type = null,
-    Object? updatedAt = null,
+    Object? description = freezed,
+    Object? updatedAt = freezed,
     Object? createdAt = null,
     Object? createdBy = null,
-    Object? permanentTattooArtists = null,
-    Object? guestTattooArtists = null,
+    Object? managedBy = freezed,
+    Object? permanentTattooArtists = freezed,
+    Object? guestTattooArtists = freezed,
     Object? street = null,
     Object? city = null,
     Object? province = null,
@@ -207,26 +199,18 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
     Object? postalCode = null,
   }) {
     return _then(_$WorkplaceImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as WorkplaceTypes,
-      updatedAt: null == updatedAt
+              as String?,
+      updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -235,14 +219,18 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
               as DocumentReference<Object?>,
-      permanentTattooArtists: null == permanentTattooArtists
+      managedBy: freezed == managedBy
+          ? _value.managedBy
+          : managedBy // ignore: cast_nullable_to_non_nullable
+              as DocumentReference<Object?>?,
+      permanentTattooArtists: freezed == permanentTattooArtists
           ? _value._permanentTattooArtists
           : permanentTattooArtists // ignore: cast_nullable_to_non_nullable
-              as List<TattooArtist>,
-      guestTattooArtists: null == guestTattooArtists
+              as List<TattooArtist>?,
+      guestTattooArtists: freezed == guestTattooArtists
           ? _value._guestTattooArtists
           : guestTattooArtists // ignore: cast_nullable_to_non_nullable
-              as List<TattooArtist>,
+              as List<TattooArtist>?,
       street: null == street
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
@@ -272,15 +260,14 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
 @DocumentReferenceConverter()
 class _$WorkplaceImpl implements _Workplace {
   _$WorkplaceImpl(
-      {required this.id,
-      required this.name,
+      {required this.name,
       required this.description,
-      required this.type,
       required this.updatedAt,
       required this.createdAt,
       required this.createdBy,
-      required final List<TattooArtist> permanentTattooArtists,
-      required final List<TattooArtist> guestTattooArtists,
+      required this.managedBy,
+      required final List<TattooArtist>? permanentTattooArtists,
+      required final List<TattooArtist>? guestTattooArtists,
       required this.street,
       required this.city,
       required this.province,
@@ -293,35 +280,37 @@ class _$WorkplaceImpl implements _Workplace {
       _$$WorkplaceImplFromJson(json);
 
   @override
-  final String id;
-  @override
   final String name;
   @override
-  final String description;
+  final String? description;
   @override
-  final WorkplaceTypes type;
-  @override
-  final DateTime updatedAt;
+  final DateTime? updatedAt;
   @override
   final DateTime createdAt;
   @override
   final DocumentReference<Object?> createdBy;
-  final List<TattooArtist> _permanentTattooArtists;
   @override
-  List<TattooArtist> get permanentTattooArtists {
+  final DocumentReference<Object?>? managedBy;
+  final List<TattooArtist>? _permanentTattooArtists;
+  @override
+  List<TattooArtist>? get permanentTattooArtists {
+    final value = _permanentTattooArtists;
+    if (value == null) return null;
     if (_permanentTattooArtists is EqualUnmodifiableListView)
       return _permanentTattooArtists;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_permanentTattooArtists);
+    return EqualUnmodifiableListView(value);
   }
 
-  final List<TattooArtist> _guestTattooArtists;
+  final List<TattooArtist>? _guestTattooArtists;
   @override
-  List<TattooArtist> get guestTattooArtists {
+  List<TattooArtist>? get guestTattooArtists {
+    final value = _guestTattooArtists;
+    if (value == null) return null;
     if (_guestTattooArtists is EqualUnmodifiableListView)
       return _guestTattooArtists;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_guestTattooArtists);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -337,7 +326,7 @@ class _$WorkplaceImpl implements _Workplace {
 
   @override
   String toString() {
-    return 'Workplace(id: $id, name: $name, description: $description, type: $type, updatedAt: $updatedAt, createdAt: $createdAt, createdBy: $createdBy, permanentTattooArtists: $permanentTattooArtists, guestTattooArtists: $guestTattooArtists, street: $street, city: $city, province: $province, country: $country, postalCode: $postalCode)';
+    return 'Workplace(name: $name, description: $description, updatedAt: $updatedAt, createdAt: $createdAt, createdBy: $createdBy, managedBy: $managedBy, permanentTattooArtists: $permanentTattooArtists, guestTattooArtists: $guestTattooArtists, street: $street, city: $city, province: $province, country: $country, postalCode: $postalCode)';
   }
 
   @override
@@ -345,17 +334,17 @@ class _$WorkplaceImpl implements _Workplace {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$WorkplaceImpl &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.type, type) || other.type == type) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.createdBy, createdBy) ||
                 other.createdBy == createdBy) &&
+            (identical(other.managedBy, managedBy) ||
+                other.managedBy == managedBy) &&
             const DeepCollectionEquality().equals(
                 other._permanentTattooArtists, _permanentTattooArtists) &&
             const DeepCollectionEquality()
@@ -373,13 +362,12 @@ class _$WorkplaceImpl implements _Workplace {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      id,
       name,
       description,
-      type,
       updatedAt,
       createdAt,
       createdBy,
+      managedBy,
       const DeepCollectionEquality().hash(_permanentTattooArtists),
       const DeepCollectionEquality().hash(_guestTattooArtists),
       street,
@@ -404,15 +392,14 @@ class _$WorkplaceImpl implements _Workplace {
 
 abstract class _Workplace implements Workplace {
   factory _Workplace(
-      {required final String id,
-      required final String name,
-      required final String description,
-      required final WorkplaceTypes type,
-      required final DateTime updatedAt,
+      {required final String name,
+      required final String? description,
+      required final DateTime? updatedAt,
       required final DateTime createdAt,
       required final DocumentReference<Object?> createdBy,
-      required final List<TattooArtist> permanentTattooArtists,
-      required final List<TattooArtist> guestTattooArtists,
+      required final DocumentReference<Object?>? managedBy,
+      required final List<TattooArtist>? permanentTattooArtists,
+      required final List<TattooArtist>? guestTattooArtists,
       required final String street,
       required final String city,
       required final String province,
@@ -423,23 +410,21 @@ abstract class _Workplace implements Workplace {
       _$WorkplaceImpl.fromJson;
 
   @override
-  String get id;
-  @override
   String get name;
   @override
-  String get description;
+  String? get description;
   @override
-  WorkplaceTypes get type;
-  @override
-  DateTime get updatedAt;
+  DateTime? get updatedAt;
   @override
   DateTime get createdAt;
   @override
   DocumentReference<Object?> get createdBy;
   @override
-  List<TattooArtist> get permanentTattooArtists;
+  DocumentReference<Object?>? get managedBy;
   @override
-  List<TattooArtist> get guestTattooArtists;
+  List<TattooArtist>? get permanentTattooArtists;
+  @override
+  List<TattooArtist>? get guestTattooArtists;
   @override
   String get street;
   @override

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -46,9 +45,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       _updateStep();
-                      _createUserinFirestore();
+                      await _createUserinFirestore();
                       GoRouter.of(context)
                           .pushNamed(OnboardingSubRoutes.artistProfile.name);
                     },
@@ -79,15 +78,30 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   Future<void> _createUserinFirestore() async {
     // Create user in firestore
     final usersRepo = ref.read(usersRepositoryProvider);
-    final authUserId = ref.watch(authStateChangesProvider).value!.uid;
+    final authUserId = ref.read(authStateChangesProvider).value!.uid;
+    final hasAnonymousAccount =
+        ref.read(authStateChangesProvider).value!.email == null;
+
     await usersRepo.create(
       User(
-        id: authUserId,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
         role: UserRoles.artist,
         hasCompletedOnboarding: false,
-        hasAnonymousAccount: false,
+        hasAnonymousAccount: hasAnonymousAccount,
+        firstname: null,
+        lastname: null,
+        showPronoun: null,
+        pronoun: null,
+        email: null,
+        phoneNumber: null,
+        photoURL: null,
+        bio: null,
+        street: null,
+        city: null,
+        province: null,
+        country: null,
+        postalCode: null,
       ),
       authUserId,
     );

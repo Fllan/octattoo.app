@@ -9,11 +9,8 @@ part 'public_profile.g.dart';
 @freezed
 class PublicProfile with _$PublicProfile {
   /// Creates a new [PublicProfile].
-  ///
-  /// All parameters are required.
   @DocumentReferenceConverter()
   factory PublicProfile({
-    required String id,
     required DocumentReference tattooArtistRef,
     required String artistName,
     required String firstname,
@@ -26,4 +23,13 @@ class PublicProfile with _$PublicProfile {
   /// Creates a new [PublicProfile] from a JSON map.
   factory PublicProfile.fromJson(Map<String, dynamic> json) =>
       _$PublicProfileFromJson(json);
+
+  /// Creates a new [PublicProfile] from a Firestore document snapshot.
+  factory PublicProfile.fromFirestore(
+          DocumentSnapshot snapshot, SnapshotOptions? option) =>
+      PublicProfile.fromJson(snapshot.data() as Map<String, dynamic>);
+
+  /// Converts this [PublicProfile] to a JSON map.
+  static Map<String, Object?> toFirestore(PublicProfile publicProfile) =>
+      publicProfile.toJson();
 }

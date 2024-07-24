@@ -9,15 +9,14 @@ part 'tattoo_artist.g.dart';
 @freezed
 class TattooArtist with _$TattooArtist {
   /// Creates a new [TattooArtist].
-  ///
-  /// All parameters are required.
   @DocumentReferenceConverter()
   factory TattooArtist({
-    required String id,
     required DocumentReference userRef,
     required String artistName,
+    required bool showRealNames,
     required String firstname,
     required String lastname,
+    required bool showPronoun,
     required String pronoun,
     required DateTime updatedAt,
     required DateTime createdAt,
@@ -26,4 +25,13 @@ class TattooArtist with _$TattooArtist {
   /// Creates a new [TattooArtist] from a JSON map.
   factory TattooArtist.fromJson(Map<String, dynamic> json) =>
       _$TattooArtistFromJson(json);
+
+  /// Creates a new [TattooArtist] from a Firestore document snapshot.
+  factory TattooArtist.fromFirestore(
+          DocumentSnapshot snapshot, SnapshotOptions? option) =>
+      TattooArtist.fromJson(snapshot.data() as Map<String, dynamic>);
+
+  /// Converts this [TattooArtist] to a JSON map.
+  static Map<String, Object?> toFirestore(TattooArtist tattooArtist) =>
+      tattooArtist.toJson();
 }

@@ -370,20 +370,19 @@ class _CreateNewTabState extends ConsumerState<CreateNewTab> {
 
     final workplaceId = workplaceRepository.create(
         Workplace(
-          id: '',
           name: _workplaceNameController.text,
-          description: '',
-          type: widget.selectedType as WorkplaceTypes,
+          description: null,
           updatedAt: DateTime.now(),
           createdAt: DateTime.now(),
           createdBy: authUserId as DocumentReference,
-          permanentTattooArtists: [],
-          guestTattooArtists: [],
+          permanentTattooArtists: null,
+          guestTattooArtists: null,
           street: _streetController.text,
           city: _cityController.text,
           province: _provinceController.text,
           country: _countryController.text,
           postalCode: _postalCodeController.text,
+          managedBy: null,
         ),
         authUserId);
 

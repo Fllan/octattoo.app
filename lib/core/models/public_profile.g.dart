@@ -8,7 +8,6 @@ part of 'public_profile.dart';
 
 _$PublicProfileImpl _$$PublicProfileImplFromJson(Map<String, dynamic> json) =>
     _$PublicProfileImpl(
-      id: json['id'] as String,
       tattooArtistRef: const DocumentReferenceConverter()
           .fromJson(json['tattooArtistRef'] as Map<String, dynamic>),
       artistName: json['artistName'] as String,
@@ -21,7 +20,6 @@ _$PublicProfileImpl _$$PublicProfileImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$PublicProfileImplToJson(_$PublicProfileImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
       'tattooArtistRef':
           const DocumentReferenceConverter().toJson(instance.tattooArtistRef),
       'artistName': instance.artistName,

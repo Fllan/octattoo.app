@@ -20,11 +20,12 @@ TattooArtist _$TattooArtistFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TattooArtist {
-  String get id => throw _privateConstructorUsedError;
   DocumentReference<Object?> get userRef => throw _privateConstructorUsedError;
   String get artistName => throw _privateConstructorUsedError;
+  bool get showRealNames => throw _privateConstructorUsedError;
   String get firstname => throw _privateConstructorUsedError;
   String get lastname => throw _privateConstructorUsedError;
+  bool get showPronoun => throw _privateConstructorUsedError;
   String get pronoun => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
@@ -42,11 +43,12 @@ abstract class $TattooArtistCopyWith<$Res> {
       _$TattooArtistCopyWithImpl<$Res, TattooArtist>;
   @useResult
   $Res call(
-      {String id,
-      DocumentReference<Object?> userRef,
+      {DocumentReference<Object?> userRef,
       String artistName,
+      bool showRealNames,
       String firstname,
       String lastname,
+      bool showPronoun,
       String pronoun,
       DateTime updatedAt,
       DateTime createdAt});
@@ -65,20 +67,17 @@ class _$TattooArtistCopyWithImpl<$Res, $Val extends TattooArtist>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? userRef = null,
     Object? artistName = null,
+    Object? showRealNames = null,
     Object? firstname = null,
     Object? lastname = null,
+    Object? showPronoun = null,
     Object? pronoun = null,
     Object? updatedAt = null,
     Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       userRef: null == userRef
           ? _value.userRef
           : userRef // ignore: cast_nullable_to_non_nullable
@@ -87,6 +86,10 @@ class _$TattooArtistCopyWithImpl<$Res, $Val extends TattooArtist>
           ? _value.artistName
           : artistName // ignore: cast_nullable_to_non_nullable
               as String,
+      showRealNames: null == showRealNames
+          ? _value.showRealNames
+          : showRealNames // ignore: cast_nullable_to_non_nullable
+              as bool,
       firstname: null == firstname
           ? _value.firstname
           : firstname // ignore: cast_nullable_to_non_nullable
@@ -95,6 +98,10 @@ class _$TattooArtistCopyWithImpl<$Res, $Val extends TattooArtist>
           ? _value.lastname
           : lastname // ignore: cast_nullable_to_non_nullable
               as String,
+      showPronoun: null == showPronoun
+          ? _value.showPronoun
+          : showPronoun // ignore: cast_nullable_to_non_nullable
+              as bool,
       pronoun: null == pronoun
           ? _value.pronoun
           : pronoun // ignore: cast_nullable_to_non_nullable
@@ -120,11 +127,12 @@ abstract class _$$TattooArtistImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
-      DocumentReference<Object?> userRef,
+      {DocumentReference<Object?> userRef,
       String artistName,
+      bool showRealNames,
       String firstname,
       String lastname,
+      bool showPronoun,
       String pronoun,
       DateTime updatedAt,
       DateTime createdAt});
@@ -141,20 +149,17 @@ class __$$TattooArtistImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? userRef = null,
     Object? artistName = null,
+    Object? showRealNames = null,
     Object? firstname = null,
     Object? lastname = null,
+    Object? showPronoun = null,
     Object? pronoun = null,
     Object? updatedAt = null,
     Object? createdAt = null,
   }) {
     return _then(_$TattooArtistImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       userRef: null == userRef
           ? _value.userRef
           : userRef // ignore: cast_nullable_to_non_nullable
@@ -163,6 +168,10 @@ class __$$TattooArtistImplCopyWithImpl<$Res>
           ? _value.artistName
           : artistName // ignore: cast_nullable_to_non_nullable
               as String,
+      showRealNames: null == showRealNames
+          ? _value.showRealNames
+          : showRealNames // ignore: cast_nullable_to_non_nullable
+              as bool,
       firstname: null == firstname
           ? _value.firstname
           : firstname // ignore: cast_nullable_to_non_nullable
@@ -171,6 +180,10 @@ class __$$TattooArtistImplCopyWithImpl<$Res>
           ? _value.lastname
           : lastname // ignore: cast_nullable_to_non_nullable
               as String,
+      showPronoun: null == showPronoun
+          ? _value.showPronoun
+          : showPronoun // ignore: cast_nullable_to_non_nullable
+              as bool,
       pronoun: null == pronoun
           ? _value.pronoun
           : pronoun // ignore: cast_nullable_to_non_nullable
@@ -192,11 +205,12 @@ class __$$TattooArtistImplCopyWithImpl<$Res>
 @DocumentReferenceConverter()
 class _$TattooArtistImpl implements _TattooArtist {
   _$TattooArtistImpl(
-      {required this.id,
-      required this.userRef,
+      {required this.userRef,
       required this.artistName,
+      required this.showRealNames,
       required this.firstname,
       required this.lastname,
+      required this.showPronoun,
       required this.pronoun,
       required this.updatedAt,
       required this.createdAt});
@@ -205,15 +219,17 @@ class _$TattooArtistImpl implements _TattooArtist {
       _$$TattooArtistImplFromJson(json);
 
   @override
-  final String id;
-  @override
   final DocumentReference<Object?> userRef;
   @override
   final String artistName;
   @override
+  final bool showRealNames;
+  @override
   final String firstname;
   @override
   final String lastname;
+  @override
+  final bool showPronoun;
   @override
   final String pronoun;
   @override
@@ -223,7 +239,7 @@ class _$TattooArtistImpl implements _TattooArtist {
 
   @override
   String toString() {
-    return 'TattooArtist(id: $id, userRef: $userRef, artistName: $artistName, firstname: $firstname, lastname: $lastname, pronoun: $pronoun, updatedAt: $updatedAt, createdAt: $createdAt)';
+    return 'TattooArtist(userRef: $userRef, artistName: $artistName, showRealNames: $showRealNames, firstname: $firstname, lastname: $lastname, showPronoun: $showPronoun, pronoun: $pronoun, updatedAt: $updatedAt, createdAt: $createdAt)';
   }
 
   @override
@@ -231,14 +247,17 @@ class _$TattooArtistImpl implements _TattooArtist {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TattooArtistImpl &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.userRef, userRef) || other.userRef == userRef) &&
             (identical(other.artistName, artistName) ||
                 other.artistName == artistName) &&
+            (identical(other.showRealNames, showRealNames) ||
+                other.showRealNames == showRealNames) &&
             (identical(other.firstname, firstname) ||
                 other.firstname == firstname) &&
             (identical(other.lastname, lastname) ||
                 other.lastname == lastname) &&
+            (identical(other.showPronoun, showPronoun) ||
+                other.showPronoun == showPronoun) &&
             (identical(other.pronoun, pronoun) || other.pronoun == pronoun) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
@@ -248,8 +267,17 @@ class _$TattooArtistImpl implements _TattooArtist {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, userRef, artistName,
-      firstname, lastname, pronoun, updatedAt, createdAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      userRef,
+      artistName,
+      showRealNames,
+      firstname,
+      lastname,
+      showPronoun,
+      pronoun,
+      updatedAt,
+      createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -267,11 +295,12 @@ class _$TattooArtistImpl implements _TattooArtist {
 
 abstract class _TattooArtist implements TattooArtist {
   factory _TattooArtist(
-      {required final String id,
-      required final DocumentReference<Object?> userRef,
+      {required final DocumentReference<Object?> userRef,
       required final String artistName,
+      required final bool showRealNames,
       required final String firstname,
       required final String lastname,
+      required final bool showPronoun,
       required final String pronoun,
       required final DateTime updatedAt,
       required final DateTime createdAt}) = _$TattooArtistImpl;
@@ -280,15 +309,17 @@ abstract class _TattooArtist implements TattooArtist {
       _$TattooArtistImpl.fromJson;
 
   @override
-  String get id;
-  @override
   DocumentReference<Object?> get userRef;
   @override
   String get artistName;
   @override
+  bool get showRealNames;
+  @override
   String get firstname;
   @override
   String get lastname;
+  @override
+  bool get showPronoun;
   @override
   String get pronoun;
   @override

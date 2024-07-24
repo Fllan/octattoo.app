@@ -1,22 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:octattoo_app_mvp/core/models/workplace.dart';
-import 'package:octattoo_app_mvp/core/services/firebase/firestore/base_repository.dart';
-import 'package:octattoo_app_mvp/core/services/firebase/firestore/collections.dart';
-import 'package:octattoo_app_mvp/core/services/firebase/firestore/providers/firestore_provider.dart';
+import 'package:octattoo_app_mvp/core/services/firebase/firestore/firestore_collections.dart';
+import 'package:octattoo_app_mvp/core/services/firebase/firestore/providers/firestore_repository.dart';
 import 'package:octattoo_app_mvp/core/utils/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'workplaces_repository.g.dart';
 
-class WorkplacesRepository implements BaseRepository<Workplace> {
-  WorkplacesRepository(this._firestore);
-  final FirebaseFirestore _firestore;
+class WorkplacesRepository {
+  WorkplacesRepository(this._firestore) {
+    logger.d('WorkplacesRepository initialized');
+    _workplacesCollection =
+        _firestore.collection(FirestoreCollections.workplaces.value);
+  }
 
-  @override
+  final FirebaseFirestore _firestore;
+  late final CollectionReference _workplacesCollection;
+
   Future<String> create(Workplace workplace, String userId) async {
     try {
-      DocumentReference docRef =
-          _firestore.collection(FirestoreCollections.workplaces.value).doc();
+      DocumentReference docRef = _workplacesCollection.doc();
       await docRef.set(workplace.toJson());
       logger.d('Workplace created successfully with ID: ${docRef.id}');
       return docRef.id;
@@ -26,17 +29,14 @@ class WorkplacesRepository implements BaseRepository<Workplace> {
     }
   }
 
-  @override
   Future<Workplace?> read(String id) async {
     try {
-      DocumentReference docRef = _firestore
-          .collection(FirestoreCollections.workplaces.value)
-          .doc(id)
-          .withConverter<Workplace>(
-            fromFirestore: (snapshot, _) =>
-                Workplace.fromJson(snapshot.data()!),
-            toFirestore: (Workplace workplace, _) => workplace.toJson(),
-          );
+      DocumentReference docRef =
+          _workplacesCollection.doc(id).withConverter<Workplace>(
+                fromFirestore: (snapshot, _) =>
+                    Workplace.fromJson(snapshot.data()!),
+                toFirestore: (Workplace workplace, _) => workplace.toJson(),
+              );
       DocumentSnapshot docSnap = await docRef.get();
       final workplace = docSnap.data();
       if (workplace != null) {
@@ -52,7 +52,6 @@ class WorkplacesRepository implements BaseRepository<Workplace> {
     }
   }
 
-  @override
   Future<void> update(String id, Workplace workplace) async {
     try {
       DocumentReference docRef =
@@ -65,7 +64,6 @@ class WorkplacesRepository implements BaseRepository<Workplace> {
     }
   }
 
-  @override
   Future<void> delete(String id) async {
     try {
       DocumentReference docRef =
@@ -78,7 +76,6 @@ class WorkplacesRepository implements BaseRepository<Workplace> {
     }
   }
 
-  @override
   Stream<List<Workplace>> getAll() {
     return _firestore
         .collection(FirestoreCollections.workplaces.value)
