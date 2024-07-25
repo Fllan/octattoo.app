@@ -5,7 +5,8 @@ import 'package:octattoo_app_mvp/core/constants/gaps.dart';
 import 'package:octattoo_app_mvp/core/router/routes.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
 import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
-import 'package:octattoo_app_mvp/core/utils/shared_preferences_repository.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_keys.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_repository.dart';
 
 class ArtistProfileScreen extends ConsumerStatefulWidget {
   const ArtistProfileScreen({super.key});

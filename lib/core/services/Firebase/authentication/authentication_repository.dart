@@ -7,21 +7,33 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'authentication_repository.g.dart';
 
+/// Provides authentication services using Firebase.
+///
+/// This class handles various authentication methods including email/password,
+/// anonymous, and Google sign-in, as well as state changes and password reset functionalities.
 class AuthRepository {
   AuthRepository(this._auth);
   final FirebaseAuth _auth;
 
+  /// Listens to authentication state changes.
   Stream<User?> authStateChanges() => _auth.authStateChanges();
+
+  /// Gets the current authenticated user.
   User? get currentUser => _auth.currentUser;
 
+  /// Signs out the current user.
   Future<void> signOut() {
     return _auth.signOut();
   }
 
+  /// Signs in the user anonymously.
   Future<void> signInAnonymously() {
     return _auth.signInAnonymously();
   }
 
+  /// Creates a new user with the provided email and password.
+  ///
+  /// Shows an error dialog if the operation fails.
   Future<void> createUserWithEmailAndPassword(
       String email, String password, BuildContext context) async {
     try {
@@ -47,6 +59,9 @@ class AuthRepository {
     }
   }
 
+  /// Signs in the user with the provided email and password.
+  ///
+  /// Shows an error dialog if the operation fails.
   Future<void> signInWithEmailAndPassword(
       String email, String password, BuildContext context) async {
     try {
@@ -71,6 +86,9 @@ class AuthRepository {
     }
   }
 
+  /// Sends a password reset email to the provided email address.
+  ///
+  /// Shows an error dialog if the operation fails.
   Future<void> sendPasswordResetEmail(
       String email, BuildContext context) async {
     try {
@@ -97,6 +115,9 @@ class AuthRepository {
     return _auth.sendPasswordResetEmail(email: email);
   }
 
+  /// Signs in the user with Google authentication.
+  ///
+  /// Shows an error dialog if the operation fails.
   Future<void> signInWithGoogle(BuildContext context) async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -134,12 +155,14 @@ class AuthRepository {
   }
 }
 
+/// Provides the authentication repository to the application using Riverpod.
 @Riverpod(keepAlive: true)
 AuthRepository authRepository(AuthRepositoryRef ref) {
   final firebaseAuth = ref.watch(firebaseAuthProvider);
   return AuthRepository(firebaseAuth);
 }
 
+/// Streams authentication state changes using Riverpod.
 @riverpod
 Stream<User?> authStateChanges(AuthStateChangesRef ref) {
   return ref.watch(authRepositoryProvider).authStateChanges();

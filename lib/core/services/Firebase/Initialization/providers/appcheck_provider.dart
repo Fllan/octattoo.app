@@ -6,6 +6,16 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'appcheck_provider.g.dart';
 
+/// Provides an instance of [FirebaseAppCheck] and handles its initialization.
+///
+/// This provider ensures that Firebase App Check is properly initialized and available for
+/// use throughout the application. It checks for platform compatibility and uses appropriate
+/// providers for web, Android, and Apple platforms.
+///
+/// ### Key Components:
+/// - **Platform Check**: Ensures Firebase App Check is not initialized on unsupported platforms (e.g., Windows).
+/// - **Initialization**: Activates Firebase App Check with the correct provider based on the platform.
+/// - **Error Handling**: Catches and logs any errors that occur during initialization.
 @Riverpod(keepAlive: true)
 Future<FirebaseAppCheck> firebaseAppCheck(FirebaseAppCheckRef ref) async {
   try {

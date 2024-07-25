@@ -35,6 +35,16 @@ final _onboardingNavigatorKey =
 // final _projectsNavigatorKey = GlobalKey<NavigatorState>(debugLabel: DashboardSubRoutes.projects.name);
 // final _artistProfileNavigatorKey = GlobalKey<NavigatorState>(debugLabel: DashboardSubRoutes.artistProfile.name);
 
+/// This file defines the application's routing configuration using GoRouter and Riverpod.
+///
+/// The `goRouter` provider initializes the routing system with authentication, route definitions,
+/// and navigation keys to manage different navigation stacks in the app.
+///
+/// ### Key Components:
+///
+/// - **Navigator Keys**: Used to manage navigation stacks for different parts of the app.
+/// - **Routes**: Defines all the routes and their respective widgets in the app.
+/// - **Authentication**: Integrates with the authentication repository to manage route access based on user state.
 @Riverpod(keepAlive: true)
 GoRouter goRouter(GoRouterRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);

@@ -9,7 +9,8 @@ import 'package:octattoo_app_mvp/core/services/firebase/authentication/authentic
 import 'package:octattoo_app_mvp/core/services/firebase/firestore/providers/users_repository.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
 import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
-import 'package:octattoo_app_mvp/core/utils/shared_preferences_repository.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_keys.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_repository.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});

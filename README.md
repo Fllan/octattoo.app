@@ -81,6 +81,7 @@ A heartfelt **THANK YOU** to everyone who has supported and inspired me on this 
 - **The Flutter Way** by [Abu Anwar](https://github.com/abuanwar072) - [YouTube](https://www.youtube.com/@TheFlutterWay)
 - **Hussain Mustafa** by [Hussain Mustafa](https://github.com/hussain-mustafa990) - [YouTube](https://www.youtube.com/@m_hussain_mustafa)
 - **HeyFlutter.com** by [Johannes Milke](https://github.com/JohannesMilke) - [YouTube](https://www.youtube.com/@HeyFlutter)
+- **Code With Andrea** by [Andrea Bizzotto](https://github.com/bizz84)
 - **Flutter Mapp** - [YouTube](https://www.youtube.com/@FlutterMapp)
 - **Coding With T** - [YouTube](https://www.youtube.com/@CodingwithT)
 - **Juxtopposed** - [YouTube](https://www.youtube.com/@juxtopposed)

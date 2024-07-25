@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/authentication/authentication_repository.dart';
 import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
-import 'package:octattoo_app_mvp/core/utils/shared_preferences_repository.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_keys.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_repository.dart';
 
 class OnboardingShell extends ConsumerWidget {
   const OnboardingShell({super.key, required this.child});
