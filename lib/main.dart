@@ -2,10 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
 import 'package:octattoo_app_mvp/core/utils/utils_initializer.dart';
 import 'package:octattoo_app_mvp/firebase_options.dart';
 import 'package:octattoo_app_mvp/src/my_app.dart';
+// ignore: depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
 
 /// The main entry point of the application.
@@ -33,6 +35,9 @@ Future<void> main() async {
 
   /// Set the URL strategy for web to use path-based URLs instead of hash-based URLs
   usePathUrlStrategy();
+
+  /// Enable GoRouter to reflect imperative APIs in the URL
+  GoRouter.optionURLReflectsImperativeAPIs = true;
 
   /// Run the app
   runApp(const ProviderScope(child: MyApp()));
