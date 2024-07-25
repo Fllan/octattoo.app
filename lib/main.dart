@@ -6,6 +6,7 @@ import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
 import 'package:octattoo_app_mvp/core/utils/utils_initializer.dart';
 import 'package:octattoo_app_mvp/firebase_options.dart';
 import 'package:octattoo_app_mvp/src/my_app.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 /// The main entry point of the application.
 ///
@@ -29,6 +30,9 @@ Future<void> main() async {
   /// Initialize Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   logger.i('Firebase Initialized Successfully!');
+
+  /// Set the URL strategy for web to use path-based URLs instead of hash-based URLs
+  usePathUrlStrategy();
 
   /// Run the app
   runApp(const ProviderScope(child: MyApp()));

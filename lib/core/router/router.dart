@@ -133,7 +133,7 @@ GoRouter goRouter(GoRouterRef ref) {
                 },
                 routes: [
                   GoRoute(
-                    path: 'add',
+                    path: 'add/:selectedType',
                     name: WorkplaceSubRoutes.add.name,
                     pageBuilder: (context, state) {
                       final String selectedType =

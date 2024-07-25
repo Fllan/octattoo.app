@@ -36,48 +36,54 @@ class _AddWorkplaceScreenState extends State<AddWorkplaceScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (widget.selectedType == WorkplaceTypes.permanent.value)
-          Text('Select your permanent workplace'.hardcoded,
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+    final selectedType = widget.selectedType;
+    final selectedTypeIsPermanent =
+        selectedType == WorkplaceTypes.permanent.value;
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (selectedTypeIsPermanent)
+            Text('Select your permanent workplace'.hardcoded,
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    )),
+          if (!selectedTypeIsPermanent)
+            Text('Select your guest workplace'.hardcoded,
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    )),
+          gapH16,
+          Text(
+              'Add to your profile an existing workplace or create a new one'
+                  .hardcoded,
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     color: Theme.of(context).colorScheme.onSurface,
                   )),
-        if (widget.selectedType == WorkplaceTypes.guest.value)
-          Text('Select your guest workplace'.hardcoded,
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                  )),
-        gapH16,
-        Text(
-            'Add to your profile an existing workplace or create a new one'
-                .hardcoded,
-            style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface,
-                )),
-        gapH32,
-        SizedBox(
-          width: double.maxFinite,
-          child: TabBar(
-            controller: _tabController,
-            tabs: [
-              Tab(text: 'Search'.hardcoded),
-              Tab(text: 'Create new'.hardcoded),
-            ],
+          gapH32,
+          SizedBox(
+            width: double.maxFinite,
+            child: TabBar(
+              controller: _tabController,
+              tabs: [
+                Tab(text: 'Search'.hardcoded),
+                Tab(text: 'Create new'.hardcoded),
+              ],
+            ),
           ),
-        ),
-        Expanded(
-          child: TabBarView(
-            controller: _tabController,
-            children: [
-              const SearchTab(),
-              CreateNewTab(widget.selectedType),
-            ],
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                const SearchTab(),
+                CreateNewTab(selectedType),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

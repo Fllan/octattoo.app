@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app_mvp/core/constants/gaps.dart';
 import 'package:octattoo_app_mvp/core/router/routes.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
 import 'package:octattoo_app_mvp/core/constants/worplace_types.dart';
+import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_keys.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_repository.dart';
 
-class WorkplacesTypeScreen extends StatefulWidget {
+class WorkplacesTypeScreen extends ConsumerStatefulWidget {
   const WorkplacesTypeScreen({super.key});
 
   @override
-  State<WorkplacesTypeScreen> createState() => _WorkplacesTypeScreenState();
+  ConsumerState<WorkplacesTypeScreen> createState() =>
+      _WorkplacesTypeScreenState();
 }
 
-class _WorkplacesTypeScreenState extends State<WorkplacesTypeScreen> {
+class _WorkplacesTypeScreenState extends ConsumerState<WorkplacesTypeScreen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -71,10 +76,12 @@ class _WorkplacesTypeScreenState extends State<WorkplacesTypeScreen> {
                               ),
                               FilledButton(
                                 onPressed: () {
+                                  _updateStep();
                                   GoRouter.of(context).pushNamed(
                                     WorkplaceSubRoutes.add.name,
                                     pathParameters: {
-                                      'selectedType': WorkplaceTypes.guest.value
+                                      'selectedType':
+                                          WorkplaceTypes.guest.value,
                                     },
                                   );
                                 },
@@ -121,6 +128,7 @@ class _WorkplacesTypeScreenState extends State<WorkplacesTypeScreen> {
                               ),
                               FilledButton(
                                 onPressed: () {
+                                  _updateStep();
                                   GoRouter.of(context).pushNamed(
                                     WorkplaceSubRoutes.add.name,
                                     pathParameters: {
@@ -158,5 +166,13 @@ class _WorkplacesTypeScreenState extends State<WorkplacesTypeScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _updateStep() async {
+    final prefs = ref.watch(sharedPreferencesRepositoryProvider);
+
+    await prefs.saveInt(SharedPreferencesKeys.onboardingStep, 3);
+    logger.d(
+        'Onboarding step updated to :${prefs.getInt(SharedPreferencesKeys.onboardingStep)}');
   }
 }

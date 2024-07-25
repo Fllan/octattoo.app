@@ -178,6 +178,7 @@ class _ArtistProfileScreenState extends ConsumerState<ArtistProfileScreen> {
     try {
       final prefs = ref.watch(sharedPreferencesRepositoryProvider);
       await _saveProfileData(prefs);
+      await _updateStep();
       _navigateToNextScreen();
     } catch (e) {
       _showErrorMessage();
@@ -226,6 +227,14 @@ class _ArtistProfileScreenState extends ConsumerState<ArtistProfileScreen> {
 
   void _navigateToNextScreen() {
     GoRouter.of(context).pushNamed(OnboardingSubRoutes.workplace.name);
+  }
+
+  Future<void> _updateStep() async {
+    final prefs = ref.watch(sharedPreferencesRepositoryProvider);
+
+    await prefs.saveInt(SharedPreferencesKeys.onboardingStep, 2);
+    logger.d(
+        'Onboarding step updated to :${prefs.getInt(SharedPreferencesKeys.onboardingStep)}');
   }
 
   void _showErrorMessage() {

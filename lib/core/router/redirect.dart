@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/authentication/authentication_repository.dart';
 import 'package:octattoo_app_mvp/core/start/app_startup_provider.dart';
+import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
 import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_repository.dart';
 
 /// Determines the redirect path based on the application's state and user's authentication status.
@@ -34,18 +35,30 @@ FutureOr<String?> redirect(BuildContext context, GoRouterState state, Ref ref) {
 
   // If the app is still loading or has an error, redirect to the startup page
   if (appStartupState.isLoading || appStartupState.hasError) {
+    logger.d('App is still loading or has an error.');
     return '/startup';
   }
 
   // Redirect authenticated users away from the welcome page to onboarding steps if necessary
   if (isLoggedIn && isWelcoming) {
-    if (currentOnboardingStep != null && currentOnboardingStep == 1) {
+    if (currentOnboardingStep == 1) {
+      logger.d('Redirecting authenticated user to onboarding step 1');
       return '/onboarding/artist-profile';
     }
+    if (currentOnboardingStep == 2) {
+      logger.d('Redirecting authenticated user to onboarding step 2');
+      return '/onboarding/workplace';
+    }
+    if (currentOnboardingStep == 3) {
+      logger.d('Redirecting authenticated user to onboarding step 3');
+      return '/onboarding/workplace/add';
+    }
+    logger.d('Redirecting authenticated user to onboarding');
     return '/onboarding';
   }
   // Redirect unauthenticated users away from the onboarding page to the welcome page
   else if (!isLoggedIn && isOnboarding) {
+    logger.d('Redirecting unauthenticated user to welcome page');
     return '/welcome';
   }
 
