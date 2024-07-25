@@ -8,7 +8,9 @@ part of 'authentication_repository.dart';
 
 String _$authRepositoryHash() => r'348329b99f73c8a78220f3a9fba86ded6d841499';
 
-/// See also [authRepository].
+/// Provides the authentication repository to the application using Riverpod.
+///
+/// Copied from [authRepository].
 @ProviderFor(authRepository)
 final authRepositoryProvider = Provider<AuthRepository>.internal(
   authRepository,
@@ -23,7 +25,9 @@ final authRepositoryProvider = Provider<AuthRepository>.internal(
 typedef AuthRepositoryRef = ProviderRef<AuthRepository>;
 String _$authStateChangesHash() => r'af0a0185c59bf3c1ad8a9e041075517b3a2dcc31';
 
-/// See also [authStateChanges].
+/// Streams authentication state changes using Riverpod.
+///
+/// Copied from [authStateChanges].
 @ProviderFor(authStateChanges)
 final authStateChangesProvider = AutoDisposeStreamProvider<User?>.internal(
   authStateChanges,

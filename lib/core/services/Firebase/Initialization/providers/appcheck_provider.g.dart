@@ -8,7 +8,18 @@ part of 'appcheck_provider.dart';
 
 String _$firebaseAppCheckHash() => r'5311514b451bcddb10f9c3934a16e515a54740e3';
 
-/// See also [firebaseAppCheck].
+/// Provides an instance of [FirebaseAppCheck] and handles its initialization.
+///
+/// This provider ensures that Firebase App Check is properly initialized and available for
+/// use throughout the application. It checks for platform compatibility and uses appropriate
+/// providers for web, Android, and Apple platforms.
+///
+/// ### Key Components:
+/// - **Platform Check**: Ensures Firebase App Check is not initialized on unsupported platforms (e.g., Windows).
+/// - **Initialization**: Activates Firebase App Check with the correct provider based on the platform.
+/// - **Error Handling**: Catches and logs any errors that occur during initialization.
+///
+/// Copied from [firebaseAppCheck].
 @ProviderFor(firebaseAppCheck)
 final firebaseAppCheckProvider = FutureProvider<FirebaseAppCheck>.internal(
   firebaseAppCheck,

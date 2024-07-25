@@ -9,7 +9,12 @@ part of 'shared_preferences_repository.dart';
 String _$sharedPreferencesRepositoryHash() =>
     r'385519f6db3c2152610e418a4b0528b77f4793a7';
 
-/// See also [sharedPreferencesRepository].
+/// Provides an instance of [SharedPreferencesRepository] using Riverpod.
+///
+/// This provider ensures that the [SharedPreferencesRepository] is properly initialized
+/// and available for use throughout the application.
+///
+/// Copied from [sharedPreferencesRepository].
 @ProviderFor(sharedPreferencesRepository)
 final sharedPreferencesRepositoryProvider =
     AutoDisposeProvider<SharedPreferencesRepository>.internal(

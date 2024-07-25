@@ -2,6 +2,7 @@ import 'package:octattoo_app_mvp/core/services/firebase/initialization/providers
 import 'package:octattoo_app_mvp/core/services/firebase/initialization/providers/appcheck_provider.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/initialization/providers/authentication_provider.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/initialization/providers/firestore_provider.dart';
+import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
 import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -28,9 +29,11 @@ Future<void> appStartup(AppStartupRef ref) async {
   });
 
   // All asynchronous app initialization code should belong here:
+  logger.i('Starting app initialization');
   await ref.watch(firebaseAppCheckProvider.future);
   await ref.watch(sharedPreferencesProvider.future);
   ref.watch(firebaseAnalyticsProvider);
   ref.watch(firebaseAuthProvider);
   ref.watch(firebaseFirestoreProvider);
+  logger.i('App startup completed successfully');
 }

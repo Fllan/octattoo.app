@@ -8,7 +8,17 @@ part of 'authentication_provider.dart';
 
 String _$firebaseAuthHash() => r'd11f4a68037f39a53743cbae169867cf911d9c98';
 
-/// See also [firebaseAuth].
+/// Provides an instance of [FirebaseAuth] and handles its initialization.
+///
+/// This provider ensures that Firebase Authentication is properly initialized and available for
+/// use throughout the application. It logs the initialization status and handles any
+/// errors that may occur during the process.
+///
+/// ### Key Components:
+/// - **Initialization**: Attempts to initialize Firebase Authentication and logs the result.
+/// - **Error Handling**: Catches and logs any errors that occur during initialization.
+///
+/// Copied from [firebaseAuth].
 @ProviderFor(firebaseAuth)
 final firebaseAuthProvider = Provider<FirebaseAuth>.internal(
   firebaseAuth,

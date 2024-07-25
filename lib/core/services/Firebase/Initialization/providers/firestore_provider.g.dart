@@ -8,7 +8,17 @@ part of 'firestore_provider.dart';
 
 String _$firebaseFirestoreHash() => r'de2393ac0ba3d74621137d90802122fe9b217153';
 
-/// See also [firebaseFirestore].
+/// Provides an instance of [FirebaseFirestore] and handles its initialization.
+///
+/// This provider ensures that Firestore is properly initialized with specific settings,
+/// such as enabling persistence for offline data access. It logs the initialization status
+/// and handles any errors that may occur during the process.
+///
+/// ### Key Components:
+/// - **Initialization**: Attempts to initialize Firestore with persistence enabled and logs the result.
+/// - **Error Handling**: Catches and logs any errors that occur during initialization.
+///
+/// Copied from [firebaseFirestore].
 @ProviderFor(firebaseFirestore)
 final firebaseFirestoreProvider = Provider<FirebaseFirestore>.internal(
   firebaseFirestore,
