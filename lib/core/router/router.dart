@@ -82,7 +82,7 @@ GoRouter goRouter(GoRouterRef ref) {
                 path: 'signin',
                 name: WelcomeSubRoutes.signin.name,
                 pageBuilder: (context, state) {
-                  return MaterialPage(child: SignInScreen());
+                  return const MaterialPage(child: SignInScreen());
                 },
                 routes: [
                   GoRoute(

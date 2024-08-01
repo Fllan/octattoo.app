@@ -1,3 +1,5 @@
+import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
+
 String? emailValidator(String? value) {
   const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
       r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
@@ -9,28 +11,19 @@ String? emailValidator(String? value) {
 
   final regex = RegExp(pattern);
   if (value == null || value.isEmpty) {
-    return 'Please enter your email';
+    return 'Please enter your email'.hardcoded;
   }
   if (!regex.hasMatch(value)) {
-    return 'Please enter a valid email';
+    return 'Please enter a valid email'.hardcoded;
   }
   return null;
 }
 
 String? passwordValidator(String? value) {
   if (value == null || value.isEmpty) {
-    return 'Please enter your password';
+    return 'Please enter your password'.hardcoded;
   } else if (value.length < 6) {
-    return 'Password must be at least 6 characters';
-  }
-  return null;
-}
-
-String? confirmedPasswordValidator(String? value) {
-  if (value == null || value.isEmpty) {
-    return 'Please confirm your password';
-  } else if (value.length < 6) {
-    return 'Password must be at least 6 characters';
+    return 'Password must be at least 6 characters'.hardcoded;
   }
   return null;
 }

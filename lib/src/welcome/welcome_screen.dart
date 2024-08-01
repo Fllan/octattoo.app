@@ -12,37 +12,30 @@ class WelcomeScreen extends StatelessWidget {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
         children: [
           Text(
             context.loc.appTitle,
             style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           ),
           gapH64,
-          gapH64,
           ElevatedButton(
             onPressed: () {
               context.pushNamed(WelcomeSubRoutes.signin.name);
             },
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
+            child: Text(
+              'Sign In'.hardcoded,
             ),
-            child: Text('Sign In'.hardcoded),
           ),
           gapH24,
           ElevatedButton(
             onPressed: () {
               context.pushNamed(WelcomeSubRoutes.register.name);
             },
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
+            child: Text(
+              'Register'.hardcoded,
             ),
-            child: const Text('Register'),
           ),
         ],
       ),

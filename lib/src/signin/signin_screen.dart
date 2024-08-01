@@ -3,80 +3,96 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app_mvp/core/constants/gaps.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/authentication/authentication_repository.dart';
+import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
+import 'package:octattoo_app_mvp/src/shared/validators/form_validators.dart';
+import 'package:octattoo_app_mvp/src/shared/widgets/app_async_elevated_button.dart';
 
-class SignInScreen extends ConsumerWidget {
-  SignInScreen({super.key});
+import '../shared/widgets/app_text_form_field.dart';
 
-  final GlobalKey<FormState> _key = GlobalKey();
-  final _emailKey = GlobalKey<FormState>();
-  final _passwordKey = GlobalKey<FormState>();
-  final _email = TextEditingController();
-  final _password = TextEditingController();
+class SignInScreen extends ConsumerStatefulWidget {
+  const SignInScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends ConsumerState<SignInScreen> {
+  final _key = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _isNotEmptyEmail = false;
+  bool _isNotEmptyPassword = false;
+  bool _isValidForm = false;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _callback() async {
+    return await ref.watch(authRepositoryProvider).signInWithEmailAndPassword(
+          _emailController.text,
+          _passwordController.text,
+          context,
+        );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign In'),
+        title: Text('Sign in'.hardcoded),
       ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Form(
             key: _key,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextFormField(
-                  key: _emailKey,
-                  controller: _email,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(),
+            onChanged: () {
+              _isNotEmptyEmail = _emailController.text.isNotEmpty;
+              _isNotEmptyPassword = _passwordController.text.isNotEmpty;
+
+              if (_isNotEmptyEmail && _isNotEmptyPassword) {
+                setState(() {
+                  _isValidForm = _key.currentState!.validate();
+                });
+              }
+            },
+            child: AutofillGroup(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppTextFormField(
+                    controller: _emailController,
+                    validator: (value) => emailValidator(value),
+                    label: 'Email'.hardcoded,
+                    keyboardType: TextInputType.emailAddress,
+                    hasAutoFocus: true,
                   ),
-                ),
-                gapH20,
-                TextFormField(
-                  key: _passwordKey,
-                  controller: _password,
-                  keyboardType: TextInputType.visiblePassword,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(),
-                  ),
-                  obscureText: true,
-                  onFieldSubmitted: (_) {
-                    if (_key.currentState!.validate()) {
-                      ref.watch(authRepositoryProvider).signInWithEmailAndPassword(_email.text, _password.text, context,
-                      );
-                    }
-                  },
-                ),
-                gapH20,
-                ElevatedButton(
-                  onPressed: () {
-                    if (_key.currentState!.validate()) {
-                      ref.watch(authRepositoryProvider).signInWithEmailAndPassword(_email.text, _password.text, context,
-                      );
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                  gapH16,
+                  PasswordTextFormField(controller: _passwordController),
+                  gapH24,
+                  if (!_isValidForm)
+                    ElevatedButton(
+                      onPressed: null,
+                      child: Text('Sign in'.hardcoded),
                     ),
+                  if (_isValidForm)
+                    AppAsyncElevatedButton(
+                      callback: _callback,
+                      label: 'Sign in'.hardcoded,
+                    ),
+                  gapH24,
+                  TextButton(
+                    onPressed: () {
+                      context.pushNamed('forgotPassword');
+                    },
+                    child: Text('Forgot Password?'.hardcoded),
                   ),
-                  child: const Text('Sign In'),
-                ),
-                gapH8,
-                TextButton(
-                  onPressed: () {
-                    context.pushNamed('forgotPassword');
-                  },
-                  child: const Text('Forgot Password?'),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
