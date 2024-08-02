@@ -89,7 +89,7 @@ GoRouter goRouter(GoRouterRef ref) {
                     path: 'forgot-password',
                     name: SignInSubRoutes.forgotPassword.name,
                     pageBuilder: (context, state) {
-                      return MaterialPage(child: ForgotPasswordScreen());
+                      return const MaterialPage(child: ForgotPasswordScreen());
                     },
                   ),
                 ],
@@ -98,7 +98,7 @@ GoRouter goRouter(GoRouterRef ref) {
                 path: 'register',
                 name: WelcomeSubRoutes.register.name,
                 pageBuilder: (context, state) {
-                  return MaterialPage(child: RegisterScreen());
+                  return const MaterialPage(child: RegisterScreen());
                 },
               ),
             ],
