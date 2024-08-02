@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:octattoo_app_mvp/core/constants/gaps.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/authentication/authentication_repository.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
-import 'package:octattoo_app_mvp/src/shared/validators/form_validators.dart';
+import 'package:octattoo_app_mvp/src/shared/validators/email_password_validators.dart';
 import 'package:octattoo_app_mvp/src/shared/widgets/app_async_elevated_button.dart';
 import 'package:octattoo_app_mvp/src/shared/widgets/app_text_form_field.dart';
 

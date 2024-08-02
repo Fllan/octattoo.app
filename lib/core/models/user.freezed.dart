@@ -21,13 +21,13 @@ User _$UserFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$User {
   DateTime get createdAt => throw _privateConstructorUsedError;
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
   UserRoles get role => throw _privateConstructorUsedError;
-  bool? get hasCompletedOnboarding => throw _privateConstructorUsedError;
-  bool? get hasAnonymousAccount => throw _privateConstructorUsedError;
+  bool get hasCompletedOnboarding => throw _privateConstructorUsedError;
+  bool get hasAnonymousAccount => throw _privateConstructorUsedError;
   String? get firstname => throw _privateConstructorUsedError;
   String? get lastname => throw _privateConstructorUsedError;
-  bool? get showPronoun => throw _privateConstructorUsedError;
+  bool get showPronoun => throw _privateConstructorUsedError;
   String? get pronoun => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
@@ -51,13 +51,13 @@ abstract class $UserCopyWith<$Res> {
   @useResult
   $Res call(
       {DateTime createdAt,
-      DateTime? updatedAt,
+      DateTime updatedAt,
       UserRoles role,
-      bool? hasCompletedOnboarding,
-      bool? hasAnonymousAccount,
+      bool hasCompletedOnboarding,
+      bool hasAnonymousAccount,
       String? firstname,
       String? lastname,
-      bool? showPronoun,
+      bool showPronoun,
       String? pronoun,
       String? email,
       String? phoneNumber,
@@ -84,13 +84,13 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @override
   $Res call({
     Object? createdAt = null,
-    Object? updatedAt = freezed,
+    Object? updatedAt = null,
     Object? role = null,
-    Object? hasCompletedOnboarding = freezed,
-    Object? hasAnonymousAccount = freezed,
+    Object? hasCompletedOnboarding = null,
+    Object? hasAnonymousAccount = null,
     Object? firstname = freezed,
     Object? lastname = freezed,
-    Object? showPronoun = freezed,
+    Object? showPronoun = null,
     Object? pronoun = freezed,
     Object? email = freezed,
     Object? phoneNumber = freezed,
@@ -107,22 +107,22 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      updatedAt: freezed == updatedAt
+      updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
       role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as UserRoles,
-      hasCompletedOnboarding: freezed == hasCompletedOnboarding
+      hasCompletedOnboarding: null == hasCompletedOnboarding
           ? _value.hasCompletedOnboarding
           : hasCompletedOnboarding // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      hasAnonymousAccount: freezed == hasAnonymousAccount
+              as bool,
+      hasAnonymousAccount: null == hasAnonymousAccount
           ? _value.hasAnonymousAccount
           : hasAnonymousAccount // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       firstname: freezed == firstname
           ? _value.firstname
           : firstname // ignore: cast_nullable_to_non_nullable
@@ -131,10 +131,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.lastname
           : lastname // ignore: cast_nullable_to_non_nullable
               as String?,
-      showPronoun: freezed == showPronoun
+      showPronoun: null == showPronoun
           ? _value.showPronoun
           : showPronoun // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       pronoun: freezed == pronoun
           ? _value.pronoun
           : pronoun // ignore: cast_nullable_to_non_nullable
@@ -188,13 +188,13 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
   @useResult
   $Res call(
       {DateTime createdAt,
-      DateTime? updatedAt,
+      DateTime updatedAt,
       UserRoles role,
-      bool? hasCompletedOnboarding,
-      bool? hasAnonymousAccount,
+      bool hasCompletedOnboarding,
+      bool hasAnonymousAccount,
       String? firstname,
       String? lastname,
-      bool? showPronoun,
+      bool showPronoun,
       String? pronoun,
       String? email,
       String? phoneNumber,
@@ -218,13 +218,13 @@ class __$$UserImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? createdAt = null,
-    Object? updatedAt = freezed,
+    Object? updatedAt = null,
     Object? role = null,
-    Object? hasCompletedOnboarding = freezed,
-    Object? hasAnonymousAccount = freezed,
+    Object? hasCompletedOnboarding = null,
+    Object? hasAnonymousAccount = null,
     Object? firstname = freezed,
     Object? lastname = freezed,
-    Object? showPronoun = freezed,
+    Object? showPronoun = null,
     Object? pronoun = freezed,
     Object? email = freezed,
     Object? phoneNumber = freezed,
@@ -241,22 +241,22 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      updatedAt: freezed == updatedAt
+      updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
       role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
               as UserRoles,
-      hasCompletedOnboarding: freezed == hasCompletedOnboarding
+      hasCompletedOnboarding: null == hasCompletedOnboarding
           ? _value.hasCompletedOnboarding
           : hasCompletedOnboarding // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      hasAnonymousAccount: freezed == hasAnonymousAccount
+              as bool,
+      hasAnonymousAccount: null == hasAnonymousAccount
           ? _value.hasAnonymousAccount
           : hasAnonymousAccount // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       firstname: freezed == firstname
           ? _value.firstname
           : firstname // ignore: cast_nullable_to_non_nullable
@@ -265,10 +265,10 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.lastname
           : lastname // ignore: cast_nullable_to_non_nullable
               as String?,
-      showPronoun: freezed == showPronoun
+      showPronoun: null == showPronoun
           ? _value.showPronoun
           : showPronoun // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       pronoun: freezed == pronoun
           ? _value.pronoun
           : pronoun // ignore: cast_nullable_to_non_nullable
@@ -342,19 +342,19 @@ class _$UserImpl implements _User {
   @override
   final DateTime createdAt;
   @override
-  final DateTime? updatedAt;
+  final DateTime updatedAt;
   @override
   final UserRoles role;
   @override
-  final bool? hasCompletedOnboarding;
+  final bool hasCompletedOnboarding;
   @override
-  final bool? hasAnonymousAccount;
+  final bool hasAnonymousAccount;
   @override
   final String? firstname;
   @override
   final String? lastname;
   @override
-  final bool? showPronoun;
+  final bool showPronoun;
   @override
   final String? pronoun;
   @override
@@ -457,13 +457,13 @@ class _$UserImpl implements _User {
 abstract class _User implements User {
   factory _User(
       {required final DateTime createdAt,
-      required final DateTime? updatedAt,
+      required final DateTime updatedAt,
       required final UserRoles role,
-      required final bool? hasCompletedOnboarding,
-      required final bool? hasAnonymousAccount,
+      required final bool hasCompletedOnboarding,
+      required final bool hasAnonymousAccount,
       required final String? firstname,
       required final String? lastname,
-      required final bool? showPronoun,
+      required final bool showPronoun,
       required final String? pronoun,
       required final String? email,
       required final String? phoneNumber,
@@ -480,19 +480,19 @@ abstract class _User implements User {
   @override
   DateTime get createdAt;
   @override
-  DateTime? get updatedAt;
+  DateTime get updatedAt;
   @override
   UserRoles get role;
   @override
-  bool? get hasCompletedOnboarding;
+  bool get hasCompletedOnboarding;
   @override
-  bool? get hasAnonymousAccount;
+  bool get hasAnonymousAccount;
   @override
   String? get firstname;
   @override
   String? get lastname;
   @override
-  bool? get showPronoun;
+  bool get showPronoun;
   @override
   String? get pronoun;
   @override

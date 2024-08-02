@@ -8,6 +8,7 @@ import 'package:octattoo_app_mvp/core/constants/worplace_types.dart';
 import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
 import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_keys.dart';
 import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_repository.dart';
+import 'package:octattoo_app_mvp/src/onboarding/app_onboarding_scaffold.dart';
 
 class WorkplacesTypeScreen extends ConsumerStatefulWidget {
   const WorkplacesTypeScreen({super.key});
@@ -18,161 +19,115 @@ class WorkplacesTypeScreen extends ConsumerStatefulWidget {
 }
 
 class _WorkplacesTypeScreenState extends ConsumerState<WorkplacesTypeScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Add a workplace'.hardcoded,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface,
-                    )),
-            gapH16,
-            Text(
-              'Select a type of workplace to add your first one. You can add other workplaces later.'
-                  .hardcoded,
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-            ),
-            gapH32,
-            IntrinsicHeight(
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Column(
-                                children: [
-                                  Text(
-                                    'Guest'.hardcoded,
-                                    style:
-                                        Theme.of(context).textTheme.titleMedium,
-                                  ),
-                                  gapH24,
-                                  Icon(
-                                    Icons.work_history_outlined,
-                                    size: 68,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurfaceVariant,
-                                  ),
-                                  gapH24,
-                                  const Text(
-                                    'When you tattoo for a period of time in a specific workplace',
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  gapH24,
-                                ],
-                              ),
-                              FilledButton(
-                                onPressed: () {
-                                  _updateStep();
-                                  GoRouter.of(context).pushNamed(
-                                    WorkplaceSubRoutes.add.name,
-                                    pathParameters: {
-                                      'selectedType':
-                                          WorkplaceTypes.guest.value,
-                                    },
-                                  );
-                                },
-                                child: Text('New guest'.hardcoded),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  gapW16,
-                  Expanded(
-                    flex: 1,
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                children: [
-                                  Text(
-                                    'Permanent'.hardcoded,
-                                    style:
-                                        Theme.of(context).textTheme.titleMedium,
-                                  ),
-                                  gapH24,
-                                  Icon(
-                                    Icons.storefront_outlined,
-                                    size: 68,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurfaceVariant,
-                                  ),
-                                  gapH24,
-                                  const Text(
-                                    'Where you tattoo most of your time',
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  gapH24,
-                                ],
-                              ),
-                              FilledButton(
-                                onPressed: () {
-                                  _updateStep();
-                                  GoRouter.of(context).pushNamed(
-                                    WorkplaceSubRoutes.add.name,
-                                    pathParameters: {
-                                      'selectedType':
-                                          WorkplaceTypes.permanent.value
-                                    },
-                                  );
-                                },
-                                child: Text('New Permanent'.hardcoded),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            gapH24,
-            ElevatedButton(
-              onPressed: () {
-                GoRouter.of(context).pop();
-              },
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.arrow_back),
-                  gapW4,
-                  Text('Back'.hardcoded),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
   Future<void> _updateStep() async {
     final prefs = ref.watch(sharedPreferencesRepositoryProvider);
 
     await prefs.saveInt(SharedPreferencesKeys.onboardingStep, 3);
     logger.d(
         'Onboarding step updated to :${prefs.getInt(SharedPreferencesKeys.onboardingStep)}');
+  }
+
+  Widget _buildTypeCard(
+    BuildContext context,
+    String title,
+    String description,
+    IconData icon,
+    String selectedType,
+  ) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                children: [
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  gapH24,
+                  Icon(
+                    icon,
+                    size: 68,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                  gapH24,
+                  Text(
+                    description,
+                    textAlign: TextAlign.center,
+                  ),
+                  gapH24,
+                ],
+              ),
+              FilledButton(
+                onPressed: () {
+                  _updateStep();
+                  GoRouter.of(context).pushNamed(
+                    WorkplaceSubRoutes.add.name,
+                    pathParameters: {
+                      'selectedType': selectedType,
+                    },
+                  );
+                },
+                child: Text(
+                  'New $title'.hardcoded,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AppOnboardingScaffold(
+      title: Text('Add a workplace'.hardcoded,
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+              )),
+      children: [
+        Text(
+          'Select a type of workplace to add your first one. You can add other workplaces later.'
+              .hardcoded,
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+        ),
+        gapH32,
+        IntrinsicHeight(
+          child: Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: _buildTypeCard(
+                  context,
+                  'Guest'.hardcoded,
+                  'When you tattoo for a period of time in a specific workplace'
+                      .hardcoded,
+                  Icons.work_history_outlined,
+                  WorkplaceTypes.guest.value,
+                ),
+              ),
+              gapW16,
+              Expanded(
+                flex: 1,
+                child: _buildTypeCard(
+                  context,
+                  'Permanent'.hardcoded,
+                  'Where you tattoo most of your time'.hardcoded,
+                  Icons.storefront_outlined,
+                  WorkplaceTypes.permanent.value,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }

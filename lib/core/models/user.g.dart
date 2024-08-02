@@ -8,15 +8,13 @@ part of 'user.dart';
 
 _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
+      updatedAt: DateTime.parse(json['updatedAt'] as String),
       role: $enumDecode(_$UserRolesEnumMap, json['role']),
-      hasCompletedOnboarding: json['hasCompletedOnboarding'] as bool?,
-      hasAnonymousAccount: json['hasAnonymousAccount'] as bool?,
+      hasCompletedOnboarding: json['hasCompletedOnboarding'] as bool,
+      hasAnonymousAccount: json['hasAnonymousAccount'] as bool,
       firstname: json['firstname'] as String?,
       lastname: json['lastname'] as String?,
-      showPronoun: json['showPronoun'] as bool?,
+      showPronoun: json['showPronoun'] as bool,
       pronoun: json['pronoun'] as String?,
       email: json['email'] as String?,
       phoneNumber: json['phoneNumber'] as String?,
@@ -32,7 +30,7 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
 Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
     <String, dynamic>{
       'createdAt': instance.createdAt.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'updatedAt': instance.updatedAt.toIso8601String(),
       'role': _$UserRolesEnumMap[instance.role]!,
       'hasCompletedOnboarding': instance.hasCompletedOnboarding,
       'hasAnonymousAccount': instance.hasAnonymousAccount,

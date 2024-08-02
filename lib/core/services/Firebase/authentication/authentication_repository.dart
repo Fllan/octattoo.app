@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/initialization/providers/authentication_provider.dart';
+import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
 import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -46,8 +47,8 @@ class AuthRepository {
         await showDialog(
             context: context,
             builder: (context) => AlertDialog(
-                    title: const Text('Error Occured'),
-                    content: Text(e.toString()),
+                    title: Text('Error Occured'.hardcoded),
+                    content: Text(e.message.toString()),
                     actions: [
                       TextButton(
                           onPressed: () {
@@ -71,8 +72,8 @@ class AuthRepository {
         await showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
-            title: const Text('Error Occured'),
-            content: Text(e.toString()),
+            title: Text('Error Occured'.hardcoded),
+            content: Text(e.message.toString()),
             actions: [
               TextButton(
                   onPressed: () {
@@ -99,8 +100,8 @@ class AuthRepository {
         await showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
-            title: const Text('Error Occured'),
-            content: Text(e.toString()),
+            title: Text('Error Occured'.hardcoded),
+            content: Text(e.message.toString()),
             actions: [
               TextButton(
                   onPressed: () {
@@ -112,7 +113,6 @@ class AuthRepository {
         );
       }
     }
-    return _auth.sendPasswordResetEmail(email: email);
   }
 
   /// Signs in the user with Google authentication.
@@ -139,8 +139,8 @@ class AuthRepository {
         await showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
-            title: const Text('Error Occured'),
-            content: Text(e.toString()),
+            title: Text('Error Occured'.hardcoded),
+            content: Text(e.message.toString()),
             actions: [
               TextButton(
                   onPressed: () {

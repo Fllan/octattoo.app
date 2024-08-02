@@ -37,12 +37,28 @@ class UsersRepository {
     }
   }
 
-  Future<User> read(String userId) async {
+  Future<User?> read(String userId) async {
     try {
       DocumentSnapshot docSnap = await _usersCollection.doc(userId).get();
       if (docSnap.exists) {
         logger.d('User read successfully with ID: $userId');
         return User.fromFirestore(docSnap, null);
+      } else {
+        logger.d('User not found with ID: $userId');
+        return null;
+      }
+    } catch (e) {
+      throw Exception('Failed to read the user $userId');
+    }
+  }
+
+  Future<bool> isOnboardingCompleted(String userId) async {
+    try {
+      DocumentSnapshot docSnap = await _usersCollection.doc(userId).get();
+      if (docSnap.exists) {
+        final user = User.fromFirestore(docSnap, null);
+        logger.d('User read successfully with ID: $userId');
+        return user.hasCompletedOnboarding;
       } else {
         throw Exception('User not found with ID: $userId');
       }

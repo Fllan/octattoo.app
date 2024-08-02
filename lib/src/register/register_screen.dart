@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:octattoo_app_mvp/core/constants/gaps.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/authentication/authentication_repository.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
-import 'package:octattoo_app_mvp/src/shared/validators/form_validators.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_keys.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_repository.dart';
+import 'package:octattoo_app_mvp/src/shared/validators/email_password_validators.dart';
 import 'package:octattoo_app_mvp/src/shared/widgets/app_async_elevated_button.dart';
 import 'package:octattoo_app_mvp/src/shared/widgets/app_text_form_field.dart';
 
@@ -34,21 +36,27 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   }
 
   Future<void> _signInCallback() async {
-    return await ref.read(authRepositoryProvider).signInAnonymously();
+    final prefs = ref.watch(sharedPreferencesRepositoryProvider);
+    await prefs.saveInt(SharedPreferencesKeys.onboardingStep, 0);
+    await ref.read(authRepositoryProvider).signInAnonymously();
   }
 
   Future<void> _signUpCallback() async {
-    return await ref
-        .read(authRepositoryProvider)
-        .createUserWithEmailAndPassword(
-          _emailController.text,
-          _passwordController.text,
-          context,
-        );
+    final prefs = ref.watch(sharedPreferencesRepositoryProvider);
+    await prefs.saveInt(SharedPreferencesKeys.onboardingStep, 0);
+    if (context.mounted) {
+      await ref.read(authRepositoryProvider).createUserWithEmailAndPassword(
+            _emailController.text,
+            _passwordController.text,
+            // ignore: use_build_context_synchronously
+            context,
+          );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    String buttonLable = 'Sign Up'.hardcoded;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -91,8 +99,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   },
                   child: Column(
                     children: [
-                      const Text('Or sign up with your email:',
-                          style: TextStyle(fontSize: 16)),
+                      Text('Or sign up with your email:'.hardcoded),
                       gapH20,
                       AppTextFormField(
                         controller: _emailController,
@@ -125,12 +132,12 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       if (!_isValidForm)
                         ElevatedButton(
                           onPressed: null,
-                          child: Text('Sign Up'.hardcoded),
+                          child: Text(buttonLable),
                         ),
                       if (_isValidForm)
                         AppAsyncElevatedButton(
                           callback: _signUpCallback,
-                          label: 'Sign Up'.hardcoded,
+                          label: buttonLable,
                         ),
                     ],
                   ),

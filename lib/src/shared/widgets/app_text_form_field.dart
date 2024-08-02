@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
-import 'package:octattoo_app_mvp/src/shared/validators/form_validators.dart';
+import 'package:octattoo_app_mvp/src/shared/validators/email_password_validators.dart';
 
 class AppTextFormField extends StatelessWidget {
   const AppTextFormField({
@@ -10,6 +10,7 @@ class AppTextFormField extends StatelessWidget {
     required this.label,
     required this.keyboardType,
     this.autofillHints,
+    this.maxLength,
     required this.hasAutoFocus,
   }) : _controller = controller;
 
@@ -18,11 +19,13 @@ class AppTextFormField extends StatelessWidget {
   final String label;
   final TextInputType keyboardType;
   final List<String>? autofillHints;
+  final int? maxLength;
   final bool hasAutoFocus;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLength: maxLength,
       autofocus: hasAutoFocus,
       autofillHints: autofillHints,
       autovalidateMode: AutovalidateMode.onUserInteraction,

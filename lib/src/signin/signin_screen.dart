@@ -4,7 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:octattoo_app_mvp/core/constants/gaps.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/authentication/authentication_repository.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
-import 'package:octattoo_app_mvp/src/shared/validators/form_validators.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_keys.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_repository.dart';
+import 'package:octattoo_app_mvp/src/shared/validators/email_password_validators.dart';
 import 'package:octattoo_app_mvp/src/shared/widgets/app_async_elevated_button.dart';
 
 import '../shared/widgets/app_text_form_field.dart';
@@ -32,11 +34,16 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   }
 
   Future<void> _callback() async {
-    return await ref.watch(authRepositoryProvider).signInWithEmailAndPassword(
-          _emailController.text,
-          _passwordController.text,
-          context,
-        );
+    final prefs = ref.watch(sharedPreferencesRepositoryProvider);
+    await prefs.saveInt(SharedPreferencesKeys.onboardingStep, 0);
+    if (context.mounted) {
+      await ref.watch(authRepositoryProvider).signInWithEmailAndPassword(
+            _emailController.text,
+            _passwordController.text,
+            // ignore: use_build_context_synchronously
+            context,
+          );
+    }
   }
 
   @override
@@ -65,6 +72,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AppTextFormField(
+                    autofillHints: const [AutofillHints.email],
                     controller: _emailController,
                     validator: (value) => emailValidator(value),
                     label: 'Email'.hardcoded,

@@ -11,6 +11,7 @@ import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
 import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
 import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_keys.dart';
 import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_repository.dart';
+import 'package:octattoo_app_mvp/src/shared/widgets/app_async_elevated_button.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -20,57 +21,6 @@ class OnboardingScreen extends ConsumerStatefulWidget {
 }
 
 class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            gapH64,
-            Text(
-              'Welcome in the community!'.hardcoded,
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-            ),
-            gapH16,
-            const Placeholder(
-              fallbackHeight: 200,
-              fallbackWidth: 200,
-            ),
-            gapH16,
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      _updateStep();
-                      await _createUserinFirestore();
-                      if (context.mounted) {
-                        GoRouter.of(context)
-                            .pushNamed(OnboardingSubRoutes.artistProfile.name);
-                      }
-                    },
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.self_improvement_outlined),
-                        Text('Start onboarding'.hardcoded),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Future<void> _updateStep() async {
     final prefs = ref.watch(sharedPreferencesRepositoryProvider);
 
@@ -95,7 +45,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         hasAnonymousAccount: hasAnonymousAccount,
         firstname: null,
         lastname: null,
-        showPronoun: null,
+        showPronoun: false,
         pronoun: null,
         email: null,
         phoneNumber: null,
@@ -108,6 +58,42 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         postalCode: null,
       ),
       authUserId,
+    );
+  }
+
+  Future<void> _callback() async {
+    _updateStep();
+    await _createUserinFirestore();
+    if (context.mounted) {
+      // ignore: use_build_context_synchronously
+      GoRouter.of(context).goNamed(OnboardingSubRoutes.artistProfile.name);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Welcome in the community!'.hardcoded,
+            ),
+            gapH32,
+            const Icon(
+              Icons.volunteer_activism,
+              size: 48,
+            ),
+            gapH32,
+            AppAsyncElevatedButton(
+              callback: _callback,
+              label: 'Start onboarding'.hardcoded,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

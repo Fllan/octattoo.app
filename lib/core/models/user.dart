@@ -10,13 +10,13 @@ part 'user.g.dart';
 class User with _$User {
   factory User({
     required DateTime createdAt,
-    required DateTime? updatedAt,
+    required DateTime updatedAt,
     required UserRoles role,
-    required bool? hasCompletedOnboarding,
-    required bool? hasAnonymousAccount,
+    required bool hasCompletedOnboarding,
+    required bool hasAnonymousAccount,
     required String? firstname,
     required String? lastname,
-    required bool? showPronoun,
+    required bool showPronoun,
     required String? pronoun,
     required String? email,
     required String? phoneNumber,

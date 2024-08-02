@@ -3,35 +3,19 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:octattoo_app_mvp/core/models/user.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/authentication/authentication_repository.dart';
+import 'package:octattoo_app_mvp/core/services/firebase/firestore/providers/users_repository.dart';
 import 'package:octattoo_app_mvp/core/start/app_startup_provider.dart';
 import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
-import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_repository.dart';
 
-/// Determines the redirect path based on the application's state and user's authentication status.
-///
-/// This function is used by the GoRouter to redirect users to appropriate routes during navigation.
-/// It considers the app startup state, user's authentication status, and onboarding progress.
-///
-/// - **App Startup State**: Redirects to the startup page if the app is still loading or has encountered an error.
-/// - **Authentication State**:
-///   - Redirects authenticated users away from the welcome page.
-///   - Redirects unauthenticated users away from the onboarding page.
-/// - **Onboarding State**: Directs users to their current onboarding step if they are logged in and have an ongoing onboarding process.
-///
-/// Returns `null` if no redirection is necessary.
-FutureOr<String?> redirect(BuildContext context, GoRouterState state, Ref ref) {
-  // Get the app startup state
-  final appStartupState = ref.watch(appStartupProvider);
-
-  // Get the authentication state
-  final isLoggedIn = ref.watch(authRepositoryProvider).currentUser != null;
+Future<String?> redirect(
+    BuildContext context, GoRouterState state, Ref ref) async {
   final isWelcoming = state.uri.pathSegments.first == 'welcome';
   final isOnboarding = state.uri.pathSegments.first == 'onboarding';
 
-  // Retrieve the current onboarding step from shared preferences
-  late final currentOnboardingStep =
-      ref.read(sharedPreferencesRepositoryProvider).getCurrentOnboardingStep();
+  // Get the app startup state
+  final appStartupState = ref.watch(appStartupProvider);
 
   // If the app is still loading or has an error, redirect to the startup page
   if (appStartupState.isLoading || appStartupState.hasError) {
@@ -39,29 +23,46 @@ FutureOr<String?> redirect(BuildContext context, GoRouterState state, Ref ref) {
     return '/startup';
   }
 
-  // Redirect authenticated users away from the welcome page to onboarding steps if necessary
-  if (isLoggedIn && isWelcoming) {
-    if (currentOnboardingStep == 1) {
-      logger.d('Redirecting authenticated user to onboarding step 1');
-      return '/onboarding/artist-profile';
-    }
-    if (currentOnboardingStep == 2) {
-      logger.d('Redirecting authenticated user to onboarding step 2');
-      return '/onboarding/workplace';
-    }
-    if (currentOnboardingStep == 3) {
-      logger.d('Redirecting authenticated user to onboarding step 3');
-      return '/onboarding/workplace/add';
-    }
-    logger.d('Redirecting authenticated user to onboarding');
-    return '/onboarding';
-  }
-  // Redirect unauthenticated users away from the onboarding page to the welcome page
-  else if (!isLoggedIn && isOnboarding) {
-    logger.d('Redirecting unauthenticated user to welcome page');
-    return '/welcome';
+  // Get the authentication state
+  final currentAuthUser = ref.watch(authRepositoryProvider).currentUser;
+  bool isLoggedIn = false;
+  String? authUserId;
+
+  if (currentAuthUser != null) {
+    authUserId = currentAuthUser.uid;
+    isLoggedIn = true;
   }
 
-  // No redirection needed
-  return null;
+  // Get the user's account status
+  if (!isLoggedIn && !isWelcoming) {
+    logger.d('Redirecting unauthenticated user to /welcome');
+    return '/welcome';
+  } else if (!isLoggedIn && isWelcoming) {
+    return null;
+  } else {
+    logger.d('User is authenticated');
+    logger.d('Checking if authenticated user has an account...');
+    User? user = await ref.watch(usersRepositoryProvider).read(authUserId!);
+
+    if (user == null) {
+      logger.d(
+          'Authenticated user does not have an account and is redirecting to /onboarding');
+      return '/onboarding';
+    } else {
+      logger.d('Authenticated user has an account: $user');
+      bool hasCompletedOnboarding = user.hasCompletedOnboarding;
+
+      if (!hasCompletedOnboarding && isOnboarding) {
+        return null;
+      } else if (!hasCompletedOnboarding && !isOnboarding) {
+        logger.d(
+            'User has not completed onboarding and is redirecting to /onboarding');
+        return '/onboarding';
+      } else {
+        logger.d(
+            'User has completed onboarding and is redirecting to /dashboard');
+        return '/dashboard';
+      }
+    }
+  }
 }
