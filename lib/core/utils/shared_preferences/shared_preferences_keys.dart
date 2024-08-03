@@ -12,8 +12,6 @@
 enum SharedPreferencesKeys {
   locale,
   theme,
-  // 0:Onboarding, 1:Artist Profile, 2:Workplace Type, 3:Workplace Add
-  onboardingStep,
   onboardingArtistName,
   onboardingShowRealNames,
   onboardingShowPronoun,

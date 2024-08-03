@@ -5,9 +5,6 @@ import 'package:octattoo_app_mvp/core/constants/gaps.dart';
 import 'package:octattoo_app_mvp/core/router/routes.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
 import 'package:octattoo_app_mvp/core/constants/worplace_types.dart';
-import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
-import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_keys.dart';
-import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_repository.dart';
 import 'package:octattoo_app_mvp/src/onboarding/app_onboarding_scaffold.dart';
 
 class WorkplacesTypeScreen extends ConsumerStatefulWidget {
@@ -19,14 +16,6 @@ class WorkplacesTypeScreen extends ConsumerStatefulWidget {
 }
 
 class _WorkplacesTypeScreenState extends ConsumerState<WorkplacesTypeScreen> {
-  Future<void> _updateStep() async {
-    final prefs = ref.watch(sharedPreferencesRepositoryProvider);
-
-    await prefs.saveInt(SharedPreferencesKeys.onboardingStep, 3);
-    logger.d(
-        'Onboarding step updated to :${prefs.getInt(SharedPreferencesKeys.onboardingStep)}');
-  }
-
   Widget _buildTypeCard(
     BuildContext context,
     String title,
@@ -63,7 +52,6 @@ class _WorkplacesTypeScreenState extends ConsumerState<WorkplacesTypeScreen> {
               ),
               FilledButton(
                 onPressed: () {
-                  _updateStep();
                   GoRouter.of(context).pushNamed(
                     WorkplaceSubRoutes.add.name,
                     pathParameters: {

@@ -4,8 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:octattoo_app_mvp/core/constants/gaps.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/authentication/authentication_repository.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
-import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_keys.dart';
-import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_repository.dart';
 import 'package:octattoo_app_mvp/src/shared/validators/email_password_validators.dart';
 import 'package:octattoo_app_mvp/src/shared/widgets/app_async_elevated_button.dart';
 
@@ -34,8 +32,6 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   }
 
   Future<void> _callback() async {
-    final prefs = ref.watch(sharedPreferencesRepositoryProvider);
-    await prefs.saveInt(SharedPreferencesKeys.onboardingStep, 0);
     if (context.mounted) {
       await ref.watch(authRepositoryProvider).signInWithEmailAndPassword(
             _emailController.text,

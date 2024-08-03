@@ -68,13 +68,6 @@ class SharedPreferencesRepository {
   Future<void> remove(SharedPreferencesKeys key) async {
     await _prefs.remove(key.toString());
   }
-
-  /// Retrieves the current onboarding step from SharedPreferences.
-  ///
-  /// - Returns: The current onboarding step as an int, or null if not found.
-  int? getCurrentOnboardingStep() {
-    return _prefs.getInt(SharedPreferencesKeys.onboardingStep.toString());
-  }
 }
 
 /// Provides an instance of [SharedPreferencesRepository] using Riverpod.

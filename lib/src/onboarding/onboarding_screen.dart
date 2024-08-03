@@ -8,9 +8,6 @@ import 'package:octattoo_app_mvp/core/router/routes.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/authentication/authentication_repository.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/firestore/providers/users_repository.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
-import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
-import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_keys.dart';
-import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_repository.dart';
 import 'package:octattoo_app_mvp/src/shared/widgets/app_async_elevated_button.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -21,14 +18,6 @@ class OnboardingScreen extends ConsumerStatefulWidget {
 }
 
 class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
-  Future<void> _updateStep() async {
-    final prefs = ref.watch(sharedPreferencesRepositoryProvider);
-
-    await prefs.saveInt(SharedPreferencesKeys.onboardingStep, 1);
-    logger.d(
-        'Onboarding step updated to :${prefs.getInt(SharedPreferencesKeys.onboardingStep)}');
-  }
-
   Future<void> _createUserinFirestore() async {
     // Create user in firestore
     final usersRepo = ref.read(usersRepositoryProvider);
@@ -47,7 +36,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         lastname: null,
         showPronoun: false,
         pronoun: null,
-        email: null,
+        email: hasAnonymousAccount
+            ? null
+            : ref.read(authStateChangesProvider).value!.email,
         phoneNumber: null,
         photoURL: null,
         bio: null,
@@ -62,7 +53,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   Future<void> _callback() async {
-    _updateStep();
     await _createUserinFirestore();
     if (context.mounted) {
       // ignore: use_build_context_synchronously

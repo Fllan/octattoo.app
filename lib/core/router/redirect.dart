@@ -24,7 +24,7 @@ Future<String?> redirect(
   }
 
   // Get the authentication state
-  final currentAuthUser = ref.watch(authRepositoryProvider).currentUser;
+  final currentAuthUser = ref.read(authRepositoryProvider).currentUser;
   bool isLoggedIn = false;
   String? authUserId;
 
@@ -40,8 +40,8 @@ Future<String?> redirect(
   } else if (!isLoggedIn && isWelcoming) {
     return null;
   } else {
-    logger.d('User is authenticated');
-    logger.d('Checking if authenticated user has an account...');
+    logger.d(
+        'User is authenticated. Checking if authenticated user has an account in Firestore...');
     User? user = await ref.watch(usersRepositoryProvider).read(authUserId!);
 
     if (user == null) {
