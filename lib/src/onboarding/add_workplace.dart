@@ -21,6 +21,7 @@ class AddWorkplaceScreen extends StatefulWidget {
 class _AddWorkplaceScreenState extends State<AddWorkplaceScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  late String selectedType;
 
   @override
   void initState() {
@@ -400,7 +401,22 @@ class _CreateNewTabState extends ConsumerState<CreateNewTab> {
         pathParameters: {'workplaceID': workplaceId});
   }
 
-  void _showErrorMessage() {
-    // TODO : Implement error handling UI feedback, e.g., SnackBar, AlertDialog
+  void _showErrorMessage() async {
+    if (context.mounted) {
+      await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                  title: Text('Error Occured'.hardcoded),
+                  content: Text(
+                      'Something went wrong while adding the workplace. Please try again later.'
+                          .hardcoded),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text("OK"))
+                  ]));
+    }
   }
 }

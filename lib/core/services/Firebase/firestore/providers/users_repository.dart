@@ -68,7 +68,7 @@ class UsersRepository {
   }
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 UsersRepository usersRepository(UsersRepositoryRef ref) {
   final firestore = ref.watch(firebaseFirestoreProvider);
   return UsersRepository(firestore);

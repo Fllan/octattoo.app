@@ -5,7 +5,11 @@ import 'package:octattoo_app_mvp/core/constants/gaps.dart';
 import 'package:octattoo_app_mvp/core/router/routes.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
 import 'package:octattoo_app_mvp/core/constants/worplace_types.dart';
+import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_keys.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_repository.dart';
 import 'package:octattoo_app_mvp/src/onboarding/app_onboarding_scaffold.dart';
+import 'package:octattoo_app_mvp/src/shared/widgets/app_async_elevated_button.dart';
 
 class WorkplacesTypeScreen extends ConsumerStatefulWidget {
   const WorkplacesTypeScreen({super.key});
@@ -16,6 +20,22 @@ class WorkplacesTypeScreen extends ConsumerStatefulWidget {
 }
 
 class _WorkplacesTypeScreenState extends ConsumerState<WorkplacesTypeScreen> {
+  Future<void> _onPressed(selectedType) async {
+    logger.d('Selected type: $selectedType');
+    final prefs = ref.read(sharedPreferencesRepositoryProvider);
+    const workplaceTypeKey = SharedPreferencesKeys.onboardingWorkplaceType;
+    await prefs.saveString(workplaceTypeKey, selectedType);
+    if (context.mounted) {
+      // ignore: use_build_context_synchronously
+      GoRouter.of(context).pushNamed(
+        WorkplaceSubRoutes.add.name,
+        pathParameters: {
+          'selectedType': selectedType,
+        },
+      );
+    }
+  }
+
   Widget _buildTypeCard(
     BuildContext context,
     String title,
@@ -50,19 +70,9 @@ class _WorkplacesTypeScreenState extends ConsumerState<WorkplacesTypeScreen> {
                   gapH24,
                 ],
               ),
-              FilledButton(
-                onPressed: () {
-                  GoRouter.of(context).pushNamed(
-                    WorkplaceSubRoutes.add.name,
-                    pathParameters: {
-                      'selectedType': selectedType,
-                    },
-                  );
-                },
-                child: Text(
-                  'New $title'.hardcoded,
-                  textAlign: TextAlign.center,
-                ),
+              AppAsyncElevatedButton(
+                callback: () => _onPressed(selectedType),
+                label: 'New $title'.hardcoded,
               ),
             ],
           ),

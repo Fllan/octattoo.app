@@ -12,10 +12,10 @@ _$TattooArtistImpl _$$TattooArtistImplFromJson(Map<String, dynamic> json) =>
           .fromJson(json['userRef'] as Map<String, dynamic>),
       artistName: json['artistName'] as String,
       showRealNames: json['showRealNames'] as bool,
-      firstname: json['firstname'] as String,
-      lastname: json['lastname'] as String,
+      firstname: json['firstname'] as String?,
+      lastname: json['lastname'] as String?,
       showPronoun: json['showPronoun'] as bool,
-      pronoun: json['pronoun'] as String,
+      pronoun: json['pronoun'] as String?,
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       createdAt: DateTime.parse(json['createdAt'] as String),
     );

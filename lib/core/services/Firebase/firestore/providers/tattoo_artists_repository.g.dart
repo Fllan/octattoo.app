@@ -1,25 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'users_repository.dart';
+part of 'tattoo_artists_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$usersRepositoryHash() => r'65b2495b6353a9fc50e98fa2826f6e18a8063834';
+String _$tattooArtistsRepositoryHash() =>
+    r'ec231e2914ec2dc05c4a05c260e78a4ad837ea34';
 
-/// See also [usersRepository].
-@ProviderFor(usersRepository)
-final usersRepositoryProvider = AutoDisposeProvider<UsersRepository>.internal(
-  usersRepository,
-  name: r'usersRepositoryProvider',
+/// See also [tattooArtistsRepository].
+@ProviderFor(tattooArtistsRepository)
+final tattooArtistsRepositoryProvider =
+    AutoDisposeProvider<TattooArtistsRepository>.internal(
+  tattooArtistsRepository,
+  name: r'tattooArtistsRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$usersRepositoryHash,
+      : _$tattooArtistsRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef UsersRepositoryRef = AutoDisposeProviderRef<UsersRepository>;
+typedef TattooArtistsRepositoryRef
+    = AutoDisposeProviderRef<TattooArtistsRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -23,10 +23,10 @@ mixin _$TattooArtist {
   DocumentReference<Object?> get userRef => throw _privateConstructorUsedError;
   String get artistName => throw _privateConstructorUsedError;
   bool get showRealNames => throw _privateConstructorUsedError;
-  String get firstname => throw _privateConstructorUsedError;
-  String get lastname => throw _privateConstructorUsedError;
+  String? get firstname => throw _privateConstructorUsedError;
+  String? get lastname => throw _privateConstructorUsedError;
   bool get showPronoun => throw _privateConstructorUsedError;
-  String get pronoun => throw _privateConstructorUsedError;
+  String? get pronoun => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
 
@@ -46,10 +46,10 @@ abstract class $TattooArtistCopyWith<$Res> {
       {DocumentReference<Object?> userRef,
       String artistName,
       bool showRealNames,
-      String firstname,
-      String lastname,
+      String? firstname,
+      String? lastname,
       bool showPronoun,
-      String pronoun,
+      String? pronoun,
       DateTime updatedAt,
       DateTime createdAt});
 }
@@ -70,10 +70,10 @@ class _$TattooArtistCopyWithImpl<$Res, $Val extends TattooArtist>
     Object? userRef = null,
     Object? artistName = null,
     Object? showRealNames = null,
-    Object? firstname = null,
-    Object? lastname = null,
+    Object? firstname = freezed,
+    Object? lastname = freezed,
     Object? showPronoun = null,
-    Object? pronoun = null,
+    Object? pronoun = freezed,
     Object? updatedAt = null,
     Object? createdAt = null,
   }) {
@@ -90,22 +90,22 @@ class _$TattooArtistCopyWithImpl<$Res, $Val extends TattooArtist>
           ? _value.showRealNames
           : showRealNames // ignore: cast_nullable_to_non_nullable
               as bool,
-      firstname: null == firstname
+      firstname: freezed == firstname
           ? _value.firstname
           : firstname // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastname: null == lastname
+              as String?,
+      lastname: freezed == lastname
           ? _value.lastname
           : lastname // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       showPronoun: null == showPronoun
           ? _value.showPronoun
           : showPronoun // ignore: cast_nullable_to_non_nullable
               as bool,
-      pronoun: null == pronoun
+      pronoun: freezed == pronoun
           ? _value.pronoun
           : pronoun // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -130,10 +130,10 @@ abstract class _$$TattooArtistImplCopyWith<$Res>
       {DocumentReference<Object?> userRef,
       String artistName,
       bool showRealNames,
-      String firstname,
-      String lastname,
+      String? firstname,
+      String? lastname,
       bool showPronoun,
-      String pronoun,
+      String? pronoun,
       DateTime updatedAt,
       DateTime createdAt});
 }
@@ -152,10 +152,10 @@ class __$$TattooArtistImplCopyWithImpl<$Res>
     Object? userRef = null,
     Object? artistName = null,
     Object? showRealNames = null,
-    Object? firstname = null,
-    Object? lastname = null,
+    Object? firstname = freezed,
+    Object? lastname = freezed,
     Object? showPronoun = null,
-    Object? pronoun = null,
+    Object? pronoun = freezed,
     Object? updatedAt = null,
     Object? createdAt = null,
   }) {
@@ -172,22 +172,22 @@ class __$$TattooArtistImplCopyWithImpl<$Res>
           ? _value.showRealNames
           : showRealNames // ignore: cast_nullable_to_non_nullable
               as bool,
-      firstname: null == firstname
+      firstname: freezed == firstname
           ? _value.firstname
           : firstname // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastname: null == lastname
+              as String?,
+      lastname: freezed == lastname
           ? _value.lastname
           : lastname // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       showPronoun: null == showPronoun
           ? _value.showPronoun
           : showPronoun // ignore: cast_nullable_to_non_nullable
               as bool,
-      pronoun: null == pronoun
+      pronoun: freezed == pronoun
           ? _value.pronoun
           : pronoun // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -225,13 +225,13 @@ class _$TattooArtistImpl implements _TattooArtist {
   @override
   final bool showRealNames;
   @override
-  final String firstname;
+  final String? firstname;
   @override
-  final String lastname;
+  final String? lastname;
   @override
   final bool showPronoun;
   @override
-  final String pronoun;
+  final String? pronoun;
   @override
   final DateTime updatedAt;
   @override
@@ -298,10 +298,10 @@ abstract class _TattooArtist implements TattooArtist {
       {required final DocumentReference<Object?> userRef,
       required final String artistName,
       required final bool showRealNames,
-      required final String firstname,
-      required final String lastname,
+      required final String? firstname,
+      required final String? lastname,
       required final bool showPronoun,
-      required final String pronoun,
+      required final String? pronoun,
       required final DateTime updatedAt,
       required final DateTime createdAt}) = _$TattooArtistImpl;
 
@@ -315,13 +315,13 @@ abstract class _TattooArtist implements TattooArtist {
   @override
   bool get showRealNames;
   @override
-  String get firstname;
+  String? get firstname;
   @override
-  String get lastname;
+  String? get lastname;
   @override
   bool get showPronoun;
   @override
-  String get pronoun;
+  String? get pronoun;
   @override
   DateTime get updatedAt;
   @override

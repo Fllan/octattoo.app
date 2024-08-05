@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +7,8 @@ import 'package:octattoo_app_mvp/core/services/firebase/authentication/authentic
 import 'package:octattoo_app_mvp/core/services/firebase/firestore/providers/users_repository.dart';
 import 'package:octattoo_app_mvp/core/start/app_startup_provider.dart';
 import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_keys.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_repository.dart';
 
 Future<String?> redirect(
     BuildContext context, GoRouterState state, Ref ref) async {
@@ -19,50 +20,70 @@ Future<String?> redirect(
 
   // If the app is still loading or has an error, redirect to the startup page
   if (appStartupState.isLoading || appStartupState.hasError) {
-    logger.d('App is still loading or has an error.');
+    logger.d('App is still loading or has an error');
     return '/startup';
   }
 
   // Get the authentication state
   final currentAuthUser = ref.read(authRepositoryProvider).currentUser;
-  bool isLoggedIn = false;
-  String? authUserId;
+  bool isLoggedIn = currentAuthUser != null;
+  bool isAnonymous = currentAuthUser?.isAnonymous ?? false;
+  String? authUserId = currentAuthUser?.uid;
 
-  if (currentAuthUser != null) {
-    authUserId = currentAuthUser.uid;
-    isLoggedIn = true;
+  // Redirect unauthenticated users to the welcome page
+  if (!isLoggedIn) {
+    if (!isWelcoming) {
+      logger.d('Redirecting unauthenticated user to /welcome');
+      return '/welcome';
+    }
+    return null;
   }
 
-  // Get the user's account status
-  if (!isLoggedIn && !isWelcoming) {
-    logger.d('Redirecting unauthenticated user to /welcome');
-    return '/welcome';
-  } else if (!isLoggedIn && isWelcoming) {
-    return null;
-  } else {
-    logger.d(
-        'User is authenticated. Checking if authenticated user has an account in Firestore...');
-    User? user = await ref.watch(usersRepositoryProvider).read(authUserId!);
+  logger.d(
+      'User is authenticated with uid: $authUserId isAnonymous: $isAnonymous');
+
+  // Redirect authenticated users who have not completed onboarding to the onboarding page
+  if (!isOnboarding) {
+    logger.d('Checking if uid: $authUserId has an account in Firestore...');
+    User? user = await ref.read(usersRepositoryProvider).read(authUserId!);
 
     if (user == null) {
       logger.d(
-          'Authenticated user does not have an account and is redirecting to /onboarding');
+          'uid: $authUserId does not have an account. Redirecting to /onboarding');
       return '/onboarding';
-    } else {
-      logger.d('Authenticated user has an account: $user');
-      bool hasCompletedOnboarding = user.hasCompletedOnboarding;
-
-      if (!hasCompletedOnboarding && isOnboarding) {
-        return null;
-      } else if (!hasCompletedOnboarding && !isOnboarding) {
-        logger.d(
-            'User has not completed onboarding and is redirecting to /onboarding');
-        return '/onboarding';
-      } else {
-        logger.d(
-            'User has completed onboarding and is redirecting to /dashboard');
-        return '/dashboard';
-      }
     }
+
+    final String debugUser = user.toJson().toString();
+    logger.d('uid: $authUserId has an account in Firestore: $debugUser');
+    bool hasCompletedOnboarding = user.hasCompletedOnboarding;
+
+    // Handle onboarding redirection logic
+    if (!hasCompletedOnboarding) {
+      final prefs = ref.read(sharedPreferencesRepositoryProvider);
+      const artistNameKey = SharedPreferencesKeys.onboardingArtistName;
+      final String? artistName = prefs.getString(artistNameKey);
+      bool hasArtistName = artistName != null && artistName.isNotEmpty;
+      const workplaceTypeKey = SharedPreferencesKeys.onboardingWorkplaceType;
+      final String? workplaceType = prefs.getString(workplaceTypeKey);
+      bool hasWorkplaceTypeSelected =
+          workplaceType != null && workplaceType.isNotEmpty;
+
+      if (!hasArtistName) {
+        logger.d(
+            'user: $authUserId has no artist name set. Redirecting to /onboarding/artist-profile');
+        return '/onboarding/artist-profile';
+      }
+      if (!hasWorkplaceTypeSelected) {
+        logger.d(
+            'user: $authUserId has no workplace type selected. Redirecting to /onboarding/workplace');
+        return '/onboarding/workplace';
+      }
+      return null;
+    }
+    // Redirect authenticated users who have completed onboarding to the dashboard
+    logger.d(
+        'user: $authUserId has completed onboarding. Redirecting to /dashboard');
+    return '/dashboard';
   }
+  return null;
 }

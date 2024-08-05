@@ -14,10 +14,10 @@ class TattooArtist with _$TattooArtist {
     required DocumentReference userRef,
     required String artistName,
     required bool showRealNames,
-    required String firstname,
-    required String lastname,
+    required String? firstname,
+    required String? lastname,
     required bool showPronoun,
-    required String pronoun,
+    required String? pronoun,
     required DateTime updatedAt,
     required DateTime createdAt,
   }) = _TattooArtist;

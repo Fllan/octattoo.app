@@ -200,23 +200,24 @@ class _ArtistProfileScreenState extends ConsumerState<ArtistProfileScreen> {
   }
 
   Future<void> _saveProfileData(SharedPreferencesRepository prefs) async {
-    await prefs.saveString(
-        SharedPreferencesKeys.onboardingArtistName, _artistNameController.text);
-    await prefs.saveBool(
-        SharedPreferencesKeys.onboardingShowRealNames, _showRealNames);
-    await prefs.saveBool(
-        SharedPreferencesKeys.onboardingShowPronoun, _showPronoun);
+    const artistNamekey = SharedPreferencesKeys.onboardingArtistName;
+    const showRealNamesKey = SharedPreferencesKeys.onboardingShowRealNames;
+    const showPronounKey = SharedPreferencesKeys.onboardingShowPronoun;
+    const firstnameKey = SharedPreferencesKeys.onboardingFirstname;
+    const lastnameKey = SharedPreferencesKeys.onboardingLastname;
+    const pronounKey = SharedPreferencesKeys.onboardingPronoun;
+
+    await prefs.saveString(artistNamekey, _artistNameController.text);
+    await prefs.saveBool(showRealNamesKey, _showRealNames);
+    await prefs.saveBool(showPronounKey, _showPronoun);
 
     if (_showRealNames) {
-      await prefs.saveString(
-          SharedPreferencesKeys.onboardingFirstname, _firstnameController.text);
-      await prefs.saveString(
-          SharedPreferencesKeys.onboardingLastname, _lastnameController.text);
+      await prefs.saveString(firstnameKey, _firstnameController.text);
+      await prefs.saveString(lastnameKey, _lastnameController.text);
     }
 
     if (_showPronoun) {
-      await prefs.saveString(
-          SharedPreferencesKeys.onboardingPronoun, _pronounController.text);
+      await prefs.saveString(pronounKey, _pronounController.text);
     }
 
     // Construct debug message
@@ -239,7 +240,22 @@ class _ArtistProfileScreenState extends ConsumerState<ArtistProfileScreen> {
     GoRouter.of(context).pushNamed(OnboardingSubRoutes.workplace.name);
   }
 
-  void _showErrorMessage() {
-    // TODO : Implement error handling UI feedback, e.g., SnackBar, AlertDialog
+  void _showErrorMessage() async {
+    if (context.mounted) {
+      await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                  title: Text('Error Occured'.hardcoded),
+                  content: Text(
+                      'An error occured while saving your profile data. Please try again.'
+                          .hardcoded),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text("OK"))
+                  ]));
+    }
   }
 }

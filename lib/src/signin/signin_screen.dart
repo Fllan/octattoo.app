@@ -76,7 +76,9 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                     hasAutoFocus: true,
                   ),
                   gapH16,
-                  PasswordTextFormField(controller: _passwordController),
+                  PasswordTextFormField(
+                      controller: _passwordController,
+                      onFieldSubmitted: (_) => _callback()),
                   gapH24,
                   if (!_isValidForm)
                     ElevatedButton(
