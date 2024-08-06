@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +8,8 @@ import 'package:octattoo_app_mvp/core/router/routes.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/authentication/authentication_repository.dart';
 import 'package:octattoo_app_mvp/core/services/firebase/firestore/providers/workplaces_repository.dart';
 import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
+import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
+import 'package:octattoo_app_mvp/src/shared/widgets/app_async_elevated_button.dart';
 
 class AddWorkplaceScreen extends StatefulWidget {
   final String selectedType;
@@ -46,16 +47,15 @@ class _AddWorkplaceScreenState extends State<AddWorkplaceScreen>
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (selectedTypeIsPermanent)
-            Text('Select your permanent workplace'.hardcoded,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface,
-                    )),
-          if (!selectedTypeIsPermanent)
-            Text('Select your guest workplace'.hardcoded,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface,
-                    )),
+          selectedTypeIsPermanent
+              ? Text('Select your permanent workplace'.hardcoded,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ))
+              : Text('Select your guest workplace'.hardcoded,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      )),
           gapH16,
           Text(
               'Add to your profile an existing workplace or create a new one'
@@ -166,7 +166,6 @@ class _CreateNewTabState extends ConsumerState<CreateNewTab> {
     return Form(
       onChanged: () => setState(() {}),
       key: _formKey,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -180,6 +179,7 @@ class _CreateNewTabState extends ConsumerState<CreateNewTab> {
                     ?.copyWith(color: Theme.of(context).colorScheme.onSurface)),
             gapH16,
             TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               keyboardType: TextInputType.text,
               controller: _workplaceNameController,
               decoration: InputDecoration(
@@ -224,6 +224,7 @@ class _CreateNewTabState extends ConsumerState<CreateNewTab> {
             gapH16,
             TextFormField(
               keyboardType: TextInputType.streetAddress,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               controller: _streetController,
               decoration: InputDecoration(
                 labelText: 'Street'.hardcoded,
@@ -241,6 +242,7 @@ class _CreateNewTabState extends ConsumerState<CreateNewTab> {
               children: [
                 Expanded(
                   child: TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: _cityController,
                     keyboardType: TextInputType.streetAddress,
                     decoration: InputDecoration(
@@ -258,6 +260,7 @@ class _CreateNewTabState extends ConsumerState<CreateNewTab> {
                 gapW8,
                 Expanded(
                   child: TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     keyboardType: TextInputType.streetAddress,
                     controller: _provinceController,
                     decoration: InputDecoration(
@@ -279,6 +282,7 @@ class _CreateNewTabState extends ConsumerState<CreateNewTab> {
               children: [
                 Expanded(
                   child: TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: _postalCodeController,
                     keyboardType: TextInputType.streetAddress,
                     decoration: InputDecoration(
@@ -296,6 +300,7 @@ class _CreateNewTabState extends ConsumerState<CreateNewTab> {
                 gapW8,
                 Expanded(
                   child: TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: _countryController,
                     keyboardType: TextInputType.streetAddress,
                     decoration: InputDecoration(
@@ -319,18 +324,9 @@ class _CreateNewTabState extends ConsumerState<CreateNewTab> {
                 if (isFormValid ?? false)
                   Expanded(
                     flex: 2,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        _createGuestWorkplace();
-                      },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(Icons.add_business),
-                          gapW4,
-                          Text('Add'.hardcoded),
-                        ],
-                      ),
+                    child: AppAsyncElevatedButton(
+                      callback: _createGuestWorkplace,
+                      label: 'Add'.hardcoded,
                     ),
                   ),
                 if (isFormValid == null || !isFormValid)
@@ -356,13 +352,14 @@ class _CreateNewTabState extends ConsumerState<CreateNewTab> {
     );
   }
 
-  void _createGuestWorkplace() async {
+  Future<void> _createGuestWorkplace() async {
     if (!_validateForm()) return;
 
     try {
       final workplaceId = await _addNewWorkplaceinFirestore();
       _navigateToNextScreen(workplaceId);
     } catch (e) {
+      logger.e('Failed to add the new workplace: $e');
       _showErrorMessage();
     }
   }
@@ -373,15 +370,15 @@ class _CreateNewTabState extends ConsumerState<CreateNewTab> {
 
   _addNewWorkplaceinFirestore() async {
     final workplaceRepository = ref.watch(workplacesRepositoryProvider);
-    final authUserId = ref.watch(authStateChangesProvider).value!.uid;
+    final createdBy = ref.watch(authStateChangesProvider).value!.uid;
 
     final workplaceId = workplaceRepository.create(
         Workplace(
           name: _workplaceNameController.text,
-          description: null,
+          description: '',
           updatedAt: DateTime.now(),
           createdAt: DateTime.now(),
-          createdBy: authUserId as DocumentReference,
+          createdBy: createdBy,
           permanentTattooArtists: null,
           guestTattooArtists: null,
           street: _streetController.text,
@@ -389,16 +386,16 @@ class _CreateNewTabState extends ConsumerState<CreateNewTab> {
           province: _provinceController.text,
           country: _countryController.text,
           postalCode: _postalCodeController.text,
-          managedBy: null,
+          managedBy: _isManager ? createdBy : null,
         ),
-        authUserId);
+        createdBy);
 
     return workplaceId;
   }
 
   void _navigateToNextScreen(String workplaceId) {
     GoRouter.of(context).pushNamed(WorkplaceSubRoutes.details.name,
-        pathParameters: {'workplaceID': workplaceId});
+        pathParameters: {'id': workplaceId});
   }
 
   void _showErrorMessage() async {

@@ -163,7 +163,7 @@ AuthRepository authRepository(AuthRepositoryRef ref) {
 }
 
 /// Streams authentication state changes using Riverpod.
-@riverpod
+@Riverpod(keepAlive: true)
 Stream<User?> authStateChanges(AuthStateChangesRef ref) {
   return ref.watch(authRepositoryProvider).authStateChanges();
 }

@@ -47,15 +47,14 @@ final _onboardingNavigatorKey =
 /// - **Authentication**: Integrates with the authentication repository to manage route access based on user state.
 @Riverpod(keepAlive: true)
 GoRouter goRouter(GoRouterRef ref) {
-  final authRepository = ref.watch(authRepositoryProvider);
+  final authStateChangesRepository = ref.watch(authStateChangesProvider);
   return GoRouter(
     initialLocation: '/welcome',
     navigatorKey: _rootNavigatorKey,
-    debugLogDiagnostics: true,
+    refreshListenable: ValueNotifier(authStateChangesRepository),
     redirect: (context, state) {
       return redirect(context, state, ref);
     },
-    refreshListenable: GoRouterRefreshStream(authRepository.authStateChanges()),
     routes: [
       GoRoute(
         path: '/startup',

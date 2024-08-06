@@ -25,7 +25,7 @@ Future<String?> redirect(
   }
 
   // Get the authentication state
-  final currentAuthUser = ref.read(authRepositoryProvider).currentUser;
+  final currentAuthUser = ref.watch(authRepositoryProvider).currentUser;
   bool isLoggedIn = currentAuthUser != null;
   bool isAnonymous = currentAuthUser?.isAnonymous ?? false;
   String? authUserId = currentAuthUser?.uid;

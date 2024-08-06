@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:octattoo_app_mvp/core/models/document_reference_converter.dart';
 import 'package:octattoo_app_mvp/core/models/tattoo_artist.dart';
 
 part 'workplace.freezed.dart';
@@ -10,14 +9,13 @@ part 'workplace.g.dart';
 @freezed
 class Workplace with _$Workplace {
   /// Creates a new [Workplace]
-  @DocumentReferenceConverter()
   factory Workplace({
     required String name,
     required String? description,
     required DateTime? updatedAt,
     required DateTime createdAt,
-    required DocumentReference createdBy,
-    required DocumentReference? managedBy,
+    required String createdBy,
+    required String? managedBy,
     required List<TattooArtist>? permanentTattooArtists,
     required List<TattooArtist>? guestTattooArtists,
     required String street,

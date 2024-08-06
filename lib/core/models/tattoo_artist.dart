@@ -11,7 +11,7 @@ class TattooArtist with _$TattooArtist {
   /// Creates a new [TattooArtist].
   @DocumentReferenceConverter()
   factory TattooArtist({
-    required DocumentReference userRef,
+    required String userRef,
     required String artistName,
     required bool showRealNames,
     required String? firstname,

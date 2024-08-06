@@ -14,11 +14,8 @@ _$WorkplaceImpl _$$WorkplaceImplFromJson(Map<String, dynamic> json) =>
           ? null
           : DateTime.parse(json['updatedAt'] as String),
       createdAt: DateTime.parse(json['createdAt'] as String),
-      createdBy: const DocumentReferenceConverter()
-          .fromJson(json['createdBy'] as Map<String, dynamic>),
-      managedBy: _$JsonConverterFromJson<Map<String, dynamic>,
-              DocumentReference<Object?>>(
-          json['managedBy'], const DocumentReferenceConverter().fromJson),
+      createdBy: json['createdBy'] as String,
+      managedBy: json['managedBy'] as String?,
       permanentTattooArtists: (json['permanentTattooArtists'] as List<dynamic>?)
           ?.map((e) => TattooArtist.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -38,11 +35,8 @@ Map<String, dynamic> _$$WorkplaceImplToJson(_$WorkplaceImpl instance) =>
       'description': instance.description,
       'updatedAt': instance.updatedAt?.toIso8601String(),
       'createdAt': instance.createdAt.toIso8601String(),
-      'createdBy':
-          const DocumentReferenceConverter().toJson(instance.createdBy),
-      'managedBy': _$JsonConverterToJson<Map<String, dynamic>,
-              DocumentReference<Object?>>(
-          instance.managedBy, const DocumentReferenceConverter().toJson),
+      'createdBy': instance.createdBy,
+      'managedBy': instance.managedBy,
       'permanentTattooArtists': instance.permanentTattooArtists,
       'guestTattooArtists': instance.guestTattooArtists,
       'street': instance.street,
@@ -51,15 +45,3 @@ Map<String, dynamic> _$$WorkplaceImplToJson(_$WorkplaceImpl instance) =>
       'country': instance.country,
       'postalCode': instance.postalCode,
     };
-
-Value? _$JsonConverterFromJson<Json, Value>(
-  Object? json,
-  Value? Function(Json json) fromJson,
-) =>
-    json == null ? null : fromJson(json as Json);
-
-Json? _$JsonConverterToJson<Json, Value>(
-  Value? value,
-  Json? Function(Value value) toJson,
-) =>
-    value == null ? null : toJson(value);

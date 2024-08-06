@@ -24,10 +24,8 @@ mixin _$Workplace {
   String? get description => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
-  DocumentReference<Object?> get createdBy =>
-      throw _privateConstructorUsedError;
-  DocumentReference<Object?>? get managedBy =>
-      throw _privateConstructorUsedError;
+  String get createdBy => throw _privateConstructorUsedError;
+  String? get managedBy => throw _privateConstructorUsedError;
   List<TattooArtist>? get permanentTattooArtists =>
       throw _privateConstructorUsedError;
   List<TattooArtist>? get guestTattooArtists =>
@@ -54,8 +52,8 @@ abstract class $WorkplaceCopyWith<$Res> {
       String? description,
       DateTime? updatedAt,
       DateTime createdAt,
-      DocumentReference<Object?> createdBy,
-      DocumentReference<Object?>? managedBy,
+      String createdBy,
+      String? managedBy,
       List<TattooArtist>? permanentTattooArtists,
       List<TattooArtist>? guestTattooArtists,
       String street,
@@ -112,11 +110,11 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
       createdBy: null == createdBy
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
-              as DocumentReference<Object?>,
+              as String,
       managedBy: freezed == managedBy
           ? _value.managedBy
           : managedBy // ignore: cast_nullable_to_non_nullable
-              as DocumentReference<Object?>?,
+              as String?,
       permanentTattooArtists: freezed == permanentTattooArtists
           ? _value.permanentTattooArtists
           : permanentTattooArtists // ignore: cast_nullable_to_non_nullable
@@ -162,8 +160,8 @@ abstract class _$$WorkplaceImplCopyWith<$Res>
       String? description,
       DateTime? updatedAt,
       DateTime createdAt,
-      DocumentReference<Object?> createdBy,
-      DocumentReference<Object?>? managedBy,
+      String createdBy,
+      String? managedBy,
       List<TattooArtist>? permanentTattooArtists,
       List<TattooArtist>? guestTattooArtists,
       String street,
@@ -218,11 +216,11 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
       createdBy: null == createdBy
           ? _value.createdBy
           : createdBy // ignore: cast_nullable_to_non_nullable
-              as DocumentReference<Object?>,
+              as String,
       managedBy: freezed == managedBy
           ? _value.managedBy
           : managedBy // ignore: cast_nullable_to_non_nullable
-              as DocumentReference<Object?>?,
+              as String?,
       permanentTattooArtists: freezed == permanentTattooArtists
           ? _value._permanentTattooArtists
           : permanentTattooArtists // ignore: cast_nullable_to_non_nullable
@@ -257,7 +255,6 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@DocumentReferenceConverter()
 class _$WorkplaceImpl implements _Workplace {
   _$WorkplaceImpl(
       {required this.name,
@@ -288,9 +285,9 @@ class _$WorkplaceImpl implements _Workplace {
   @override
   final DateTime createdAt;
   @override
-  final DocumentReference<Object?> createdBy;
+  final String createdBy;
   @override
-  final DocumentReference<Object?>? managedBy;
+  final String? managedBy;
   final List<TattooArtist>? _permanentTattooArtists;
   @override
   List<TattooArtist>? get permanentTattooArtists {
@@ -396,8 +393,8 @@ abstract class _Workplace implements Workplace {
       required final String? description,
       required final DateTime? updatedAt,
       required final DateTime createdAt,
-      required final DocumentReference<Object?> createdBy,
-      required final DocumentReference<Object?>? managedBy,
+      required final String createdBy,
+      required final String? managedBy,
       required final List<TattooArtist>? permanentTattooArtists,
       required final List<TattooArtist>? guestTattooArtists,
       required final String street,
@@ -418,9 +415,9 @@ abstract class _Workplace implements Workplace {
   @override
   DateTime get createdAt;
   @override
-  DocumentReference<Object?> get createdBy;
+  String get createdBy;
   @override
-  DocumentReference<Object?>? get managedBy;
+  String? get managedBy;
   @override
   List<TattooArtist>? get permanentTattooArtists;
   @override

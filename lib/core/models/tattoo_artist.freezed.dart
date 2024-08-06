@@ -20,7 +20,7 @@ TattooArtist _$TattooArtistFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TattooArtist {
-  DocumentReference<Object?> get userRef => throw _privateConstructorUsedError;
+  String get userRef => throw _privateConstructorUsedError;
   String get artistName => throw _privateConstructorUsedError;
   bool get showRealNames => throw _privateConstructorUsedError;
   String? get firstname => throw _privateConstructorUsedError;
@@ -43,7 +43,7 @@ abstract class $TattooArtistCopyWith<$Res> {
       _$TattooArtistCopyWithImpl<$Res, TattooArtist>;
   @useResult
   $Res call(
-      {DocumentReference<Object?> userRef,
+      {String userRef,
       String artistName,
       bool showRealNames,
       String? firstname,
@@ -81,7 +81,7 @@ class _$TattooArtistCopyWithImpl<$Res, $Val extends TattooArtist>
       userRef: null == userRef
           ? _value.userRef
           : userRef // ignore: cast_nullable_to_non_nullable
-              as DocumentReference<Object?>,
+              as String,
       artistName: null == artistName
           ? _value.artistName
           : artistName // ignore: cast_nullable_to_non_nullable
@@ -127,7 +127,7 @@ abstract class _$$TattooArtistImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {DocumentReference<Object?> userRef,
+      {String userRef,
       String artistName,
       bool showRealNames,
       String? firstname,
@@ -163,7 +163,7 @@ class __$$TattooArtistImplCopyWithImpl<$Res>
       userRef: null == userRef
           ? _value.userRef
           : userRef // ignore: cast_nullable_to_non_nullable
-              as DocumentReference<Object?>,
+              as String,
       artistName: null == artistName
           ? _value.artistName
           : artistName // ignore: cast_nullable_to_non_nullable
@@ -219,7 +219,7 @@ class _$TattooArtistImpl implements _TattooArtist {
       _$$TattooArtistImplFromJson(json);
 
   @override
-  final DocumentReference<Object?> userRef;
+  final String userRef;
   @override
   final String artistName;
   @override
@@ -295,7 +295,7 @@ class _$TattooArtistImpl implements _TattooArtist {
 
 abstract class _TattooArtist implements TattooArtist {
   factory _TattooArtist(
-      {required final DocumentReference<Object?> userRef,
+      {required final String userRef,
       required final String artistName,
       required final bool showRealNames,
       required final String? firstname,
@@ -309,7 +309,7 @@ abstract class _TattooArtist implements TattooArtist {
       _$TattooArtistImpl.fromJson;
 
   @override
-  DocumentReference<Object?> get userRef;
+  String get userRef;
   @override
   String get artistName;
   @override

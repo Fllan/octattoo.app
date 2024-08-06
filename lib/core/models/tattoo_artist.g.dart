@@ -8,8 +8,7 @@ part of 'tattoo_artist.dart';
 
 _$TattooArtistImpl _$$TattooArtistImplFromJson(Map<String, dynamic> json) =>
     _$TattooArtistImpl(
-      userRef: const DocumentReferenceConverter()
-          .fromJson(json['userRef'] as Map<String, dynamic>),
+      userRef: json['userRef'] as String,
       artistName: json['artistName'] as String,
       showRealNames: json['showRealNames'] as bool,
       firstname: json['firstname'] as String?,
@@ -22,7 +21,7 @@ _$TattooArtistImpl _$$TattooArtistImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$TattooArtistImplToJson(_$TattooArtistImpl instance) =>
     <String, dynamic>{
-      'userRef': const DocumentReferenceConverter().toJson(instance.userRef),
+      'userRef': instance.userRef,
       'artistName': instance.artistName,
       'showRealNames': instance.showRealNames,
       'firstname': instance.firstname,
