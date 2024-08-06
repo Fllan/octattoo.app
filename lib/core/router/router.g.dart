@@ -6,9 +6,20 @@ part of 'router.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$goRouterHash() => r'4eeace631740654567db5549468b28929bd72fdb';
+String _$goRouterHash() => r'8a5b0845ed15f95655ce210c5d07fb78910d1438';
 
-/// See also [goRouter].
+/// This file defines the application's routing configuration using GoRouter and Riverpod.
+///
+/// The `goRouter` provider initializes the routing system with authentication, route definitions,
+/// and navigation keys to manage different navigation stacks in the app.
+///
+/// ### Key Components:
+///
+/// - **Navigator Keys**: Used to manage navigation stacks for different parts of the app.
+/// - **Routes**: Defines all the routes and their respective widgets in the app.
+/// - **Authentication**: Integrates with the authentication repository to manage route access based on user state.
+///
+/// Copied from [goRouter].
 @ProviderFor(goRouter)
 final goRouterProvider = Provider<GoRouter>.internal(
   goRouter,

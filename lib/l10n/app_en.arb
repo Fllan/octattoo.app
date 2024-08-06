@@ -1,8 +1,7 @@
 {
     "@@locale": "en",
-
     "appTitle": "octattoo.app (en)",
-    "@appTitle" : {
+    "@appTitle": {
         "description": "Title of the application",
         "type": "text"
     }

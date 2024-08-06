@@ -1,83 +1,261 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:octattoo_app_mvp/core/constants/gaps.dart';
+import 'package:octattoo_app_mvp/core/router/routes.dart';
+import 'package:octattoo_app_mvp/core/utils/l10n/l10n_extensions.dart';
+import 'package:octattoo_app_mvp/core/utils/logger/logger.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_keys.dart';
+import 'package:octattoo_app_mvp/core/utils/shared_preferences/shared_preferences_repository.dart';
+import 'package:octattoo_app_mvp/src/shared/validators/tattoo_artist_validators.dart';
+import 'package:octattoo_app_mvp/src/shared/widgets/app_text_form_field.dart';
 
-class ArtistProfileScreen extends StatelessWidget {
+class ArtistProfileScreen extends ConsumerStatefulWidget {
   const ArtistProfileScreen({super.key});
 
-  final bool showRealNames = false;
-  final bool showPronoun = false;
+  @override
+  ConsumerState<ArtistProfileScreen> createState() =>
+      _ArtistProfileScreenState();
+}
+
+class _ArtistProfileScreenState extends ConsumerState<ArtistProfileScreen> {
+  bool _showRealNames = false;
+  bool _showPronoun = false;
+  final _formKey = GlobalKey<FormState>();
+  final _artistNameController = TextEditingController();
+  final _firstnameController = TextEditingController();
+  final _lastnameController = TextEditingController();
+  final _pronounController = TextEditingController();
+
+  @override
+  void dispose() {
+    _artistNameController.dispose();
+    _firstnameController.dispose();
+    _lastnameController.dispose();
+    _pronounController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    var isFormValid = _formKey.currentState?.validate();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Artist Profile'.hardcoded,
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface,
+                )),
+        automaticallyImplyLeading: false,
+        leading: null,
+      ),
+      body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Artist Profile',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              'First let’s set your public artist identity',
-              style: TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 20),
-            const TextField(
-              decoration: InputDecoration(
-                labelText: 'Your artist name',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 20),
-            SwitchListTile(
-              title: const Text('I want to show my real names'),
-              value: showRealNames,
-              onChanged: (value) {},
-            ),
-            if (showRealNames) ...[
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Firstname',
-                  border: OutlineInputBorder(),
+        child: Form(
+          onChanged: () => setState(() {}),
+          key: _formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Let's set your public artist identity.".hardcoded,
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        )),
+                gapH32,
+                AppTextFormField(
+                  controller: _artistNameController,
+                  validator: (value) => artistNameValidator(value),
+                  label: 'Your artist name'.hardcoded,
+                  keyboardType: TextInputType.text,
+                  hasAutoFocus: true,
+                  maxLength: 60,
                 ),
-              ),
-              const SizedBox(height: 20),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Lastname',
-                  border: OutlineInputBorder(),
+                gapH20,
+                SwitchListTile(
+                  title: Text('I want to show my real names'.hardcoded),
+                  value: _showRealNames,
+                  onChanged: (value) {
+                    setState(() {
+                      _showRealNames = value;
+                    });
+                  },
                 ),
-              ),
-            ],
-            SwitchListTile(
-              title: const Text('I want to show my pronoun'),
-              value: showPronoun,
-              onChanged: (value) {},
+                if (_showRealNames) ...[
+                  TextFormField(
+                    controller: _firstnameController,
+                    decoration: InputDecoration(
+                      labelText: 'Firstname'.hardcoded,
+                      border: const OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your firstname'.hardcoded;
+                      }
+                      return null;
+                    },
+                  ),
+                  gapH12,
+                  TextFormField(
+                    controller: _lastnameController,
+                    decoration: InputDecoration(
+                      labelText: 'Lastname'.hardcoded,
+                      border: const OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your lastname'.hardcoded;
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+                gapH20,
+                SwitchListTile(
+                  title: Text('I want to show my pronoun'.hardcoded),
+                  enableFeedback: true,
+                  value: _showPronoun,
+                  onChanged: (value) {
+                    setState(() {
+                      _showPronoun = value;
+                    });
+                  },
+                ),
+                if (_showPronoun) ...[
+                  TextFormField(
+                    controller: _pronounController,
+                    decoration: InputDecoration(
+                      labelText: 'Pronoun'.hardcoded,
+                      border: const OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your pronoun'.hardcoded;
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+                gapH32,
+                Row(
+                  children: [
+                    gapW16,
+                    if (isFormValid ?? false)
+                      Expanded(
+                        flex: 2,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _saveArtistProfile();
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(Icons.arrow_forward),
+                              gapW4,
+                              Text('Continue'.hardcoded),
+                            ],
+                          ),
+                        ),
+                      ),
+                    if (isFormValid == null || !isFormValid)
+                      Expanded(
+                        flex: 2,
+                        child: ElevatedButton(
+                          onPressed: null,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(Icons.arrow_forward),
+                              gapW4,
+                              Text('Continue'.hardcoded),
+                            ],
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ],
             ),
-            if (showPronoun) ...[
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Pronoun',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-            ],
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Implement continue logic
-              },
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-              ),
-              child: const Text('Continue'),
-            ),
-          ],
+          ),
         ),
-      );
+      ),
+    );
+  }
+
+  void _saveArtistProfile() async {
+    if (!_validateForm()) return;
+
+    try {
+      final prefs = ref.watch(sharedPreferencesRepositoryProvider);
+      await _saveProfileData(prefs);
+      _navigateToNextScreen();
+    } catch (e) {
+      _showErrorMessage();
+    }
+  }
+
+  bool _validateForm() {
+    return _formKey.currentState?.validate() ?? false;
+  }
+
+  Future<void> _saveProfileData(SharedPreferencesRepository prefs) async {
+    const artistNamekey = SharedPreferencesKeys.onboardingArtistName;
+    const showRealNamesKey = SharedPreferencesKeys.onboardingShowRealNames;
+    const showPronounKey = SharedPreferencesKeys.onboardingShowPronoun;
+    const firstnameKey = SharedPreferencesKeys.onboardingFirstname;
+    const lastnameKey = SharedPreferencesKeys.onboardingLastname;
+    const pronounKey = SharedPreferencesKeys.onboardingPronoun;
+
+    await prefs.saveString(artistNamekey, _artistNameController.text);
+    await prefs.saveBool(showRealNamesKey, _showRealNames);
+    await prefs.saveBool(showPronounKey, _showPronoun);
+
+    if (_showRealNames) {
+      await prefs.saveString(firstnameKey, _firstnameController.text);
+      await prefs.saveString(lastnameKey, _lastnameController.text);
+    }
+
+    if (_showPronoun) {
+      await prefs.saveString(pronounKey, _pronounController.text);
+    }
+
+    // Construct debug message
+    String debugMessage = 'Saved profile data: '
+        'Artist Name: ${_artistNameController.text}, '
+        'Show Real Names: $_showRealNames, '
+        'Show Pronoun: $_showPronoun';
+    if (_showRealNames) {
+      debugMessage +=
+          ', Firstname: ${_firstnameController.text}, Lastname: ${_lastnameController.text}';
+    }
+    if (_showPronoun) {
+      debugMessage += ', Pronoun: ${_pronounController.text}';
+    }
+    // Log the debug message
+    logger.d(debugMessage);
+  }
+
+  void _navigateToNextScreen() {
+    GoRouter.of(context).pushNamed(OnboardingSubRoutes.workplace.name);
+  }
+
+  void _showErrorMessage() async {
+    if (context.mounted) {
+      await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                  title: Text('Error Occured'.hardcoded),
+                  content: Text(
+                      'An error occured while saving your profile data. Please try again.'
+                          .hardcoded),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text("OK"))
+                  ]));
+    }
   }
 }

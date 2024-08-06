@@ -8,8 +8,10 @@ class WelcomeShell extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      body: child,
+    return SafeArea(
+      child: Scaffold(
+        body: child,
+      ),
     );
   }
 }
