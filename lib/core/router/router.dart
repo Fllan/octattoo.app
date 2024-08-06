@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app_mvp/core/constants/worplace_types.dart';
-import 'package:octattoo_app_mvp/core/router/go_router_refresh_stream.dart';
 import 'package:octattoo_app_mvp/core/router/redirect.dart';
 import 'package:octattoo_app_mvp/core/router/routes.dart';
 import 'package:octattoo_app_mvp/core/router/shells/onboarding_shell.dart';
