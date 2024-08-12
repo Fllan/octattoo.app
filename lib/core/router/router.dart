@@ -6,6 +6,7 @@ import 'package:octattoo_app/core/router/app_startup.dart';
 import 'package:octattoo_app/core/utils/logger.dart';
 import 'package:octattoo_app/core/localization/l10n_extensions.dart';
 import 'package:octattoo_app/src/authentication/data/firebase_auth_repository.dart';
+import 'package:octattoo_app/src/authentication/presentation/sign_in_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'router.g.dart';
@@ -52,8 +53,8 @@ GoRouter goRouter(GoRouterRef ref) {
       logger.d('App startup is complete');
       //final isLoggedIn = authRepository.currentUser != null;
       // ! Test only
-      const isLoggedIn = true;
-      const isOnboarded = true;
+      const isLoggedIn = false;
+      const isOnboarded = false;
       // ! Test only
       final isSigningIn = state.uri.pathSegments.first == 'signIn';
       final isRegistering = state.uri.pathSegments.first == 'register';
@@ -120,11 +121,9 @@ GoRouter goRouter(GoRouterRef ref) {
         builder: (context, state, navigationShell) {
           List<PrimaryDestination> welcomeDestinations =
               createWelcomeDestinations(context);
-          return SafeArea(
-            child: AdaptiveScaffold(
-              navigationShell: navigationShell,
-              destinations: welcomeDestinations,
-            ),
+          return AdaptiveScaffold(
+            navigationShell: navigationShell,
+            destinations: welcomeDestinations,
           );
         },
         branches: [
@@ -133,8 +132,8 @@ GoRouter goRouter(GoRouterRef ref) {
             routes: [
               GoRoute(
                 path: '/signIn',
-                pageBuilder: (context, state) => NoTransitionPage(
-                  child: DefaultTestScreen(title: context.loc.signIn),
+                pageBuilder: (context, state) => const MaterialPage(
+                  child: SignInScreen(),
                 ),
                 routes: [
                   GoRoute(
@@ -165,11 +164,9 @@ GoRouter goRouter(GoRouterRef ref) {
         builder: (context, state, navigationShell) {
           List<PrimaryDestination> onboardingDestinations =
               createOnboardingDestinations(context);
-          return SafeArea(
-            child: AdaptiveScaffold(
-              navigationShell: navigationShell,
-              destinations: onboardingDestinations,
-            ),
+          return AdaptiveScaffold(
+            navigationShell: navigationShell,
+            destinations: onboardingDestinations,
           );
         },
         branches: [
@@ -201,11 +198,9 @@ GoRouter goRouter(GoRouterRef ref) {
         builder: (context, state, navigationShell) {
           List<PrimaryDestination> appDestinations =
               createAppDestinations(context);
-          return SafeArea(
-            child: AdaptiveScaffold(
-              navigationShell: navigationShell,
-              destinations: appDestinations,
-            ),
+          return AdaptiveScaffold(
+            navigationShell: navigationShell,
+            destinations: appDestinations,
           );
         },
         branches: [

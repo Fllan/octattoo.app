@@ -64,5 +64,10 @@
     "@forgotPassword": {
         "description": "Label for the Forgot Password destination",
         "type": "text"
+    },
+    "selectLanguage": "Sélectionnez la langue",
+    "@selectLanguage": {
+        "description": "Label for the Select Language destination",
+        "type": "text"
     }
 }

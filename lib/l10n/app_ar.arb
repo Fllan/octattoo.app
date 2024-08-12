@@ -1,0 +1,73 @@
+{
+    "@@locale": "ar",
+    "appTitle": "octattoo.app (ar)",
+    "@appTitle": {
+        "description": "عنوان التطبيق",
+        "type": "text"
+    },
+    "signIn": "تسجيل الدخول",
+    "@signIn": {
+        "description": "تسمية لوجهة تسجيل الدخول",
+        "type": "text"
+    },
+    "register": "تسجيل",
+    "@register": {
+        "description": "تسمية لوجهة التسجيل",
+        "type": "text"
+    },
+    "artistName": "اسم الفنان",
+    "@artistName": {
+        "description": "تسمية لوجهة اسم الفنان",
+        "type": "text"
+    },
+    "workplace": "مكان العمل",
+    "@workplace": {
+        "description": "تسمية لوجهة مكان العمل",
+        "type": "text"
+    },
+    "appointments": "المواعيد",
+    "@appointments": {
+        "description": "تسمية لوجهة المواعيد",
+        "type": "text"
+    },
+    "customers": "العملاء",
+    "@customers": {
+        "description": "تسمية لوجهة العملاء",
+        "type": "text"
+    },
+    "projects": "المشاريع",
+    "@projects": {
+        "description": "تسمية لوجهة المشاريع",
+        "type": "text"
+    },
+    "artistProfile": "ملف الفنان",
+    "@artistProfile": {
+        "description": "تسمية لوجهة ملف الفنان",
+        "type": "text"
+    },
+    "finance": "المالية",
+    "@finance": {
+        "description": "تسمية لوجهة المالية",
+        "type": "text"
+    },
+    "inventory": "المخزون",
+    "@inventory": {
+        "description": "تسمية لوجهة المخزون",
+        "type": "text"
+    },
+    "settings": "الإعدادات",
+    "@settings": {
+        "description": "تسمية لوجهة الإعدادات",
+        "type": "text"
+    },
+    "forgotPassword": "نسيت كلمة المرور",
+    "@forgotPassword": {
+        "description": "تسمية لوجهة نسيت كلمة المرور",
+        "type": "text"
+    },
+    "selectLanguage": "اختر اللغة",
+    "@selectLanguage": {
+        "description": "تسمية لقائمة اختيار اللغة",
+        "type": "text"
+    }
+}

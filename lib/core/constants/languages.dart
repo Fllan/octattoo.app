@@ -1,15 +1,13 @@
 /// Enum representing the supported languages.
 enum Language {
-  english(flag: '🇺🇸', name: 'English', code: 'en'),
-  french(flag: '🇫🇷', name: 'Français', code: 'fr');
+  english(name: 'English', code: 'en'),
+  french(name: 'Français', code: 'fr'),
+  arabic(name: 'اَلْعَرَبِيَّةُ', code: 'ar');
 
   /// Creates a [Language].
   ///
-  /// Requires a [flag], a [name], and a [code].
-  const Language({required this.flag, required this.name, required this.code});
-
-  /// Emoji flag representing the language.
-  final String flag;
+  /// Requires a [name] and a [code].
+  const Language({required this.name, required this.code});
 
   /// Name of the language in the language itself.
   final String name;
