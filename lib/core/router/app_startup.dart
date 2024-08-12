@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:octattoo_app/core/constants/gaps.dart';
-import 'package:octattoo_app/l10n/l10n_extensions.dart';
+import 'package:octattoo_app/core/localization/l10n_extensions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_startup.g.dart';

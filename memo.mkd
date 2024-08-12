@@ -1,0 +1,35 @@
+# Create new Flutter Project
+``` shell
+flutter create --template=app --empty --project-name octattoo_app --platforms android,ios,web --org "app.octattoo"
+```
+
+# Install Firebase CLI
+``` shell
+npm install -g firebase-tools
+```
+
+# Configure Firebase
+``` shell
+flutterfire configure
+```
+
+# Build runner
+``` shell
+dart run build_runner build -d
+```
+
+# Layouts
+compact = < 600
+medium = 600 < 839
+expanded = 840 < 1199
+large = 1200 < 1599
+extra-large = > 1600
+
+# "Clean" the project
+``` shell
+flutter clean
+flutter pub get
+flutter gen-l10n
+dart run build_runner build -d
+flutter pub get
+```

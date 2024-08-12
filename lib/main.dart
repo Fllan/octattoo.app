@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
-import 'package:octattoo_app/l10n/l10n_extensions.dart';
+import 'package:octattoo_app/core/localization/l10n_extensions.dart';
 import 'package:octattoo_app/firebase_options.dart';
 import 'package:octattoo_app/src/app.dart';
 

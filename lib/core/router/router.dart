@@ -4,6 +4,7 @@ import 'package:octattoo_app/core/layouts/adaptive_scaffold/adaptive_scaffold.da
 import 'package:octattoo_app/core/constants/primary_destinations.dart';
 import 'package:octattoo_app/core/router/app_startup.dart';
 import 'package:octattoo_app/core/utils/logger.dart';
+import 'package:octattoo_app/core/localization/l10n_extensions.dart';
 import 'package:octattoo_app/src/authentication/data/firebase_auth_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -28,8 +29,8 @@ final _shellNavigatorArtistProfileKey =
     GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorArtistProfile');
 final _shellNavigatorFinanceKey =
     GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorFinance');
-final _shellNavigatorHygeneKey =
-    GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorHygene');
+final _shellNavigatorInventoryKey =
+    GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorInventory');
 final _shellNavigatorSettingsKey =
     GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorSettings');
 
@@ -37,6 +38,7 @@ final _shellNavigatorSettingsKey =
 GoRouter goRouter(GoRouterRef ref) {
   final appStartupState = ref.watch(appStartupProvider);
   final authRepository = ref.watch(authRepositoryProvider);
+
   return GoRouter(
     initialLocation: '/startup',
     navigatorKey: _rootNavigatorKey,
@@ -50,7 +52,7 @@ GoRouter goRouter(GoRouterRef ref) {
       logger.d('App startup is complete');
       //final isLoggedIn = authRepository.currentUser != null;
       // ! Test only
-      const isLoggedIn = false;
+      const isLoggedIn = true;
       const isOnboarded = true;
       // ! Test only
       final isSigningIn = state.uri.pathSegments.first == 'signIn';
@@ -69,14 +71,14 @@ GoRouter goRouter(GoRouterRef ref) {
       final isProjects = state.uri.pathSegments.first == 'projects';
       final isArtistProfile = state.uri.pathSegments.first == 'artist-profile';
       final isFinance = state.uri.pathSegments.first == 'finance';
-      final isHygene = state.uri.pathSegments.first == 'hygene';
+      final isInventory = state.uri.pathSegments.first == 'inventory';
       final isSettings = state.uri.pathSegments.first == 'settings';
       final isAppShell = isAppointments ||
           isCustomers ||
           isProjects ||
           isArtistProfile ||
           isFinance ||
-          isHygene ||
+          isInventory ||
           isSettings;
 
       // * If the user is not logged in, redirect to the /home route
@@ -116,6 +118,8 @@ GoRouter goRouter(GoRouterRef ref) {
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
+          List<PrimaryDestination> welcomeDestinations =
+              createWelcomeDestinations(context);
           return SafeArea(
             child: AdaptiveScaffold(
               navigationShell: navigationShell,
@@ -129,14 +133,15 @@ GoRouter goRouter(GoRouterRef ref) {
             routes: [
               GoRoute(
                 path: '/signIn',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: DefaultTestScreen(title: 'Sign In'),
+                pageBuilder: (context, state) => NoTransitionPage(
+                  child: DefaultTestScreen(title: context.loc.signIn),
                 ),
                 routes: [
                   GoRoute(
                     path: 'forgot-password',
-                    pageBuilder: (context, state) => const NoTransitionPage(
-                      child: DefaultTestScreen(title: 'Forgot Password'),
+                    pageBuilder: (context, state) => NoTransitionPage(
+                      child:
+                          DefaultTestScreen(title: context.loc.forgotPassword),
                     ),
                   ),
                 ],
@@ -148,8 +153,8 @@ GoRouter goRouter(GoRouterRef ref) {
             routes: [
               GoRoute(
                 path: '/register',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: DefaultTestScreen(title: 'Register'),
+                pageBuilder: (context, state) => NoTransitionPage(
+                  child: DefaultTestScreen(title: context.loc.register),
                 ),
               ),
             ],
@@ -158,6 +163,8 @@ GoRouter goRouter(GoRouterRef ref) {
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
+          List<PrimaryDestination> onboardingDestinations =
+              createOnboardingDestinations(context);
           return SafeArea(
             child: AdaptiveScaffold(
               navigationShell: navigationShell,
@@ -192,6 +199,8 @@ GoRouter goRouter(GoRouterRef ref) {
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
+          List<PrimaryDestination> appDestinations =
+              createAppDestinations(context);
           return SafeArea(
             child: AdaptiveScaffold(
               navigationShell: navigationShell,
@@ -205,8 +214,8 @@ GoRouter goRouter(GoRouterRef ref) {
             routes: [
               GoRoute(
                 path: '/appointments',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: DefaultTestScreen(title: 'Appointments'),
+                pageBuilder: (context, state) => NoTransitionPage(
+                  child: DefaultTestScreen(title: context.loc.appointments),
                 ),
               ),
             ],
@@ -216,8 +225,8 @@ GoRouter goRouter(GoRouterRef ref) {
             routes: [
               GoRoute(
                 path: '/customers',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: DefaultTestScreen(title: 'Customers'),
+                pageBuilder: (context, state) => NoTransitionPage(
+                  child: DefaultTestScreen(title: context.loc.customers),
                 ),
               ),
             ],
@@ -227,8 +236,8 @@ GoRouter goRouter(GoRouterRef ref) {
             routes: [
               GoRoute(
                 path: '/projects',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: DefaultTestScreen(title: 'Projects'),
+                pageBuilder: (context, state) => NoTransitionPage(
+                  child: DefaultTestScreen(title: context.loc.projects),
                 ),
               ),
             ],
@@ -238,8 +247,8 @@ GoRouter goRouter(GoRouterRef ref) {
             routes: [
               GoRoute(
                 path: '/artist-profile',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: DefaultTestScreen(title: 'Artist Profile'),
+                pageBuilder: (context, state) => NoTransitionPage(
+                  child: DefaultTestScreen(title: context.loc.artistProfile),
                 ),
               ),
             ],
@@ -249,19 +258,19 @@ GoRouter goRouter(GoRouterRef ref) {
             routes: [
               GoRoute(
                 path: '/finance',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: DefaultTestScreen(title: 'Finance'),
+                pageBuilder: (context, state) => NoTransitionPage(
+                  child: DefaultTestScreen(title: context.loc.finance),
                 ),
               ),
             ],
           ),
           StatefulShellBranch(
-            navigatorKey: _shellNavigatorHygeneKey,
+            navigatorKey: _shellNavigatorInventoryKey,
             routes: [
               GoRoute(
-                path: '/hygene',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: DefaultTestScreen(title: 'Hygene & Cleanliness'),
+                path: '/inventory',
+                pageBuilder: (context, state) => NoTransitionPage(
+                  child: DefaultTestScreen(title: context.loc.inventory),
                 ),
               ),
             ],
@@ -271,8 +280,8 @@ GoRouter goRouter(GoRouterRef ref) {
             routes: [
               GoRoute(
                 path: '/settings',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: DefaultTestScreen(title: 'Settings'),
+                pageBuilder: (context, state) => NoTransitionPage(
+                  child: DefaultTestScreen(title: context.loc.settings),
                 ),
               ),
             ],

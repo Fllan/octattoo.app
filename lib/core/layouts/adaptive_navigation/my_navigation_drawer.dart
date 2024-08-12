@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:octattoo_app/core/constants/gaps.dart';
 import 'package:octattoo_app/core/constants/primary_destinations.dart';
+import 'package:octattoo_app/core/localization/widgets/language_selection_menu.dart';
+import 'package:octattoo_app/core/theme/widgets/brightness_button.dart';
+import 'package:octattoo_app/core/theme/widgets/color_selection_menu.dart';
+import 'package:octattoo_app/core/theme/widgets/image_selection_menu.dart';
+import 'package:octattoo_app/core/localization/l10n_extensions.dart';
 
 class MyNavigationDrawer extends StatelessWidget {
   const MyNavigationDrawer({
@@ -31,7 +37,7 @@ class MyNavigationDrawer extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(28, 16, 16, 10),
           child: Text(
-            'octattoo.app',
+            context.loc.appTitle,
             style: Theme.of(context).textTheme.titleSmall,
           ),
         ),
@@ -40,8 +46,39 @@ class MyNavigationDrawer extends StatelessWidget {
             return NavigationDrawerDestination(
               icon: entry.value.icon,
               label: Text(entry.value.label),
+              selectedIcon: entry.value.selectedIcon,
             );
           },
+        ),
+        gapH64,
+        Padding(
+          padding: const EdgeInsets.fromLTRB(28, 16, 16, 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Divider(
+                color: Theme.of(context).colorScheme.outline,
+                thickness: 1,
+                height: 1,
+              ),
+              gapH16,
+              Text(
+                'Personalization'.hardcoded,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              gapH16,
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  BrightnessButton(),
+                  LanguageSelectionMenu(),
+                  ColorSelectionMenu(),
+                  ImageSelectionMenu(),
+                ],
+              ),
+            ],
+          ),
         ),
       ],
     );

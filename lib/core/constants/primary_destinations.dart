@@ -1,29 +1,80 @@
 import 'package:flutter/material.dart';
-import 'package:octattoo_app/l10n/l10n_extensions.dart';
+import 'package:octattoo_app/core/localization/l10n_extensions.dart';
 
 class PrimaryDestination {
-  const PrimaryDestination(this.icon, this.label);
+  const PrimaryDestination(this.icon, this.label, this.selectedIcon);
   final Widget icon;
+  final Widget selectedIcon;
   final String label;
 }
 
-List<PrimaryDestination> welcomeDestinations = <PrimaryDestination>[
-  PrimaryDestination(const Icon(Icons.inbox_rounded), 'Sign In'.hardcoded),
-  PrimaryDestination(const Icon(Icons.article_outlined), 'Register'.hardcoded),
-];
+// Function to create the localized destinations
+List<PrimaryDestination> createWelcomeDestinations(BuildContext context) {
+  return <PrimaryDestination>[
+    PrimaryDestination(
+      const Icon(Icons.login),
+      context.loc.signIn,
+      const Icon(Icons.login_outlined),
+    ),
+    PrimaryDestination(
+      const Icon(Icons.app_registration),
+      context.loc.register,
+      const Icon(Icons.app_registration_outlined),
+    ),
+  ];
+}
 
-List<PrimaryDestination> onboardingDestinations = <PrimaryDestination>[
-  PrimaryDestination(const Icon(Icons.inbox_rounded), 'Artist Name'.hardcoded),
-  PrimaryDestination(const Icon(Icons.article_outlined), 'Workplace'.hardcoded),
-];
+List<PrimaryDestination> createOnboardingDestinations(BuildContext context) {
+  return <PrimaryDestination>[
+    PrimaryDestination(
+      const Icon(Icons.inbox_rounded),
+      context.loc.artistName,
+      const Icon(Icons.inbox_rounded),
+    ),
+    PrimaryDestination(
+      const Icon(Icons.article_outlined),
+      context.loc.workplace,
+      const Icon(Icons.article_outlined),
+    ),
+  ];
+}
 
-List<PrimaryDestination> appDestinations = <PrimaryDestination>[
-  PrimaryDestination(
-      const Icon(Icons.calendar_today), 'Appointments'.hardcoded),
-  PrimaryDestination(const Icon(Icons.people), 'Customers'.hardcoded),
-  PrimaryDestination(const Icon(Icons.dashboard), 'Projects'.hardcoded),
-  PrimaryDestination(const Icon(Icons.account_box), 'Artist Profile'.hardcoded),
-  PrimaryDestination(const Icon(Icons.monetization_on), 'Finance'.hardcoded),
-  PrimaryDestination(const Icon(Icons.inventory), 'Inventory'.hardcoded),
-  PrimaryDestination(const Icon(Icons.settings), 'Settings'.hardcoded),
-];
+List<PrimaryDestination> createAppDestinations(BuildContext context) {
+  return <PrimaryDestination>[
+    PrimaryDestination(
+      const Icon(Icons.calendar_today),
+      context.loc.appointments,
+      const Icon(Icons.calendar_today_outlined),
+    ),
+    PrimaryDestination(
+      const Icon(Icons.people),
+      context.loc.customers,
+      const Icon(Icons.people_outlined),
+    ),
+    PrimaryDestination(
+      const Icon(Icons.dashboard),
+      context.loc.projects,
+      const Icon(Icons.dashboard_outlined),
+    ),
+    PrimaryDestination(
+      const Icon(Icons.account_box),
+      context.loc.artistProfile,
+      const Icon(Icons.account_box_outlined),
+    ),
+    PrimaryDestination(
+      const Icon(Icons.monetization_on),
+      context.loc.finance,
+      const Icon(Icons.monetization_on_outlined),
+    ),
+    PrimaryDestination(
+      const Icon(Icons.inventory),
+      context.loc.inventory,
+      const Icon(Icons.inventory_outlined),
+    ),
+    PrimaryDestination(
+      const Icon(Icons.settings),
+      context.loc.settings,
+      const Icon(Icons.settings_outlined),
+    ),
+  ];
+}

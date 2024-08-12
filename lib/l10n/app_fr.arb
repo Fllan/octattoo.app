@@ -4,5 +4,65 @@
     "@appTitle": {
         "description": "The title of the application",
         "type": "text"
+    },
+    "signIn": "Se connecter",
+    "@signIn": {
+        "description": "Label for the Sign In destination",
+        "type": "text"
+    },
+    "register": "S''inscrire",
+    "@register": {
+        "description": "Label for the Register destination",
+        "type": "text"
+    },
+    "artistName": "Nom de l''artiste",
+    "@artistName": {
+        "description": "Label for the Artist Name destination",
+        "type": "text"
+    },
+    "workplace": "Lieux de travail",
+    "@workplace": {
+        "description": "Label for the Workplace destination",
+        "type": "text"
+    },
+    "appointments": "Rendez-vous",
+    "@appointments": {
+        "description": "Label for the Appointments destination",
+        "type": "text"
+    },
+    "customers": "Clients",
+    "@customers": {
+        "description": "Label for the Customers destination",
+        "type": "text"
+    },
+    "projects": "Projets",
+    "@projects": {
+        "description": "Label for the Projects destination",
+        "type": "text"
+    },
+    "artistProfile": "Profil d''artiste",
+    "@artistProfile": {
+        "description": "Label for the Artist Profile destination",
+        "type": "text"
+    },
+    "finance": "Finance",
+    "@finance": {
+        "description": "Label for the Finance destination",
+        "type": "text"
+    },
+    "inventory": "Inventaire",
+    "@inventory": {
+        "description": "Label for the Inventory destination in the navigation drawer",
+        "type": "text"
+    },
+    "settings": "Paramètres",
+    "@settings": {
+        "description": "Label for the Settings destination in the navigation drawer",
+        "type": "text"
+    },
+    "forgotPassword": "Mot de passe oublié",
+    "@forgotPassword": {
+        "description": "Label for the Forgot Password destination",
+        "type": "text"
     }
 }

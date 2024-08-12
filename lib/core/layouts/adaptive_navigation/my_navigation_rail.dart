@@ -32,6 +32,7 @@ class MyNavigationRail extends StatelessWidget {
         return NavigationRailDestination(
           icon: destination.icon,
           label: Text(destination.label),
+          selectedIcon: destination.selectedIcon,
         );
       }).toList(),
       selectedIndex: navigationShell.currentIndex,

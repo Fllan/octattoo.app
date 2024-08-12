@@ -4,5 +4,65 @@
     "@appTitle": {
         "description": "Title of the application",
         "type": "text"
+    },
+    "signIn": "Sign In",
+    "@signIn": {
+        "description": "Label for the Sign In destination",
+        "type": "text"
+    },
+    "register": "Register",
+    "@register": {
+        "description": "Label for the Register destination",
+        "type": "text"
+    },
+    "artistName": "Artist Name",
+    "@artistName": {
+        "description": "Label for the Artist Name destination",
+        "type": "text"
+    },
+    "workplace": "Workplace",
+    "@workplace": {
+        "description": "Label for the Workplace destination",
+        "type": "text"
+    },
+    "appointments": "Appointments",
+    "@appointments": {
+        "description": "Label for the Appointments destination",
+        "type": "text"
+    },
+    "customers": "Customers",
+    "@customers": {
+        "description": "Label for the Customers destination",
+        "type": "text"
+    },
+    "projects": "Projects",
+    "@projects": {
+        "description": "Label for the Projects destination",
+        "type": "text"
+    },
+    "artistProfile": "Artist Profile",
+    "@artistProfile": {
+        "description": "Label for the Artist Profile destination",
+        "type": "text"
+    },
+    "finance": "Finance",
+    "@finance": {
+        "description": "Label for the Finance destination",
+        "type": "text"
+    },
+    "inventory": "Inventory",
+    "@inventory": {
+        "description": "Label for the Inventory destination",
+        "type": "text"
+    },
+    "settings": "Settings",
+    "@settings": {
+        "description": "Label for the Settings destination",
+        "type": "text"
+    },
+    "forgotPassword": "Forgot Password",
+    "@forgotPassword": {
+        "description": "Label for the Forgot Password destination",
+        "type": "text"
     }
 }
