@@ -1,63 +1,53 @@
 import 'package:flutter/material.dart';
 
-enum Breakpoints {
+/// An enum that represents the different breakpoints.
+enum BreakpointType {
   compact,
   medium,
   expanded,
   large,
-  extraLarge,
-}
+  extraLarge;
 
-enum AdaptiveScaffoldType {
-  appBar,
-  compactAppBar,
-  navigationRail,
-  navigationDrawer,
-}
+  static const double _compactWidth = 600;
+  static const double _mediumWidth = 840;
+  static const double _expandedWidth = 1200;
+  static const double _largeWidth = 1600;
+  static const double _minHeight = 504;
 
-extension BreakpointsExtension on Breakpoints {
-  static const double compact = 600;
-  static const double medium = 840;
-  static const double expanded = 1200;
-  static const double large = 1600;
-  static const double minHeight = 504;
-
-  static bool isCompact(BuildContext context) {
-    return MediaQuery.sizeOf(context).width < compact;
+  /// Returns the corresponding [BreakpointType] based on the screen width.
+  static BreakpointType fromWidth(double width) {
+    if (width < _compactWidth) return BreakpointType.compact;
+    if (width < _mediumWidth) return BreakpointType.medium;
+    if (width < _expandedWidth) return BreakpointType.expanded;
+    if (width < _largeWidth) return BreakpointType.large;
+    return BreakpointType.extraLarge;
   }
 
-  static bool isMedium(BuildContext context) {
-    return MediaQuery.sizeOf(context).width >= compact &&
-        MediaQuery.sizeOf(context).width < medium;
+  /// Convenience method to get the current [BreakpointType] from the context.
+  static BreakpointType fromContext(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    return fromWidth(width);
   }
 
-  static bool isExpanded(BuildContext context) {
-    return MediaQuery.sizeOf(context).width >= medium &&
-        MediaQuery.sizeOf(context).width < expanded;
-  }
-
-  static bool isLarge(BuildContext context) {
-    return MediaQuery.sizeOf(context).width >= expanded &&
-        MediaQuery.sizeOf(context).width < large;
-  }
-
-  static bool isExtraLarge(BuildContext context) {
-    return MediaQuery.sizeOf(context).width >= large;
-  }
-
+  /// Determines if the height is compact.
   static bool isHeightCompact(BuildContext context) {
-    return MediaQuery.sizeOf(context).height < minHeight;
+    final height = MediaQuery.of(context).size.height;
+    return height < _minHeight;
   }
+}
 
-  static AdaptiveScaffoldType getScaffold(BuildContext context) {
-    if (isHeightCompact(context)) return AdaptiveScaffoldType.compactAppBar;
-    if (isCompact(context)) return AdaptiveScaffoldType.appBar;
-    if (isMedium(context)) return AdaptiveScaffoldType.navigationRail;
-    if (isExpanded(context)) return AdaptiveScaffoldType.navigationRail;
-    if (isLarge(context)) return AdaptiveScaffoldType.navigationRail;
-    if (isExtraLarge(context)) return AdaptiveScaffoldType.navigationDrawer;
-    throw ErrorWidget.withDetails(
-      message: 'Breakpoint not handled for ${MediaQuery.sizeOf(context).width}',
-    );
-  }
+/// A class that provides a convenient way to access the current breakpoint.
+class Breakpoint {
+  final BreakpointType type;
+  final bool isHeightCompact;
+
+  Breakpoint(BuildContext context)
+      : type = BreakpointType.fromContext(context),
+        isHeightCompact = BreakpointType.isHeightCompact(context);
+
+  bool get isCompact => type == BreakpointType.compact;
+  bool get isMedium => type == BreakpointType.medium;
+  bool get isExpanded => type == BreakpointType.expanded;
+  bool get isLarge => type == BreakpointType.large;
+  bool get isExtraLarge => type == BreakpointType.extraLarge;
 }

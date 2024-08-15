@@ -13,7 +13,7 @@ class MyNavigationDrawer extends StatelessWidget {
     super.key,
     required this.navigationShell,
     required this.destinations,
-    required this.isModal,
+    this.isModal = false,
   });
 
   final StatefulNavigationShell navigationShell;

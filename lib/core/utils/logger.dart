@@ -33,7 +33,7 @@ class LoggerInitializer {
           dateTimeFormat: DateTimeFormat.onlyTimeAndSinceStart,
           noBoxingByDefault: true,
         ),
-        level: Level.trace,
+        level: Level.all,
       );
       return true;
     }());

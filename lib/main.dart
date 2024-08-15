@@ -5,11 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:octattoo_app/core/localization/l10n_extensions.dart';
+import 'package:octattoo_app/core/utils/logger.dart';
 import 'package:octattoo_app/firebase_options.dart';
 import 'package:octattoo_app/src/app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  LoggerInitializer.setupLogger();
   // turn off the # in the URLs on the web
   usePathUrlStrategy();
   // * Register error handlers. For more info, see:
