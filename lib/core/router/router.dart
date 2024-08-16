@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:octattoo_app/core/constants/primary_destinations.dart';
+import 'package:octattoo_app/core/layouts/adaptive_scaffold.dart';
+import 'package:octattoo_app/core/layouts/bodies.dart';
+import 'package:octattoo_app/core/layouts/navigations.dart';
 import 'package:octattoo_app/core/router/app_startup.dart';
 import 'package:octattoo_app/core/utils/logger.dart';
+import 'package:octattoo_app/src/appointments/presentation/appointments_details.dart';
+import 'package:octattoo_app/src/appointments/presentation/appointments_list_widget.dart';
 import 'package:octattoo_app/src/customers/presentation/customer_details.dart';
 import 'package:octattoo_app/src/customers/presentation/customers_list_widget.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -51,19 +57,16 @@ GoRouter goRouter(GoRouterRef ref) {
 
       if (!isLoggedIn) {
         if (!isWelcoming) {
-          logger.d('User is not logged in. Redirect to /signIn');
           return '/signIn';
         }
       } else {
         logger.d('GoRouter redirect : User is logged in');
         if (!isOnboarded) {
           if (!isOnboarding) {
-            logger.d('User is not onboarded. Redirect to /artist-name');
             return '/artist-name';
           }
         } else {
           if (!isAppShell) {
-            logger.d('User is logged in. Redirect to /home');
             return '/appointments';
           }
           return null;
@@ -84,6 +87,26 @@ GoRouter goRouter(GoRouterRef ref) {
         ),
       ),
       StatefulShellRoute.indexedStack(
+        // ! Test only - not yet implemented
+        builder: (context, state, StatefulNavigationShell navigationShell) {
+          final destinations = createAppDestinations(context);
+          final navigation = getNavigation(context);
+          final body = getBody(
+            context,
+            overrides: destinations[navigationShell.currentIndex].bodyOverrides,
+          );
+          return AdaptiveScaffold(
+            navigation: navigation,
+            body: body,
+            destinations: destinations,
+            navigationShell: navigationShell,
+          );
+        },
+        // ! or.... ?
+        // pageBuilder: (context, state, navigationShell) {
+        //   return const MaterialPage(child: Placeholder());
+        // },
+        // !
         branches: [
           StatefulShellBranch(
             navigatorKey: _shellNavigatorAppointmentsKey,
@@ -93,11 +116,11 @@ GoRouter goRouter(GoRouterRef ref) {
                 name: 'appointments',
                 // ! Test only - not yet implemented
                 builder: (context, state) {
-                  return const Placeholder();
+                  return AppointmentsListWidget();
                 },
                 // ! or.... ?
                 pageBuilder: (context, state) {
-                  return const MaterialPage(child: Placeholder());
+                  return MaterialPage(child: AppointmentsListWidget());
                 },
                 routes: [
                   GoRoute(
@@ -105,11 +128,11 @@ GoRouter goRouter(GoRouterRef ref) {
                     name: 'appointmentDetails',
                     // ! Test only - not yet implemented
                     builder: (context, state) {
-                      return const Placeholder();
+                      return AppointmentsDetails();
                     },
                     // ! or.... ?
                     pageBuilder: (context, state) {
-                      return const MaterialPage(child: Placeholder());
+                      return MaterialPage(child: AppointmentsDetails());
                     },
                     // ! Test only - not yet implemented
                   ),
@@ -123,43 +146,40 @@ GoRouter goRouter(GoRouterRef ref) {
               GoRoute(
                 path: '/customers',
                 name: 'customers',
-                pageBuilder: (context, state) {
-                  logger.d('Navigating to CustomersListWidget');
-                  return MaterialPage(
-                    key: state.pageKey,
-                    restorationId: state.pageKey.toString(),
-                    child: CustomersListWidget(),
-                  );
+                // ! Test only - not yet implemented
+                builder: (context, state) {
+                  return CustomersListWidget();
                 },
+                // ! or.... ?
+                pageBuilder: (context, state) {
+                  return MaterialPage(child: CustomersListWidget());
+                },
+                // ! Test only - not yet implemented
                 routes: [
                   GoRoute(
                     path: 'details/:idCustomer',
                     name: 'customerDetails',
+                    // ! Test only - not yet implemented
+                    builder: (context, state) {
+                      return CustomerDetails(
+                        idCustomer: state.pathParameters['idCustomer'],
+                      );
+                    },
+                    // ! or.... ?
                     pageBuilder: (context, state) {
-                      logger.d(
-                          'Navigating to CustomerDetails: ${state.pathParameters['idCustomer']}');
                       return MaterialPage(
-                        key: state.pageKey,
-                        restorationId: state.pageKey.toString(),
                         child: CustomerDetails(
                           idCustomer: state.pathParameters['idCustomer'],
                         ),
                       );
                     },
+                    // ! Test only - not yet implemented
                   ),
                 ],
               ),
             ],
           ),
         ],
-        // ! Test only - not yet implemented
-        builder: (context, state, navigationShell) {
-          return const Placeholder();
-        },
-        // ! or.... ?
-        pageBuilder: (context, state, navigationShell) {
-          return const MaterialPage(child: Placeholder());
-        },
       ),
     ],
   );

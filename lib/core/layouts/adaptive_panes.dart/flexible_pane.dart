@@ -1,1 +1,0 @@
-// TODO : Implement FixedPane following Material Design 3 guidelines
