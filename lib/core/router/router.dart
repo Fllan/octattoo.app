@@ -1,3 +1,4 @@
+// lib/core/router/router.dart
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app/core/constants/primary_destinations.dart';
@@ -5,7 +6,6 @@ import 'package:octattoo_app/core/layouts/adaptive_scaffold.dart';
 import 'package:octattoo_app/core/layouts/bodies.dart';
 import 'package:octattoo_app/core/layouts/navigations.dart';
 import 'package:octattoo_app/core/router/app_startup.dart';
-import 'package:octattoo_app/core/utils/logger.dart';
 import 'package:octattoo_app/src/appointments/presentation/appointments_details.dart';
 import 'package:octattoo_app/src/appointments/presentation/appointments_list_widget.dart';
 import 'package:octattoo_app/src/customers/presentation/customer_details.dart';
@@ -23,7 +23,6 @@ final _shellNavigatorCustomersKey =
 @riverpod
 GoRouter goRouter(GoRouterRef ref) {
   final appStartupState = ref.watch(appStartupProvider);
-  // final authRepository = ref.watch(authRepositoryProvider);
 
   return GoRouter(
     initialLocation: '/startup',
@@ -31,47 +30,19 @@ GoRouter goRouter(GoRouterRef ref) {
     debugLogDiagnostics: false,
     redirect: (context, state) {
       if (appStartupState.isLoading || appStartupState.hasError) {
-        logger.d('App is still loading or has an error...');
         return '/startup';
       }
-      logger.d('App startup is complete');
-      //final isLoggedIn = authRepository.currentUser != null;
-      // ! Test only
+
       const isLoggedIn = true;
       const isOnboarded = true;
-      // ! Test only
-      final isSigningIn = state.uri.pathSegments.first == 'signIn';
-      final isRegistering = state.uri.pathSegments.first == 'register';
-      final isForgotPassword =
-          state.uri.pathSegments.first == 'forgot-password';
-      final isWelcoming = isSigningIn || isRegistering || isForgotPassword;
-
-      final isOnboardingArtistName =
-          state.uri.pathSegments.first == 'artist-name';
-      final isOnboardingWorkplace = state.uri.pathSegments.first == 'workplace';
-      final isOnboarding = isOnboardingArtistName || isOnboardingWorkplace;
-
-      final isAppointments = state.uri.pathSegments.first == 'appointments';
-      final isCustomers = state.uri.pathSegments.first == 'customers';
-      final isAppShell = isAppointments || isCustomers;
 
       if (!isLoggedIn) {
-        if (!isWelcoming) {
-          return '/signIn';
-        }
-      } else {
-        logger.d('GoRouter redirect : User is logged in');
-        if (!isOnboarded) {
-          if (!isOnboarding) {
-            return '/artist-name';
-          }
-        } else {
-          if (!isAppShell) {
-            return '/appointments';
-          }
-          return null;
-        }
-        return null;
+        return '/signIn';
+      } else if (!isOnboarded) {
+        return '/artist-name';
+      } else if (!state.uri.pathSegments.contains('appointments') &&
+          !state.uri.pathSegments.contains('customers')) {
+        return '/appointments';
       }
       return null;
     },
@@ -80,14 +51,11 @@ GoRouter goRouter(GoRouterRef ref) {
         path: '/startup',
         pageBuilder: (context, state) => NoTransitionPage(
           child: AppStartupWidget(
-            // * This is just a placeholder
-            // * The loaded route will be managed by GoRouter on state change
             onLoaded: (_) => const SizedBox.shrink(),
           ),
         ),
       ),
       StatefulShellRoute.indexedStack(
-        // ! Test only - not yet implemented
         builder: (context, state, StatefulNavigationShell navigationShell) {
           final destinations = createAppDestinations(context);
           final navigation = getNavigation(context);
@@ -95,18 +63,36 @@ GoRouter goRouter(GoRouterRef ref) {
             context,
             overrides: destinations[navigationShell.currentIndex].bodyOverrides,
           );
+
+          // Determine what should be in each pane based on the current branch
+          Widget firstPane = const SizedBox.shrink();
+          Widget? secondPane;
+
+          if (navigationShell.currentIndex == 0) {
+            // Appointments
+            firstPane = const AppointmentsListWidget();
+            if (state.uri.path.contains('/appointments/details')) {
+              final idAppointment = state.pathParameters['idAppointment'];
+              secondPane = AppointmentsDetails(idAppointment: idAppointment);
+            }
+          } else if (navigationShell.currentIndex == 1) {
+            // Customers
+            firstPane = const CustomersListWidget();
+            if (state.uri.path.contains('/customers/details')) {
+              final idCustomer = state.pathParameters['idCustomer'];
+              secondPane = CustomerDetails(idCustomer: idCustomer);
+            }
+          }
+
           return AdaptiveScaffold(
             navigation: navigation,
             body: body,
             destinations: destinations,
             navigationShell: navigationShell,
+            firstPane: firstPane,
+            secondPane: secondPane,
           );
         },
-        // ! or.... ?
-        // pageBuilder: (context, state, navigationShell) {
-        //   return const MaterialPage(child: Placeholder());
-        // },
-        // !
         branches: [
           StatefulShellBranch(
             navigatorKey: _shellNavigatorAppointmentsKey,
@@ -114,27 +100,16 @@ GoRouter goRouter(GoRouterRef ref) {
               GoRoute(
                 path: '/appointments',
                 name: 'appointments',
-                // ! Test only - not yet implemented
                 builder: (context, state) {
-                  return AppointmentsListWidget();
-                },
-                // ! or.... ?
-                pageBuilder: (context, state) {
-                  return MaterialPage(child: AppointmentsListWidget());
+                  return const AppointmentsListWidget();
                 },
                 routes: [
                   GoRoute(
                     path: 'details/:idAppointment',
                     name: 'appointmentDetails',
-                    // ! Test only - not yet implemented
                     builder: (context, state) {
-                      return AppointmentsDetails();
+                      return const AppointmentsDetails();
                     },
-                    // ! or.... ?
-                    pageBuilder: (context, state) {
-                      return MaterialPage(child: AppointmentsDetails());
-                    },
-                    // ! Test only - not yet implemented
                   ),
                 ],
               ),
@@ -146,34 +121,18 @@ GoRouter goRouter(GoRouterRef ref) {
               GoRoute(
                 path: '/customers',
                 name: 'customers',
-                // ! Test only - not yet implemented
                 builder: (context, state) {
-                  return CustomersListWidget();
+                  return const CustomersListWidget();
                 },
-                // ! or.... ?
-                pageBuilder: (context, state) {
-                  return MaterialPage(child: CustomersListWidget());
-                },
-                // ! Test only - not yet implemented
                 routes: [
                   GoRoute(
                     path: 'details/:idCustomer',
                     name: 'customerDetails',
-                    // ! Test only - not yet implemented
                     builder: (context, state) {
                       return CustomerDetails(
                         idCustomer: state.pathParameters['idCustomer'],
                       );
                     },
-                    // ! or.... ?
-                    pageBuilder: (context, state) {
-                      return MaterialPage(
-                        child: CustomerDetails(
-                          idCustomer: state.pathParameters['idCustomer'],
-                        ),
-                      );
-                    },
-                    // ! Test only - not yet implemented
                   ),
                 ],
               ),

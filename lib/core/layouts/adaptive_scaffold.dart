@@ -13,24 +13,30 @@ class AdaptiveScaffold extends StatelessWidget {
     required this.body,
     required this.destinations,
     required this.navigationShell,
+    required this.firstPane,
+    this.secondPane,
   });
 
   final Navigation navigation;
   final Body body;
   final List<PrimaryDestination> destinations;
   final StatefulNavigationShell navigationShell;
+  final Widget firstPane;
+  final Widget? secondPane;
 
   @override
   Widget build(BuildContext context) {
     final backgroundColor = Theme.of(context).colorScheme.surface;
     final appBar = buildAppBar(context);
-    final extendBodyBehindAppBar =
-        appBar != null && navigation.type == NavigationType.compactAppBar;
+    bool isCompactAppBar = navigation.type == NavigationType.compactAppBar;
+    final extendBodyBehindAppBar = isCompactAppBar;
     final bodyScaffold = AdaptiveBody.createBody(
       navigation: navigation,
       body: body,
       destinations: destinations,
       navigationShell: navigationShell,
+      firstPane: firstPane,
+      secondPane: secondPane,
     );
     final drawer = buildDrawer(context);
 
@@ -51,7 +57,7 @@ class AdaptiveScaffold extends StatelessWidget {
         );
       case NavigationType.compactAppBar:
         return AppBar(
-          title: const Text('CompactAppBar'),
+          title: null,
           backgroundColor: Colors.transparent,
         );
       case NavigationType.navigationRail:

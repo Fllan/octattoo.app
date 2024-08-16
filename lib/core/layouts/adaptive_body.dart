@@ -1,3 +1,4 @@
+// lib/core/layouts/adaptive_body.dart
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app/core/constants/primary_destinations.dart';
@@ -14,15 +15,18 @@ class AdaptiveBody {
     required Body body,
     required List<PrimaryDestination> destinations,
     required StatefulNavigationShell navigationShell,
+    required Widget firstPane,
+    Widget? secondPane,
   }) {
     final navWidget =
         _getNavigationWidget(navigation, destinations, navigationShell);
 
     switch (body.type) {
       case BodyType.singlePane:
-        return _createSinglePaneBody(navWidget, body.layout);
+        return _createSinglePaneBody(navWidget, firstPane);
       case BodyType.twoPane:
-        return _createTwoPaneBody(navWidget, body.layout);
+        return _createTwoPaneBody(
+            navWidget, firstPane, secondPane, body.layout);
       default:
         return const Text('Unknown BodyType');
     }
@@ -46,67 +50,44 @@ class AdaptiveBody {
     }
   }
 
-  static Widget _createSinglePaneBody(Widget nav, BodyLayout layout) {
+  static Widget _createSinglePaneBody(Widget nav, Widget firstPane) {
     return Row(
       children: [
         nav,
-        const FlexiblePane(
-          child: Center(
-            child: Text('Flexible Pane'),
-          ),
+        FlexiblePane(
+          child: firstPane,
         ),
       ],
     );
   }
 
-  static Widget _createTwoPaneBody(Widget nav, BodyLayout layout) {
+  static Widget _createTwoPaneBody(
+      Widget nav, Widget firstPane, Widget? secondPane, BodyLayout layout) {
+    secondPane ??= const SizedBox.shrink();
+
     switch (layout) {
       case BodyLayout.flexible:
         return Row(
           children: [
             nav,
-            const FlexiblePane(
-              child: Center(
-                child: Text('Flexible Pane'),
-              ),
-            ),
-            const FlexiblePane(
-              child: Center(
-                child: Text('Flexible Pane'),
-              ),
-            ),
+            FlexiblePane(child: firstPane),
+            FlexiblePane(child: secondPane),
           ],
         );
       case BodyLayout.firstFixed:
         return Row(
           children: [
             nav,
-            const FixedPane(
-              child: Center(
-                child: Text('Fixed Pane'),
-              ),
-            ),
-            const FlexiblePane(
-              child: Center(
-                child: Text('Flexible Pane'),
-              ),
-            ),
+            FixedPane(child: firstPane),
+            FlexiblePane(child: secondPane),
           ],
         );
       case BodyLayout.secondFixed:
         return Row(
           children: [
             nav,
-            const FlexiblePane(
-              child: Center(
-                child: Text('Flexible Pane'),
-              ),
-            ),
-            const FixedPane(
-              child: Center(
-                child: Text('Fixed Pane'),
-              ),
-            ),
+            FlexiblePane(child: firstPane),
+            FixedPane(child: secondPane),
           ],
         );
     }

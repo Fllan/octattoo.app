@@ -1,51 +1,35 @@
+// lib/src/appointments/presentation/appointments_list_widget.dart
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:octattoo_app/src/customers/presentation/customers_list_widget.dart';
+import 'package:octattoo_app/src/appointments/data/appointments_data.dart';
 
-class AppointmentsListWidget extends StatelessWidget {
-  final List<Appointments> appointments = [
-    Appointments(
-      Customer(id: 1, name: 'John Doe'),
-      DateTime.now(),
-      DateTime.now().add(const Duration(hours: 1)),
-      '123 Main St',
-      'Bring all the things',
-      id: 1,
-      name: 'First Appointment',
-    ),
-    Appointments(
-      Customer(id: 2, name: 'Jane Smith'),
-      DateTime.now().add(const Duration(days: 1)),
-      DateTime.now().add(const Duration(days: 1, hours: 1)),
-      '456 Elm St',
-      'Bring all the things',
-      id: 2,
-      name: 'Second Appointment',
-    ),
-    Appointments(
-      Customer(id: 3, name: 'Alice Johnson'),
-      DateTime.now().add(const Duration(days: 2)),
-      DateTime.now().add(const Duration(days: 2, hours: 1)),
-      '789 Cedar St',
-      'Bring all the things',
-      id: 3,
-      name: 'Third Appointment',
-    ),
-    // Add more fake appointments here
-  ];
+class AppointmentsListWidget extends StatefulWidget {
+  const AppointmentsListWidget({super.key});
 
-  AppointmentsListWidget({super.key});
+  @override
+  // ignore: library_private_types_in_public_api
+  _AppointmentsListWidgetState createState() => _AppointmentsListWidgetState();
+}
+
+class _AppointmentsListWidgetState extends State<AppointmentsListWidget> {
+  int? selectedAppointmentId;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: appointments.length,
+      itemCount: appointmentsList.length,
       itemBuilder: (context, index) {
-        final appointment = appointments[index];
+        final appointment = appointmentsList[index];
+        final isSelected = selectedAppointmentId == appointment.id;
+
         return ListTile(
           title: Text(appointment.name),
           subtitle: Text(appointment.customer.name),
+          selected: isSelected,
           onTap: () {
+            setState(() {
+              selectedAppointmentId = appointment.id;
+            });
             context.pushNamed(
               'appointmentDetails',
               pathParameters: {'idAppointment': appointment.id.toString()},
@@ -55,18 +39,4 @@ class AppointmentsListWidget extends StatelessWidget {
       },
     );
   }
-}
-
-class Appointments {
-  final int id;
-  final String name;
-  final Customer customer;
-  final DateTime startDate;
-  final DateTime endDate;
-  final String location;
-  final String notes;
-
-  Appointments(
-      this.customer, this.startDate, this.endDate, this.location, this.notes,
-      {required this.id, required this.name});
 }

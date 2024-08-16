@@ -19,7 +19,7 @@ class Navigation {
 Navigation getNavigation(BuildContext context) {
   final breakpoint = Breakpoint(context);
 
-  if (breakpoint.isHeightCompact) {
+  if (breakpoint.isHeightCompact && !breakpoint.isExtraLarge) {
     return Navigation(NavigationType.compactAppBar);
   }
 

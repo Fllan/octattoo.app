@@ -1,59 +1,42 @@
+// lib/src/appointments/presentation/appointments_details.dart
 import 'package:flutter/material.dart';
-import 'package:octattoo_app/src/appointments/presentation/appointments_list_widget.dart';
-import 'package:octattoo_app/src/customers/presentation/customers_list_widget.dart';
+import 'package:octattoo_app/src/appointments/data/appointments_data.dart';
 
 class AppointmentsDetails extends StatelessWidget {
   final String? idAppointment;
-  final List<Appointments> appointments = [
-    Appointments(
-      Customer(id: 1, name: 'John Doe'),
-      DateTime.now(),
-      DateTime.now().add(const Duration(hours: 1)),
-      '123 Main St',
-      'Bring all the things',
-      id: 1,
-      name: 'First Appointment',
-    ),
-    Appointments(
-      Customer(id: 2, name: 'Jane Smith'),
-      DateTime.now().add(const Duration(days: 1)),
-      DateTime.now().add(const Duration(days: 1, hours: 1)),
-      '456 Elm St',
-      'Bring all the things',
-      id: 2,
-      name: 'Second Appointment',
-    ),
-    Appointments(
-      Customer(id: 3, name: 'Alice Johnson'),
-      DateTime.now().add(const Duration(days: 2)),
-      DateTime.now().add(const Duration(days: 2, hours: 1)),
-      '789 Cedar St',
-      'Bring all the things',
-      id: 3,
-      name: 'Third Appointment',
-    ),
-    // Add more fake appointments here
-  ];
 
-  AppointmentsDetails({super.key, this.idAppointment});
+  const AppointmentsDetails({super.key, this.idAppointment});
 
   @override
   Widget build(BuildContext context) {
     if (idAppointment == null) {
-      return const Text('No appointment selected');
+      return Center(
+        child: Text(
+          'No appointment selected',
+          style: Theme.of(context).textTheme.labelLarge,
+        ),
+      );
     } else {
-      final appointment = appointments.firstWhere(
+      final appointment = appointmentsList.firstWhere(
         (element) => element.id == int.parse(idAppointment!),
       );
-      return Column(
-        children: [
-          Text(appointment.name),
-          Text(appointment.customer.name),
-          Text(appointment.startDate.toString()),
-          Text(appointment.endDate.toString()),
-          Text(appointment.location),
-          Text(appointment.notes),
-        ],
+      return Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              appointment.name,
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+            const SizedBox(height: 8.0),
+            Text('Customer: ${appointment.customer.name}'),
+            Text('Start: ${appointment.startDate}'),
+            Text('End: ${appointment.endDate}'),
+            Text('Location: ${appointment.location}'),
+            Text('Notes: ${appointment.notes}'),
+          ],
+        ),
       );
     }
   }
