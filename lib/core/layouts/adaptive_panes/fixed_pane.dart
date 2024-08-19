@@ -22,6 +22,7 @@ class FixedPane extends StatelessWidget {
         color: Theme.of(context).colorScheme.surfaceContainer,
         child: Container(
           width: width,
+          height: double.maxFinite,
           padding: const EdgeInsets.all(20.0),
           margin: const EdgeInsets.all(8.0),
           child: child,

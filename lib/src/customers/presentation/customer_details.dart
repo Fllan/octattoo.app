@@ -22,17 +22,19 @@ class CustomerDetails extends StatelessWidget {
 
       return Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Customer Details',
-              style: Theme.of(context).textTheme.labelMedium,
-            ),
-            const SizedBox(height: 8.0),
-            Text('Customer ID: ${customer.id}'),
-            Text('Customer Name: ${customer.name}'),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Customer Details',
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
+              const SizedBox(height: 8.0),
+              Text('Customer ID: ${customer.id}'),
+              Text('Customer Name: ${customer.name}'),
+            ],
+          ),
         ),
       );
     }

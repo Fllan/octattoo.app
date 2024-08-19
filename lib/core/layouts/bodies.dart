@@ -41,7 +41,7 @@ Body getDefaultBody(BuildContext context) {
   }
 }
 
-/// Returns the [Body] based on the current [Breakpoint] and any overrides provided.
+/// Returns the [Body] based on the current [Breakpoint] and any overrides provided from [PrimaryDestination].
 Body getBody(
   BuildContext context, {
   BodyOverride? overrides,

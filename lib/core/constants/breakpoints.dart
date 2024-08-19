@@ -25,13 +25,13 @@ enum BreakpointType {
 
   /// Convenience method to get the current [BreakpointType] from the context.
   static BreakpointType fromContext(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final width = MediaQuery.sizeOf(context).width;
     return fromWidth(width);
   }
 
   /// Determines if the height is compact.
   static bool isHeightCompact(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    final height = MediaQuery.sizeOf(context).height;
     return height < _minHeight;
   }
 }

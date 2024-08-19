@@ -22,20 +22,22 @@ class AppointmentsDetails extends StatelessWidget {
       );
       return Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              appointment.name,
-              style: Theme.of(context).textTheme.labelMedium,
-            ),
-            const SizedBox(height: 8.0),
-            Text('Customer: ${appointment.customer.name}'),
-            Text('Start: ${appointment.startDate}'),
-            Text('End: ${appointment.endDate}'),
-            Text('Location: ${appointment.location}'),
-            Text('Notes: ${appointment.notes}'),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                appointment.name,
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
+              const SizedBox(height: 8.0),
+              Text('Customer: ${appointment.customer.name}'),
+              Text('Start: ${appointment.startDate}'),
+              Text('End: ${appointment.endDate}'),
+              Text('Location: ${appointment.location}'),
+              Text('Notes: ${appointment.notes}'),
+            ],
+          ),
         ),
       );
     }

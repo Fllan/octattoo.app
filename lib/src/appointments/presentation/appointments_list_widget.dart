@@ -30,7 +30,7 @@ class _AppointmentsListWidgetState extends State<AppointmentsListWidget> {
             setState(() {
               selectedAppointmentId = appointment.id;
             });
-            context.pushNamed(
+            context.goNamed(
               'appointmentDetails',
               pathParameters: {'idAppointment': appointment.id.toString()},
             );

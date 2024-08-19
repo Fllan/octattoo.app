@@ -29,7 +29,7 @@ class _CustomersListWidgetState extends State<CustomersListWidget> {
             setState(() {
               selectedCustomerId = customer.id;
             });
-            context.pushNamed(
+            context.goNamed(
               'customerDetails',
               pathParameters: {'idCustomer': customer.id.toString()},
             );
