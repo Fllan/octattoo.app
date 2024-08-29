@@ -17,15 +17,15 @@ class AppointmentsListWidget extends ConsumerWidget {
       itemBuilder: (context, index) {
         final appointment = appointmentsList[index];
         final currentWidth = MediaQuery.sizeOf(context).width;
-        final isCompactScaffold =
-            currentWidth <= WindowSizeClass.compact.endWidthRange;
+        final isCompactOrMediumScaffold =
+            currentWidth <= WindowSizeClass.medium.endWidthRange;
 
         final isSelected = selectedAppointment?.id == appointment.id;
 
         return ListTile(
           title: Text(appointment.name),
           subtitle: Text(appointment.customer.name),
-          selected: isCompactScaffold ? false : isSelected,
+          selected: isCompactOrMediumScaffold ? false : isSelected,
           onTap: () {
             ref.read(selectedAppointmentProvider.notifier).state = appointment;
             context.goNamed(

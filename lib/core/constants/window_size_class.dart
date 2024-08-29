@@ -1,5 +1,6 @@
 // ignore: dangling_library_doc_comments
 /// Inspired by Fredrick Allan Grott - https://github.com/fredgrott - https://fredgrott.substack.com/
+/// Link to the original code:
 /// https://github.com/fredgrott/master_flutter_adaptive/blob/master/md3_utils/lib/md3_utils/custom_window_size.dart
 
 enum WindowSizeClass {

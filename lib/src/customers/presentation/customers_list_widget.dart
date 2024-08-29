@@ -17,14 +17,14 @@ class CustomersListWidget extends ConsumerWidget {
       itemBuilder: (context, index) {
         final customer = customersList[index];
         final currentWidth = MediaQuery.sizeOf(context).width;
-        final isCompactScaffold =
-            currentWidth <= WindowSizeClass.compact.endWidthRange;
+        final isCompactOrMediumScaffold =
+            currentWidth <= WindowSizeClass.medium.endWidthRange;
 
         final isSelected = selectedCustomer?.id == customer.id;
 
         return ListTile(
           title: Text(customer.name),
-          selected: isCompactScaffold ? false : isSelected,
+          selected: isCompactOrMediumScaffold ? false : isSelected,
           onTap: () {
             ref.read(selectedCustomerProvider.notifier).state = customer;
             context.goNamed(

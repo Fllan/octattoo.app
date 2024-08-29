@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:octattoo_app/core/constants/primary_destinations.dart';
 import 'package:octattoo_app/core/constants/window_size_class.dart';
 import 'package:octattoo_app/core/layouts/adaptive_scaffold/compact_scaffold.dart';
+import 'package:octattoo_app/core/layouts/adaptive_scaffold/medium_scaffold.dart';
 import 'package:octattoo_app/core/utils/logger.dart';
 
 class ResponsiveLayout extends StatelessWidget {
@@ -52,16 +53,12 @@ class ResponsiveLayout extends StatelessWidget {
           currentWidth <= medEndWidthRange) {
         logger.d(
             'AdaptiveScaffold: return MediumScaffold(isHeightCompact: $isHeightCompact)');
-        return CompactScaffold(
+        return MediumScaffold(
           navigationShell: navigationShell,
           isHeightCompact: isHeightCompact,
           destinations: destinations,
           goRouterState: goRouterState,
         );
-        // return MediumScaffold(
-        //   navigationShell: navigationShell,
-        //   isHeightCompact: isHeightCompact,
-        // );
       } else if (currentWidth >= expBeginWidthRange &&
           currentWidth <= expEndWidthRange) {
         logger.d(
