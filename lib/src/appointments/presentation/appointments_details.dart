@@ -1,14 +1,14 @@
-// lib/src/appointments/presentation/appointments_details.dart
 import 'package:flutter/material.dart';
-import 'package:octattoo_app/src/appointments/data/appointments_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:octattoo_app/src/appointments/application/appointment_provider.dart';
 
-class AppointmentsDetails extends StatelessWidget {
+class AppointmentDetails extends ConsumerWidget {
   final String? idAppointment;
 
-  const AppointmentsDetails({super.key, this.idAppointment});
+  const AppointmentDetails({super.key, required this.idAppointment});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     if (idAppointment == null) {
       return Center(
         child: Text(
@@ -17,27 +17,25 @@ class AppointmentsDetails extends StatelessWidget {
         ),
       );
     } else {
-      final appointment = appointmentsList.firstWhere(
-        (element) => element.id == int.parse(idAppointment!),
-      );
-      return Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                appointment.name,
-                style: Theme.of(context).textTheme.labelMedium,
-              ),
-              const SizedBox(height: 8.0),
-              Text('Customer: ${appointment.customer.name}'),
-              Text('Start: ${appointment.startDate}'),
-              Text('End: ${appointment.endDate}'),
-              Text('Location: ${appointment.location}'),
-              Text('Notes: ${appointment.notes}'),
-            ],
-          ),
+      final appointment = ref
+          .read(appointmentRepositoryProvider)
+          .getAppointmentById(int.parse(idAppointment!));
+
+      return SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              appointment.name,
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+            const SizedBox(height: 8.0),
+            Text('Customer: ${appointment.customer.name}'),
+            Text('Start: ${appointment.startDate}'),
+            Text('End: ${appointment.endDate}'),
+            Text('Location: ${appointment.location}'),
+            Text('Notes: ${appointment.notes}'),
+          ],
         ),
       );
     }

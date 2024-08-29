@@ -1,34 +1,32 @@
-// lib/src/customers/presentation/customers_list_widget.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:octattoo_app/src/customers/data/customers_data.dart';
+import 'package:octattoo_app/core/constants/window_size_class.dart';
+import 'package:octattoo_app/src/customers/application/customer_provider.dart';
 
-class CustomersListWidget extends StatefulWidget {
+class CustomersListWidget extends ConsumerWidget {
   const CustomersListWidget({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _CustomersListWidgetState createState() => _CustomersListWidgetState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final customersList = ref.watch(customerListProvider);
+    final selectedCustomer = ref.watch(selectedCustomerProvider);
 
-class _CustomersListWidgetState extends State<CustomersListWidget> {
-  int? selectedCustomerId;
-
-  @override
-  Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: customersList.length,
       itemBuilder: (context, index) {
         final customer = customersList[index];
-        final isSelected = selectedCustomerId == customer.id;
+        final currentWidth = MediaQuery.sizeOf(context).width;
+        final isCompactScaffold =
+            currentWidth <= WindowSizeClass.compact.endWidthRange;
+
+        final isSelected = selectedCustomer?.id == customer.id;
 
         return ListTile(
           title: Text(customer.name),
-          selected: isSelected,
+          selected: isCompactScaffold ? false : isSelected,
           onTap: () {
-            setState(() {
-              selectedCustomerId = customer.id;
-            });
+            ref.read(selectedCustomerProvider.notifier).state = customer;
             context.goNamed(
               'customerDetails',
               pathParameters: {'idCustomer': customer.id.toString()},

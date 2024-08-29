@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:octattoo_app/core/constants/theme_methods.dart';
+import 'package:octattoo_app/core/utils/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'theme_controller.g.dart';
@@ -13,6 +14,7 @@ class ThemeController extends _$ThemeController {
 
   @override
   ThemeData build() {
+    logger.d('ThemeController: build');
     return _buildTheme();
   }
 

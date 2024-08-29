@@ -4,12 +4,14 @@ import 'package:octattoo_app/core/localization/language_controller.dart';
 import 'package:octattoo_app/core/router/router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:octattoo_app/core/theme/theme_controller.dart';
+import 'package:octattoo_app/core/utils/logger.dart';
 
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    logger.d('App: build');
     final themeData = ref.watch(themeControllerProvider);
     final goRouter = ref.watch(goRouterProvider);
     final locale = ref.watch(languageControllerProvider);

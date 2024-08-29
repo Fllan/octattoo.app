@@ -2,10 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app/core/constants/primary_destinations.dart';
-import 'package:octattoo_app/core/layouts/adaptive_scaffold.dart';
-import 'package:octattoo_app/core/layouts/bodies.dart';
-import 'package:octattoo_app/core/layouts/navigations.dart';
+import 'package:octattoo_app/core/layouts/responsive_layout.dart';
 import 'package:octattoo_app/core/router/app_startup.dart';
+import 'package:octattoo_app/core/utils/logger.dart';
 import 'package:octattoo_app/src/appointments/presentation/appointments_details.dart';
 import 'package:octattoo_app/src/appointments/presentation/appointments_list_widget.dart';
 import 'package:octattoo_app/src/customers/presentation/customer_details.dart';
@@ -22,14 +21,16 @@ final _shellNavigatorCustomersKey =
 
 @riverpod
 GoRouter goRouter(GoRouterRef ref) {
+  logger.d('GoRouter: build');
   final appStartupState = ref.watch(appStartupProvider);
 
   return GoRouter(
     initialLocation: '/startup',
     navigatorKey: _rootNavigatorKey,
-    debugLogDiagnostics: false,
+    debugLogDiagnostics: true,
     redirect: (context, state) {
       if (appStartupState.isLoading || appStartupState.hasError) {
+        logger.d('Router: redirect to /startup');
         return '/startup';
       }
 
@@ -42,8 +43,10 @@ GoRouter goRouter(GoRouterRef ref) {
         return '/artist-name';
       } else if (!state.uri.pathSegments.contains('appointments') &&
           !state.uri.pathSegments.contains('customers')) {
+        logger.d('Router: redirect to /appointments');
         return '/appointments';
       }
+      logger.d('Router: redirect to null (${state.uri})');
       return null;
     },
     routes: [
@@ -56,41 +59,14 @@ GoRouter goRouter(GoRouterRef ref) {
         ),
       ),
       StatefulShellRoute.indexedStack(
-        builder: (context, state, StatefulNavigationShell navigationShell) {
+        builder: (context, goRouterstate, statefulNavigationShell) {
+          logger.d(
+              'Router: StatefulShellRoute.indexedStack Builder: [state.uri] ${goRouterstate.uri} - [navigationShell.currentIndex] ${statefulNavigationShell.currentIndex}');
           final destinations = createAppDestinations(context);
-          final navigation = getNavigation(context);
-          final body = getBody(
-            context,
-            overrides: destinations[navigationShell.currentIndex].bodyOverrides,
-          );
-
-          // Determine what should be in each pane based on the current branch
-          Widget firstPane = const SizedBox.shrink();
-          Widget? secondPane;
-
-          if (navigationShell.currentIndex == 0) {
-            // Appointments
-            firstPane = const AppointmentsListWidget();
-            if (state.uri.path.contains('/appointments/details')) {
-              final idAppointment = state.pathParameters['idAppointment'];
-              secondPane = AppointmentsDetails(idAppointment: idAppointment);
-            }
-          } else if (navigationShell.currentIndex == 1) {
-            // Customers
-            firstPane = const CustomersListWidget();
-            if (state.uri.path.contains('/customers/details')) {
-              final idCustomer = state.pathParameters['idCustomer'];
-              secondPane = CustomerDetails(idCustomer: idCustomer);
-            }
-          }
-
-          return AdaptiveScaffold(
-            navigation: navigation,
-            body: body,
+          return ResponsiveLayout(
+            navigationShell: statefulNavigationShell,
             destinations: destinations,
-            navigationShell: navigationShell,
-            firstPane: firstPane,
-            secondPane: secondPane,
+            goRouterState: goRouterstate,
           );
         },
         branches: [
@@ -107,8 +83,13 @@ GoRouter goRouter(GoRouterRef ref) {
                   GoRoute(
                     path: 'details/:idAppointment',
                     name: 'appointmentDetails',
-                    builder: (context, state) {
-                      return const AppointmentsDetails();
+                    pageBuilder: (context, state) {
+                      return MaterialPage(
+                        key: state.pageKey,
+                        child: AppointmentDetails(
+                          idAppointment: state.pathParameters['idAppointment'],
+                        ),
+                      );
                     },
                   ),
                 ],

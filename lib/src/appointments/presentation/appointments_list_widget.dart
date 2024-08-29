@@ -1,35 +1,33 @@
-// lib/src/appointments/presentation/appointments_list_widget.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:octattoo_app/src/appointments/data/appointments_data.dart';
+import 'package:octattoo_app/core/constants/window_size_class.dart';
+import 'package:octattoo_app/src/appointments/application/appointment_provider.dart';
 
-class AppointmentsListWidget extends StatefulWidget {
+class AppointmentsListWidget extends ConsumerWidget {
   const AppointmentsListWidget({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _AppointmentsListWidgetState createState() => _AppointmentsListWidgetState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appointmentsList = ref.watch(appointmentListProvider);
+    final selectedAppointment = ref.watch(selectedAppointmentProvider);
 
-class _AppointmentsListWidgetState extends State<AppointmentsListWidget> {
-  int? selectedAppointmentId;
-
-  @override
-  Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: appointmentsList.length,
       itemBuilder: (context, index) {
         final appointment = appointmentsList[index];
-        final isSelected = selectedAppointmentId == appointment.id;
+        final currentWidth = MediaQuery.sizeOf(context).width;
+        final isCompactScaffold =
+            currentWidth <= WindowSizeClass.compact.endWidthRange;
+
+        final isSelected = selectedAppointment?.id == appointment.id;
 
         return ListTile(
           title: Text(appointment.name),
           subtitle: Text(appointment.customer.name),
-          selected: isSelected,
+          selected: isCompactScaffold ? false : isSelected,
           onTap: () {
-            setState(() {
-              selectedAppointmentId = appointment.id;
-            });
+            ref.read(selectedAppointmentProvider.notifier).state = appointment;
             context.goNamed(
               'appointmentDetails',
               pathParameters: {'idAppointment': appointment.id.toString()},
