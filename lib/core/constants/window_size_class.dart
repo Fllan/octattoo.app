@@ -31,3 +31,41 @@ enum WindowSizeClass {
   /// Below [minHeightCompact], [MyNavigationRail] is replaced by [CompactAppBar]
   static const double minHeightCompact = 504;
 }
+
+WindowSizeClass getWindowSizeClass(double width) {
+  final currentWidth = width;
+
+  final compactBeginWidthRange = WindowSizeClass.compact.beginWidthRange;
+  final compactEndWidthRange = WindowSizeClass.compact.endWidthRange;
+  final medBeginWidthRange = WindowSizeClass.medium.beginWidthRange;
+  final medEndWidthRange = WindowSizeClass.medium.endWidthRange;
+  final expBeginWidthRange = WindowSizeClass.expanded.beginWidthRange;
+  final expEndWidthRange = WindowSizeClass.expanded.endWidthRange;
+  final largeBeginWidthRange = WindowSizeClass.large.beginWidthRange;
+  final largeEndWidthRange = WindowSizeClass.large.endWidthRange;
+  final extraLargeBeginWidthRange = WindowSizeClass.extraLarge.beginWidthRange;
+  final extraLargeEndWidthRange = WindowSizeClass.extraLarge.endWidthRange;
+
+  if (currentWidth >= compactBeginWidthRange &&
+      currentWidth <= compactEndWidthRange) {
+    return WindowSizeClass.compact;
+  } else if (currentWidth >= medBeginWidthRange &&
+      currentWidth <= medEndWidthRange) {
+    return WindowSizeClass.medium;
+  } else if (currentWidth >= expBeginWidthRange &&
+      currentWidth <= expEndWidthRange) {
+    return WindowSizeClass.expanded;
+  } else if (currentWidth >= largeBeginWidthRange &&
+      currentWidth <= largeEndWidthRange) {
+    return WindowSizeClass.large;
+  } else if (currentWidth >= extraLargeBeginWidthRange &&
+      currentWidth <= extraLargeEndWidthRange) {
+    return WindowSizeClass.extraLarge;
+  } else {
+    return WindowSizeClass.compact;
+  }
+}
+
+bool getIsHeightCompact(double height) {
+  return height < WindowSizeClass.minHeightCompact;
+}

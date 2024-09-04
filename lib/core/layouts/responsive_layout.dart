@@ -1,12 +1,17 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app/core/constants/primary_destinations.dart';
 import 'package:octattoo_app/core/constants/window_size_class.dart';
 import 'package:octattoo_app/core/layouts/adaptive_scaffold/compact_scaffold.dart';
+import 'package:octattoo_app/core/layouts/adaptive_scaffold/expanded_scaffold.dart';
+import 'package:octattoo_app/core/layouts/adaptive_scaffold/extra_large_scaffold.dart';
+import 'package:octattoo_app/core/layouts/adaptive_scaffold/large_scaffold.dart';
 import 'package:octattoo_app/core/layouts/adaptive_scaffold/medium_scaffold.dart';
 import 'package:octattoo_app/core/utils/logger.dart';
 
-class ResponsiveLayout extends StatelessWidget {
+class ResponsiveLayout extends StatefulWidget {
   final StatefulNavigationShell navigationShell;
   final List<PrimaryDestination> destinations;
   final GoRouterState goRouterState;
@@ -19,96 +24,89 @@ class ResponsiveLayout extends StatelessWidget {
   });
 
   @override
+  State<ResponsiveLayout> createState() => _ResponsiveLayoutState();
+}
+
+class _ResponsiveLayoutState extends State<ResponsiveLayout> {
+  WindowSizeClass currentWindowSizeClass = WindowSizeClass.compact;
+  bool currentIsHeightCompact = false;
+
+  @override
   Widget build(BuildContext context) {
-    logger.d('AdaptiveScaffold: build');
-    return LayoutBuilder(builder: (context, constraints) {
-      final currentWidth = constraints.maxWidth;
-      final currentHeight = constraints.maxHeight;
-      final isHeightCompact = currentHeight < WindowSizeClass.minHeightCompact;
+    // logger.d('AdaptiveScaffold: build');
+    final currentSize = MediaQuery.sizeOf(context);
+    final currentWidth = currentSize.width;
+    final currentHeight = currentSize.height;
 
-      final compactBeginWidthRange = WindowSizeClass.compact.beginWidthRange;
-      final compactEndWidthRange = WindowSizeClass.compact.endWidthRange;
-      final medBeginWidthRange = WindowSizeClass.medium.beginWidthRange;
-      final medEndWidthRange = WindowSizeClass.medium.endWidthRange;
-      final expBeginWidthRange = WindowSizeClass.expanded.beginWidthRange;
-      final expEndWidthRange = WindowSizeClass.expanded.endWidthRange;
-      final largeBeginWidthRange = WindowSizeClass.large.beginWidthRange;
-      final largeEndWidthRange = WindowSizeClass.large.endWidthRange;
-      final extraLargeBeginWidthRange =
-          WindowSizeClass.extraLarge.beginWidthRange;
-      final extraLargeEndWidthRange = WindowSizeClass.extraLarge.endWidthRange;
+    if (currentWidth <= WindowSizeClass.medium.endWidthRange) {
+      return CompactScaffold(
+        key: widget.goRouterState.pageKey,
+        navigationShell: widget.navigationShell,
+        destinations: widget.destinations,
+        goRouterState: widget.goRouterState,
+      );
+    } else {
+      final isHeightCompact = getIsHeightCompact(currentHeight);
+      return ExpandedScaffold(
+        key: widget.goRouterState.pageKey,
+        navigationShell: widget.navigationShell,
+        isHeightCompact: isHeightCompact,
+        destinations: widget.destinations,
+        goRouterState: widget.goRouterState,
+      );
+    }
 
-      if (currentWidth >= compactBeginWidthRange &&
-          currentWidth <= compactEndWidthRange) {
-        logger.d(
-            'AdaptiveScaffold: return CompactScaffold(isHeightCompact: $isHeightCompact)');
-        return CompactScaffold(
-          key: goRouterState.pageKey,
-          navigationShell: navigationShell,
-          isHeightCompact: isHeightCompact,
-          destinations: destinations,
-          goRouterState: goRouterState,
-        );
-      } else if (currentWidth >= medBeginWidthRange &&
-          currentWidth <= medEndWidthRange) {
-        logger.d(
-            'AdaptiveScaffold: return MediumScaffold(isHeightCompact: $isHeightCompact)');
-        return MediumScaffold(
-          navigationShell: navigationShell,
-          isHeightCompact: isHeightCompact,
-          destinations: destinations,
-          goRouterState: goRouterState,
-        );
-      } else if (currentWidth >= expBeginWidthRange &&
-          currentWidth <= expEndWidthRange) {
-        logger.d(
-            'AdaptiveScaffold: return ExpandedScaffold(isHeightCompact: $isHeightCompact)');
-        return CompactScaffold(
-          navigationShell: navigationShell,
-          isHeightCompact: isHeightCompact,
-          destinations: destinations,
-          goRouterState: goRouterState,
-        );
-        // return ExpandedScaffold(
-        //   navigationShell: navigationShell,
-        //   isHeightCompact: isHeightCompact,
-        // );
-      } else if (currentWidth >= largeBeginWidthRange &&
-          currentWidth <= largeEndWidthRange) {
-        logger.d(
-            'AdaptiveScaffold: return LargeScaffold(isHeightCompact: $isHeightCompact)');
-        return CompactScaffold(
-          navigationShell: navigationShell,
-          isHeightCompact: isHeightCompact,
-          destinations: destinations,
-          goRouterState: goRouterState,
-        );
-        // return LargeScaffold(
-        //   navigationShell: navigationShell,
-        //   isHeightCompact: isHeightCompact,
-        // );
-      } else if (currentWidth >= extraLargeBeginWidthRange &&
-          currentWidth <= extraLargeEndWidthRange) {
-        logger.d(
-            'AdaptiveScaffold: return ExtraLargeScaffold(isHeightCompact: $isHeightCompact)');
-        return CompactScaffold(
-          navigationShell: navigationShell,
-          isHeightCompact: isHeightCompact,
-          destinations: destinations,
-          goRouterState: goRouterState,
-        );
-        // return ExtraLargeScaffold(
-        //   navigationShell: navigationShell,
-        //   isHeightCompact: isHeightCompact,
-        // );
-      } else {
-        logger.d('AdaptiveScaffold: return error');
-        return ErrorWidget.withDetails(
-          message: 'AdaptiveScaffold: No layout found for $currentWidth',
-          error: FlutterError(
-              'AdaptiveScaffold: No layout found for $currentWidth'),
-        );
-      }
-    });
+    // return Consumer(builder: (context, ref, _) {
+    //   final currentBreakpoint = ref.watch(currentBreakpointProvider);
+    //   if (currentBreakpoint.windowSizeClass == WindowSizeClass.compact) {
+    //     return CompactScaffold(
+    //       key: widget.goRouterState.pageKey,
+    //       navigationShell: widget.navigationShell,
+    //       isHeightCompact: currentBreakpoint.isHeightCompact,
+    //       destinations: widget.destinations,
+    //       goRouterState: widget.goRouterState,
+    //     );
+    //   } else if (currentBreakpoint.windowSizeClass == WindowSizeClass.medium) {
+    //     return MediumScaffold(
+    //       key: widget.goRouterState.pageKey,
+    //       navigationShell: widget.navigationShell,
+    //       isHeightCompact: currentBreakpoint.isHeightCompact,
+    //       destinations: widget.destinations,
+    //       goRouterState: widget.goRouterState,
+    //     );
+    //   } else if (currentBreakpoint.windowSizeClass ==
+    //       WindowSizeClass.expanded) {
+    //     return ExpandedScaffold(
+    //       key: widget.goRouterState.pageKey,
+    //       navigationShell: widget.navigationShell,
+    //       isHeightCompact: currentBreakpoint.isHeightCompact,
+    //       destinations: widget.destinations,
+    //       goRouterState: widget.goRouterState,
+    //     );
+    //   } else if (currentBreakpoint.windowSizeClass == WindowSizeClass.large) {
+    //     return ExpandedScaffold(
+    //       key: widget.goRouterState.pageKey,
+    //       navigationShell: widget.navigationShell,
+    //       isHeightCompact: currentBreakpoint.isHeightCompact,
+    //       destinations: widget.destinations,
+    //       goRouterState: widget.goRouterState,
+    //     );
+    //   } else if (currentBreakpoint.windowSizeClass ==
+    //       WindowSizeClass.extraLarge) {
+    //     return ExpandedScaffold(
+    //       key: widget.goRouterState.pageKey,
+    //       navigationShell: widget.navigationShell,
+    //       isHeightCompact: currentBreakpoint.isHeightCompact,
+    //       destinations: widget.destinations,
+    //       goRouterState: widget.goRouterState,
+    //     );
+    //   } else {
+    //     return ErrorWidget.withDetails(
+    //       message: 'AdaptiveScaffold: No layout found for $currentBreakpoint',
+    //       error: FlutterError(
+    //           'AdaptiveScaffold: No layout found for $currentBreakpoint'),
+    //     );
+    //   }
+    // });
   }
 }

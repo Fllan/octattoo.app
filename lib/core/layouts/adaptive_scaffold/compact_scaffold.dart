@@ -12,13 +12,11 @@ class CompactScaffold extends StatelessWidget {
   const CompactScaffold({
     super.key,
     required this.navigationShell,
-    required this.isHeightCompact,
     required this.destinations,
     required this.goRouterState,
   });
 
   final StatefulNavigationShell navigationShell;
-  final bool isHeightCompact;
   final List<PrimaryDestination> destinations;
   final GoRouterState goRouterState;
 
@@ -34,10 +32,11 @@ class CompactScaffold extends StatelessWidget {
       final subLocation = currentPath.length > 1 ? currentPath[1] : null;
       final isSubLocation = subLocation != null;
 
-      final title = getTitle(subLocation, rootLocation, context, ref);
+      // final title = getTitle(subLocation, rootLocation, context, ref);
+      const title = 'Compact Scaffold';
 
       final appBar = AppBar(
-        title: Text(title),
+        title: const Text(title),
         leading: isSubLocation
             ? IconButton(
                 icon: const Icon(Icons.arrow_back),

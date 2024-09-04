@@ -2,11 +2,19 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app/core/constants/primary_destinations.dart';
+import 'package:octattoo_app/core/constants/window_size_class.dart';
+import 'package:octattoo_app/core/layouts/adaptive_scaffold/compact_scaffold.dart';
+import 'package:octattoo_app/core/layouts/adaptive_scaffold/expanded_scaffold.dart';
+import 'package:octattoo_app/core/layouts/adaptive_scaffold/extra_large_scaffold.dart';
+import 'package:octattoo_app/core/layouts/adaptive_scaffold/large_scaffold.dart';
+import 'package:octattoo_app/core/layouts/adaptive_scaffold/medium_scaffold.dart';
 import 'package:octattoo_app/core/layouts/responsive_layout.dart';
 import 'package:octattoo_app/core/router/app_startup.dart';
 import 'package:octattoo_app/core/utils/logger.dart';
+import 'package:octattoo_app/src/appointments/presentation/appointment_details_screen.dart';
 import 'package:octattoo_app/src/appointments/presentation/appointments_details.dart';
-import 'package:octattoo_app/src/appointments/presentation/appointments_list_widget.dart';
+import 'package:octattoo_app/src/appointments/presentation/appointments_list.dart';
+import 'package:octattoo_app/src/appointments/presentation/appointments_list_screen.dart';
 import 'package:octattoo_app/src/customers/presentation/customer_details.dart';
 import 'package:octattoo_app/src/customers/presentation/customers_list_widget.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -63,6 +71,61 @@ GoRouter goRouter(GoRouterRef ref) {
           logger.d(
               'Router: StatefulShellRoute.indexedStack Builder: [state.uri] ${goRouterstate.uri} - [navigationShell.currentIndex] ${statefulNavigationShell.currentIndex}');
           final destinations = createAppDestinations(context);
+
+          // return LayoutBuilder(builder: (context, constraints) {
+          //   final currentWidth = constraints.maxWidth;
+          //   final currentHeight = constraints.maxHeight;
+
+          //   logger.d(
+          //       'Router: currentWidth: $currentWidth - currentHeight: $currentHeight');
+
+          //   final currentWindowSizeClass = getWindowSizeClass(currentWidth);
+          //   final isHeightCompact =
+          //       currentHeight < WindowSizeClass.minHeightCompact;
+
+          //   logger.d(
+          //       'Router: currentWindowSizeClass: $currentWindowSizeClass - isHeightCompact: $isHeightCompact');
+
+          //   if (currentWindowSizeClass == WindowSizeClass.compact) {
+          //     logger.d('Router: return CompactScaffold');
+          //     return CompactScaffold(
+          //       navigationShell: statefulNavigationShell,
+          //       destinations: destinations,
+          //       goRouterState: goRouterstate,
+          //       isHeightCompact: isHeightCompact,
+          //     );
+          //   } else if (currentWindowSizeClass == WindowSizeClass.medium) {
+          //     logger.d('Router: return MediumScaffold');
+          //     return MediumScaffold(
+          //       navigationShell: statefulNavigationShell,
+          //       destinations: destinations,
+          //       goRouterState: goRouterstate,
+          //       isHeightCompact: isHeightCompact,
+          //     );
+          //   } else if (currentWindowSizeClass == WindowSizeClass.expanded) {
+          //     return ExpandedScaffold(
+          //       navigationShell: statefulNavigationShell,
+          //       destinations: destinations,
+          //       goRouterState: goRouterstate,
+          //       isHeightCompact: isHeightCompact,
+          //     );
+          //   } else if (currentWindowSizeClass == WindowSizeClass.large) {
+          //     return LargeScaffold(
+          //       navigationShell: statefulNavigationShell,
+          //       destinations: destinations,
+          //       goRouterState: goRouterstate,
+          //       isHeightCompact: isHeightCompact,
+          //     );
+          //   } else {
+          //     return ExtraLargeScaffold(
+          //       navigationShell: statefulNavigationShell,
+          //       destinations: destinations,
+          //       goRouterState: goRouterstate,
+          //       isHeightCompact: isHeightCompact,
+          //     );
+          //   }
+          // });
+
           return ResponsiveLayout(
             navigationShell: statefulNavigationShell,
             destinations: destinations,
@@ -77,19 +140,25 @@ GoRouter goRouter(GoRouterRef ref) {
                 path: '/appointments',
                 name: 'appointments',
                 builder: (context, state) {
-                  return const AppointmentsListWidget();
+                  // return const AppointmentsListWidget();
+                  return const AppointmentsListScreen();
                 },
                 routes: [
                   GoRoute(
-                    path: 'details/:idAppointment',
+                    path: ':idAppointment',
                     name: 'appointmentDetails',
-                    pageBuilder: (context, state) {
-                      return MaterialPage(
-                        key: state.pageKey,
-                        child: AppointmentDetails(
-                          idAppointment: state.pathParameters['idAppointment'],
-                        ),
-                      );
+                    // pageBuilder: (context, state) {
+                    //   return MaterialPage(
+                    //     key: state.pageKey,
+                    //     child: AppointmentDetails(
+                    //       idAppointment: state.pathParameters['idAppointment'],
+                    //     ),
+                    //     fullscreenDialog: true,
+                    //   );
+                    // },
+                    builder: (context, state) {
+                      return AppointmentsDetailsScreen(
+                          appointmentId: state.pathParameters['idAppointment']);
                     },
                   ),
                 ],
@@ -107,7 +176,7 @@ GoRouter goRouter(GoRouterRef ref) {
                 },
                 routes: [
                   GoRoute(
-                    path: 'details/:idCustomer',
+                    path: ':idCustomer',
                     name: 'customerDetails',
                     builder: (context, state) {
                       return CustomerDetails(

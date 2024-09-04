@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app/core/constants/window_size_class.dart';
+import 'package:octattoo_app/core/utils/logger.dart';
 import 'package:octattoo_app/src/appointments/application/appointment_provider.dart';
 
-class AppointmentsListWidget extends ConsumerWidget {
-  const AppointmentsListWidget({super.key});
+class AppointmentsList extends ConsumerWidget {
+  const AppointmentsList({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    logger.d('AppointmentsList: build');
     final appointmentsList = ref.watch(appointmentListProvider);
     final selectedAppointment = ref.watch(selectedAppointmentProvider);
 

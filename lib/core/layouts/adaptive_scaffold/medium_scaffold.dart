@@ -24,7 +24,7 @@ class MediumScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logger.d('MediumScaffold: build');
+    // logger.d('MediumScaffold: build');
     return Consumer(builder: (context, ref, _) {
       final currentPath = goRouterState.fullPath!
           .split('/')
