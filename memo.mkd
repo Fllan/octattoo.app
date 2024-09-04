@@ -33,3 +33,13 @@ flutter gen-l10n
 dart run build_runner build -d
 flutter pub get
 ```
+
+# Upgrade the projrect
+``` shell
+flutter upgrade
+flutter clean
+flutter pub get
+flutter gen-l10n
+dart run build_runner build -d
+flutter pub get
+```

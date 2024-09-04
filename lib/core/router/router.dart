@@ -43,7 +43,7 @@ GoRouter goRouter(GoRouterRef ref) {
   return GoRouter(
     initialLocation: '/startup',
     navigatorKey: _rootNavigatorKey,
-    debugLogDiagnostics: true,
+    debugLogDiagnostics: false,
     redirect: (context, state) {
       // * If the app is still initializing, show the /startup route
       if (appStartupState.isLoading || appStartupState.hasError) {
@@ -53,7 +53,7 @@ GoRouter goRouter(GoRouterRef ref) {
       logger.d('App startup is complete');
       //final isLoggedIn = authRepository.currentUser != null;
       // ! Test only
-      const isLoggedIn = false;
+      const isLoggedIn = true;
       const isOnboarded = false;
       // ! Test only
       final isSigningIn = state.uri.pathSegments.first == 'signIn';
@@ -297,6 +297,7 @@ class DefaultTestScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    logger.d('Building DefaultTestScreen with title: $title');
     return Center(
       child: Text(title),
     );
