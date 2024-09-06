@@ -15,6 +15,7 @@ class MyNavigationRail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NavigationRail(
+      backgroundColor: Theme.of(context).colorScheme.surfaceDim,
       leading: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: IconButton(

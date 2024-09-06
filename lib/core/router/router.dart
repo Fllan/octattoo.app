@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app/core/layouts/adaptive_scaffold/adaptive_scaffold.dart';
 import 'package:octattoo_app/core/constants/primary_destinations.dart';
+import 'package:octattoo_app/core/router/app_routes.dart';
 import 'package:octattoo_app/core/router/app_startup.dart';
 import 'package:octattoo_app/core/utils/logger.dart';
 import 'package:octattoo_app/core/localization/l10n_extensions.dart';
 import 'package:octattoo_app/src/authentication/data/firebase_auth_repository.dart';
-import 'package:octattoo_app/src/authentication/presentation/sign_in_screen.dart';
+import 'package:octattoo_app/src/authentication/presentation/register_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'router.g.dart';
@@ -53,10 +54,10 @@ GoRouter goRouter(GoRouterRef ref) {
       logger.d('App startup is complete');
       //final isLoggedIn = authRepository.currentUser != null;
       // ! Test only
-      const isLoggedIn = true;
+      const isLoggedIn = false;
       const isOnboarded = false;
       // ! Test only
-      final isSigningIn = state.uri.pathSegments.first == 'signIn';
+      final isSigningIn = state.uri.pathSegments.first == AppRoutes.signIn.name;
       final isRegistering = state.uri.pathSegments.first == 'register';
       final isForgotPassword =
           state.uri.pathSegments.first == 'forgot-password';
@@ -86,7 +87,7 @@ GoRouter goRouter(GoRouterRef ref) {
       if (!isLoggedIn) {
         if (!isWelcoming) {
           logger.d('User is not logged in. Redirect to /signIn');
-          return '/signIn';
+          return AppRoutes.signIn.path;
         }
       } else {
         logger.d('User is logged in');
@@ -131,16 +132,17 @@ GoRouter goRouter(GoRouterRef ref) {
             navigatorKey: _shellNavigatorSignInKey,
             routes: [
               GoRoute(
-                path: '/signIn',
-                pageBuilder: (context, state) => const MaterialPage(
-                  child: SignInScreen(),
+                path: AppRoutes.signIn.path,
+                name: AppRoutes.signIn.name,
+                pageBuilder: (context, state) => MaterialPage(
+                  child: AppRoutes.signIn.screen,
                 ),
                 routes: [
                   GoRoute(
-                    path: 'forgot-password',
-                    pageBuilder: (context, state) => NoTransitionPage(
-                      child:
-                          DefaultTestScreen(title: context.loc.forgotPassword),
+                    path: AppRoutes.forgotPassword.path,
+                    name: AppRoutes.forgotPassword.name,
+                    pageBuilder: (context, state) => MaterialPage(
+                      child: AppRoutes.forgotPassword.screen,
                     ),
                   ),
                 ],
@@ -152,8 +154,8 @@ GoRouter goRouter(GoRouterRef ref) {
             routes: [
               GoRoute(
                 path: '/register',
-                pageBuilder: (context, state) => NoTransitionPage(
-                  child: DefaultTestScreen(title: context.loc.register),
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: RegisterScreen(),
                 ),
               ),
             ],

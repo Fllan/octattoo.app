@@ -23,6 +23,7 @@ class MyNavigationDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NavigationDrawer(
+      backgroundColor: Theme.of(context).colorScheme.surfaceDim,
       selectedIndex: navigationShell.currentIndex,
       onDestinationSelected: (int index) {
         navigationShell.goBranch(

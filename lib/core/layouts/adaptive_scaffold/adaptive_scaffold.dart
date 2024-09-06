@@ -20,26 +20,32 @@ class AdaptiveScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     final adaptiveScaffoldType = BreakpointsExtension.getScaffold(context);
 
+    final backgroundcolor = Theme.of(context).colorScheme.surfaceDim;
+
     switch (adaptiveScaffoldType) {
       case AdaptiveScaffoldType.appBar:
         return ScaffoldWithAppBar(
           navigationShell: navigationShell,
           destinations: destinations,
+          backgroundColor: backgroundcolor,
         );
       case AdaptiveScaffoldType.navigationRail:
         return ScaffoldWithNavigationRail(
           navigationShell: navigationShell,
           destinations: destinations,
+          backgroundColor: backgroundcolor,
         );
       case AdaptiveScaffoldType.navigationDrawer:
         return ScaffoldWithNavigationDrawer(
           navigationShell: navigationShell,
           destinations: destinations,
+          backgroundColor: backgroundcolor,
         );
       default:
         return ScaffoldWithCompactAppBar(
           navigationShell: navigationShell,
           destinations: destinations,
+          backgroundColor: backgroundcolor,
         );
     }
   }

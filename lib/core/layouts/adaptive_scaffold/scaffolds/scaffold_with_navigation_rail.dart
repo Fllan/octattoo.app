@@ -27,7 +27,9 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
             navigationShell: navigationShell,
           ),
           Expanded(
-            child: navigationShell,
+            child: Center(
+              child: SingleChildScrollView(child: navigationShell),
+            ),
           ),
         ],
       ),

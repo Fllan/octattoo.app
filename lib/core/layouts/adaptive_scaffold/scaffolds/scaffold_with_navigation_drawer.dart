@@ -27,7 +27,9 @@ class ScaffoldWithNavigationDrawer extends StatelessWidget {
             isModal: false,
           ),
           Expanded(
-            child: navigationShell,
+            child: Center(
+              child: SingleChildScrollView(child: navigationShell),
+            ),
           ),
         ],
       ),
