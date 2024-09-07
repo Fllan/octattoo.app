@@ -4,6 +4,7 @@ import 'package:octattoo_app/core/layouts/adaptive_scaffold/adaptive_scaffold.da
 import 'package:octattoo_app/core/constants/primary_destinations.dart';
 import 'package:octattoo_app/core/router/app_routes.dart';
 import 'package:octattoo_app/core/router/app_startup.dart';
+import 'package:octattoo_app/core/router/welcome_routes.dart';
 import 'package:octattoo_app/core/utils/logger.dart';
 import 'package:octattoo_app/core/localization/l10n_extensions.dart';
 import 'package:octattoo_app/src/authentication/data/firebase_auth_repository.dart';
@@ -54,10 +55,11 @@ GoRouter goRouter(GoRouterRef ref) {
       logger.d('App startup is complete');
       //final isLoggedIn = authRepository.currentUser != null;
       // ! Test only
-      const isLoggedIn = false;
-      const isOnboarded = false;
+      const isLoggedIn = true;
+      const isOnboarded = true;
       // ! Test only
-      final isSigningIn = state.uri.pathSegments.first == AppRoutes.signIn.name;
+      final isSigningIn =
+          state.uri.pathSegments.first == WelcomeRoutes.signIn.name;
       final isRegistering = state.uri.pathSegments.first == 'register';
       final isForgotPassword =
           state.uri.pathSegments.first == 'forgot-password';
@@ -87,7 +89,7 @@ GoRouter goRouter(GoRouterRef ref) {
       if (!isLoggedIn) {
         if (!isWelcoming) {
           logger.d('User is not logged in. Redirect to /signIn');
-          return AppRoutes.signIn.path;
+          return WelcomeRoutes.signIn.path;
         }
       } else {
         logger.d('User is logged in');
@@ -132,18 +134,15 @@ GoRouter goRouter(GoRouterRef ref) {
             navigatorKey: _shellNavigatorSignInKey,
             routes: [
               GoRoute(
-                path: AppRoutes.signIn.path,
-                name: AppRoutes.signIn.name,
-                pageBuilder: (context, state) => MaterialPage(
-                  child: AppRoutes.signIn.screen,
-                ),
+                path: WelcomeRoutes.signIn.path,
+                name: WelcomeRoutes.signIn.name,
+                builder: (context, state) => WelcomeRoutes.signIn.screen,
                 routes: [
                   GoRoute(
-                    path: AppRoutes.forgotPassword.path,
-                    name: AppRoutes.forgotPassword.name,
-                    pageBuilder: (context, state) => MaterialPage(
-                      child: AppRoutes.forgotPassword.screen,
-                    ),
+                    path: WelcomeRoutes.forgotPassword.path,
+                    name: WelcomeRoutes.forgotPassword.name,
+                    builder: (context, state) =>
+                        WelcomeRoutes.forgotPassword.screen,
                   ),
                 ],
               ),

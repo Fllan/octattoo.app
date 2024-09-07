@@ -24,7 +24,8 @@ class ScaffoldWithAppBar extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.surfaceDim,
       ),
-      body: Center(child: SingleChildScrollView(child: navigationShell)),
+      // body: Center(child: SingleChildScrollView(child: navigationShell)),
+      body: navigationShell,
       drawer: ModalDrawer(
         destinations: destinations,
         navigationShell: navigationShell,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app/core/constants/gaps.dart';
 import 'package:octattoo_app/core/localization/l10n_extensions.dart';
-import 'package:octattoo_app/core/router/app_routes.dart';
+import 'package:octattoo_app/core/router/welcome_routes.dart';
 import 'package:octattoo_app/src/shared/widgets/async_button_with_icon.dart';
 import 'package:octattoo_app/src/shared/widgets/material_text.dart';
 
@@ -11,11 +11,8 @@ class SignInWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        minWidth: 250,
-        maxWidth: 400,
-      ),
+    return SizedBox(
+      width: 400,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,7 +34,7 @@ class SignInWidget extends StatelessWidget {
           ),
           gapH64,
           ElevatedButton(
-            onPressed: () => context.goNamed(AppRoutes.forgotPassword.name),
+            onPressed: () => context.goNamed(WelcomeRoutes.forgotPassword.name),
             child: const Text('Go to Forgot Password'),
           ),
         ],

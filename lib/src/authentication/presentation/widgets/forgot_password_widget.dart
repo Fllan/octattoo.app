@@ -9,11 +9,8 @@ class ForgotPasswordWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        minWidth: 250,
-        maxWidth: 400,
-      ),
+    return SizedBox(
+      width: 400,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,

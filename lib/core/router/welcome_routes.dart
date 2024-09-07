@@ -3,30 +3,24 @@ import 'package:octattoo_app/src/authentication/presentation/forgot_password_scr
 import 'package:octattoo_app/src/authentication/presentation/register_screen.dart';
 import 'package:octattoo_app/src/authentication/presentation/sign_in_screen.dart';
 
-enum AppRoutes {
-  customers(
-    'customers',
-    '/customers',
-    CustomersScreen(),
+enum WelcomeRoutes {
+  signIn(
+    'sign-in',
+    '/sign-in',
+    SignInScreen(),
   ),
-  customerDetails(
-    'customerDetails',
-    ':id',
-    CustomerDetailsScreen(),
+  forgotPassword(
+    'forgot-password',
+    'forgot-password',
+    ForgotPasswordScreen(),
   ),
-  appointments(
-    'appointments',
-    '/appointments',
-    AppointmentsScreen(),
-  ),
-  appointmentDetails(
-    'appointmentDetails',
-    ':id',
-    AppointmentDetailsScreen(),
-  ),
-  ;
+  register(
+    'register',
+    '/register',
+    RegisterScreen(),
+  );
 
-  const AppRoutes(
+  const WelcomeRoutes(
     this.name,
     this.path,
     this.screen,

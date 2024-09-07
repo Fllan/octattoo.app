@@ -57,85 +57,88 @@ class _RegisterWidgetState extends ConsumerState<RegisterWidget> {
         minWidth: 250,
         maxWidth: 400,
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          MaterialText.titleLarge('Register'.hardcoded, context),
-          gapH64,
-          Text(
-              'You can discover the app anonymously and decide later to create an account'
-                  .hardcoded,
-              textAlign: TextAlign.left),
-          gapH20,
-          AsyncButton.elevated(
-            callback: _signInCallback,
-            label: 'Start as Guest'.hardcoded,
-          ),
-          gapH32,
-          const Divider(),
-          gapH32,
-          Form(
-            key: _key,
-            onChanged: () {
-              _isNotEmptyEmail = _emailController.text.isNotEmpty;
-              _isNotEmptyPassword = _passwordController.text.isNotEmpty;
-              _isNotEmptyConfirmedPassword =
-                  _confirmedPasswordController.text.isNotEmpty;
-
-              if (_isNotEmptyEmail &&
-                  _isNotEmptyPassword &&
-                  _isNotEmptyConfirmedPassword) {
-                setState(() {
-                  _isValidForm = _key.currentState!.validate();
-                });
-              }
-            },
-            child: Column(
-              children: [
-                Text('Or sign up with your email:'.hardcoded),
-                gapH20,
-                AppTextFormField(
-                  controller: _emailController,
-                  validator: (value) => emailValidator(value),
-                  label: 'Email'.hardcoded,
-                  keyboardType: TextInputType.emailAddress,
-                  hasAutoFocus: false,
-                ),
-                gapH20,
-                PasswordTextFormField(controller: _passwordController),
-                gapH20,
-                TextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  key: _confirmedPasswordKey,
-                  controller: _confirmedPasswordController,
-                  keyboardType: TextInputType.visiblePassword,
-                  decoration: InputDecoration(
-                    labelText: 'Confirm password'.hardcoded,
-                    border: const OutlineInputBorder(),
-                  ),
-                  obscureText: true,
-                  validator: (value) {
-                    if (value != _passwordController.text) {
-                      return 'Passwords do not match'.hardcoded;
-                    }
-                    return null;
-                  },
-                ),
-                gapH20,
-                if (!_isValidForm)
-                  ElevatedButton(
-                    onPressed: null,
-                    child: Text(buttonLable),
-                  ),
-                if (_isValidForm)
-                  AsyncButton.elevated(
-                    callback: _signUpCallback,
-                    label: buttonLable,
-                  ),
-              ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            MaterialText.titleLarge('Register'.hardcoded, context),
+            gapH64,
+            Text(
+                'You can discover the app anonymously and decide later to create an account'
+                    .hardcoded,
+                textAlign: TextAlign.left),
+            gapH20,
+            AsyncButton.elevated(
+              callback: _signInCallback,
+              label: 'Start as Guest'.hardcoded,
             ),
-          ),
-        ],
+            gapH32,
+            const Divider(),
+            gapH32,
+            Form(
+              key: _key,
+              onChanged: () {
+                _isNotEmptyEmail = _emailController.text.isNotEmpty;
+                _isNotEmptyPassword = _passwordController.text.isNotEmpty;
+                _isNotEmptyConfirmedPassword =
+                    _confirmedPasswordController.text.isNotEmpty;
+
+                if (_isNotEmptyEmail &&
+                    _isNotEmptyPassword &&
+                    _isNotEmptyConfirmedPassword) {
+                  setState(() {
+                    _isValidForm = _key.currentState!.validate();
+                  });
+                }
+              },
+              child: Column(
+                children: [
+                  Text('Or sign up with your email:'.hardcoded),
+                  gapH20,
+                  AppTextFormField(
+                    controller: _emailController,
+                    validator: (value) => emailValidator(value),
+                    label: 'Email'.hardcoded,
+                    keyboardType: TextInputType.emailAddress,
+                    hasAutoFocus: false,
+                  ),
+                  gapH20,
+                  PasswordTextFormField(controller: _passwordController),
+                  gapH20,
+                  TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    key: _confirmedPasswordKey,
+                    controller: _confirmedPasswordController,
+                    keyboardType: TextInputType.visiblePassword,
+                    decoration: InputDecoration(
+                      labelText: 'Confirm password'.hardcoded,
+                      border: const OutlineInputBorder(),
+                    ),
+                    obscureText: true,
+                    validator: (value) {
+                      if (value != _passwordController.text) {
+                        return 'Passwords do not match'.hardcoded;
+                      }
+                      return null;
+                    },
+                  ),
+                  gapH20,
+                  if (!_isValidForm)
+                    ElevatedButton(
+                      onPressed: null,
+                      child: Text(buttonLable),
+                    ),
+                  if (_isValidForm)
+                    AsyncButton.elevated(
+                      callback: _signUpCallback,
+                      label: buttonLable,
+                    ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
