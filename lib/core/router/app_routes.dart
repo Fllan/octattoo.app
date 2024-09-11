@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:octattoo_app/src/authentication/presentation/forgot_password_screen.dart';
-import 'package:octattoo_app/src/authentication/presentation/register_screen.dart';
-import 'package:octattoo_app/src/authentication/presentation/sign_in_screen.dart';
+import 'package:octattoo_app/src/app/appointments/presentation/appointment_details_screen.dart';
+import 'package:octattoo_app/src/app/appointments/presentation/appointments_screen.dart';
+import 'package:octattoo_app/src/app/customers/presentation/customer_details_screen.dart';
+import 'package:octattoo_app/src/app/customers/presentation/customers_screen.dart';
 
 enum AppRoutes {
   customers(
@@ -22,7 +23,9 @@ enum AppRoutes {
   appointmentDetails(
     'appointmentDetails',
     ':id',
-    AppointmentDetailsScreen(),
+    AppointmentDetailsScreen(
+      idAppointment: '',
+    ),
   ),
   ;
 

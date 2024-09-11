@@ -50,7 +50,6 @@ extension BreakpointsExtension on Breakpoints {
   }
 
   static AdaptiveScaffoldType getScaffold(BuildContext context) {
-    if (isHeightCompact(context)) return AdaptiveScaffoldType.compactAppBar;
     if (isCompact(context)) return AdaptiveScaffoldType.appBar;
     if (isMedium(context)) return AdaptiveScaffoldType.navigationRail;
     if (isExpanded(context)) return AdaptiveScaffoldType.navigationRail;

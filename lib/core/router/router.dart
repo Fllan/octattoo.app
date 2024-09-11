@@ -7,6 +7,7 @@ import 'package:octattoo_app/core/router/app_startup.dart';
 import 'package:octattoo_app/core/router/welcome_routes.dart';
 import 'package:octattoo_app/core/utils/logger.dart';
 import 'package:octattoo_app/core/localization/l10n_extensions.dart';
+import 'package:octattoo_app/src/app/appointments/presentation/appointment_details_screen.dart';
 import 'package:octattoo_app/src/authentication/data/firebase_auth_repository.dart';
 import 'package:octattoo_app/src/authentication/presentation/register_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -152,10 +153,9 @@ GoRouter goRouter(GoRouterRef ref) {
             navigatorKey: _shellNavigatorRegisterKey,
             routes: [
               GoRoute(
-                path: '/register',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: RegisterScreen(),
-                ),
+                path: WelcomeRoutes.register.path,
+                name: WelcomeRoutes.register.name,
+                builder: (context, state) => WelcomeRoutes.register.screen,
               ),
             ],
           ),
@@ -209,10 +209,18 @@ GoRouter goRouter(GoRouterRef ref) {
             navigatorKey: _shellNavigatorAppointmentsKey,
             routes: [
               GoRoute(
-                path: '/appointments',
-                pageBuilder: (context, state) => NoTransitionPage(
-                  child: DefaultTestScreen(title: context.loc.appointments),
-                ),
+                path: AppRoutes.appointments.path,
+                name: AppRoutes.appointments.name,
+                builder: (context, state) => AppRoutes.appointments.screen,
+                routes: [
+                  GoRoute(
+                    path: AppRoutes.appointmentDetails.path,
+                    name: AppRoutes.appointmentDetails.name,
+                    builder: (context, state) => AppointmentDetailsScreen(
+                      idAppointment: state.pathParameters['id']!,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -220,10 +228,17 @@ GoRouter goRouter(GoRouterRef ref) {
             navigatorKey: _shellNavigatorCustomersKey,
             routes: [
               GoRoute(
-                path: '/customers',
-                pageBuilder: (context, state) => NoTransitionPage(
-                  child: DefaultTestScreen(title: context.loc.customers),
-                ),
+                path: AppRoutes.customers.path,
+                name: AppRoutes.customers.name,
+                builder: (context, state) => AppRoutes.customers.screen,
+                routes: [
+                  GoRoute(
+                    path: AppRoutes.customerDetails.path,
+                    name: AppRoutes.customerDetails.name,
+                    builder: (context, state) =>
+                        AppRoutes.customerDetails.screen,
+                  ),
+                ],
               ),
             ],
           ),

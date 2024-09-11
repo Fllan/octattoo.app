@@ -11,33 +11,37 @@ class SignInWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 400,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          MaterialText.titleLarge(context.loc.signIn, context),
-          gapH24,
-          const TextField(
-            decoration: InputDecoration(labelText: 'Email'),
-          ),
-          const TextField(
-            decoration: InputDecoration(labelText: 'Password'),
-          ),
-          gapH24,
-          AsyncButtonWithIcon.filled(
-            callback: () => Future.delayed(const Duration(seconds: 2)),
-            label: context.loc.signIn,
-            icon: const Icon(Icons.login),
-          ),
-          gapH64,
-          ElevatedButton(
-            onPressed: () => context.goNamed(WelcomeRoutes.forgotPassword.name),
-            child: const Text('Go to Forgot Password'),
-          ),
-        ],
+    return Align(
+      alignment: Alignment.center,
+      child: SizedBox(
+        width: 400,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            MaterialText.titleLarge(context.loc.signIn, context),
+            gapH24,
+            const TextField(
+              decoration: InputDecoration(labelText: 'Email'),
+            ),
+            const TextField(
+              decoration: InputDecoration(labelText: 'Password'),
+            ),
+            gapH24,
+            AsyncButtonWithIcon.filled(
+              callback: () => Future.delayed(const Duration(seconds: 2)),
+              label: context.loc.signIn,
+              icon: const Icon(Icons.login),
+            ),
+            gapH64,
+            ElevatedButton(
+              onPressed: () =>
+                  context.goNamed(WelcomeRoutes.forgotPassword.name),
+              child: const Text('Go to Forgot Password'),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -23,7 +23,7 @@ class ScaffoldWithCompactAppBar extends StatelessWidget {
       ),
       extendBodyBehindAppBar: true,
       backgroundColor: backgroundColor,
-      body: Center(child: SingleChildScrollView(child: navigationShell)),
+      body: navigationShell,
       drawer: ModalDrawer(
         destinations: destinations,
         navigationShell: navigationShell,
