@@ -2,17 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app/core/router/app_routes.dart';
 
-class Appointments extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
+class Appointments extends StatefulWidget {
   const Appointments({super.key});
 
   @override
+  State<Appointments> createState() => _AppointmentsState();
+}
+
+class _AppointmentsState extends State<Appointments>
+    with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ListView.builder(
-      key: const PageStorageKey<String>('appointments'),
+      key: const PageStorageKey('appointmentsList'),
       itemCount: 103,
       itemBuilder: (context, index) {
         return ListTile(
+          key: ValueKey('appointment_$index'),
           title: Text('Item $index'),
           onTap: () => context.goNamed(
             AppRoutes.appointmentDetails.name,
@@ -22,4 +29,7 @@ class Appointments extends StatelessWidget {
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
