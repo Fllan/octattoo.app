@@ -9,7 +9,6 @@ import 'package:octattoo_app/core/utils/logger.dart';
 import 'package:octattoo_app/core/localization/l10n_extensions.dart';
 import 'package:octattoo_app/src/app/appointments/presentation/appointment_details_screen.dart';
 import 'package:octattoo_app/src/authentication/data/firebase_auth_repository.dart';
-import 'package:octattoo_app/src/authentication/presentation/register_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'router.g.dart';
@@ -56,8 +55,8 @@ GoRouter goRouter(GoRouterRef ref) {
       logger.d('App startup is complete');
       //final isLoggedIn = authRepository.currentUser != null;
       // ! Test only
-      const isLoggedIn = true;
-      const isOnboarded = true;
+      const isLoggedIn = false;
+      const isOnboarded = false;
       // ! Test only
       final isSigningIn =
           state.uri.pathSegments.first == WelcomeRoutes.signIn.name;
@@ -86,7 +85,6 @@ GoRouter goRouter(GoRouterRef ref) {
           isInventory ||
           isSettings;
 
-      // * If the user is not logged in, redirect to the /home route
       if (!isLoggedIn) {
         if (!isWelcoming) {
           logger.d('User is not logged in. Redirect to /signIn');
