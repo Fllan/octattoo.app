@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:octattoo_app/core/localization/l10n_extensions.dart';
-import 'package:octattoo_app/core/utils/logger.dart';
 import 'package:octattoo_app/src/authentication/domain/app_user.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -86,32 +85,8 @@ class AuthRepository {
     return _auth.signInWithEmailAndPassword(email: email, password: password);
   }
 
-  /// Sends a password reset email to the provided email address.
-  ///
-  /// Shows an error dialog if the operation fails.
-  Future<void> sendPasswordResetEmail(
-      String email, BuildContext context) async {
-    try {
-      logger.d('Sending password reset email to $email');
-      await _auth.sendPasswordResetEmail(email: email);
-    } on FirebaseAuthException catch (e) {
-      if (context.mounted) {
-        await showDialog(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: Text('Error Occured'.hardcoded),
-            content: Text(e.message.toString()),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(ctx).pop();
-                  },
-                  child: const Text("OK"))
-            ],
-          ),
-        );
-      }
-    }
+  Future<void> sendPasswordResetEmail(String email) {
+    return _auth.sendPasswordResetEmail(email: email);
   }
 
   /// Signs in the user with Google authentication.

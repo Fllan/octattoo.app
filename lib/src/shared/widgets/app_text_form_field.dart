@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:octattoo_app/core/localization/l10n_extensions.dart';
-import 'package:octattoo_app/src/shared/validators/email_validators.dart';
 
 class AppTextFormField extends StatelessWidget {
   const AppTextFormField({

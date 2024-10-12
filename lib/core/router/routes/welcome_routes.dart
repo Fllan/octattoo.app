@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:octattoo_app/src/authentication/presentation/register_screen.dart';
 import 'package:octattoo_app/src/authentication/presentation/widgets/forgot_password_widget.dart';
+import 'package:octattoo_app/src/authentication/presentation/widgets/register_widget.dart';
 import 'package:octattoo_app/src/authentication/presentation/widgets/sign_in_widget.dart';
 
 enum WelcomeRoutes {
@@ -17,7 +17,7 @@ enum WelcomeRoutes {
   register(
     'register',
     '/register',
-    RegisterScreen(),
+    RegisterWidget(),
   );
 
   const WelcomeRoutes(

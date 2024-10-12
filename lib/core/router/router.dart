@@ -138,8 +138,9 @@ GoRouter goRouter(GoRouterRef ref) {
                   GoRoute(
                     path: WelcomeRoutes.forgotPassword.path,
                     name: WelcomeRoutes.forgotPassword.name,
-                    builder: (context, state) =>
-                        WelcomeRoutes.forgotPassword.screen,
+                    // TODO : check if transition using MaterialPage should be notransition on web...
+                    pageBuilder: (context, state) => MaterialPage(
+                        child: WelcomeRoutes.forgotPassword.screen),
                   ),
                 ],
               ),

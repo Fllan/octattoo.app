@@ -25,6 +25,25 @@ extension AsyncValueUI on AsyncValue {
     }
   }
 
+  void showSnackbarOnSuccess(BuildContext context, String message) {
+    if (!isLoading && !hasError && hasValue) {
+      final theme = Theme.of(context);
+      final snackBarContent =
+          Text(message, style: TextStyle(color: theme.colorScheme.onPrimary));
+      final successSnackBar = SnackBar(
+        content: snackBarContent,
+        backgroundColor: theme.colorScheme.primary,
+        action: SnackBarAction(
+          label: 'OK'.hardcoded,
+          onPressed: () {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          },
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(successSnackBar);
+    }
+  }
+
   String _message(dynamic exception) {
     if (exception is FirebaseException) {
       return exception.message ?? exception.toString();

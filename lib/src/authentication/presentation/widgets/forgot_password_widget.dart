@@ -1,50 +1,71 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:octattoo_app/core/constants/gaps.dart';
 import 'package:octattoo_app/core/localization/l10n_extensions.dart';
-import 'package:octattoo_app/src/shared/widgets/async_button_with_icon.dart';
-import 'package:octattoo_app/src/shared/widgets/material_text.dart';
+import 'package:octattoo_app/src/authentication/presentation/controllers/forgot_password_form_controller.dart';
+import 'package:octattoo_app/src/authentication/presentation/widgets/forgot_password_form.dart';
+import 'package:octattoo_app/src/shared/widgets/async_value_ui.dart';
 
-class ForgotPasswordWidget extends StatelessWidget {
+class ForgotPasswordWidget extends ConsumerStatefulWidget {
   const ForgotPasswordWidget({super.key});
 
   @override
+  ConsumerState<ForgotPasswordWidget> createState() =>
+      _ForgotPasswordWidgetState();
+}
+
+class _ForgotPasswordWidgetState extends ConsumerState<ForgotPasswordWidget> {
+  final _key = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  bool _isValidForm = false;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _validateForm() async {
+    final forgotPasswordFormController =
+        ref.read(forgotPasswordFormControllerProvider.notifier);
+    final isValid = forgotPasswordFormController.formValidator(
+      formKey: _key,
+      emailField: _emailController.text,
+    );
+    setState(() {
+      _isValidForm = isValid;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final AsyncValue<void> state =
+        ref.watch(forgotPasswordFormControllerProvider);
+    ref.listen<AsyncValue>(
+      forgotPasswordFormControllerProvider,
+      (_, state) {
+        state.showSnackbarOnError(context);
+        if (!state.isLoading && !state.hasError && state.hasValue) {
+          state.showSnackbarOnSuccess(
+              context, 'Password reset email sent successfully.'.hardcoded);
+          _emailController.clear();
+        }
+      },
+    );
+    final forgotPasswordFormController =
+        ref.read(forgotPasswordFormControllerProvider.notifier);
     return Align(
       alignment: Alignment.center,
       child: SizedBox(
         width: 400,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: IconButton(
-                onPressed: () => Navigator.of(context).pop(),
-                icon: const Icon(Icons.arrow_back),
-              ),
-            ),
-            gapH24,
-            MaterialText.titleLarge(context.loc.forgotPassword, context),
-            gapH24,
-            TextField(
-              decoration: InputDecoration(labelText: 'Email'.hardcoded),
-            ),
-            gapH24,
-            Row(
-              children: [
-                Expanded(
-                  child: AsyncButtonWithIcon.filled(
-                    callback: () => Future.delayed(const Duration(seconds: 2)),
-                    label: 'Send reset link'.hardcoded,
-                    icon: const Icon(Icons.send),
-                  ),
-                ),
-              ],
-            ),
-            gapH24,
-          ],
+        child: Form(
+          key: _key,
+          onChanged: () => _validateForm(),
+          child: ForgotPasswordForm(
+            emailController: _emailController,
+            forgotPasswordFormController: forgotPasswordFormController,
+            state: state,
+            isValidForm: _isValidForm,
+          ),
         ),
       ),
     );
