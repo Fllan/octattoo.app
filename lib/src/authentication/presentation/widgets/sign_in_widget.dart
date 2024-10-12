@@ -1,46 +1,65 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:octattoo_app/core/constants/gaps.dart';
-import 'package:octattoo_app/core/localization/l10n_extensions.dart';
-import 'package:octattoo_app/core/router/welcome_routes.dart';
-import 'package:octattoo_app/src/shared/widgets/async_button_with_icon.dart';
-import 'package:octattoo_app/src/shared/widgets/material_text.dart';
+import 'package:octattoo_app/src/authentication/presentation/controllers/sign_in_form_controller.dart';
+import 'package:octattoo_app/src/authentication/presentation/widgets/sign_in_form.dart';
+import 'package:octattoo_app/src/shared/widgets/async_value_ui.dart';
 
-class SignInWidget extends StatelessWidget {
+class SignInWidget extends ConsumerStatefulWidget {
   const SignInWidget({super.key});
 
   @override
+  ConsumerState<SignInWidget> createState() => _SignInWidgetState();
+}
+
+class _SignInWidgetState extends ConsumerState<SignInWidget> {
+  final _key = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _isValidForm = false;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _validateForm() async {
+    final signInFormController =
+        ref.read(signInFormControllerProvider.notifier);
+    final isValid = signInFormController.formValidator(
+      formKey: _key,
+      emailField: _emailController.text,
+      passwordField: _passwordController.text,
+    );
+    setState(() {
+      _isValidForm = isValid;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final AsyncValue<void> state = ref.watch(signInFormControllerProvider);
+    ref.listen<AsyncValue>(
+      signInFormControllerProvider,
+      (_, state) => state.showSnackbarOnError(context),
+    );
+    final signInFormController =
+        ref.read(signInFormControllerProvider.notifier);
     return Align(
       alignment: Alignment.center,
       child: SizedBox(
         width: 400,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            MaterialText.titleLarge(context.loc.signIn, context),
-            gapH24,
-            const TextField(
-              decoration: InputDecoration(labelText: 'Email'),
-            ),
-            const TextField(
-              decoration: InputDecoration(labelText: 'Password'),
-            ),
-            gapH24,
-            AsyncButtonWithIcon.filled(
-              callback: () => Future.delayed(const Duration(seconds: 2)),
-              label: context.loc.signIn,
-              icon: const Icon(Icons.login),
-            ),
-            gapH64,
-            ElevatedButton(
-              onPressed: () =>
-                  context.goNamed(WelcomeRoutes.forgotPassword.name),
-              child: const Text('Go to Forgot Password'),
-            ),
-          ],
+        child: Form(
+          key: _key,
+          onChanged: () => _validateForm(),
+          child: SignInForm(
+            emailController: _emailController,
+            passwordController: _passwordController,
+            signInFormController: signInFormController,
+            state: state,
+            isValidForm: _isValidForm,
+          ),
         ),
       ),
     );

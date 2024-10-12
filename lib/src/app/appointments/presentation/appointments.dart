@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:octattoo_app/core/router/app_routes.dart';
+import 'package:octattoo_app/core/router/routes/app_routes.dart';
 
 class Appointments extends StatefulWidget {
   const Appointments({super.key});

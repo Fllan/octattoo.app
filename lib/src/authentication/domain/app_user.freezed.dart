@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'user.dart';
+part of 'app_user.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,20 +14,22 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-User _$UserFromJson(Map<String, dynamic> json) {
-  return _User.fromJson(json);
+AppUser _$AppUserFromJson(Map<String, dynamic> json) {
+  return _AppUser.fromJson(json);
 }
 
 /// @nodoc
-mixin _$User {
-  DateTime get createdAt => throw _privateConstructorUsedError;
-  DateTime get updatedAt => throw _privateConstructorUsedError;
-  UserRoles get role => throw _privateConstructorUsedError;
-  bool get hasCompletedOnboarding => throw _privateConstructorUsedError;
-  bool get hasAnonymousAccount => throw _privateConstructorUsedError;
+mixin _$AppUser {
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  String get uid => throw _privateConstructorUsedError;
+  UserRoles? get role => throw _privateConstructorUsedError;
+  bool? get onboardingCompleted => throw _privateConstructorUsedError;
+  bool? get emailVerified => throw _privateConstructorUsedError;
+  bool? get isAnonymous => throw _privateConstructorUsedError;
   String? get firstname => throw _privateConstructorUsedError;
   String? get lastname => throw _privateConstructorUsedError;
-  bool get showPronoun => throw _privateConstructorUsedError;
+  bool? get showPronoun => throw _privateConstructorUsedError;
   String? get pronoun => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
@@ -39,29 +41,31 @@ mixin _$User {
   String? get country => throw _privateConstructorUsedError;
   String? get postalCode => throw _privateConstructorUsedError;
 
-  /// Serializes this User to a JSON map.
+  /// Serializes this AppUser to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of User
+  /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
+  $AppUserCopyWith<AppUser> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserCopyWith<$Res> {
-  factory $UserCopyWith(User value, $Res Function(User) then) =
-      _$UserCopyWithImpl<$Res, User>;
+abstract class $AppUserCopyWith<$Res> {
+  factory $AppUserCopyWith(AppUser value, $Res Function(AppUser) then) =
+      _$AppUserCopyWithImpl<$Res, AppUser>;
   @useResult
   $Res call(
-      {DateTime createdAt,
-      DateTime updatedAt,
-      UserRoles role,
-      bool hasCompletedOnboarding,
-      bool hasAnonymousAccount,
+      {DateTime? createdAt,
+      DateTime? updatedAt,
+      String uid,
+      UserRoles? role,
+      bool? onboardingCompleted,
+      bool? emailVerified,
+      bool? isAnonymous,
       String? firstname,
       String? lastname,
-      bool showPronoun,
+      bool? showPronoun,
       String? pronoun,
       String? email,
       String? phoneNumber,
@@ -75,28 +79,30 @@ abstract class $UserCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UserCopyWithImpl<$Res, $Val extends User>
-    implements $UserCopyWith<$Res> {
-  _$UserCopyWithImpl(this._value, this._then);
+class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
+    implements $AppUserCopyWith<$Res> {
+  _$AppUserCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of User
+  /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? createdAt = null,
-    Object? updatedAt = null,
-    Object? role = null,
-    Object? hasCompletedOnboarding = null,
-    Object? hasAnonymousAccount = null,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? uid = null,
+    Object? role = freezed,
+    Object? onboardingCompleted = freezed,
+    Object? emailVerified = freezed,
+    Object? isAnonymous = freezed,
     Object? firstname = freezed,
     Object? lastname = freezed,
-    Object? showPronoun = null,
+    Object? showPronoun = freezed,
     Object? pronoun = freezed,
     Object? email = freezed,
     Object? phoneNumber = freezed,
@@ -109,26 +115,34 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? postalCode = freezed,
   }) {
     return _then(_value.copyWith(
-      createdAt: null == createdAt
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
+              as DateTime?,
+      updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      role: null == role
+              as DateTime?,
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
+      role: freezed == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as UserRoles,
-      hasCompletedOnboarding: null == hasCompletedOnboarding
-          ? _value.hasCompletedOnboarding
-          : hasCompletedOnboarding // ignore: cast_nullable_to_non_nullable
-              as bool,
-      hasAnonymousAccount: null == hasAnonymousAccount
-          ? _value.hasAnonymousAccount
-          : hasAnonymousAccount // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as UserRoles?,
+      onboardingCompleted: freezed == onboardingCompleted
+          ? _value.onboardingCompleted
+          : onboardingCompleted // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      emailVerified: freezed == emailVerified
+          ? _value.emailVerified
+          : emailVerified // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isAnonymous: freezed == isAnonymous
+          ? _value.isAnonymous
+          : isAnonymous // ignore: cast_nullable_to_non_nullable
+              as bool?,
       firstname: freezed == firstname
           ? _value.firstname
           : firstname // ignore: cast_nullable_to_non_nullable
@@ -137,10 +151,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.lastname
           : lastname // ignore: cast_nullable_to_non_nullable
               as String?,
-      showPronoun: null == showPronoun
+      showPronoun: freezed == showPronoun
           ? _value.showPronoun
           : showPronoun // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       pronoun: freezed == pronoun
           ? _value.pronoun
           : pronoun // ignore: cast_nullable_to_non_nullable
@@ -186,21 +200,23 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
 }
 
 /// @nodoc
-abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
-  factory _$$UserImplCopyWith(
-          _$UserImpl value, $Res Function(_$UserImpl) then) =
-      __$$UserImplCopyWithImpl<$Res>;
+abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
+  factory _$$AppUserImplCopyWith(
+          _$AppUserImpl value, $Res Function(_$AppUserImpl) then) =
+      __$$AppUserImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {DateTime createdAt,
-      DateTime updatedAt,
-      UserRoles role,
-      bool hasCompletedOnboarding,
-      bool hasAnonymousAccount,
+      {DateTime? createdAt,
+      DateTime? updatedAt,
+      String uid,
+      UserRoles? role,
+      bool? onboardingCompleted,
+      bool? emailVerified,
+      bool? isAnonymous,
       String? firstname,
       String? lastname,
-      bool showPronoun,
+      bool? showPronoun,
       String? pronoun,
       String? email,
       String? phoneNumber,
@@ -214,25 +230,28 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$UserImplCopyWithImpl<$Res>
-    extends _$UserCopyWithImpl<$Res, _$UserImpl>
-    implements _$$UserImplCopyWith<$Res> {
-  __$$UserImplCopyWithImpl(_$UserImpl _value, $Res Function(_$UserImpl) _then)
+class __$$AppUserImplCopyWithImpl<$Res>
+    extends _$AppUserCopyWithImpl<$Res, _$AppUserImpl>
+    implements _$$AppUserImplCopyWith<$Res> {
+  __$$AppUserImplCopyWithImpl(
+      _$AppUserImpl _value, $Res Function(_$AppUserImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of User
+  /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? createdAt = null,
-    Object? updatedAt = null,
-    Object? role = null,
-    Object? hasCompletedOnboarding = null,
-    Object? hasAnonymousAccount = null,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? uid = null,
+    Object? role = freezed,
+    Object? onboardingCompleted = freezed,
+    Object? emailVerified = freezed,
+    Object? isAnonymous = freezed,
     Object? firstname = freezed,
     Object? lastname = freezed,
-    Object? showPronoun = null,
+    Object? showPronoun = freezed,
     Object? pronoun = freezed,
     Object? email = freezed,
     Object? phoneNumber = freezed,
@@ -244,27 +263,35 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? country = freezed,
     Object? postalCode = freezed,
   }) {
-    return _then(_$UserImpl(
-      createdAt: null == createdAt
+    return _then(_$AppUserImpl(
+      createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
+              as DateTime?,
+      updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      role: null == role
+              as DateTime?,
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
+      role: freezed == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as UserRoles,
-      hasCompletedOnboarding: null == hasCompletedOnboarding
-          ? _value.hasCompletedOnboarding
-          : hasCompletedOnboarding // ignore: cast_nullable_to_non_nullable
-              as bool,
-      hasAnonymousAccount: null == hasAnonymousAccount
-          ? _value.hasAnonymousAccount
-          : hasAnonymousAccount // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as UserRoles?,
+      onboardingCompleted: freezed == onboardingCompleted
+          ? _value.onboardingCompleted
+          : onboardingCompleted // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      emailVerified: freezed == emailVerified
+          ? _value.emailVerified
+          : emailVerified // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isAnonymous: freezed == isAnonymous
+          ? _value.isAnonymous
+          : isAnonymous // ignore: cast_nullable_to_non_nullable
+              as bool?,
       firstname: freezed == firstname
           ? _value.firstname
           : firstname // ignore: cast_nullable_to_non_nullable
@@ -273,10 +300,10 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.lastname
           : lastname // ignore: cast_nullable_to_non_nullable
               as String?,
-      showPronoun: null == showPronoun
+      showPronoun: freezed == showPronoun
           ? _value.showPronoun
           : showPronoun // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       pronoun: freezed == pronoun
           ? _value.pronoun
           : pronoun // ignore: cast_nullable_to_non_nullable
@@ -323,46 +350,52 @@ class __$$UserImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$UserImpl implements _User {
-  _$UserImpl(
-      {required this.createdAt,
-      required this.updatedAt,
-      required this.role,
-      required this.hasCompletedOnboarding,
-      required this.hasAnonymousAccount,
-      required this.firstname,
-      required this.lastname,
-      required this.showPronoun,
-      required this.pronoun,
-      required this.email,
-      required this.phoneNumber,
-      required this.photoURL,
-      required this.bio,
-      required this.street,
-      required this.city,
-      required this.province,
-      required this.country,
-      required this.postalCode});
+class _$AppUserImpl implements _AppUser {
+  _$AppUserImpl(
+      {this.createdAt,
+      this.updatedAt,
+      required this.uid,
+      this.role,
+      this.onboardingCompleted,
+      this.emailVerified,
+      this.isAnonymous,
+      this.firstname,
+      this.lastname,
+      this.showPronoun,
+      this.pronoun,
+      this.email,
+      this.phoneNumber,
+      this.photoURL,
+      this.bio,
+      this.street,
+      this.city,
+      this.province,
+      this.country,
+      this.postalCode});
 
-  factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UserImplFromJson(json);
+  factory _$AppUserImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AppUserImplFromJson(json);
 
   @override
-  final DateTime createdAt;
+  final DateTime? createdAt;
   @override
-  final DateTime updatedAt;
+  final DateTime? updatedAt;
   @override
-  final UserRoles role;
+  final String uid;
   @override
-  final bool hasCompletedOnboarding;
+  final UserRoles? role;
   @override
-  final bool hasAnonymousAccount;
+  final bool? onboardingCompleted;
+  @override
+  final bool? emailVerified;
+  @override
+  final bool? isAnonymous;
   @override
   final String? firstname;
   @override
   final String? lastname;
   @override
-  final bool showPronoun;
+  final bool? showPronoun;
   @override
   final String? pronoun;
   @override
@@ -386,23 +419,26 @@ class _$UserImpl implements _User {
 
   @override
   String toString() {
-    return 'User(createdAt: $createdAt, updatedAt: $updatedAt, role: $role, hasCompletedOnboarding: $hasCompletedOnboarding, hasAnonymousAccount: $hasAnonymousAccount, firstname: $firstname, lastname: $lastname, showPronoun: $showPronoun, pronoun: $pronoun, email: $email, phoneNumber: $phoneNumber, photoURL: $photoURL, bio: $bio, street: $street, city: $city, province: $province, country: $country, postalCode: $postalCode)';
+    return 'AppUser(createdAt: $createdAt, updatedAt: $updatedAt, uid: $uid, role: $role, onboardingCompleted: $onboardingCompleted, emailVerified: $emailVerified, isAnonymous: $isAnonymous, firstname: $firstname, lastname: $lastname, showPronoun: $showPronoun, pronoun: $pronoun, email: $email, phoneNumber: $phoneNumber, photoURL: $photoURL, bio: $bio, street: $street, city: $city, province: $province, country: $country, postalCode: $postalCode)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UserImpl &&
+            other is _$AppUserImpl &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
+            (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.role, role) || other.role == role) &&
-            (identical(other.hasCompletedOnboarding, hasCompletedOnboarding) ||
-                other.hasCompletedOnboarding == hasCompletedOnboarding) &&
-            (identical(other.hasAnonymousAccount, hasAnonymousAccount) ||
-                other.hasAnonymousAccount == hasAnonymousAccount) &&
+            (identical(other.onboardingCompleted, onboardingCompleted) ||
+                other.onboardingCompleted == onboardingCompleted) &&
+            (identical(other.emailVerified, emailVerified) ||
+                other.emailVerified == emailVerified) &&
+            (identical(other.isAnonymous, isAnonymous) ||
+                other.isAnonymous == isAnonymous) &&
             (identical(other.firstname, firstname) ||
                 other.firstname == firstname) &&
             (identical(other.lastname, lastname) ||
@@ -427,82 +463,91 @@ class _$UserImpl implements _User {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      createdAt,
-      updatedAt,
-      role,
-      hasCompletedOnboarding,
-      hasAnonymousAccount,
-      firstname,
-      lastname,
-      showPronoun,
-      pronoun,
-      email,
-      phoneNumber,
-      photoURL,
-      bio,
-      street,
-      city,
-      province,
-      country,
-      postalCode);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        createdAt,
+        updatedAt,
+        uid,
+        role,
+        onboardingCompleted,
+        emailVerified,
+        isAnonymous,
+        firstname,
+        lastname,
+        showPronoun,
+        pronoun,
+        email,
+        phoneNumber,
+        photoURL,
+        bio,
+        street,
+        city,
+        province,
+        country,
+        postalCode
+      ]);
 
-  /// Create a copy of User
+  /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$UserImplCopyWith<_$UserImpl> get copyWith =>
-      __$$UserImplCopyWithImpl<_$UserImpl>(this, _$identity);
+  _$$AppUserImplCopyWith<_$AppUserImpl> get copyWith =>
+      __$$AppUserImplCopyWithImpl<_$AppUserImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UserImplToJson(
+    return _$$AppUserImplToJson(
       this,
     );
   }
 }
 
-abstract class _User implements User {
-  factory _User(
-      {required final DateTime createdAt,
-      required final DateTime updatedAt,
-      required final UserRoles role,
-      required final bool hasCompletedOnboarding,
-      required final bool hasAnonymousAccount,
-      required final String? firstname,
-      required final String? lastname,
-      required final bool showPronoun,
-      required final String? pronoun,
-      required final String? email,
-      required final String? phoneNumber,
-      required final String? photoURL,
-      required final String? bio,
-      required final String? street,
-      required final String? city,
-      required final String? province,
-      required final String? country,
-      required final String? postalCode}) = _$UserImpl;
+abstract class _AppUser implements AppUser {
+  factory _AppUser(
+      {final DateTime? createdAt,
+      final DateTime? updatedAt,
+      required final String uid,
+      final UserRoles? role,
+      final bool? onboardingCompleted,
+      final bool? emailVerified,
+      final bool? isAnonymous,
+      final String? firstname,
+      final String? lastname,
+      final bool? showPronoun,
+      final String? pronoun,
+      final String? email,
+      final String? phoneNumber,
+      final String? photoURL,
+      final String? bio,
+      final String? street,
+      final String? city,
+      final String? province,
+      final String? country,
+      final String? postalCode}) = _$AppUserImpl;
 
-  factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
+  factory _AppUser.fromJson(Map<String, dynamic> json) = _$AppUserImpl.fromJson;
 
   @override
-  DateTime get createdAt;
+  DateTime? get createdAt;
   @override
-  DateTime get updatedAt;
+  DateTime? get updatedAt;
   @override
-  UserRoles get role;
+  String get uid;
   @override
-  bool get hasCompletedOnboarding;
+  UserRoles? get role;
   @override
-  bool get hasAnonymousAccount;
+  bool? get onboardingCompleted;
+  @override
+  bool? get emailVerified;
+  @override
+  bool? get isAnonymous;
   @override
   String? get firstname;
   @override
   String? get lastname;
   @override
-  bool get showPronoun;
+  bool? get showPronoun;
   @override
   String? get pronoun;
   @override
@@ -524,10 +569,10 @@ abstract class _User implements User {
   @override
   String? get postalCode;
 
-  /// Create a copy of User
+  /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UserImplCopyWith<_$UserImpl> get copyWith =>
+  _$$AppUserImplCopyWith<_$AppUserImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

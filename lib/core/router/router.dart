@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app/core/layouts/adaptive_scaffold/adaptive_scaffold.dart';
 import 'package:octattoo_app/core/constants/primary_destinations.dart';
-import 'package:octattoo_app/core/router/app_routes.dart';
+import 'package:octattoo_app/core/router/routes/app_routes.dart';
 import 'package:octattoo_app/core/router/app_startup.dart';
-import 'package:octattoo_app/core/router/welcome_routes.dart';
+import 'package:octattoo_app/core/router/go_router_refresh_stream.dart';
+import 'package:octattoo_app/core/router/routes/welcome_routes.dart';
 import 'package:octattoo_app/core/utils/logger.dart';
 import 'package:octattoo_app/core/localization/l10n_extensions.dart';
 import 'package:octattoo_app/src/app/appointments/presentation/appointment_details_screen.dart';
 import 'package:octattoo_app/src/authentication/data/firebase_auth_repository.dart';
+import 'package:octattoo_app/src/onboarding/presentation/onboarding_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'router.g.dart';
@@ -45,6 +47,7 @@ GoRouter goRouter(GoRouterRef ref) {
   return GoRouter(
     initialLocation: '/startup',
     navigatorKey: _rootNavigatorKey,
+    refreshListenable: GoRouterRefreshStream(authRepository.authStateChanges()),
     debugLogDiagnostics: false,
     redirect: (context, state) {
       // * If the app is still initializing, show the /startup route
@@ -53,9 +56,9 @@ GoRouter goRouter(GoRouterRef ref) {
         return '/startup';
       }
       logger.d('App startup is complete');
-      //final isLoggedIn = authRepository.currentUser != null;
+      final isLoggedIn = authRepository.currentUser != null;
       // ! Test only
-      const isLoggedIn = false;
+      // const isLoggedIn = false;
       const isOnboarded = false;
       // ! Test only
       final isSigningIn =
@@ -94,8 +97,8 @@ GoRouter goRouter(GoRouterRef ref) {
         logger.d('User is logged in');
         if (!isOnboarded) {
           if (!isOnboarding) {
-            logger.d('User is not onboarded. Redirect to /artist-name');
-            return '/artist-name';
+            logger.d('User is not onboarded. Redirect to /onboarding');
+            return '/onboarding';
           }
         } else {
           if (!isAppShell) {
@@ -159,39 +162,11 @@ GoRouter goRouter(GoRouterRef ref) {
           ),
         ],
       ),
-      StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) {
-          List<PrimaryDestination> onboardingDestinations =
-              createOnboardingDestinations(context);
-          return AdaptiveScaffold(
-            navigationShell: navigationShell,
-            destinations: onboardingDestinations,
-          );
-        },
-        branches: [
-          StatefulShellBranch(
-            navigatorKey: _shellNavigatorOnboardingArtistNameKey,
-            routes: [
-              GoRoute(
-                path: '/artist-name',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: DefaultTestScreen(title: 'Onboarding Artist Name'),
-                ),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            navigatorKey: _shellNavigatorOnboardingWorkplaceKey,
-            routes: [
-              GoRoute(
-                path: '/workplace',
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: DefaultTestScreen(title: 'Onboarding Workplace'),
-                ),
-              ),
-            ],
-          ),
-        ],
+      GoRoute(
+        path: '/onboarding',
+        name: 'onboarding',
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: OnboardingScreen()),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
