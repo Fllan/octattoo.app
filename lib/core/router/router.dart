@@ -20,10 +20,6 @@ final _shellNavigatorSignInKey =
     GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorSignIn');
 final _shellNavigatorRegisterKey =
     GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorRegister');
-final _shellNavigatorOnboardingArtistNameKey =
-    GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorOnboardingArtistName');
-final _shellNavigatorOnboardingWorkplaceKey =
-    GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorOnboardingWorkplace');
 final _shellNavigatorAppointmentsKey =
     GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorAppointments');
 final _shellNavigatorCustomersKey =
@@ -58,7 +54,6 @@ GoRouter goRouter(GoRouterRef ref) {
       logger.d('App startup is complete');
       final isLoggedIn = authRepository.currentUser != null;
       // ! Test only
-      // const isLoggedIn = false;
       const isOnboarded = false;
       // ! Test only
       final isSigningIn =

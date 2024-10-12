@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app/core/constants/gaps.dart';
-import 'package:octattoo_app/core/constants/primary_destinations.dart';
 import 'package:octattoo_app/core/localization/l10n_extensions.dart';
-import 'package:octattoo_app/core/router/router.dart';
 import 'package:octattoo_app/src/authentication/presentation/controllers/sign_in_form_controller.dart';
 import 'package:octattoo_app/src/shared/validators/email_validators.dart';
 import 'package:octattoo_app/src/shared/widgets/app_text_form_field.dart';
@@ -76,8 +74,7 @@ class SignInForm extends StatelessWidget {
           children: [
             Expanded(
               child: TertiaryButton(
-                onPressed: () =>
-                    GoRouter.of(context).goNamed('forgot-password'),
+                onPressed: () => context.goNamed('forgot-password'),
                 label: Text('Retrieve my password'.hardcoded),
               ),
             ),

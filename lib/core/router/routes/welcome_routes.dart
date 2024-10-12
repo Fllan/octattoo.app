@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:octattoo_app/src/authentication/presentation/forgot_password_screen.dart';
 import 'package:octattoo_app/src/authentication/presentation/register_screen.dart';
-import 'package:octattoo_app/src/authentication/presentation/sign_in_screen.dart';
+import 'package:octattoo_app/src/authentication/presentation/widgets/forgot_password_widget.dart';
+import 'package:octattoo_app/src/authentication/presentation/widgets/sign_in_widget.dart';
 
 enum WelcomeRoutes {
   signIn(
     'sign-in',
     '/sign-in',
-    SignInScreen(),
+    SignInWidget(),
   ),
   forgotPassword(
     'forgot-password',
     'forgot-password',
-    ForgotPasswordScreen(),
+    ForgotPasswordWidget(),
   ),
   register(
     'register',
