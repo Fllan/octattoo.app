@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:octattoo_app/core/constants/gaps.dart';
 import 'package:octattoo_app/core/localization/l10n_extensions.dart';
 import 'package:octattoo_app/src/authentication/presentation/controllers/forgot_password_form_controller.dart';
-import 'package:octattoo_app/src/shared/validators/email_validators.dart';
+import 'package:octattoo_app/src/shared/validators/email_validator.dart';
 import 'package:octattoo_app/src/shared/widgets/app_text_form_field.dart';
 import 'package:octattoo_app/src/shared/widgets/material_text.dart';
 import 'package:octattoo_app/src/shared/widgets/primary_button.dart';

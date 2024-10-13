@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:octattoo_app/core/constants/gaps.dart';
 import 'package:octattoo_app/core/localization/l10n_extensions.dart';
 import 'package:octattoo_app/src/authentication/presentation/controllers/sign_in_form_controller.dart';
-import 'package:octattoo_app/src/shared/validators/email_validators.dart';
+import 'package:octattoo_app/src/shared/validators/email_validator.dart';
 import 'package:octattoo_app/src/shared/widgets/app_text_form_field.dart';
 import 'package:octattoo_app/src/shared/widgets/material_text.dart';
 import 'package:octattoo_app/src/shared/widgets/password_text_form_field.dart';

@@ -6,7 +6,7 @@ import 'package:octattoo_app/src/authentication/data/firebase_auth_repository.da
 import 'package:octattoo_app/src/shared/widgets/app_text_form_field.dart';
 import 'package:octattoo_app/src/shared/widgets/async_button.dart';
 import 'package:octattoo_app/src/shared/widgets/material_text.dart';
-import 'package:octattoo_app/src/shared/validators/email_validators.dart';
+import 'package:octattoo_app/src/shared/validators/email_validator.dart';
 import 'package:octattoo_app/src/shared/widgets/password_text_form_field.dart';
 
 class OldRegisterWidget extends ConsumerStatefulWidget {

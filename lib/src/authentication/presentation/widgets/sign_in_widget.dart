@@ -32,6 +32,7 @@ class _SignInWidgetState extends ConsumerState<SignInWidget> {
       emailField: _emailController.text,
       passwordField: _passwordController.text,
     );
+
     setState(() {
       _isValidForm = isValid;
     });

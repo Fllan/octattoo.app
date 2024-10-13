@@ -21,7 +21,7 @@ class _RegisterWidgetState extends ConsumerState<RegisterWidget> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmedPasswordController = TextEditingController();
-  final bool _isValidForm = false;
+  bool _isValidForm = false;
 
   @override
   void dispose() {
@@ -31,7 +31,20 @@ class _RegisterWidgetState extends ConsumerState<RegisterWidget> {
     super.dispose();
   }
 
-  Future<void> _validateForm() async {}
+  Future<void> _validateForm() async {
+    final registerFormController =
+        ref.read(registerFormControllerProvider.notifier);
+    final isValid = registerFormController.formValidator(
+      emailField: _emailController.text,
+      passwordField: _passwordController.text,
+      confirmedPasswordField: _confirmedPasswordController.text,
+      formKey: _key,
+    );
+
+    setState(() {
+      _isValidForm = isValid;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,45 +61,47 @@ class _RegisterWidgetState extends ConsumerState<RegisterWidget> {
       alignment: Alignment.center,
       child: SizedBox(
         width: 400,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            MaterialText.titleLarge(context.loc.register, context),
-            gapH32,
-            Align(
-              alignment: AlignmentDirectional.topStart,
-              child: MaterialText.bodyMedium(
-                'Discover the app anonymously without giving us any of your info. '
-                        'You can decide later to create an account.'
-                    .hardcoded,
-                context,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              MaterialText.titleLarge(context.loc.register, context),
+              gapH32,
+              Align(
+                alignment: AlignmentDirectional.topStart,
+                child: MaterialText.bodyMedium(
+                  'Discover the app anonymously without giving us any of your info. '
+                          'You can decide later to create an account.'
+                      .hardcoded,
+                  context,
+                ),
               ),
-            ),
-            gapH16,
-            PrimaryButton(
-              label: Text('Register anonymously'.hardcoded),
-              onPressed: () =>
-                  anonymousRegisterController.registerAnonymously(),
-              icon: const Icon(Icons.fingerprint),
-            ),
-            gapH32,
-            const Divider(),
-            gapH32,
-            Form(
-              key: _key,
-              onChanged: () => _validateForm(),
-              child: RegisterForm(
-                emailController: _emailController,
-                passwordController: _passwordController,
-                confirmedPasswordController: _confirmedPasswordController,
-                registerFormController: registerFormController,
-                state: state,
-                isValidForm: _isValidForm,
+              gapH16,
+              PrimaryButton(
+                label: Text('Register anonymously'.hardcoded),
+                onPressed: () =>
+                    anonymousRegisterController.registerAnonymously(),
+                icon: const Icon(Icons.fingerprint),
               ),
-            )
-          ],
+              gapH32,
+              const Divider(),
+              gapH32,
+              Form(
+                key: _key,
+                onChanged: () => _validateForm(),
+                child: RegisterForm(
+                  emailController: _emailController,
+                  passwordController: _passwordController,
+                  confirmedPasswordController: _confirmedPasswordController,
+                  registerFormController: registerFormController,
+                  state: state,
+                  isValidForm: _isValidForm,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

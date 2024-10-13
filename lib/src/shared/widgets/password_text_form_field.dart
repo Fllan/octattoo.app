@@ -7,12 +7,14 @@ class PasswordTextFormField extends StatelessWidget {
     super.key,
     required TextEditingController controller,
     this.label,
+    this.validator,
     this.onFieldSubmitted,
   }) : _controller = controller;
 
   final TextEditingController _controller;
   final String? label;
   final void Function(String)? onFieldSubmitted;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class PasswordTextFormField extends StatelessWidget {
         border: const OutlineInputBorder(),
       ),
       obscureText: true,
-      validator: (value) => passwordValidator(value),
+      validator: validator ?? (value) => passwordValidator(value),
     );
   }
 }
