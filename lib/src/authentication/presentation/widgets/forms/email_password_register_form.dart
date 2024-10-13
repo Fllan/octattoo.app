@@ -10,8 +10,8 @@ import 'package:octattoo_app/src/shared/widgets/material_text.dart';
 import 'package:octattoo_app/src/shared/widgets/password_text_form_field.dart';
 import 'package:octattoo_app/src/shared/widgets/primary_button.dart';
 
-class RegisterForm extends StatelessWidget {
-  const RegisterForm({
+class EmailPasswordRegisterForm extends StatelessWidget {
+  const EmailPasswordRegisterForm({
     super.key,
     required TextEditingController emailController,
     required TextEditingController passwordController,

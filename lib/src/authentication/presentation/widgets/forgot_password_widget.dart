@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:octattoo_app/core/localization/l10n_extensions.dart';
 import 'package:octattoo_app/src/authentication/presentation/controllers/forgot_password_form_controller.dart';
-import 'package:octattoo_app/src/authentication/presentation/widgets/forgot_password_form.dart';
+import 'package:octattoo_app/src/authentication/presentation/widgets/forms/forgot_password_form.dart';
 import 'package:octattoo_app/src/shared/widgets/async_value_ui.dart';
 
 class ForgotPasswordWidget extends ConsumerStatefulWidget {

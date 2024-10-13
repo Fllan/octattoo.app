@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:octattoo_app/src/authentication/presentation/controllers/sign_in_form_controller.dart';
-import 'package:octattoo_app/src/authentication/presentation/widgets/sign_in_form.dart';
+import 'package:octattoo_app/src/authentication/presentation/widgets/forms/sign_in_form.dart';
 import 'package:octattoo_app/src/shared/widgets/async_value_ui.dart';
 
 class SignInWidget extends ConsumerStatefulWidget {
