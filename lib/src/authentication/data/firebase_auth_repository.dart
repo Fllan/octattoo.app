@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:octattoo_app/core/localization/l10n_extensions.dart';
 import 'package:octattoo_app/src/authentication/domain/app_user.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -26,7 +24,7 @@ class AuthRepository {
           role: null,
           onboardingCompleted: null,
           isAnonymous: user.isAnonymous,
-          firstname: user.displayName,
+          firstname: null,
           lastname: null,
           showPronoun: null,
           pronoun: null,
@@ -56,29 +54,11 @@ class AuthRepository {
   /// Creates a new user with the provided email and password.
   ///
   /// Shows an error dialog if the operation fails.
-  Future<void> createUserWithEmailAndPassword(
-      String email, String password, BuildContext context) async {
-    try {
-      await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-    } on FirebaseAuthException catch (e) {
-      if (context.mounted) {
-        await showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-                    title: Text('Error Occured'.hardcoded),
-                    content: Text(e.message.toString()),
-                    actions: [
-                      TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text("OK"))
-                    ]));
-      }
-    }
+  Future<void> createUserWithEmailAndPassword(String email, String password) {
+    return _auth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
   }
 
   Future<void> signInWithEmailAndPassword(String email, String password) {
@@ -89,10 +69,7 @@ class AuthRepository {
     return _auth.sendPasswordResetEmail(email: email);
   }
 
-  /// Signs in the user with Google authentication.
-  ///
-  /// Shows an error dialog if the operation fails.
-  Future<void> signInWithGoogle(BuildContext context) async {
+  Future<void> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -106,26 +83,7 @@ class AuthRepository {
       idToken: googleAuth.idToken,
     );
 
-    try {
-      await _auth.signInWithCredential(credential);
-    } on FirebaseAuthException catch (e) {
-      if (context.mounted) {
-        await showDialog(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: Text('Error Occured'.hardcoded),
-            content: Text(e.message.toString()),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(ctx).pop();
-                  },
-                  child: const Text("OK"))
-            ],
-          ),
-        );
-      }
-    }
+    await _auth.signInWithCredential(credential);
   }
 }
 

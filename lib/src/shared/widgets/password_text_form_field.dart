@@ -3,13 +3,15 @@ import 'package:octattoo_app/core/localization/l10n_extensions.dart';
 import 'package:octattoo_app/src/shared/validators/password_validator.dart';
 
 class PasswordTextFormField extends StatelessWidget {
-  const PasswordTextFormField(
-      {super.key,
-      required TextEditingController controller,
-      this.onFieldSubmitted})
-      : _controller = controller;
+  const PasswordTextFormField({
+    super.key,
+    required TextEditingController controller,
+    this.label,
+    this.onFieldSubmitted,
+  }) : _controller = controller;
 
   final TextEditingController _controller;
+  final String? label;
   final void Function(String)? onFieldSubmitted;
 
   @override
@@ -22,7 +24,7 @@ class PasswordTextFormField extends StatelessWidget {
       controller: _controller,
       keyboardType: TextInputType.visiblePassword,
       decoration: InputDecoration(
-        labelText: 'Password'.hardcoded,
+        labelText: label ?? 'Password'.hardcoded,
         border: const OutlineInputBorder(),
       ),
       obscureText: true,
