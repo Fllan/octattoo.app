@@ -27,14 +27,9 @@ List<PrimaryDestination> createWelcomeDestinations(BuildContext context) {
 List<PrimaryDestination> createOnboardingDestinations(BuildContext context) {
   return <PrimaryDestination>[
     PrimaryDestination(
-      const Icon(Icons.inbox_rounded),
-      context.loc.artistName,
-      const Icon(Icons.inbox_rounded),
-    ),
-    PrimaryDestination(
-      const Icon(Icons.article_outlined),
-      context.loc.workplace,
-      const Icon(Icons.article_outlined),
+      const Icon(Icons.waving_hand),
+      'Onboarding'.hardcoded,
+      const Icon(Icons.waving_hand_outlined),
     ),
   ];
 }

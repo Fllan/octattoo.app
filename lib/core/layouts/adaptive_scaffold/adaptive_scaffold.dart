@@ -30,11 +30,19 @@ class AdaptiveScaffold extends StatelessWidget {
           backgroundColor: backgroundcolor,
         );
       case AdaptiveScaffoldType.navigationRail:
-        return ScaffoldWithNavigationRail(
-          navigationShell: navigationShell,
-          destinations: destinations,
-          backgroundColor: backgroundcolor,
-        );
+        if (destinations.length >= 2) {
+          return ScaffoldWithNavigationRail(
+            navigationShell: navigationShell,
+            destinations: destinations,
+            backgroundColor: backgroundcolor,
+          );
+        } else {
+          return ScaffoldWithAppBar(
+            navigationShell: navigationShell,
+            destinations: destinations,
+            backgroundColor: backgroundcolor,
+          );
+        }
       case AdaptiveScaffoldType.navigationDrawer:
         return ScaffoldWithNavigationDrawer(
           navigationShell: navigationShell,

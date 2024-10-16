@@ -20,6 +20,8 @@ final _shellNavigatorSignInKey =
     GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorSignIn');
 final _shellNavigatorRegisterKey =
     GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorRegister');
+final _shellNavigatorOnboardingKey =
+    GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorOnboarding');
 final _shellNavigatorAppointmentsKey =
     GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorAppointments');
 final _shellNavigatorCustomersKey =
@@ -75,6 +77,8 @@ GoRouter goRouter(GoRouterRef ref) {
       final isFinance = state.uri.pathSegments.first == 'finance';
       final isInventory = state.uri.pathSegments.first == 'inventory';
       final isSettings = state.uri.pathSegments.first == 'settings';
+      //! Will be used later...
+      // ignore: unused_local_variable
       final isAppShell = isAppointments ||
           isCustomers ||
           isProjects ||
@@ -95,12 +99,6 @@ GoRouter goRouter(GoRouterRef ref) {
             logger.d('User is not onboarded. Redirect to /onboarding');
             return '/onboarding';
           }
-        } else {
-          if (!isAppShell) {
-            logger.d('User is logged in. Redirect to /home');
-            return '/appointments';
-          }
-          return null;
         }
         return null;
       }
@@ -157,11 +155,27 @@ GoRouter goRouter(GoRouterRef ref) {
           ),
         ],
       ),
-      GoRoute(
-        path: '/onboarding',
-        name: 'onboarding',
-        pageBuilder: (context, state) =>
-            const MaterialPage(child: OnboardingScreen()),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          List<PrimaryDestination> welcomeDestinations =
+              createOnboardingDestinations(context);
+          return AdaptiveScaffold(
+            navigationShell: navigationShell,
+            destinations: welcomeDestinations,
+          );
+        },
+        branches: [
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorOnboardingKey,
+            routes: [
+              GoRoute(
+                path: '/onboarding',
+                name: 'onboarding',
+                builder: (context, state) => const OnBoardingScreen(),
+              ),
+            ],
+          ),
+        ],
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {

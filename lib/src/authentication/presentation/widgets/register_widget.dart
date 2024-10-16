@@ -9,6 +9,7 @@ import 'package:octattoo_app/src/authentication/presentation/widgets/forms/email
 import 'package:octattoo_app/src/shared/widgets/async_value_ui.dart';
 import 'package:octattoo_app/src/shared/widgets/material_text.dart';
 import 'package:octattoo_app/src/shared/widgets/primary_button.dart';
+import 'package:octattoo_app/src/shared/widgets/tertiary_button.dart';
 
 class RegisterWidget extends ConsumerStatefulWidget {
   const RegisterWidget({super.key});
@@ -60,16 +61,16 @@ class _RegisterWidgetState extends ConsumerState<RegisterWidget> {
                     .hardcoded),
           ),
           actions: [
-            TextButton(
+            TertiaryButton(
               onPressed: () => context.pop(),
-              child: Text('Cancel'.hardcoded),
+              label: Text('Cancel'.hardcoded),
             ),
-            TextButton(
+            PrimaryButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 _startAsGuest();
               },
-              child: Text('Stay Anonymous'.hardcoded),
+              label: Text('Stay Anonymous'.hardcoded),
             ),
           ],
         );

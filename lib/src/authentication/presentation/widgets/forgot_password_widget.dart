@@ -47,7 +47,6 @@ class _ForgotPasswordWidgetState extends ConsumerState<ForgotPasswordWidget> {
         if (!state.isLoading && !state.hasError && state.hasValue) {
           state.showSnackbarOnSuccess(
               context, 'Password reset email sent successfully.'.hardcoded);
-          _emailController.clear();
         }
       },
     );
