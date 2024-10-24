@@ -1,27 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'step1_form_controller.dart';
+part of 'firebase_app_user_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$step1FormControllerHash() =>
-    r'3e5e530d46f0879eb84c4b661f290eceb127c18a';
+String _$appUserRepositoryHash() => r'16481fa140efbaf7c95cf86f6d80dd63c26ac4f1';
 
-/// See also [Step1FormController].
-@ProviderFor(Step1FormController)
-final step1FormControllerProvider =
-    AutoDisposeAsyncNotifierProvider<Step1FormController, void>.internal(
-  Step1FormController.new,
-  name: r'step1FormControllerProvider',
+/// See also [appUserRepository].
+@ProviderFor(appUserRepository)
+final appUserRepositoryProvider = Provider<AppUserRepository>.internal(
+  appUserRepository,
+  name: r'appUserRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$step1FormControllerHash,
+      : _$appUserRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$Step1FormController = AutoDisposeAsyncNotifier<void>;
+typedef AppUserRepositoryRef = ProviderRef<AppUserRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

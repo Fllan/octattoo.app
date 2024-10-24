@@ -9,6 +9,7 @@ import 'package:octattoo_app/core/router/routes/welcome_routes.dart';
 import 'package:octattoo_app/core/utils/logger.dart';
 import 'package:octattoo_app/core/localization/l10n_extensions.dart';
 import 'package:octattoo_app/src/app/appointments/presentation/appointment_details_screen.dart';
+import 'package:octattoo_app/src/authentication/application/app_user_service.dart';
 import 'package:octattoo_app/src/authentication/data/firebase_auth_repository.dart';
 import 'package:octattoo_app/src/onboarding/presentation/onboarding_screen.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -41,6 +42,7 @@ final _shellNavigatorSettingsKey =
 GoRouter goRouter(GoRouterRef ref) {
   final appStartupState = ref.watch(appStartupProvider);
   final authRepository = ref.watch(authRepositoryProvider);
+  final currentAppUserAsync = ref.watch(currentAppUserProvider);
 
   return GoRouter(
     initialLocation: '/startup',
@@ -56,19 +58,22 @@ GoRouter goRouter(GoRouterRef ref) {
       logger.d('App startup is complete');
       final isLoggedIn = authRepository.currentUser != null;
       // ! Test only
-      const isOnboarded = false;
+      // const isOnboarded = false;
+      if (currentAppUserAsync.isLoading || currentAppUserAsync.hasError) {
+        return null;
+      }
+      final appUser = currentAppUserAsync.value;
+      final isOnboarded = appUser?.isOnboarded() ?? false;
       // ! Test only
       final isSigningIn =
           state.uri.pathSegments.first == WelcomeRoutes.signIn.name;
-      final isRegistering = state.uri.pathSegments.first == 'register';
+      final isRegistering =
+          state.uri.pathSegments.first == WelcomeRoutes.register.name;
       final isForgotPassword =
-          state.uri.pathSegments.first == 'forgot-password';
+          state.uri.pathSegments.first == WelcomeRoutes.forgotPassword.name;
       final isWelcoming = isSigningIn || isRegistering || isForgotPassword;
 
-      final isOnboardingArtistName =
-          state.uri.pathSegments.first == 'artist-name';
-      final isOnboardingWorkplace = state.uri.pathSegments.first == 'workplace';
-      final isOnboarding = isOnboardingArtistName || isOnboardingWorkplace;
+      final isOnboarding = state.uri.pathSegments.first == '/onboarding';
 
       final isAppointments = state.uri.pathSegments.first == 'appointments';
       final isCustomers = state.uri.pathSegments.first == 'customers';

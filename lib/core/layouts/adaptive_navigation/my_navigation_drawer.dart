@@ -8,7 +8,7 @@ import 'package:octattoo_app/core/theme/widgets/brightness_button.dart';
 import 'package:octattoo_app/core/theme/widgets/color_selection_menu.dart';
 import 'package:octattoo_app/core/theme/widgets/image_selection_menu.dart';
 import 'package:octattoo_app/core/localization/l10n_extensions.dart';
-import 'package:octattoo_app/src/authentication/data/firebase_auth_repository.dart';
+import 'package:octattoo_app/src/authentication/application/app_user_service.dart';
 
 class MyNavigationDrawer extends StatelessWidget {
   const MyNavigationDrawer({
@@ -108,7 +108,7 @@ class TempLogOutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) => ElevatedButton(
-        onPressed: ref.read(authRepositoryProvider).signOut,
+        onPressed: ref.read(appUserServiceProvider).signOut,
         child: const Text('Log out'),
       ),
     );

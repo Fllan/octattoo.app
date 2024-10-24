@@ -1,4 +1,4 @@
-import 'package:octattoo_app/src/authentication/data/firebase_auth_repository.dart';
+import 'package:octattoo_app/src/authentication/application/app_user_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'anonymous_register_controller.g.dart';
@@ -11,9 +11,9 @@ class AnonymousRegisterController extends _$AnonymousRegisterController {
   }
 
   Future<bool> registerAnonymously() async {
-    final authRepository = ref.read(authRepositoryProvider);
+    final appUserService = ref.watch(appUserServiceProvider);
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() => authRepository.signInAnonymously());
+    state = await AsyncValue.guard(() => appUserService.signInAnonymously());
     return state.hasError == false;
   }
 }

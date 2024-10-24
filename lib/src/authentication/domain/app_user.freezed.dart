@@ -20,26 +20,14 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AppUser {
-  DateTime? get createdAt => throw _privateConstructorUsedError;
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
   String get uid => throw _privateConstructorUsedError;
-  UserRoles? get role => throw _privateConstructorUsedError;
-  bool? get onboardingCompleted => throw _privateConstructorUsedError;
-  bool? get emailVerified => throw _privateConstructorUsedError;
-  bool? get isAnonymous => throw _privateConstructorUsedError;
-  String? get firstname => throw _privateConstructorUsedError;
-  String? get lastname => throw _privateConstructorUsedError;
-  bool? get showPronoun => throw _privateConstructorUsedError;
-  String? get pronoun => throw _privateConstructorUsedError;
+  UserRoles get role => throw _privateConstructorUsedError;
+  bool get onboardingCompleted => throw _privateConstructorUsedError;
+  bool get emailVerified => throw _privateConstructorUsedError;
+  bool get isAnonymous => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
-  String? get phoneNumber => throw _privateConstructorUsedError;
-  String? get photoURL => throw _privateConstructorUsedError;
-  String? get bio => throw _privateConstructorUsedError;
-  String? get street => throw _privateConstructorUsedError;
-  String? get city => throw _privateConstructorUsedError;
-  String? get province => throw _privateConstructorUsedError;
-  String? get country => throw _privateConstructorUsedError;
-  String? get postalCode => throw _privateConstructorUsedError;
 
   /// Serializes this AppUser to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -56,26 +44,14 @@ abstract class $AppUserCopyWith<$Res> {
       _$AppUserCopyWithImpl<$Res, AppUser>;
   @useResult
   $Res call(
-      {DateTime? createdAt,
-      DateTime? updatedAt,
+      {DateTime createdAt,
+      DateTime updatedAt,
       String uid,
-      UserRoles? role,
-      bool? onboardingCompleted,
-      bool? emailVerified,
-      bool? isAnonymous,
-      String? firstname,
-      String? lastname,
-      bool? showPronoun,
-      String? pronoun,
-      String? email,
-      String? phoneNumber,
-      String? photoURL,
-      String? bio,
-      String? street,
-      String? city,
-      String? province,
-      String? country,
-      String? postalCode});
+      UserRoles role,
+      bool onboardingCompleted,
+      bool emailVerified,
+      bool isAnonymous,
+      String? email});
 }
 
 /// @nodoc
@@ -93,107 +69,47 @@ class _$AppUserCopyWithImpl<$Res, $Val extends AppUser>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
+    Object? createdAt = null,
+    Object? updatedAt = null,
     Object? uid = null,
-    Object? role = freezed,
-    Object? onboardingCompleted = freezed,
-    Object? emailVerified = freezed,
-    Object? isAnonymous = freezed,
-    Object? firstname = freezed,
-    Object? lastname = freezed,
-    Object? showPronoun = freezed,
-    Object? pronoun = freezed,
+    Object? role = null,
+    Object? onboardingCompleted = null,
+    Object? emailVerified = null,
+    Object? isAnonymous = null,
     Object? email = freezed,
-    Object? phoneNumber = freezed,
-    Object? photoURL = freezed,
-    Object? bio = freezed,
-    Object? street = freezed,
-    Object? city = freezed,
-    Object? province = freezed,
-    Object? country = freezed,
-    Object? postalCode = freezed,
   }) {
     return _then(_value.copyWith(
-      createdAt: freezed == createdAt
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      updatedAt: freezed == updatedAt
+              as DateTime,
+      updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
       uid: null == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String,
-      role: freezed == role
+      role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as UserRoles?,
-      onboardingCompleted: freezed == onboardingCompleted
+              as UserRoles,
+      onboardingCompleted: null == onboardingCompleted
           ? _value.onboardingCompleted
           : onboardingCompleted // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      emailVerified: freezed == emailVerified
+              as bool,
+      emailVerified: null == emailVerified
           ? _value.emailVerified
           : emailVerified // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      isAnonymous: freezed == isAnonymous
+              as bool,
+      isAnonymous: null == isAnonymous
           ? _value.isAnonymous
           : isAnonymous // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      firstname: freezed == firstname
-          ? _value.firstname
-          : firstname // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastname: freezed == lastname
-          ? _value.lastname
-          : lastname // ignore: cast_nullable_to_non_nullable
-              as String?,
-      showPronoun: freezed == showPronoun
-          ? _value.showPronoun
-          : showPronoun // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      pronoun: freezed == pronoun
-          ? _value.pronoun
-          : pronoun // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as bool,
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      phoneNumber: freezed == phoneNumber
-          ? _value.phoneNumber
-          : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as String?,
-      photoURL: freezed == photoURL
-          ? _value.photoURL
-          : photoURL // ignore: cast_nullable_to_non_nullable
-              as String?,
-      bio: freezed == bio
-          ? _value.bio
-          : bio // ignore: cast_nullable_to_non_nullable
-              as String?,
-      street: freezed == street
-          ? _value.street
-          : street // ignore: cast_nullable_to_non_nullable
-              as String?,
-      city: freezed == city
-          ? _value.city
-          : city // ignore: cast_nullable_to_non_nullable
-              as String?,
-      province: freezed == province
-          ? _value.province
-          : province // ignore: cast_nullable_to_non_nullable
-              as String?,
-      country: freezed == country
-          ? _value.country
-          : country // ignore: cast_nullable_to_non_nullable
-              as String?,
-      postalCode: freezed == postalCode
-          ? _value.postalCode
-          : postalCode // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -207,26 +123,14 @@ abstract class _$$AppUserImplCopyWith<$Res> implements $AppUserCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {DateTime? createdAt,
-      DateTime? updatedAt,
+      {DateTime createdAt,
+      DateTime updatedAt,
       String uid,
-      UserRoles? role,
-      bool? onboardingCompleted,
-      bool? emailVerified,
-      bool? isAnonymous,
-      String? firstname,
-      String? lastname,
-      bool? showPronoun,
-      String? pronoun,
-      String? email,
-      String? phoneNumber,
-      String? photoURL,
-      String? bio,
-      String? street,
-      String? city,
-      String? province,
-      String? country,
-      String? postalCode});
+      UserRoles role,
+      bool onboardingCompleted,
+      bool emailVerified,
+      bool isAnonymous,
+      String? email});
 }
 
 /// @nodoc
@@ -242,107 +146,47 @@ class __$$AppUserImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
+    Object? createdAt = null,
+    Object? updatedAt = null,
     Object? uid = null,
-    Object? role = freezed,
-    Object? onboardingCompleted = freezed,
-    Object? emailVerified = freezed,
-    Object? isAnonymous = freezed,
-    Object? firstname = freezed,
-    Object? lastname = freezed,
-    Object? showPronoun = freezed,
-    Object? pronoun = freezed,
+    Object? role = null,
+    Object? onboardingCompleted = null,
+    Object? emailVerified = null,
+    Object? isAnonymous = null,
     Object? email = freezed,
-    Object? phoneNumber = freezed,
-    Object? photoURL = freezed,
-    Object? bio = freezed,
-    Object? street = freezed,
-    Object? city = freezed,
-    Object? province = freezed,
-    Object? country = freezed,
-    Object? postalCode = freezed,
   }) {
     return _then(_$AppUserImpl(
-      createdAt: freezed == createdAt
+      createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      updatedAt: freezed == updatedAt
+              as DateTime,
+      updatedAt: null == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as DateTime,
       uid: null == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
               as String,
-      role: freezed == role
+      role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as UserRoles?,
-      onboardingCompleted: freezed == onboardingCompleted
+              as UserRoles,
+      onboardingCompleted: null == onboardingCompleted
           ? _value.onboardingCompleted
           : onboardingCompleted // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      emailVerified: freezed == emailVerified
+              as bool,
+      emailVerified: null == emailVerified
           ? _value.emailVerified
           : emailVerified // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      isAnonymous: freezed == isAnonymous
+              as bool,
+      isAnonymous: null == isAnonymous
           ? _value.isAnonymous
           : isAnonymous // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      firstname: freezed == firstname
-          ? _value.firstname
-          : firstname // ignore: cast_nullable_to_non_nullable
-              as String?,
-      lastname: freezed == lastname
-          ? _value.lastname
-          : lastname // ignore: cast_nullable_to_non_nullable
-              as String?,
-      showPronoun: freezed == showPronoun
-          ? _value.showPronoun
-          : showPronoun // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      pronoun: freezed == pronoun
-          ? _value.pronoun
-          : pronoun // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as bool,
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      phoneNumber: freezed == phoneNumber
-          ? _value.phoneNumber
-          : phoneNumber // ignore: cast_nullable_to_non_nullable
-              as String?,
-      photoURL: freezed == photoURL
-          ? _value.photoURL
-          : photoURL // ignore: cast_nullable_to_non_nullable
-              as String?,
-      bio: freezed == bio
-          ? _value.bio
-          : bio // ignore: cast_nullable_to_non_nullable
-              as String?,
-      street: freezed == street
-          ? _value.street
-          : street // ignore: cast_nullable_to_non_nullable
-              as String?,
-      city: freezed == city
-          ? _value.city
-          : city // ignore: cast_nullable_to_non_nullable
-              as String?,
-      province: freezed == province
-          ? _value.province
-          : province // ignore: cast_nullable_to_non_nullable
-              as String?,
-      country: freezed == country
-          ? _value.country
-          : country // ignore: cast_nullable_to_non_nullable
-              as String?,
-      postalCode: freezed == postalCode
-          ? _value.postalCode
-          : postalCode // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -350,76 +194,43 @@ class __$$AppUserImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AppUserImpl implements _AppUser {
+class _$AppUserImpl extends _AppUser {
   _$AppUserImpl(
-      {this.createdAt,
-      this.updatedAt,
+      {required this.createdAt,
+      required this.updatedAt,
       required this.uid,
-      this.role,
-      this.onboardingCompleted,
-      this.emailVerified,
-      this.isAnonymous,
-      this.firstname,
-      this.lastname,
-      this.showPronoun,
-      this.pronoun,
-      this.email,
-      this.phoneNumber,
-      this.photoURL,
-      this.bio,
-      this.street,
-      this.city,
-      this.province,
-      this.country,
-      this.postalCode});
+      required this.role,
+      this.onboardingCompleted = false,
+      this.emailVerified = false,
+      required this.isAnonymous,
+      this.email})
+      : super._();
 
   factory _$AppUserImpl.fromJson(Map<String, dynamic> json) =>
       _$$AppUserImplFromJson(json);
 
   @override
-  final DateTime? createdAt;
+  final DateTime createdAt;
   @override
-  final DateTime? updatedAt;
+  final DateTime updatedAt;
   @override
   final String uid;
   @override
-  final UserRoles? role;
+  final UserRoles role;
   @override
-  final bool? onboardingCompleted;
+  @JsonKey()
+  final bool onboardingCompleted;
   @override
-  final bool? emailVerified;
+  @JsonKey()
+  final bool emailVerified;
   @override
-  final bool? isAnonymous;
-  @override
-  final String? firstname;
-  @override
-  final String? lastname;
-  @override
-  final bool? showPronoun;
-  @override
-  final String? pronoun;
+  final bool isAnonymous;
   @override
   final String? email;
-  @override
-  final String? phoneNumber;
-  @override
-  final String? photoURL;
-  @override
-  final String? bio;
-  @override
-  final String? street;
-  @override
-  final String? city;
-  @override
-  final String? province;
-  @override
-  final String? country;
-  @override
-  final String? postalCode;
 
   @override
   String toString() {
-    return 'AppUser(createdAt: $createdAt, updatedAt: $updatedAt, uid: $uid, role: $role, onboardingCompleted: $onboardingCompleted, emailVerified: $emailVerified, isAnonymous: $isAnonymous, firstname: $firstname, lastname: $lastname, showPronoun: $showPronoun, pronoun: $pronoun, email: $email, phoneNumber: $phoneNumber, photoURL: $photoURL, bio: $bio, street: $street, city: $city, province: $province, country: $country, postalCode: $postalCode)';
+    return 'AppUser(createdAt: $createdAt, updatedAt: $updatedAt, uid: $uid, role: $role, onboardingCompleted: $onboardingCompleted, emailVerified: $emailVerified, isAnonymous: $isAnonymous, email: $email)';
   }
 
   @override
@@ -439,53 +250,13 @@ class _$AppUserImpl implements _AppUser {
                 other.emailVerified == emailVerified) &&
             (identical(other.isAnonymous, isAnonymous) ||
                 other.isAnonymous == isAnonymous) &&
-            (identical(other.firstname, firstname) ||
-                other.firstname == firstname) &&
-            (identical(other.lastname, lastname) ||
-                other.lastname == lastname) &&
-            (identical(other.showPronoun, showPronoun) ||
-                other.showPronoun == showPronoun) &&
-            (identical(other.pronoun, pronoun) || other.pronoun == pronoun) &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.phoneNumber, phoneNumber) ||
-                other.phoneNumber == phoneNumber) &&
-            (identical(other.photoURL, photoURL) ||
-                other.photoURL == photoURL) &&
-            (identical(other.bio, bio) || other.bio == bio) &&
-            (identical(other.street, street) || other.street == street) &&
-            (identical(other.city, city) || other.city == city) &&
-            (identical(other.province, province) ||
-                other.province == province) &&
-            (identical(other.country, country) || other.country == country) &&
-            (identical(other.postalCode, postalCode) ||
-                other.postalCode == postalCode));
+            (identical(other.email, email) || other.email == email));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hashAll([
-        runtimeType,
-        createdAt,
-        updatedAt,
-        uid,
-        role,
-        onboardingCompleted,
-        emailVerified,
-        isAnonymous,
-        firstname,
-        lastname,
-        showPronoun,
-        pronoun,
-        email,
-        phoneNumber,
-        photoURL,
-        bio,
-        street,
-        city,
-        province,
-        country,
-        postalCode
-      ]);
+  int get hashCode => Object.hash(runtimeType, createdAt, updatedAt, uid, role,
+      onboardingCompleted, emailVerified, isAnonymous, email);
 
   /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
@@ -503,71 +274,36 @@ class _$AppUserImpl implements _AppUser {
   }
 }
 
-abstract class _AppUser implements AppUser {
+abstract class _AppUser extends AppUser {
   factory _AppUser(
-      {final DateTime? createdAt,
-      final DateTime? updatedAt,
+      {required final DateTime createdAt,
+      required final DateTime updatedAt,
       required final String uid,
-      final UserRoles? role,
-      final bool? onboardingCompleted,
-      final bool? emailVerified,
-      final bool? isAnonymous,
-      final String? firstname,
-      final String? lastname,
-      final bool? showPronoun,
-      final String? pronoun,
-      final String? email,
-      final String? phoneNumber,
-      final String? photoURL,
-      final String? bio,
-      final String? street,
-      final String? city,
-      final String? province,
-      final String? country,
-      final String? postalCode}) = _$AppUserImpl;
+      required final UserRoles role,
+      final bool onboardingCompleted,
+      final bool emailVerified,
+      required final bool isAnonymous,
+      final String? email}) = _$AppUserImpl;
+  _AppUser._() : super._();
 
   factory _AppUser.fromJson(Map<String, dynamic> json) = _$AppUserImpl.fromJson;
 
   @override
-  DateTime? get createdAt;
+  DateTime get createdAt;
   @override
-  DateTime? get updatedAt;
+  DateTime get updatedAt;
   @override
   String get uid;
   @override
-  UserRoles? get role;
+  UserRoles get role;
   @override
-  bool? get onboardingCompleted;
+  bool get onboardingCompleted;
   @override
-  bool? get emailVerified;
+  bool get emailVerified;
   @override
-  bool? get isAnonymous;
-  @override
-  String? get firstname;
-  @override
-  String? get lastname;
-  @override
-  bool? get showPronoun;
-  @override
-  String? get pronoun;
+  bool get isAnonymous;
   @override
   String? get email;
-  @override
-  String? get phoneNumber;
-  @override
-  String? get photoURL;
-  @override
-  String? get bio;
-  @override
-  String? get street;
-  @override
-  String? get city;
-  @override
-  String? get province;
-  @override
-  String? get country;
-  @override
-  String? get postalCode;
 
   /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.

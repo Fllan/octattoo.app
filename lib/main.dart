@@ -1,6 +1,8 @@
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -11,15 +13,23 @@ import 'package:octattoo_app/src/app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // turn off the # in the URLs on the web
+  // * Turn off the # in the URLs on the web
   usePathUrlStrategy();
   // * Register error handlers. For more info, see:
   // * https://docs.flutter.dev/testing/errors
   registerErrorHandlers();
   // * Setup logger
   LoggerInitializer.setupLogger();
+  // * Setup Env
+  await dotenv.load();
   // * Initialize Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // * Initialize AppCheck
+  await FirebaseAppCheck.instance.activate(
+    webProvider: ReCaptchaEnterpriseProvider(dotenv.env['RECAPTCHA_KEY']!),
+    androidProvider: AndroidProvider.debug,
+    appleProvider: AppleProvider.appAttest,
+  );
   // * Entry point of the app
   runApp(const ProviderScope(
     child: MyApp(),

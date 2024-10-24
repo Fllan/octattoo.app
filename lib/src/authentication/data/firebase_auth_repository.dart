@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:octattoo_app/src/authentication/domain/app_user.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'firebase_auth_repository.g.dart';
@@ -9,36 +8,10 @@ class AuthRepository {
   final FirebaseAuth _auth;
 
   /// Listens to authentication state changes.
-  Stream<AppUser?> authStateChanges() =>
-      _auth.authStateChanges().map(_convertUser);
+  Stream<User?> authStateChanges() => _auth.authStateChanges();
 
   /// Gets the current authenticated user.
-  AppUser? get currentUser => _convertUser(_auth.currentUser);
-
-  AppUser? _convertUser(User? user) => user != null
-      ? AppUser(
-          uid: user.uid,
-          createdAt: null,
-          updatedAt: null,
-          role: null,
-          onboardingCompleted: null,
-          isAnonymous: user.isAnonymous,
-          firstname: null,
-          lastname: null,
-          showPronoun: null,
-          pronoun: null,
-          email: user.email,
-          phoneNumber: user.phoneNumber,
-          photoURL: user.photoURL,
-          bio: null,
-          street: null,
-          city: null,
-          province: null,
-          country: null,
-          postalCode: null,
-          emailVerified: user.emailVerified,
-        )
-      : null;
+  User? get currentUser => _auth.currentUser;
 
   /// Signs out the current user.
   Future<void> signOut() {
@@ -74,10 +47,8 @@ AuthRepository authRepository(AuthRepositoryRef ref) {
   return AuthRepository(FirebaseAuth.instance);
 }
 
-// * Using keepAlive since other providers need it to be an
-// * [AlwaysAliveProviderListenable]
 @Riverpod(keepAlive: true)
-Stream<AppUser?> authStateChanges(AuthStateChangesRef ref) {
+Stream<User?> authStateChanges(AuthStateChangesRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return authRepository.authStateChanges();
 }

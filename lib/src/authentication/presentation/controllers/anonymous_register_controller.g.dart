@@ -7,7 +7,7 @@ part of 'anonymous_register_controller.dart';
 // **************************************************************************
 
 String _$anonymousRegisterControllerHash() =>
-    r'de3e7b434c6f3ecfbc70605168524bbc60ac56f1';
+    r'6cb05499b5333c7921c9091e174fdd6f4fcb7767';
 
 /// See also [AnonymousRegisterController].
 @ProviderFor(AnonymousRegisterController)

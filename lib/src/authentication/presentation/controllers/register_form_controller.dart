@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:octattoo_app/src/authentication/data/firebase_auth_repository.dart';
+import 'package:octattoo_app/src/authentication/application/app_user_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'register_form_controller.g.dart';
@@ -12,10 +12,10 @@ class RegisterFormController extends _$RegisterFormController {
   }
 
   Future<bool> submit({required String email, required String password}) async {
-    final authRepository = ref.read(authRepositoryProvider);
+    final appUserService = ref.watch(appUserServiceProvider);
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(
-        () => authRepository.createUserWithEmailAndPassword(email, password));
+    state = await AsyncValue.guard(() =>
+        appUserService.createAppUserWithEmailAndPassword(email, password));
     return state.hasError == false;
   }
 

@@ -8,27 +8,16 @@ part 'app_user.g.dart';
 /// A class that represents a [AppUser] in the app.
 @freezed
 class AppUser with _$AppUser {
+  const AppUser._();
   factory AppUser({
-    DateTime? createdAt,
-    DateTime? updatedAt,
+    required DateTime createdAt,
+    required DateTime updatedAt,
     required String uid,
-    UserRoles? role,
-    bool? onboardingCompleted,
-    bool? emailVerified,
-    bool? isAnonymous,
-    String? firstname,
-    String? lastname,
-    bool? showPronoun,
-    String? pronoun,
+    required UserRoles role,
+    @Default(false) bool onboardingCompleted,
+    @Default(false) bool emailVerified,
+    required bool isAnonymous,
     String? email,
-    String? phoneNumber,
-    String? photoURL,
-    String? bio,
-    String? street,
-    String? city,
-    String? province,
-    String? country,
-    String? postalCode,
   }) = _AppUser;
 
   /// Creates a new [AppUser] from a JSON map.
@@ -42,4 +31,8 @@ class AppUser with _$AppUser {
 
   /// Converts this [AppUser] to a JSON map.
   static Map<String, Object?> toFirestore(AppUser user) => user.toJson();
+
+  bool isOnboarded() {
+    return onboardingCompleted;
+  }
 }
