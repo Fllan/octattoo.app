@@ -8,8 +8,8 @@ import 'package:octattoo_app/src/authentication/presentation/controllers/registe
 import 'package:octattoo_app/src/authentication/presentation/widgets/forms/email_password_register_form.dart';
 import 'package:octattoo_app/src/shared/widgets/async_value_ui.dart';
 import 'package:octattoo_app/src/shared/widgets/material_text.dart';
-import 'package:octattoo_app/src/shared/widgets/primary_button.dart';
-import 'package:octattoo_app/src/shared/widgets/tertiary_button.dart';
+import 'package:octattoo_app/src/shared/widgets/buttons/primary_button.dart';
+import 'package:octattoo_app/src/shared/widgets/buttons/tertiary_button.dart';
 
 class RegisterWidget extends ConsumerStatefulWidget {
   const RegisterWidget({super.key});

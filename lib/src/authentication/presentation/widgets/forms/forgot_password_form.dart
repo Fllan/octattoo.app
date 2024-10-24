@@ -7,7 +7,7 @@ import 'package:octattoo_app/src/authentication/presentation/controllers/forgot_
 import 'package:octattoo_app/src/shared/validators/email_validator.dart';
 import 'package:octattoo_app/src/shared/widgets/app_text_form_field.dart';
 import 'package:octattoo_app/src/shared/widgets/material_text.dart';
-import 'package:octattoo_app/src/shared/widgets/primary_button.dart';
+import 'package:octattoo_app/src/shared/widgets/buttons/primary_button.dart';
 
 class ForgotPasswordForm extends StatelessWidget {
   const ForgotPasswordForm({

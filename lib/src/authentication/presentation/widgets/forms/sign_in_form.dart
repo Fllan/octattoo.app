@@ -8,8 +8,8 @@ import 'package:octattoo_app/src/shared/validators/email_validator.dart';
 import 'package:octattoo_app/src/shared/widgets/app_text_form_field.dart';
 import 'package:octattoo_app/src/shared/widgets/material_text.dart';
 import 'package:octattoo_app/src/shared/widgets/password_text_form_field.dart';
-import 'package:octattoo_app/src/shared/widgets/primary_button.dart';
-import 'package:octattoo_app/src/shared/widgets/tertiary_button.dart';
+import 'package:octattoo_app/src/shared/widgets/buttons/primary_button.dart';
+import 'package:octattoo_app/src/shared/widgets/buttons/tertiary_button.dart';
 
 class SignInForm extends StatelessWidget {
   const SignInForm({

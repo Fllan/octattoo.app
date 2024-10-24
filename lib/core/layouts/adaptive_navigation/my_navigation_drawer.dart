@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app/core/constants/gaps.dart';
 import 'package:octattoo_app/core/constants/primary_destinations.dart';
@@ -7,6 +8,7 @@ import 'package:octattoo_app/core/theme/widgets/brightness_button.dart';
 import 'package:octattoo_app/core/theme/widgets/color_selection_menu.dart';
 import 'package:octattoo_app/core/theme/widgets/image_selection_menu.dart';
 import 'package:octattoo_app/core/localization/l10n_extensions.dart';
+import 'package:octattoo_app/src/authentication/data/firebase_auth_repository.dart';
 
 class MyNavigationDrawer extends StatelessWidget {
   const MyNavigationDrawer({
@@ -56,7 +58,7 @@ class MyNavigationDrawer extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(28, 16, 16, 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.max,
             children: [
               Divider(
                 color: Theme.of(context).colorScheme.outline,
@@ -78,10 +80,37 @@ class MyNavigationDrawer extends StatelessWidget {
                   ImageSelectionMenu(),
                 ],
               ),
+              gapH16,
+              Divider(
+                color: Theme.of(context).colorScheme.outline,
+                thickness: 1,
+                height: 1,
+              ),
             ],
           ),
         ),
+        gapH64,
+        const Align(
+          alignment: Alignment.bottomCenter,
+          child: TempLogOutButton(),
+        )
       ],
+    );
+  }
+}
+
+class TempLogOutButton extends StatelessWidget {
+  const TempLogOutButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(
+      builder: (context, ref, _) => ElevatedButton(
+        onPressed: ref.read(authRepositoryProvider).signOut,
+        child: const Text('Log out'),
+      ),
     );
   }
 }
