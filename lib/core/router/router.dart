@@ -17,37 +17,37 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'router.g.dart';
 
-final _rootNavigatorKey = GlobalKey<NavigatorState>();
-final _shellNavigatorSignInKey =
-    GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorSignIn');
-final _shellNavigatorRegisterKey =
-    GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorRegister');
-final _shellNavigatorOnboardingKey =
-    GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorOnboarding');
-final _shellNavigatorAppointmentsKey =
-    GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorAppointments');
-final _shellNavigatorCustomersKey =
-    GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorCustomers');
-final _shellNavigatorProjectsKey =
-    GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorProjects');
-final _shellNavigatorArtistProfileKey =
-    GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorArtistProfile');
-final _shellNavigatorFinanceKey =
-    GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorFinance');
-final _shellNavigatorInventoryKey =
-    GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorInventory');
-final _shellNavigatorSettingsKey =
-    GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorSettings');
-
 @riverpod
 GoRouter goRouter(Ref ref) {
   final appStartupState = ref.watch(appStartupProvider);
   final authRepository = ref.watch(authRepositoryProvider);
   final currentAppUserAsync = ref.watch(currentAppUserProvider);
 
+  final rootNavigatorKey = GlobalKey<NavigatorState>();
+  final shellNavigatorSignInKey =
+      GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorSignIn');
+  final shellNavigatorRegisterKey =
+      GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorRegister');
+  final shellNavigatorOnboardingKey =
+      GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorOnboarding');
+  final shellNavigatorAppointmentsKey =
+      GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorAppointments');
+  final shellNavigatorCustomersKey =
+      GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorCustomers');
+  final shellNavigatorProjectsKey =
+      GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorProjects');
+  final shellNavigatorArtistProfileKey =
+      GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorArtistProfile');
+  final shellNavigatorFinanceKey =
+      GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorFinance');
+  final shellNavigatorInventoryKey =
+      GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorInventory');
+  final shellNavigatorSettingsKey =
+      GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorSettings');
+
   return GoRouter(
     initialLocation: '/startup',
-    navigatorKey: _rootNavigatorKey,
+    navigatorKey: rootNavigatorKey,
     refreshListenable: GoRouterRefreshStream(authRepository.authStateChanges()),
     debugLogDiagnostics: false,
     redirect: (context, state) {
@@ -132,7 +132,7 @@ GoRouter goRouter(Ref ref) {
         },
         branches: [
           StatefulShellBranch(
-            navigatorKey: _shellNavigatorSignInKey,
+            navigatorKey: shellNavigatorSignInKey,
             routes: [
               GoRoute(
                 path: WelcomeRoutes.signIn.path,
@@ -150,7 +150,7 @@ GoRouter goRouter(Ref ref) {
             ],
           ),
           StatefulShellBranch(
-            navigatorKey: _shellNavigatorRegisterKey,
+            navigatorKey: shellNavigatorRegisterKey,
             routes: [
               GoRoute(
                 path: WelcomeRoutes.register.path,
@@ -172,7 +172,7 @@ GoRouter goRouter(Ref ref) {
         },
         branches: [
           StatefulShellBranch(
-            navigatorKey: _shellNavigatorOnboardingKey,
+            navigatorKey: shellNavigatorOnboardingKey,
             routes: [
               GoRoute(
                 path: '/onboarding',
@@ -194,7 +194,7 @@ GoRouter goRouter(Ref ref) {
         },
         branches: [
           StatefulShellBranch(
-            navigatorKey: _shellNavigatorAppointmentsKey,
+            navigatorKey: shellNavigatorAppointmentsKey,
             routes: [
               GoRoute(
                 path: AppRoutes.appointments.path,
@@ -213,7 +213,7 @@ GoRouter goRouter(Ref ref) {
             ],
           ),
           StatefulShellBranch(
-            navigatorKey: _shellNavigatorCustomersKey,
+            navigatorKey: shellNavigatorCustomersKey,
             routes: [
               GoRoute(
                 path: AppRoutes.customers.path,
@@ -231,7 +231,7 @@ GoRouter goRouter(Ref ref) {
             ],
           ),
           StatefulShellBranch(
-            navigatorKey: _shellNavigatorProjectsKey,
+            navigatorKey: shellNavigatorProjectsKey,
             routes: [
               GoRoute(
                 path: '/projects',
@@ -242,7 +242,7 @@ GoRouter goRouter(Ref ref) {
             ],
           ),
           StatefulShellBranch(
-            navigatorKey: _shellNavigatorArtistProfileKey,
+            navigatorKey: shellNavigatorArtistProfileKey,
             routes: [
               GoRoute(
                 path: '/artist-profile',
@@ -253,7 +253,7 @@ GoRouter goRouter(Ref ref) {
             ],
           ),
           StatefulShellBranch(
-            navigatorKey: _shellNavigatorFinanceKey,
+            navigatorKey: shellNavigatorFinanceKey,
             routes: [
               GoRoute(
                 path: '/finance',
@@ -264,7 +264,7 @@ GoRouter goRouter(Ref ref) {
             ],
           ),
           StatefulShellBranch(
-            navigatorKey: _shellNavigatorInventoryKey,
+            navigatorKey: shellNavigatorInventoryKey,
             routes: [
               GoRoute(
                 path: '/inventory',
@@ -275,7 +275,7 @@ GoRouter goRouter(Ref ref) {
             ],
           ),
           StatefulShellBranch(
-            navigatorKey: _shellNavigatorSettingsKey,
+            navigatorKey: shellNavigatorSettingsKey,
             routes: [
               GoRoute(
                 path: '/settings',
