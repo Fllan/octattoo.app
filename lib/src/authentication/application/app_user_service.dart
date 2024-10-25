@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:octattoo_app/src/authentication/data/firebase_app_user_repository.dart';
 import 'package:octattoo_app/src/authentication/data/firebase_auth_repository.dart';
 import 'package:octattoo_app/src/authentication/domain/app_user.dart';
@@ -40,7 +41,7 @@ class AppUserService {
 }
 
 @Riverpod(keepAlive: true)
-AppUserService appUserService(AppUserServiceRef ref) {
+AppUserService appUserService(Ref ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   final appUserRepository = ref.watch(appUserRepositoryProvider);
   return AppUserService(authRepository, appUserRepository);

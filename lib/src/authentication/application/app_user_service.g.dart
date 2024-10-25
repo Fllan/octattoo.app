@@ -6,7 +6,7 @@ part of 'app_user_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appUserServiceHash() => r'58d33c485e1518dc8cc01de357547bcf517eef24';
+String _$appUserServiceHash() => r'0d8c5afe2264e8c5e098743393cfd22b905c791b';
 
 /// See also [appUserService].
 @ProviderFor(appUserService)
@@ -20,6 +20,8 @@ final appUserServiceProvider = Provider<AppUserService>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef AppUserServiceRef = ProviderRef<AppUserService>;
 String _$currentAppUserHash() => r'191261e0b1cf5a42177645ec65f8b1f95469e675';
 
@@ -38,4 +40,4 @@ final currentAppUserProvider =
 
 typedef _$CurrentAppUser = AutoDisposeAsyncNotifier<AppUser?>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:octattoo_app/core/constants/user_roles.dart';
 import 'package:octattoo_app/src/authentication/domain/app_user.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -45,6 +46,6 @@ class AppUserRepository {
 }
 
 @Riverpod(keepAlive: true)
-AppUserRepository appUserRepository(AppUserRepositoryRef ref) {
+AppUserRepository appUserRepository(Ref ref) {
   return AppUserRepository(FirebaseFirestore.instance);
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_app/core/layouts/adaptive_scaffold/adaptive_scaffold.dart';
 import 'package:octattoo_app/core/constants/primary_destinations.dart';
@@ -39,7 +40,7 @@ final _shellNavigatorSettingsKey =
     GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorSettings');
 
 @riverpod
-GoRouter goRouter(GoRouterRef ref) {
+GoRouter goRouter(Ref ref) {
   final appStartupState = ref.watch(appStartupProvider);
   final authRepository = ref.watch(authRepositoryProvider);
   final currentAppUserAsync = ref.watch(currentAppUserProvider);
@@ -162,11 +163,11 @@ GoRouter goRouter(GoRouterRef ref) {
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
-          List<PrimaryDestination> welcomeDestinations =
+          List<PrimaryDestination> onboardingDest =
               createOnboardingDestinations(context);
           return AdaptiveScaffold(
             navigationShell: navigationShell,
-            destinations: welcomeDestinations,
+            destinations: onboardingDest,
           );
         },
         branches: [

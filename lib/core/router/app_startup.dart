@@ -11,7 +11,7 @@ part 'app_startup.g.dart';
 // * Many thanks to Andrea Bizzotto for this approach ♥
 // * https://codewithandrea.com/articles/robust-app-initialization-riverpod/
 @Riverpod(keepAlive: true)
-Future<void> appStartup(AppStartupRef ref) async {
+Future<void> appStartup(Ref ref) async {
   ref.onDispose(() {
     // * ensure dependent providers are disposed as well
     // ref.invalidate(onboardingRepositoryProvider);
