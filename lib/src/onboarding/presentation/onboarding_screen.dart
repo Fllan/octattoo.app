@@ -12,10 +12,7 @@ class OnBoardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Align(
       alignment: Alignment.center,
-      child: SizedBox(
-        width: 800,
-        child: OnBoardingStepper(),
-      ),
+      child: OnBoardingStepper(),
     );
   }
 }

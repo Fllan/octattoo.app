@@ -22,13 +22,12 @@ class AppUserService {
 
   Future<void> signOut() => authRepository.signOut();
 
-  Future<void> signInAnonymously() {
-    authRepository.signInAnonymously();
+  Future<void> signInAnonymously() async {
+    await authRepository.signInAnonymously();
     final user = authRepository.currentUser;
     if (user != null) {
-      return appUserRepository.add(user);
+      await appUserRepository.add(user);
     }
-    throw Exception();
   }
 
   Future<void> createAppUserWithEmailAndPassword(

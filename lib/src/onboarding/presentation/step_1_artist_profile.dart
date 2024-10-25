@@ -5,6 +5,12 @@ class Step1ArtistProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const Align(
+      alignment: AlignmentDirectional.topStart,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [],
+      ),
+    );
   }
 }
