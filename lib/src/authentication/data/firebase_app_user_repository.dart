@@ -13,7 +13,7 @@ class AppUserRepository {
 
   CollectionReference get usersCollection => firestore.collection('users');
 
-  Future<void> add(User user) async {
+  Future<void> add(User user) {
     final appUser = AppUser(
       uid: user.uid,
       email: user.email,
@@ -25,7 +25,7 @@ class AppUserRepository {
       role: UserRoles.artist,
     );
 
-    await usersCollection.doc(user.uid).set(AppUser.toFirestore(appUser));
+    return usersCollection.doc(user.uid).set(AppUser.toFirestore(appUser));
   }
 
   Future<AppUser?> get(String uid) async {
@@ -36,12 +36,12 @@ class AppUserRepository {
     return null;
   }
 
-  Future<void> update(String uid, Map<String, dynamic> updatedData) async {
-    await usersCollection.doc(uid).update(updatedData);
+  Future<void> update(String uid, Map<String, dynamic> updatedData) {
+    return usersCollection.doc(uid).update(updatedData);
   }
 
-  Future<void> delete(String uid) async {
-    await usersCollection.doc(uid).delete();
+  Future<void> delete(String uid) {
+    return usersCollection.doc(uid).delete();
   }
 }
 
