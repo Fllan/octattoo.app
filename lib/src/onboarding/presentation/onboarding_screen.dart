@@ -26,12 +26,14 @@ class OnBoardingStepper extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final stepperController = ref.watch(stepperControllerProvider);
     final stepperNotifier = ref.read(stepperControllerProvider.notifier);
+    final currentStep = stepperController.currentStep;
     return Stepper(
-      currentStep: stepperNotifier.currentStep,
+      currentStep: stepperController.currentStep,
       controlsBuilder: (context, details) {
-        bool isLastStep = stepperNotifier.currentStep == 2;
-        bool isFirstStep = stepperNotifier.currentStep == 0;
+        bool isLastStep = currentStep == 2;
+        bool isFirstStep = currentStep == 0;
         return Padding(
           padding: const EdgeInsets.fromLTRB(0, 64, 0, 0),
           child: Row(
@@ -43,12 +45,7 @@ class OnBoardingStepper extends ConsumerWidget {
                     )
                   : PrimaryButton(
                       label: Text('Continue'.hardcoded),
-                      //!
-                      //!
-                      //! Trigger UI when change of state....
-                      //!
-                      //!
-                      onPressed: stepperNotifier.isValidStep1
+                      onPressed: stepperController.isValidStep1
                           ? () => stepperNotifier.nextStep()
                           : null,
                     ),
@@ -57,7 +54,7 @@ class OnBoardingStepper extends ConsumerWidget {
                   ? Container()
                   : TertiaryButton(
                       label: Text('Cancel'.hardcoded),
-                      onPressed: details.onStepCancel,
+                      onPressed: () => stepperNotifier.previousStep(),
                     ),
             ],
           ),
@@ -65,15 +62,18 @@ class OnBoardingStepper extends ConsumerWidget {
       },
       steps: [
         Step(
+          state: stepperNotifier.getStepState(0),
           title: MaterialText.titleMedium('Artist Profile'.hardcoded, context),
           content: const Step1ArtistProfile(),
         ),
         Step(
+          state: stepperNotifier.getStepState(1),
           title:
               MaterialText.titleMedium('Add your Workplace'.hardcoded, context),
           content: const Step2AddWorkplace(),
         ),
         Step(
+          state: stepperNotifier.getStepState(2),
           title: MaterialText.titleMedium('Confirmation'.hardcoded, context),
           content: const Step3Confirmation(),
         ),

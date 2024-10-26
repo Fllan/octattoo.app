@@ -18,7 +18,7 @@ class Step1ArtistProfile extends ConsumerWidget {
     return Align(
       alignment: AlignmentDirectional.topStart,
       child: Form(
-        onChanged: () => step1Notifier.formValidator(),
+        onChanged: step1Notifier.validateForm,
         key: step1Notifier.formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,17 +40,17 @@ class Step1ArtistProfile extends ConsumerWidget {
             SwitchListTile(
               title: Text('I want to show my real name'.hardcoded),
               controlAffinity: ListTileControlAffinity.leading,
-              value: step1Notifier.realNameIsVisible,
+              value: step1Controller.realNameIsVisible,
               onChanged: (value) => step1Notifier.toggleRealName(),
             ),
             Visibility(
-              visible: step1Notifier.realNameIsVisible,
+              visible: step1Controller.realNameIsVisible,
               child: Column(
                 children: [
                   gapH16,
                   AppTextFormField(
                     controller: step1Notifier.realNameController,
-                    validator: (value) => step1Notifier.realNameIsVisible
+                    validator: (value) => step1Controller.realNameIsVisible
                         ? default3CharValidator(
                             value, 'Please enter your real name'.hardcoded)
                         : null,
@@ -65,17 +65,17 @@ class Step1ArtistProfile extends ConsumerWidget {
             SwitchListTile(
               title: Text('I want to show my pronoun'.hardcoded),
               controlAffinity: ListTileControlAffinity.leading,
-              value: step1Notifier.pronounIsVisible,
+              value: step1Controller.pronounIsVisible,
               onChanged: (value) => step1Notifier.togglePronoun(),
             ),
             Visibility(
-              visible: step1Notifier.pronounIsVisible,
+              visible: step1Controller.pronounIsVisible,
               child: Column(
                 children: [
                   gapH16,
                   AppTextFormField(
                     controller: step1Notifier.pronounController,
-                    validator: (value) => step1Notifier.pronounIsVisible
+                    validator: (value) => step1Controller.pronounIsVisible
                         ? default3CharValidator(
                             value, 'Please enter your pronoun'.hardcoded)
                         : null,

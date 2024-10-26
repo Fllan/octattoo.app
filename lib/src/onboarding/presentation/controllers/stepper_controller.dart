@@ -1,31 +1,45 @@
+import 'package:flutter/material.dart';
+import 'package:octattoo_app/src/onboarding/presentation/controllers/stepper_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'stepper_controller.g.dart';
 
 @riverpod
 class StepperController extends _$StepperController {
-  //!
-  //!
-  //! WORK IN PROGRESS
-  //!
-  //!
-  int currentStep = 0;
-  bool isValidStep1 = false;
-  bool isValidStep2 = false;
-
   @override
-  FutureOr<void> build() {}
+  StepperState build() {
+    return StepperState();
+  }
 
   void updateStepValidation(int step, bool isValid) {
     if (step == 0) {
-      isValidStep1 = isValid;
+      state = state.setStep1Validation(isValid);
     } else if (step == 1) {
-      isValidStep2 = isValid;
+      state = state.setStep2Validation(isValid);
     }
-    state = const AsyncValue.data(null);
   }
 
-  void nextStep() {
-    currentStep += 1;
+  void nextStep() => state = state.nextStep();
+
+  void previousStep() => state = state.previousStep();
+
+  StepState getStepState(int stepIndex) {
+    if (stepIndex == 0) {
+      return state.isValidStep1
+          ? StepState.complete
+          : state.currentStep == stepIndex
+              ? StepState.editing
+              : StepState.indexed;
+    } else if (stepIndex == 1) {
+      return state.isValidStep2
+          ? StepState.complete
+          : state.currentStep == stepIndex
+              ? StepState.editing
+              : StepState.indexed;
+    } else {
+      return state.currentStep == stepIndex
+          ? StepState.complete
+          : StepState.indexed;
+    }
   }
 }

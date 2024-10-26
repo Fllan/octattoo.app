@@ -26,7 +26,7 @@ class AppUserService {
     await authRepository.signInAnonymously();
     final user = authRepository.currentUser;
     if (user != null) {
-      await appUserRepository.add(user);
+      return appUserRepository.add(user);
     }
   }
 

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:octattoo_app/core/utils/logger.dart';
+import 'package:octattoo_app/src/onboarding/presentation/controllers/step_1_state.dart';
 import 'package:octattoo_app/src/onboarding/presentation/controllers/stepper_controller.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -6,36 +8,38 @@ part 'step_1_controller.g.dart';
 
 @riverpod
 class Step1Controller extends _$Step1Controller {
-  bool realNameIsVisible = false;
-  bool pronounIsVisible = false;
   final TextEditingController artistNameController = TextEditingController();
   final TextEditingController realNameController = TextEditingController();
   final TextEditingController pronounController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
-  FutureOr<void> build() {}
+  Step1State build() {
+    return Step1State();
+  }
 
   void toggleRealName() {
-    realNameIsVisible = !realNameIsVisible;
-    state = const AsyncValue.data(null);
+    state = state.toggleRealName();
+    Future.delayed(const Duration(milliseconds: 50), validateForm);
   }
 
   void togglePronoun() {
-    pronounIsVisible = !pronounIsVisible;
-    state = const AsyncValue.data(null);
+    state = state.togglePronoun();
+    Future.delayed(const Duration(milliseconds: 50), validateForm);
   }
 
-  bool formValidator() {
+  void validateForm() {
     final stepperController = ref.read(stepperControllerProvider.notifier);
-    if (artistNameController.text.isNotEmpty &&
-        formKey.currentState != null &&
-        (realNameIsVisible ? realNameController.text.isNotEmpty : true) &&
-        (pronounIsVisible ? pronounController.text.isNotEmpty : true)) {
-      stepperController.updateStepValidation(
-          0, formKey.currentState!.validate());
-      return formKey.currentState!.validate();
-    }
-    return false;
+
+    bool isFormValid = formKey.currentState?.validate() ?? false;
+    bool isRealNameFilled =
+        state.realNameIsVisible ? realNameController.text.isNotEmpty : true;
+    bool isPronounFilled =
+        state.pronounIsVisible ? pronounController.text.isNotEmpty : true;
+
+    bool isValid = isFormValid && isRealNameFilled && isPronounFilled;
+    logger.i(
+        'isValid ($isValid) = isFormValid ($isFormValid) && isRealNameFilled ($isRealNameFilled) && isPronounFilled ($isPronounFilled)');
+    stepperController.updateStepValidation(0, isValid);
   }
 }

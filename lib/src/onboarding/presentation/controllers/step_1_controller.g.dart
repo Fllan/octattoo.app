@@ -6,12 +6,12 @@ part of 'step_1_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$step1ControllerHash() => r'b5d0754447a7401054e07d3e718486a4f85c7b68';
+String _$step1ControllerHash() => r'eb7808410e9e09077902de2aba80f41afd71e53b';
 
 /// See also [Step1Controller].
 @ProviderFor(Step1Controller)
 final step1ControllerProvider =
-    AutoDisposeAsyncNotifierProvider<Step1Controller, void>.internal(
+    AutoDisposeNotifierProvider<Step1Controller, Step1State>.internal(
   Step1Controller.new,
   name: r'step1ControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,6 +21,6 @@ final step1ControllerProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$Step1Controller = AutoDisposeAsyncNotifier<void>;
+typedef _$Step1Controller = AutoDisposeNotifier<Step1State>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
