@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:octattoo_app/core/utils/logger.dart';
 import 'package:octattoo_app/src/onboarding/presentation/controllers/step_1_state.dart';
 import 'package:octattoo_app/src/onboarding/presentation/controllers/stepper_controller.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -30,16 +29,12 @@ class Step1Controller extends _$Step1Controller {
 
   void validateForm() {
     final stepperController = ref.read(stepperControllerProvider.notifier);
-
     bool isFormValid = formKey.currentState?.validate() ?? false;
     bool isRealNameFilled =
         state.realNameIsVisible ? realNameController.text.isNotEmpty : true;
     bool isPronounFilled =
         state.pronounIsVisible ? pronounController.text.isNotEmpty : true;
-
     bool isValid = isFormValid && isRealNameFilled && isPronounFilled;
-    logger.i(
-        'isValid ($isValid) = isFormValid ($isFormValid) && isRealNameFilled ($isRealNameFilled) && isPronounFilled ($isPronounFilled)');
     stepperController.updateStepValidation(0, isValid);
   }
 }

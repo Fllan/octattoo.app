@@ -30,7 +30,7 @@ class OnBoardingStepper extends ConsumerWidget {
     final stepperNotifier = ref.read(stepperControllerProvider.notifier);
     final currentStep = stepperController.currentStep;
     return Stepper(
-      currentStep: stepperController.currentStep,
+      currentStep: currentStep,
       controlsBuilder: (context, details) {
         bool isLastStep = currentStep == 2;
         bool isFirstStep = currentStep == 0;

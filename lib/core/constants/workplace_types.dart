@@ -1,0 +1,4 @@
+enum WorkplaceTypes {
+  permanent,
+  guest,
+}

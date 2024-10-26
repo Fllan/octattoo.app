@@ -12,14 +12,14 @@ class Step1ArtistProfile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final step1Controller = ref.watch(step1ControllerProvider);
-    final step1Notifier = ref.read(step1ControllerProvider.notifier);
+    final state = ref.watch(step1ControllerProvider);
+    final step1Controller = ref.read(step1ControllerProvider.notifier);
     const keyboardType = TextInputType.name;
     return Align(
       alignment: AlignmentDirectional.topStart,
       child: Form(
-        onChanged: step1Notifier.validateForm,
-        key: step1Notifier.formKey,
+        onChanged: step1Controller.validateForm,
+        key: step1Controller.formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -29,7 +29,7 @@ class Step1ArtistProfile extends ConsumerWidget {
                 context),
             gapH32,
             AppTextFormField(
-              controller: step1Notifier.artistNameController,
+              controller: step1Controller.artistNameController,
               validator: (value) => default3CharValidator(
                   value, 'Please enter your artist name'.hardcoded),
               label: 'Your artist name'.hardcoded,
@@ -40,17 +40,17 @@ class Step1ArtistProfile extends ConsumerWidget {
             SwitchListTile(
               title: Text('I want to show my real name'.hardcoded),
               controlAffinity: ListTileControlAffinity.leading,
-              value: step1Controller.realNameIsVisible,
-              onChanged: (value) => step1Notifier.toggleRealName(),
+              value: state.realNameIsVisible,
+              onChanged: (value) => step1Controller.toggleRealName(),
             ),
             Visibility(
-              visible: step1Controller.realNameIsVisible,
+              visible: state.realNameIsVisible,
               child: Column(
                 children: [
                   gapH16,
                   AppTextFormField(
-                    controller: step1Notifier.realNameController,
-                    validator: (value) => step1Controller.realNameIsVisible
+                    controller: step1Controller.realNameController,
+                    validator: (value) => state.realNameIsVisible
                         ? default3CharValidator(
                             value, 'Please enter your real name'.hardcoded)
                         : null,
@@ -65,17 +65,17 @@ class Step1ArtistProfile extends ConsumerWidget {
             SwitchListTile(
               title: Text('I want to show my pronoun'.hardcoded),
               controlAffinity: ListTileControlAffinity.leading,
-              value: step1Controller.pronounIsVisible,
-              onChanged: (value) => step1Notifier.togglePronoun(),
+              value: state.pronounIsVisible,
+              onChanged: (value) => step1Controller.togglePronoun(),
             ),
             Visibility(
-              visible: step1Controller.pronounIsVisible,
+              visible: state.pronounIsVisible,
               child: Column(
                 children: [
                   gapH16,
                   AppTextFormField(
-                    controller: step1Notifier.pronounController,
-                    validator: (value) => step1Controller.pronounIsVisible
+                    controller: step1Controller.pronounController,
+                    validator: (value) => state.pronounIsVisible
                         ? default3CharValidator(
                             value, 'Please enter your pronoun'.hardcoded)
                         : null,
