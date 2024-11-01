@@ -8,8 +8,12 @@ class Step2State with _$Step2State {
   const Step2State._();
   factory Step2State({
     @Default(null) WorkplaceTypes? workplaceType,
+    @Default('') String searchTerm,
   }) = _Step2State;
 
   Step2State setWorkplaceType(WorkplaceTypes? type) =>
       copyWith(workplaceType: type);
+
+  Step2State updateSearchTerm(String searchTerm) =>
+      copyWith(searchTerm: searchTerm);
 }

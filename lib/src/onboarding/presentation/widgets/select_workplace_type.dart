@@ -18,7 +18,7 @@ class SelectWorkplaceType extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           MaterialText.labelLarge(
-              'Add your first workplace by selecting a type. You can add other workplaces later.'
+              'We consider two types of workplaces. Pick the one that fits better.'
                   .hardcoded,
               context),
           gapH32,

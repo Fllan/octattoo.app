@@ -20,6 +20,7 @@ Workplace _$WorkplaceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Workplace {
+  String get id => throw _privateConstructorUsedError;
   String get creatorUid => throw _privateConstructorUsedError;
   String get managerUid => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
@@ -47,7 +48,8 @@ abstract class $WorkplaceCopyWith<$Res> {
       _$WorkplaceCopyWithImpl<$Res, Workplace>;
   @useResult
   $Res call(
-      {String creatorUid,
+      {String id,
+      String creatorUid,
       String managerUid,
       DateTime createdAt,
       DateTime updatedAt,
@@ -74,6 +76,7 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? creatorUid = null,
     Object? managerUid = null,
     Object? createdAt = null,
@@ -86,6 +89,10 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
     Object? postalCode = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       creatorUid: null == creatorUid
           ? _value.creatorUid
           : creatorUid // ignore: cast_nullable_to_non_nullable
@@ -139,7 +146,8 @@ abstract class _$$WorkplaceImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String creatorUid,
+      {String id,
+      String creatorUid,
       String managerUid,
       DateTime createdAt,
       DateTime updatedAt,
@@ -164,6 +172,7 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? creatorUid = null,
     Object? managerUid = null,
     Object? createdAt = null,
@@ -176,6 +185,10 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
     Object? postalCode = null,
   }) {
     return _then(_$WorkplaceImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       creatorUid: null == creatorUid
           ? _value.creatorUid
           : creatorUid // ignore: cast_nullable_to_non_nullable
@@ -222,9 +235,10 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$WorkplaceImpl implements _Workplace {
+class _$WorkplaceImpl extends _Workplace {
   _$WorkplaceImpl(
-      {required this.creatorUid,
+      {required this.id,
+      required this.creatorUid,
       required this.managerUid,
       required this.createdAt,
       required this.updatedAt,
@@ -233,11 +247,14 @@ class _$WorkplaceImpl implements _Workplace {
       required this.city,
       required this.province,
       required this.country,
-      required this.postalCode});
+      required this.postalCode})
+      : super._();
 
   factory _$WorkplaceImpl.fromJson(Map<String, dynamic> json) =>
       _$$WorkplaceImplFromJson(json);
 
+  @override
+  final String id;
   @override
   final String creatorUid;
   @override
@@ -261,7 +278,7 @@ class _$WorkplaceImpl implements _Workplace {
 
   @override
   String toString() {
-    return 'Workplace(creatorUid: $creatorUid, managerUid: $managerUid, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, street: $street, city: $city, province: $province, country: $country, postalCode: $postalCode)';
+    return 'Workplace(id: $id, creatorUid: $creatorUid, managerUid: $managerUid, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, street: $street, city: $city, province: $province, country: $country, postalCode: $postalCode)';
   }
 
   @override
@@ -269,6 +286,7 @@ class _$WorkplaceImpl implements _Workplace {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$WorkplaceImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.creatorUid, creatorUid) ||
                 other.creatorUid == creatorUid) &&
             (identical(other.managerUid, managerUid) ||
@@ -289,7 +307,7 @@ class _$WorkplaceImpl implements _Workplace {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, creatorUid, managerUid,
+  int get hashCode => Object.hash(runtimeType, id, creatorUid, managerUid,
       createdAt, updatedAt, name, street, city, province, country, postalCode);
 
   /// Create a copy of Workplace
@@ -308,9 +326,10 @@ class _$WorkplaceImpl implements _Workplace {
   }
 }
 
-abstract class _Workplace implements Workplace {
+abstract class _Workplace extends Workplace {
   factory _Workplace(
-      {required final String creatorUid,
+      {required final String id,
+      required final String creatorUid,
       required final String managerUid,
       required final DateTime createdAt,
       required final DateTime updatedAt,
@@ -320,10 +339,13 @@ abstract class _Workplace implements Workplace {
       required final String province,
       required final String country,
       required final String postalCode}) = _$WorkplaceImpl;
+  _Workplace._() : super._();
 
   factory _Workplace.fromJson(Map<String, dynamic> json) =
       _$WorkplaceImpl.fromJson;
 
+  @override
+  String get id;
   @override
   String get creatorUid;
   @override

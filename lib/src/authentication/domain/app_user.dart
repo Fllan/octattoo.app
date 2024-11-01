@@ -30,7 +30,7 @@ class AppUser with _$AppUser {
       AppUser.fromJson(snapshot.data() as Map<String, dynamic>);
 
   /// Converts this [AppUser] to a JSON map.
-  static Map<String, Object?> toFirestore(AppUser user) => user.toJson();
+  static Map<String, Object?> toFirestore(AppUser appUser) => appUser.toJson();
 
   bool isOnboarded() {
     return onboardingCompleted;
