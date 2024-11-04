@@ -35,6 +35,7 @@ class AddWorkplace extends ConsumerWidget {
           //! dev in progress
           const SizedBox(
             height: 220,
+            width: double.infinity,
             child: WorkplacesList(),
           ),
           //! dev in progress

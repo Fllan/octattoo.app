@@ -31,6 +31,8 @@ mixin _$Workplace {
   String get province => throw _privateConstructorUsedError;
   String get country => throw _privateConstructorUsedError;
   String get postalCode => throw _privateConstructorUsedError;
+  @HighlightedStringConverter()
+  HighlightedString? get highlightedName => throw _privateConstructorUsedError;
 
   /// Serializes this Workplace to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -58,7 +60,8 @@ abstract class $WorkplaceCopyWith<$Res> {
       String city,
       String province,
       String country,
-      String postalCode});
+      String postalCode,
+      @HighlightedStringConverter() HighlightedString? highlightedName});
 }
 
 /// @nodoc
@@ -87,6 +90,7 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
     Object? province = null,
     Object? country = null,
     Object? postalCode = null,
+    Object? highlightedName = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -133,6 +137,10 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
           ? _value.postalCode
           : postalCode // ignore: cast_nullable_to_non_nullable
               as String,
+      highlightedName: freezed == highlightedName
+          ? _value.highlightedName
+          : highlightedName // ignore: cast_nullable_to_non_nullable
+              as HighlightedString?,
     ) as $Val);
   }
 }
@@ -156,7 +164,8 @@ abstract class _$$WorkplaceImplCopyWith<$Res>
       String city,
       String province,
       String country,
-      String postalCode});
+      String postalCode,
+      @HighlightedStringConverter() HighlightedString? highlightedName});
 }
 
 /// @nodoc
@@ -183,6 +192,7 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
     Object? province = null,
     Object? country = null,
     Object? postalCode = null,
+    Object? highlightedName = freezed,
   }) {
     return _then(_$WorkplaceImpl(
       id: null == id
@@ -229,6 +239,10 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
           ? _value.postalCode
           : postalCode // ignore: cast_nullable_to_non_nullable
               as String,
+      highlightedName: freezed == highlightedName
+          ? _value.highlightedName
+          : highlightedName // ignore: cast_nullable_to_non_nullable
+              as HighlightedString?,
     ));
   }
 }
@@ -247,7 +261,8 @@ class _$WorkplaceImpl extends _Workplace {
       required this.city,
       required this.province,
       required this.country,
-      required this.postalCode})
+      required this.postalCode,
+      @HighlightedStringConverter() this.highlightedName})
       : super._();
 
   factory _$WorkplaceImpl.fromJson(Map<String, dynamic> json) =>
@@ -275,10 +290,13 @@ class _$WorkplaceImpl extends _Workplace {
   final String country;
   @override
   final String postalCode;
+  @override
+  @HighlightedStringConverter()
+  final HighlightedString? highlightedName;
 
   @override
   String toString() {
-    return 'Workplace(id: $id, creatorUid: $creatorUid, managerUid: $managerUid, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, street: $street, city: $city, province: $province, country: $country, postalCode: $postalCode)';
+    return 'Workplace(id: $id, creatorUid: $creatorUid, managerUid: $managerUid, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, street: $street, city: $city, province: $province, country: $country, postalCode: $postalCode, highlightedName: $highlightedName)';
   }
 
   @override
@@ -302,13 +320,27 @@ class _$WorkplaceImpl extends _Workplace {
                 other.province == province) &&
             (identical(other.country, country) || other.country == country) &&
             (identical(other.postalCode, postalCode) ||
-                other.postalCode == postalCode));
+                other.postalCode == postalCode) &&
+            (identical(other.highlightedName, highlightedName) ||
+                other.highlightedName == highlightedName));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, creatorUid, managerUid,
-      createdAt, updatedAt, name, street, city, province, country, postalCode);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      creatorUid,
+      managerUid,
+      createdAt,
+      updatedAt,
+      name,
+      street,
+      city,
+      province,
+      country,
+      postalCode,
+      highlightedName);
 
   /// Create a copy of Workplace
   /// with the given fields replaced by the non-null parameter values.
@@ -338,7 +370,9 @@ abstract class _Workplace extends Workplace {
       required final String city,
       required final String province,
       required final String country,
-      required final String postalCode}) = _$WorkplaceImpl;
+      required final String postalCode,
+      @HighlightedStringConverter()
+      final HighlightedString? highlightedName}) = _$WorkplaceImpl;
   _Workplace._() : super._();
 
   factory _Workplace.fromJson(Map<String, dynamic> json) =
@@ -366,6 +400,9 @@ abstract class _Workplace extends Workplace {
   String get country;
   @override
   String get postalCode;
+  @override
+  @HighlightedStringConverter()
+  HighlightedString? get highlightedName;
 
   /// Create a copy of Workplace
   /// with the given fields replaced by the non-null parameter values.

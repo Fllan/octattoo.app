@@ -35,6 +35,7 @@ class AlgoliaWorkplacesRepository {
             province: data['province'] as String,
             country: data['country'] as String,
             postalCode: data['postalCode'] as String,
+            highlightedName: data.getHighlightedString('name'),
           );
         }).toList();
       });

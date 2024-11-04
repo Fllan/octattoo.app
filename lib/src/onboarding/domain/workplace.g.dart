@@ -19,6 +19,8 @@ _$WorkplaceImpl _$$WorkplaceImplFromJson(Map<String, dynamic> json) =>
       province: json['province'] as String,
       country: json['country'] as String,
       postalCode: json['postalCode'] as String,
+      highlightedName: const HighlightedStringConverter()
+          .fromJson(json['highlightedName'] as String?),
     );
 
 Map<String, dynamic> _$$WorkplaceImplToJson(_$WorkplaceImpl instance) =>
@@ -34,4 +36,6 @@ Map<String, dynamic> _$$WorkplaceImplToJson(_$WorkplaceImpl instance) =>
       'province': instance.province,
       'country': instance.country,
       'postalCode': instance.postalCode,
+      'highlightedName':
+          const HighlightedStringConverter().toJson(instance.highlightedName),
     };
