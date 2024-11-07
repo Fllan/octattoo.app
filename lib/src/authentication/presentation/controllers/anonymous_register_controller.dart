@@ -13,9 +13,7 @@ class AnonymousRegisterController extends _$AnonymousRegisterController {
   Future<bool> registerAnonymously() async {
     final appUserService = ref.watch(appUserServiceProvider);
     state = const AsyncValue.loading();
-    final result =
-        await AsyncValue.guard(() => appUserService.signInAnonymously());
-    state = result;
+    await AsyncValue.guard(() => appUserService.signInAnonymously());
     return state.hasError == false;
   }
 }
