@@ -49,4 +49,9 @@ ios/Runner/GoogleService-Info.plist
 ios/firebase_app_id_file.json
 android/app/google-services.json
 
+# secrets
 .env
+
+# build_runner generated files
+*.g.dart
+*.freezed.dart
