@@ -18,8 +18,6 @@ extension UserRoleExtension on UserRoles {
         return "customer";
       case UserRoles.admin:
         return "admin";
-      default:
-        throw UnimplementedError('Role $this is not handled');
     }
   }
 }
