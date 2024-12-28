@@ -10,6 +10,9 @@ class WorkplacesList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final searchResults = ref.watch(workplacesSearchResultsProvider);
+    final textColor = Theme.of(context).colorScheme.onSurface;
+    final highlightColor = Theme.of(context).colorScheme.primary;
+
     return searchResults.when(
       data: (workplaces) {
         if (workplaces.isEmpty) {
@@ -19,8 +22,6 @@ class WorkplacesList extends ConsumerWidget {
           itemCount: workplaces.length,
           itemBuilder: (context, index) {
             final workplace = workplaces[index];
-            final textColor = Theme.of(context).colorScheme.onSurface;
-            final highlightColor = Theme.of(context).colorScheme.primary;
             return ListTile(
               leading: const Icon(Icons.store),
               // title: Text(workplace.name),
@@ -53,12 +54,6 @@ class WorkplacesList extends ConsumerWidget {
     );
   }
 }
-
-
-
-
-
-
 
 // import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 // import 'package:flutter/material.dart';

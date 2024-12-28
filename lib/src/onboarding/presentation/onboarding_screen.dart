@@ -32,6 +32,19 @@ class OnBoardingStepper extends ConsumerWidget {
     return Stepper(
       currentStep: currentStep,
       controlsBuilder: (context, details) {
+        if (currentStep == 1) {
+          return Padding(
+            padding: const EdgeInsets.fromLTRB(0, 64, 0, 0),
+            child: Row(
+              children: [
+                TertiaryButton(
+                  label: Text('Go back'.hardcoded),
+                  onPressed: () => stepperNotifier.previousStep(),
+                ),
+              ],
+            ),
+          );
+        }
         bool isLastStep = currentStep == 2;
         bool isFirstStep = currentStep == 0;
         return Padding(
@@ -68,8 +81,7 @@ class OnBoardingStepper extends ConsumerWidget {
         ),
         Step(
           state: stepperNotifier.getStepState(1),
-          title:
-              MaterialText.titleMedium('Add your Workplace'.hardcoded, context),
+          title: MaterialText.titleMedium('Workplace'.hardcoded, context),
           content: const Step2AddWorkplace(),
         ),
         Step(
