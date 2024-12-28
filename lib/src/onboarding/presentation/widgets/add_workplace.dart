@@ -23,32 +23,36 @@ class AddWorkplace extends ConsumerWidget {
                   .hardcoded,
               context),
           gapH24,
-          SearchBar(
-            onChanged: (_) => step2Controller.updateSearchTerm(),
-            controller: step2Controller.searchFieldController,
-            autoFocus: true,
-            leading: const Icon(Icons.search),
-            padding: null,
-            hintText: 'Search a workplace'.hardcoded,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SearchBar(
+                onChanged: (_) => step2Controller.updateSearchTerm(),
+                controller: step2Controller.searchFieldController,
+                autoFocus: true,
+                leading: const Icon(Icons.search),
+                padding: null,
+                hintText: 'Search a workplace'.hardcoded,
+              ),
+              gapH16,
+              //! dev in progress
+              const SizedBox(
+                height: 220,
+                child: WorkplacesList(),
+              ),
+              //! dev in progress
+            ],
           ),
-          gapH16,
-          //! dev in progress
-          const SizedBox(
-            height: 220,
-            width: double.infinity,
-            child: WorkplacesList(),
-          ),
-          //! dev in progress
           gapH32,
           //! for development only
-          const Divider(),
-          gapH64,
-          TertiaryButton(
-            label: const Text('Reset type selection'),
-            onPressed: () => ref
-                .read(step2ControllerProvider.notifier)
-                .setWorkplaceType(null),
-          ),
+          // const Divider(),
+          // gapH64,
+          // TertiaryButton(
+          //   label: const Text('Reset type selection'),
+          //   onPressed: () => ref
+          //       .read(step2ControllerProvider.notifier)
+          //       .setWorkplaceType(null),
+          // ),
           //! for development only
         ],
       ),

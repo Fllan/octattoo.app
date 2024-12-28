@@ -14,10 +14,15 @@ class OnBoardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Align(
-      alignment: Alignment.center,
-      child: OnBoardingStepper(),
-    );
+    return Align(
+        alignment: Alignment.center,
+        child: Container(
+          constraints: BoxConstraints(
+            minWidth: 300,
+            maxWidth: 800,
+          ),
+          child: OnBoardingStepper(),
+        ));
   }
 }
 
