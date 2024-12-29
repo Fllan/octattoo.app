@@ -10,6 +10,7 @@ class Step2State with _$Step2State {
     @Default(null) WorkplaceTypes? workplaceType,
     @Default('') String searchTerm,
     @Default(false) bool isManager,
+    @Default(false) bool isValidForm,
   }) = _Step2State;
 
   Step2State setWorkplaceType(WorkplaceTypes? type) =>
@@ -19,4 +20,6 @@ class Step2State with _$Step2State {
       copyWith(searchTerm: searchTerm);
 
   Step2State toggleManager() => copyWith(isManager: !isManager);
+
+  Step2State setFormValidation(bool isValid) => copyWith(isValidForm: isValid);
 }
