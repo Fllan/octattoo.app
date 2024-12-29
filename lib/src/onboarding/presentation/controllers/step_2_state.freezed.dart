@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Step2State {
   WorkplaceTypes? get workplaceType => throw _privateConstructorUsedError;
   String get searchTerm => throw _privateConstructorUsedError;
+  bool get isManager => throw _privateConstructorUsedError;
 
   /// Create a copy of Step2State
   /// with the given fields replaced by the non-null parameter values.
@@ -32,7 +33,7 @@ abstract class $Step2StateCopyWith<$Res> {
           Step2State value, $Res Function(Step2State) then) =
       _$Step2StateCopyWithImpl<$Res, Step2State>;
   @useResult
-  $Res call({WorkplaceTypes? workplaceType, String searchTerm});
+  $Res call({WorkplaceTypes? workplaceType, String searchTerm, bool isManager});
 }
 
 /// @nodoc
@@ -52,6 +53,7 @@ class _$Step2StateCopyWithImpl<$Res, $Val extends Step2State>
   $Res call({
     Object? workplaceType = freezed,
     Object? searchTerm = null,
+    Object? isManager = null,
   }) {
     return _then(_value.copyWith(
       workplaceType: freezed == workplaceType
@@ -62,6 +64,10 @@ class _$Step2StateCopyWithImpl<$Res, $Val extends Step2State>
           ? _value.searchTerm
           : searchTerm // ignore: cast_nullable_to_non_nullable
               as String,
+      isManager: null == isManager
+          ? _value.isManager
+          : isManager // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -74,7 +80,7 @@ abstract class _$$Step2StateImplCopyWith<$Res>
       __$$Step2StateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({WorkplaceTypes? workplaceType, String searchTerm});
+  $Res call({WorkplaceTypes? workplaceType, String searchTerm, bool isManager});
 }
 
 /// @nodoc
@@ -92,6 +98,7 @@ class __$$Step2StateImplCopyWithImpl<$Res>
   $Res call({
     Object? workplaceType = freezed,
     Object? searchTerm = null,
+    Object? isManager = null,
   }) {
     return _then(_$Step2StateImpl(
       workplaceType: freezed == workplaceType
@@ -102,6 +109,10 @@ class __$$Step2StateImplCopyWithImpl<$Res>
           ? _value.searchTerm
           : searchTerm // ignore: cast_nullable_to_non_nullable
               as String,
+      isManager: null == isManager
+          ? _value.isManager
+          : isManager // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -109,7 +120,8 @@ class __$$Step2StateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$Step2StateImpl extends _Step2State {
-  _$Step2StateImpl({this.workplaceType = null, this.searchTerm = ''})
+  _$Step2StateImpl(
+      {this.workplaceType = null, this.searchTerm = '', this.isManager = false})
       : super._();
 
   @override
@@ -118,10 +130,13 @@ class _$Step2StateImpl extends _Step2State {
   @override
   @JsonKey()
   final String searchTerm;
+  @override
+  @JsonKey()
+  final bool isManager;
 
   @override
   String toString() {
-    return 'Step2State(workplaceType: $workplaceType, searchTerm: $searchTerm)';
+    return 'Step2State(workplaceType: $workplaceType, searchTerm: $searchTerm, isManager: $isManager)';
   }
 
   @override
@@ -132,11 +147,14 @@ class _$Step2StateImpl extends _Step2State {
             (identical(other.workplaceType, workplaceType) ||
                 other.workplaceType == workplaceType) &&
             (identical(other.searchTerm, searchTerm) ||
-                other.searchTerm == searchTerm));
+                other.searchTerm == searchTerm) &&
+            (identical(other.isManager, isManager) ||
+                other.isManager == isManager));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, workplaceType, searchTerm);
+  int get hashCode =>
+      Object.hash(runtimeType, workplaceType, searchTerm, isManager);
 
   /// Create a copy of Step2State
   /// with the given fields replaced by the non-null parameter values.
@@ -150,13 +168,16 @@ class _$Step2StateImpl extends _Step2State {
 abstract class _Step2State extends Step2State {
   factory _Step2State(
       {final WorkplaceTypes? workplaceType,
-      final String searchTerm}) = _$Step2StateImpl;
+      final String searchTerm,
+      final bool isManager}) = _$Step2StateImpl;
   _Step2State._() : super._();
 
   @override
   WorkplaceTypes? get workplaceType;
   @override
   String get searchTerm;
+  @override
+  bool get isManager;
 
   /// Create a copy of Step2State
   /// with the given fields replaced by the non-null parameter values.

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:octattoo_app/core/constants/breakpoints.dart';
 import 'package:octattoo_app/core/constants/gaps.dart';
 import 'package:octattoo_app/core/localization/l10n_extensions.dart';
+import 'package:octattoo_app/src/onboarding/presentation/widgets/new_workplace_form.dart';
 import 'package:octattoo_app/src/shared/widgets/buttons/primary_button.dart';
 import 'package:octattoo_app/src/shared/widgets/material_text.dart';
 
@@ -21,30 +23,33 @@ class NoWorkplaceFound extends StatelessWidget {
           PrimaryButton(
             label: Text('Add a new workplace'.hardcoded),
             icon: const Icon(Icons.add_business),
-            onPressed: () => showDialog<String>(
+            onPressed: () => showDialog(
               context: context,
-              builder: (BuildContext context) => Dialog(
-                child: Padding(
-                  padding: EdgeInsets.all(24),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      const Text('This is a fullscreen dialog.'),
-                      gapH16,
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text('Close'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              builder: (BuildContext context) => adaptiveDialog(context),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+Dialog adaptiveDialog(BuildContext context) {
+  AdaptiveScaffoldType currentScaffold =
+      BreakpointsExtension.getScaffold(context);
+  if (currentScaffold == AdaptiveScaffoldType.appBar ||
+      currentScaffold == AdaptiveScaffoldType.compactAppBar) {
+    return Dialog.fullscreen(
+      child: Padding(
+        padding: EdgeInsets.all(24),
+        child: NewWorkplaceForm(),
+      ),
+    );
+  } else {
+    return Dialog(
+      child: Padding(
+        padding: EdgeInsets.all(24),
+        child: NewWorkplaceForm(),
       ),
     );
   }

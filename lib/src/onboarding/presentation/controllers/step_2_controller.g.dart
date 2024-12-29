@@ -6,7 +6,7 @@ part of 'step_2_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$step2ControllerHash() => r'4a2f2181d3438d9a6a32870010a3447db8733232';
+String _$step2ControllerHash() => r'f2b59e22ab347548628f0fb0ae33fcae00f14492';
 
 /// See also [Step2Controller].
 @ProviderFor(Step2Controller)

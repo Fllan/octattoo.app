@@ -45,14 +45,14 @@ class AddWorkplace extends ConsumerWidget {
           ),
           gapH32,
           //! for development only
-          // const Divider(),
-          // gapH64,
-          // TertiaryButton(
-          //   label: const Text('Reset type selection'),
-          //   onPressed: () => ref
-          //       .read(step2ControllerProvider.notifier)
-          //       .setWorkplaceType(null),
-          // ),
+          const Divider(),
+          gapH64,
+          TertiaryButton(
+            label: const Text('Reset type selection'),
+            onPressed: () => ref
+                .read(step2ControllerProvider.notifier)
+                .setWorkplaceType(null),
+          ),
           //! for development only
         ],
       ),
