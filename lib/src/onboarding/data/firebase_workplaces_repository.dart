@@ -13,9 +13,13 @@ class WorkplacesRepository {
   CollectionReference get workplacesCollection =>
       firestore.collection('workplaces');
 
-  Future<void> add(Workplace workplace) async {
+  Future<String?> add(Workplace workplace) async {
     logger.i('FIRESTORE : add workplace');
-    await workplacesCollection.doc(workplace.id).set(workplace.toFirestore());
+    final DocumentReference docRef = workplacesCollection.doc();
+    await workplacesCollection
+        .doc(docRef.id)
+        .set((workplace.copyWith(id: docRef.id)).toFirestore());
+    return docRef.id;
   }
 
   Future<Workplace?> get(String id) async {

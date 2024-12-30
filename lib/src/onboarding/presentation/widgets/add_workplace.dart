@@ -53,6 +53,11 @@ class AddWorkplace extends ConsumerWidget {
                 .read(step2ControllerProvider.notifier)
                 .setWorkplaceType(null),
           ),
+          TertiaryButton(
+            label: const Text('Reset workplace selection'),
+            onPressed: () =>
+                ref.read(step2ControllerProvider.notifier).setWorkplace(null),
+          ),
           //! for development only
         ],
       ),

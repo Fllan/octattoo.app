@@ -85,13 +85,30 @@ class NewWorkplaceForm extends ConsumerWidget {
                 ],
               ),
               gapH8,
-              AppTextFormField(
-                controller: step2Controller.countryController,
-                validator: (value) => default3CharValidator(
-                    value, 'Please enter a country name'.hardcoded),
-                label: 'Country'.hardcoded,
-                keyboardType: TextInputType.streetAddress,
-                hasAutoFocus: false,
+              Row(
+                children: [
+                  Expanded(
+                    child: AppTextFormField(
+                      controller: step2Controller.countryController,
+                      validator: (value) => default3CharValidator(
+                          value, 'Please enter a country name'.hardcoded),
+                      label: 'Country'.hardcoded,
+                      keyboardType: TextInputType.streetAddress,
+                      hasAutoFocus: false,
+                    ),
+                  ),
+                  gapW8,
+                  Expanded(
+                    child: AppTextFormField(
+                      controller: step2Controller.postalCodeController,
+                      validator: (value) => default3CharValidator(
+                          value, 'Please enter a postal code'.hardcoded),
+                      label: 'Postal Code'.hardcoded,
+                      keyboardType: TextInputType.streetAddress,
+                      hasAutoFocus: false,
+                    ),
+                  ),
+                ],
               ),
               gapH32,
               Row(
@@ -104,7 +121,7 @@ class NewWorkplaceForm extends ConsumerWidget {
                   PrimaryButton(
                     label: Text('Save'.hardcoded),
                     onPressed: state.isValidForm
-                        ? () => step2Controller.createNewWorkplace()
+                        ? () => step2Controller.saveNewWorkplaceForm()
                         : null,
                   )
                 ],

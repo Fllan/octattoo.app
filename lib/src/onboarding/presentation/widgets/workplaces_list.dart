@@ -2,6 +2,7 @@ import 'package:algolia_helper_flutter/algolia_helper_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:octattoo_app/src/onboarding/data/algolia_workplaces_repository.dart';
+import 'package:octattoo_app/src/onboarding/presentation/controllers/step_2_controller.dart';
 import 'package:octattoo_app/src/onboarding/presentation/widgets/no_workplace_found.dart';
 import 'package:octattoo_app/src/shared/widgets/material_text.dart';
 
@@ -41,7 +42,11 @@ class WorkplacesList extends ConsumerWidget {
               subtitle: MaterialText.labelMedium(
                   '${workplace.city} - ${workplace.country}', context),
               trailing: const Icon(Icons.add),
-              onTap: () {},
+              onTap: () {
+                ref
+                    .read(step2ControllerProvider.notifier)
+                    .setWorkplace(workplace);
+              },
             );
           },
         );

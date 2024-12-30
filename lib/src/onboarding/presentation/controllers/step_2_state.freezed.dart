@@ -20,6 +20,7 @@ mixin _$Step2State {
   String get searchTerm => throw _privateConstructorUsedError;
   bool get isManager => throw _privateConstructorUsedError;
   bool get isValidForm => throw _privateConstructorUsedError;
+  Workplace? get workplace => throw _privateConstructorUsedError;
 
   /// Create a copy of Step2State
   /// with the given fields replaced by the non-null parameter values.
@@ -38,7 +39,10 @@ abstract class $Step2StateCopyWith<$Res> {
       {WorkplaceTypes? workplaceType,
       String searchTerm,
       bool isManager,
-      bool isValidForm});
+      bool isValidForm,
+      Workplace? workplace});
+
+  $WorkplaceCopyWith<$Res>? get workplace;
 }
 
 /// @nodoc
@@ -60,6 +64,7 @@ class _$Step2StateCopyWithImpl<$Res, $Val extends Step2State>
     Object? searchTerm = null,
     Object? isManager = null,
     Object? isValidForm = null,
+    Object? workplace = freezed,
   }) {
     return _then(_value.copyWith(
       workplaceType: freezed == workplaceType
@@ -78,7 +83,25 @@ class _$Step2StateCopyWithImpl<$Res, $Val extends Step2State>
           ? _value.isValidForm
           : isValidForm // ignore: cast_nullable_to_non_nullable
               as bool,
+      workplace: freezed == workplace
+          ? _value.workplace
+          : workplace // ignore: cast_nullable_to_non_nullable
+              as Workplace?,
     ) as $Val);
+  }
+
+  /// Create a copy of Step2State
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $WorkplaceCopyWith<$Res>? get workplace {
+    if (_value.workplace == null) {
+      return null;
+    }
+
+    return $WorkplaceCopyWith<$Res>(_value.workplace!, (value) {
+      return _then(_value.copyWith(workplace: value) as $Val);
+    });
   }
 }
 
@@ -94,7 +117,11 @@ abstract class _$$Step2StateImplCopyWith<$Res>
       {WorkplaceTypes? workplaceType,
       String searchTerm,
       bool isManager,
-      bool isValidForm});
+      bool isValidForm,
+      Workplace? workplace});
+
+  @override
+  $WorkplaceCopyWith<$Res>? get workplace;
 }
 
 /// @nodoc
@@ -114,6 +141,7 @@ class __$$Step2StateImplCopyWithImpl<$Res>
     Object? searchTerm = null,
     Object? isManager = null,
     Object? isValidForm = null,
+    Object? workplace = freezed,
   }) {
     return _then(_$Step2StateImpl(
       workplaceType: freezed == workplaceType
@@ -132,6 +160,10 @@ class __$$Step2StateImplCopyWithImpl<$Res>
           ? _value.isValidForm
           : isValidForm // ignore: cast_nullable_to_non_nullable
               as bool,
+      workplace: freezed == workplace
+          ? _value.workplace
+          : workplace // ignore: cast_nullable_to_non_nullable
+              as Workplace?,
     ));
   }
 }
@@ -143,7 +175,8 @@ class _$Step2StateImpl extends _Step2State {
       {this.workplaceType = null,
       this.searchTerm = '',
       this.isManager = false,
-      this.isValidForm = false})
+      this.isValidForm = false,
+      this.workplace = null})
       : super._();
 
   @override
@@ -158,10 +191,13 @@ class _$Step2StateImpl extends _Step2State {
   @override
   @JsonKey()
   final bool isValidForm;
+  @override
+  @JsonKey()
+  final Workplace? workplace;
 
   @override
   String toString() {
-    return 'Step2State(workplaceType: $workplaceType, searchTerm: $searchTerm, isManager: $isManager, isValidForm: $isValidForm)';
+    return 'Step2State(workplaceType: $workplaceType, searchTerm: $searchTerm, isManager: $isManager, isValidForm: $isValidForm, workplace: $workplace)';
   }
 
   @override
@@ -176,12 +212,14 @@ class _$Step2StateImpl extends _Step2State {
             (identical(other.isManager, isManager) ||
                 other.isManager == isManager) &&
             (identical(other.isValidForm, isValidForm) ||
-                other.isValidForm == isValidForm));
+                other.isValidForm == isValidForm) &&
+            (identical(other.workplace, workplace) ||
+                other.workplace == workplace));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, workplaceType, searchTerm, isManager, isValidForm);
+  int get hashCode => Object.hash(runtimeType, workplaceType, searchTerm,
+      isManager, isValidForm, workplace);
 
   /// Create a copy of Step2State
   /// with the given fields replaced by the non-null parameter values.
@@ -197,7 +235,8 @@ abstract class _Step2State extends Step2State {
       {final WorkplaceTypes? workplaceType,
       final String searchTerm,
       final bool isManager,
-      final bool isValidForm}) = _$Step2StateImpl;
+      final bool isValidForm,
+      final Workplace? workplace}) = _$Step2StateImpl;
   _Step2State._() : super._();
 
   @override
@@ -208,6 +247,8 @@ abstract class _Step2State extends Step2State {
   bool get isManager;
   @override
   bool get isValidForm;
+  @override
+  Workplace? get workplace;
 
   /// Create a copy of Step2State
   /// with the given fields replaced by the non-null parameter values.

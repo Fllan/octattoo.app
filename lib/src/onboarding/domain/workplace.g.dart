@@ -8,9 +8,9 @@ part of 'workplace.dart';
 
 _$WorkplaceImpl _$$WorkplaceImplFromJson(Map<String, dynamic> json) =>
     _$WorkplaceImpl(
-      id: json['id'] as String,
+      id: json['id'] as String?,
       creatorUid: json['creatorUid'] as String,
-      managerUid: json['managerUid'] as String,
+      managerUid: json['managerUid'] as String?,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       name: json['name'] as String,

@@ -10,9 +10,9 @@ class Workplace with _$Workplace {
   const Workplace._();
 
   factory Workplace({
-    required String id,
+    required String? id,
     required String creatorUid,
-    required String managerUid,
+    required String? managerUid,
     required DateTime createdAt,
     required DateTime updatedAt,
     required String name,

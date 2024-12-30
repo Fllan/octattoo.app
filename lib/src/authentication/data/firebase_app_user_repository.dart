@@ -26,7 +26,7 @@ class AppUserRepository {
       role: UserRoles.artist,
     );
     logger.i('FIRESTORE : add user');
-    return await usersCollection.doc(user.uid).set(appUser.toFirestore());
+    await usersCollection.doc(user.uid).set(appUser.toFirestore());
   }
 
   Future<AppUser?> get(String uid) async {

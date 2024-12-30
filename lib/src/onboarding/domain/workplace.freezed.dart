@@ -20,9 +20,9 @@ Workplace _$WorkplaceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Workplace {
-  String get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   String get creatorUid => throw _privateConstructorUsedError;
-  String get managerUid => throw _privateConstructorUsedError;
+  String? get managerUid => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
@@ -50,9 +50,9 @@ abstract class $WorkplaceCopyWith<$Res> {
       _$WorkplaceCopyWithImpl<$Res, Workplace>;
   @useResult
   $Res call(
-      {String id,
+      {String? id,
       String creatorUid,
-      String managerUid,
+      String? managerUid,
       DateTime createdAt,
       DateTime updatedAt,
       String name,
@@ -79,9 +79,9 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? creatorUid = null,
-    Object? managerUid = null,
+    Object? managerUid = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? name = null,
@@ -93,18 +93,18 @@ class _$WorkplaceCopyWithImpl<$Res, $Val extends Workplace>
     Object? highlightedName = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       creatorUid: null == creatorUid
           ? _value.creatorUid
           : creatorUid // ignore: cast_nullable_to_non_nullable
               as String,
-      managerUid: null == managerUid
+      managerUid: freezed == managerUid
           ? _value.managerUid
           : managerUid // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -154,9 +154,9 @@ abstract class _$$WorkplaceImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
+      {String? id,
       String creatorUid,
-      String managerUid,
+      String? managerUid,
       DateTime createdAt,
       DateTime updatedAt,
       String name,
@@ -181,9 +181,9 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? creatorUid = null,
-    Object? managerUid = null,
+    Object? managerUid = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? name = null,
@@ -195,18 +195,18 @@ class __$$WorkplaceImplCopyWithImpl<$Res>
     Object? highlightedName = freezed,
   }) {
     return _then(_$WorkplaceImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       creatorUid: null == creatorUid
           ? _value.creatorUid
           : creatorUid // ignore: cast_nullable_to_non_nullable
               as String,
-      managerUid: null == managerUid
+      managerUid: freezed == managerUid
           ? _value.managerUid
           : managerUid // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -269,11 +269,11 @@ class _$WorkplaceImpl extends _Workplace {
       _$$WorkplaceImplFromJson(json);
 
   @override
-  final String id;
+  final String? id;
   @override
   final String creatorUid;
   @override
-  final String managerUid;
+  final String? managerUid;
   @override
   final DateTime createdAt;
   @override
@@ -360,9 +360,9 @@ class _$WorkplaceImpl extends _Workplace {
 
 abstract class _Workplace extends Workplace {
   factory _Workplace(
-      {required final String id,
+      {required final String? id,
       required final String creatorUid,
-      required final String managerUid,
+      required final String? managerUid,
       required final DateTime createdAt,
       required final DateTime updatedAt,
       required final String name,
@@ -379,11 +379,11 @@ abstract class _Workplace extends Workplace {
       _$WorkplaceImpl.fromJson;
 
   @override
-  String get id;
+  String? get id;
   @override
   String get creatorUid;
   @override
-  String get managerUid;
+  String? get managerUid;
   @override
   DateTime get createdAt;
   @override
