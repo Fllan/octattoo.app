@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:octattoo_app/core/constants/workplace_types.dart';
+import 'package:octattoo_app/src/onboarding/domain/workplace.dart';
 import 'package:octattoo_app/src/onboarding/presentation/controllers/step_1_state.dart';
+import 'package:octattoo_app/src/onboarding/presentation/controllers/step_2_controller.dart';
 import 'package:octattoo_app/src/onboarding/presentation/controllers/stepper_controller.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -35,6 +38,27 @@ class Step1Controller extends _$Step1Controller {
     bool isPronounFilled =
         state.pronounIsVisible ? pronounController.text.isNotEmpty : true;
     bool isValid = isFormValid && isRealNameFilled && isPronounFilled;
+
+    //TODO - remove - for dev purpose
+    ref
+        .read(step2ControllerProvider.notifier)
+        .setWorkplaceType(WorkplaceTypes.permanent);
+    ref.read(step2ControllerProvider.notifier).setWorkplace(
+          Workplace(
+            id: 'id',
+            creatorUid: 'creatorUid',
+            managerUid: 'managerUid',
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
+            name: 'name',
+            street: 'street',
+            city: 'city',
+            province: 'province',
+            country: 'country',
+            postalCode: 'postalCode',
+          ),
+        );
+    //! - remove - for dev purpose
     stepperController.updateStepValidation(0, isValid);
   }
 }

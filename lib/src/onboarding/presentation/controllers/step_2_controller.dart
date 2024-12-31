@@ -20,7 +20,9 @@ class Step2Controller extends _$Step2Controller {
   final TextEditingController provinceController = TextEditingController();
   final TextEditingController countryController = TextEditingController();
   final TextEditingController postalCodeController = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> newWorkplaceFormKey = GlobalKey<FormState>();
+  final TextEditingController startDate = TextEditingController();
+  final TextEditingController endDate = TextEditingController();
 
   @override
   Step2State build() {
@@ -39,11 +41,11 @@ class Step2Controller extends _$Step2Controller {
 
   void toggleManager() {
     state = state.toggleManager();
-    Future.delayed(const Duration(milliseconds: 50), validateForm);
+    Future.delayed(const Duration(milliseconds: 50), validateNewWorkplaceForm);
   }
 
-  void validateForm() {
-    bool isFormValid = formKey.currentState?.validate() ?? false;
+  void validateNewWorkplaceForm() {
+    bool isFormValid = newWorkplaceFormKey.currentState?.validate() ?? false;
     bool isWorkplaceNameFilled = workplaceNameController.text.isNotEmpty;
     bool isAddressFilled = streetController.text.isNotEmpty &&
         cityController.text.isNotEmpty &&
@@ -54,7 +56,7 @@ class Step2Controller extends _$Step2Controller {
     logger.d(
         'isFormValid: $isFormValid - isWorkplaceNameFilled: $isWorkplaceNameFilled - isAddressFilled: $isAddressFilled');
     logger.d('isValid: $isValid');
-    state = state.setFormValidation(isValid);
+    state = state.setNewWorkplaceFormValidation(isValid);
   }
 
   void saveNewWorkplaceForm() async {
@@ -80,5 +82,10 @@ class Step2Controller extends _$Step2Controller {
 
   void setWorkplace(Workplace? workplace) {
     state = state.setWorkplace(workplace);
+  }
+
+  void toggleNoEndDate() {
+    state = state.toggleNoEndDate();
+    //Future.delayed(const Duration(milliseconds: 50), validateAvailabilitiesForm);
   }
 }

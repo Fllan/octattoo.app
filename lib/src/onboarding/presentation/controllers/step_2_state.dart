@@ -13,6 +13,7 @@ class Step2State with _$Step2State {
     @Default(false) bool isManager,
     @Default(false) bool isValidForm,
     @Default(null) Workplace? workplace,
+    @Default(false) bool hasNoEndDate,
   }) = _Step2State;
 
   Step2State setWorkplaceType(WorkplaceTypes? type) =>
@@ -23,8 +24,11 @@ class Step2State with _$Step2State {
 
   Step2State toggleManager() => copyWith(isManager: !isManager);
 
-  Step2State setFormValidation(bool isValid) => copyWith(isValidForm: isValid);
+  Step2State setNewWorkplaceFormValidation(bool isValid) =>
+      copyWith(isValidForm: isValid);
 
   Step2State setWorkplace(Workplace? workplace) =>
       copyWith(workplace: workplace);
+
+  Step2State toggleNoEndDate() => copyWith(hasNoEndDate: !hasNoEndDate);
 }

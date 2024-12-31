@@ -18,8 +18,8 @@ class NewWorkplaceForm extends ConsumerWidget {
     return SizedBox(
       width: 400,
       child: Form(
-        onChanged: step2Controller.validateForm,
-        key: step2Controller.formKey,
+        onChanged: step2Controller.validateNewWorkplaceForm,
+        key: step2Controller.newWorkplaceFormKey,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

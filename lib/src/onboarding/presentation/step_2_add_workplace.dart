@@ -13,7 +13,6 @@ class Step2AddWorkplace extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(step2ControllerProvider);
-    // final step2Controller = ref.read(step2ControllerProvider.notifier);
     final typeSelected = state.workplaceType;
     final workplaceSelected = state.workplace;
 
