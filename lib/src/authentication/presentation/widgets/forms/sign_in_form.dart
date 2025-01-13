@@ -6,10 +6,9 @@ import 'package:octattoo_app/core/localization/l10n_extensions.dart';
 import 'package:octattoo_app/src/authentication/presentation/controllers/sign_in_form_controller.dart';
 import 'package:octattoo_app/src/shared/validators/email_validator.dart';
 import 'package:octattoo_app/src/shared/widgets/app_text_form_field.dart';
+import 'package:octattoo_app/src/shared/widgets/buttons/custom_buttons.dart';
 import 'package:octattoo_app/src/shared/widgets/material_text.dart';
 import 'package:octattoo_app/src/shared/widgets/password_text_form_field.dart';
-import 'package:octattoo_app/src/shared/widgets/buttons/primary_button.dart';
-import 'package:octattoo_app/src/shared/widgets/buttons/tertiary_button.dart';
 
 class SignInForm extends StatelessWidget {
   const SignInForm({
@@ -76,6 +75,17 @@ class SignInForm extends StatelessWidget {
               child: TertiaryButton(
                 onPressed: () => context.goNamed('forgot-password'),
                 label: Text('Retrieve my password'.hardcoded),
+              ),
+            ),
+          ],
+        ),
+        gapH64,
+        Row(
+          children: [
+            Expanded(
+              child: SecondaryButton(
+                onPressed: () => context.goNamed('register'),
+                label: Text("I don't have an account".hardcoded),
               ),
             ),
           ],
