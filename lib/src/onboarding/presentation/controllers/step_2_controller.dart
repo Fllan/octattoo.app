@@ -88,4 +88,8 @@ class Step2Controller extends _$Step2Controller {
     state = state.toggleNoEndDate();
     //Future.delayed(const Duration(milliseconds: 50), validateAvailabilitiesForm);
   }
+
+  void toggleMonday() {
+    state = state.toggleMonday();
+  }
 }

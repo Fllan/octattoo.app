@@ -22,6 +22,7 @@ mixin _$Step2State {
   bool get isValidForm => throw _privateConstructorUsedError;
   Workplace? get workplace => throw _privateConstructorUsedError;
   bool get hasNoEndDate => throw _privateConstructorUsedError;
+  bool get isMondaySelected => throw _privateConstructorUsedError;
 
   /// Create a copy of Step2State
   /// with the given fields replaced by the non-null parameter values.
@@ -42,7 +43,8 @@ abstract class $Step2StateCopyWith<$Res> {
       bool isManager,
       bool isValidForm,
       Workplace? workplace,
-      bool hasNoEndDate});
+      bool hasNoEndDate,
+      bool isMondaySelected});
 
   $WorkplaceCopyWith<$Res>? get workplace;
 }
@@ -68,6 +70,7 @@ class _$Step2StateCopyWithImpl<$Res, $Val extends Step2State>
     Object? isValidForm = null,
     Object? workplace = freezed,
     Object? hasNoEndDate = null,
+    Object? isMondaySelected = null,
   }) {
     return _then(_value.copyWith(
       workplaceType: freezed == workplaceType
@@ -93,6 +96,10 @@ class _$Step2StateCopyWithImpl<$Res, $Val extends Step2State>
       hasNoEndDate: null == hasNoEndDate
           ? _value.hasNoEndDate
           : hasNoEndDate // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isMondaySelected: null == isMondaySelected
+          ? _value.isMondaySelected
+          : isMondaySelected // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -126,7 +133,8 @@ abstract class _$$Step2StateImplCopyWith<$Res>
       bool isManager,
       bool isValidForm,
       Workplace? workplace,
-      bool hasNoEndDate});
+      bool hasNoEndDate,
+      bool isMondaySelected});
 
   @override
   $WorkplaceCopyWith<$Res>? get workplace;
@@ -151,6 +159,7 @@ class __$$Step2StateImplCopyWithImpl<$Res>
     Object? isValidForm = null,
     Object? workplace = freezed,
     Object? hasNoEndDate = null,
+    Object? isMondaySelected = null,
   }) {
     return _then(_$Step2StateImpl(
       workplaceType: freezed == workplaceType
@@ -177,6 +186,10 @@ class __$$Step2StateImplCopyWithImpl<$Res>
           ? _value.hasNoEndDate
           : hasNoEndDate // ignore: cast_nullable_to_non_nullable
               as bool,
+      isMondaySelected: null == isMondaySelected
+          ? _value.isMondaySelected
+          : isMondaySelected // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -190,7 +203,8 @@ class _$Step2StateImpl extends _Step2State {
       this.isManager = false,
       this.isValidForm = false,
       this.workplace = null,
-      this.hasNoEndDate = false})
+      this.hasNoEndDate = false,
+      this.isMondaySelected = true})
       : super._();
 
   @override
@@ -211,10 +225,13 @@ class _$Step2StateImpl extends _Step2State {
   @override
   @JsonKey()
   final bool hasNoEndDate;
+  @override
+  @JsonKey()
+  final bool isMondaySelected;
 
   @override
   String toString() {
-    return 'Step2State(workplaceType: $workplaceType, searchTerm: $searchTerm, isManager: $isManager, isValidForm: $isValidForm, workplace: $workplace, hasNoEndDate: $hasNoEndDate)';
+    return 'Step2State(workplaceType: $workplaceType, searchTerm: $searchTerm, isManager: $isManager, isValidForm: $isValidForm, workplace: $workplace, hasNoEndDate: $hasNoEndDate, isMondaySelected: $isMondaySelected)';
   }
 
   @override
@@ -233,12 +250,14 @@ class _$Step2StateImpl extends _Step2State {
             (identical(other.workplace, workplace) ||
                 other.workplace == workplace) &&
             (identical(other.hasNoEndDate, hasNoEndDate) ||
-                other.hasNoEndDate == hasNoEndDate));
+                other.hasNoEndDate == hasNoEndDate) &&
+            (identical(other.isMondaySelected, isMondaySelected) ||
+                other.isMondaySelected == isMondaySelected));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, workplaceType, searchTerm,
-      isManager, isValidForm, workplace, hasNoEndDate);
+      isManager, isValidForm, workplace, hasNoEndDate, isMondaySelected);
 
   /// Create a copy of Step2State
   /// with the given fields replaced by the non-null parameter values.
@@ -256,7 +275,8 @@ abstract class _Step2State extends Step2State {
       final bool isManager,
       final bool isValidForm,
       final Workplace? workplace,
-      final bool hasNoEndDate}) = _$Step2StateImpl;
+      final bool hasNoEndDate,
+      final bool isMondaySelected}) = _$Step2StateImpl;
   _Step2State._() : super._();
 
   @override
@@ -271,6 +291,8 @@ abstract class _Step2State extends Step2State {
   Workplace? get workplace;
   @override
   bool get hasNoEndDate;
+  @override
+  bool get isMondaySelected;
 
   /// Create a copy of Step2State
   /// with the given fields replaced by the non-null parameter values.

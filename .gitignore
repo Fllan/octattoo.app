@@ -53,5 +53,5 @@ android/app/google-services.json
 .env
 
 # build_runner generated files
-*.g.dart
+*.g.dart 
 *.freezed.dart

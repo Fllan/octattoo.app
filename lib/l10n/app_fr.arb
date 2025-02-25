@@ -10,7 +10,7 @@
         "description": "Label for the Sign In destination",
         "type": "text"
     },
-    "register": "S''inscrire",
+    "register": "S'inscrire",
     "@register": {
         "description": "Label for the Register destination",
         "type": "text"

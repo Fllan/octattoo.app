@@ -14,6 +14,7 @@ class Step2State with _$Step2State {
     @Default(false) bool isValidForm,
     @Default(null) Workplace? workplace,
     @Default(false) bool hasNoEndDate,
+    @Default(true) bool isMondaySelected,
   }) = _Step2State;
 
   Step2State setWorkplaceType(WorkplaceTypes? type) =>
@@ -31,4 +32,6 @@ class Step2State with _$Step2State {
       copyWith(workplace: workplace);
 
   Step2State toggleNoEndDate() => copyWith(hasNoEndDate: !hasNoEndDate);
+
+  Step2State toggleMonday() => copyWith(isMondaySelected: !isMondaySelected);
 }

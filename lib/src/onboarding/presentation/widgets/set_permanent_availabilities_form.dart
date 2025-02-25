@@ -4,7 +4,7 @@ import 'package:octattoo_app/core/constants/gaps.dart';
 import 'package:octattoo_app/core/constants/workplace_types.dart';
 import 'package:octattoo_app/core/localization/l10n_extensions.dart';
 import 'package:octattoo_app/src/onboarding/presentation/controllers/step_2_controller.dart';
-import 'package:octattoo_app/src/onboarding/presentation/widgets/availabilities_week_day.dart';
+import 'package:octattoo_app/src/onboarding/presentation/widgets/availabilities_form.dart';
 import 'package:octattoo_app/src/onboarding/presentation/widgets/selected_option_card.dart';
 import 'package:octattoo_app/src/shared/widgets/app_text_form_field.dart';
 import 'package:octattoo_app/src/shared/widgets/buttons/custom_buttons.dart';
@@ -99,7 +99,7 @@ class SetPermanentAvailabilitiesForm extends ConsumerWidget {
                       .hardcoded,
                   context),
               gapH32,
-              AvailabilitiesWeekDay(),
+              AvailabilitiesForm(),
             ],
           ),
         ),
