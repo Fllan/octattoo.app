@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:octattoo_app/core/constants/workplace_types.dart';
 import 'package:octattoo_app/core/utils/logger.dart';
+import 'package:octattoo_app/src/app/workplaces/data/algolia_workplaces_repository.dart';
+import 'package:octattoo_app/src/app/workplaces/data/firebase_workplaces_repository.dart';
 import 'package:octattoo_app/src/authentication/data/firebase_auth_repository.dart';
-import 'package:octattoo_app/src/onboarding/data/algolia_workplaces_repository.dart';
-import 'package:octattoo_app/src/onboarding/data/firebase_workplaces_repository.dart';
-import 'package:octattoo_app/src/onboarding/domain/workplace.dart';
+import 'package:octattoo_app/src/app/workplaces/domain/workplace.dart';
 import 'package:octattoo_app/src/onboarding/presentation/controllers/step_2_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

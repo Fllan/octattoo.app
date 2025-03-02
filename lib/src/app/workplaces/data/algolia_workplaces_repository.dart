@@ -1,7 +1,7 @@
 import 'package:algolia_helper_flutter/algolia_helper_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:octattoo_app/src/onboarding/domain/workplace.dart';
+import 'package:octattoo_app/src/app/workplaces/domain/workplace.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'algolia_workplaces_repository.g.dart';

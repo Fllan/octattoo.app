@@ -1,7 +1,7 @@
 import 'package:algolia_helper_flutter/algolia_helper_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:octattoo_app/src/onboarding/data/algolia_workplaces_repository.dart';
+import 'package:octattoo_app/src/app/workplaces/data/algolia_workplaces_repository.dart';
 import 'package:octattoo_app/src/onboarding/presentation/controllers/step_2_controller.dart';
 import 'package:octattoo_app/src/onboarding/presentation/widgets/no_workplace_found.dart';
 import 'package:octattoo_app/src/shared/widgets/material_text.dart';

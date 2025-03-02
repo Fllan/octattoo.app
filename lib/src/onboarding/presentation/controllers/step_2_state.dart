@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:octattoo_app/core/constants/workplace_types.dart';
-import 'package:octattoo_app/src/onboarding/domain/workplace.dart';
+import 'package:octattoo_app/src/app/workplaces/domain/workplace.dart';
 
 part 'step_2_state.freezed.dart';
 

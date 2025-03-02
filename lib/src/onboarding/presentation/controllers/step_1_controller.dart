@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:octattoo_app/core/constants/workplace_types.dart';
-import 'package:octattoo_app/src/onboarding/domain/workplace.dart';
+import 'package:octattoo_app/src/app/workplaces/domain/workplace.dart';
 import 'package:octattoo_app/src/onboarding/presentation/controllers/step_1_state.dart';
 import 'package:octattoo_app/src/onboarding/presentation/controllers/step_2_controller.dart';
 import 'package:octattoo_app/src/onboarding/presentation/controllers/stepper_controller.dart';

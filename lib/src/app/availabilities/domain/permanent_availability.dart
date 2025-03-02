@@ -1,37 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:octattoo_app/src/app/availabilities/domain/day_week.dart';
 
 part 'permanent_availability.freezed.dart';
 part 'permanent_availability.g.dart';
 
 @freezed
-class TimeSlot with _$TimeSlot {
-  factory TimeSlot({
-    required DateTime startHour,
-    required DateTime endHour,
-  }) = _TimeSlot;
-
-  /// Creates a new [TimeSlot] from a JSON map.
-  factory TimeSlot.fromJson(Map<String, dynamic> json) =>
-      _$TimeSlotFromJson(json);
-}
-
-@freezed
-class DayWeek with _$DayWeek {
-  factory DayWeek({
-    required String dayName,
-    required List<TimeSlot> slots,
-  }) = _DayWeek;
-
-  /// Creates a new [DayWeek] from a JSON map.
-  factory DayWeek.fromJson(Map<String, dynamic> json) =>
-      _$DayWeekFromJson(json);
-}
-
-@freezed
 class PermanentAvailability with _$PermanentAvailability {
   factory PermanentAvailability({
-    required String permanentAvailabilityId,
+    required String? id,
+    required String workplaceId,
     required DateTime startDate,
     required bool hasNoEndDate,
     DateTime? endDate,

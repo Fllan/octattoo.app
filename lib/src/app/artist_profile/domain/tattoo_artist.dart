@@ -7,7 +7,7 @@ part 'tattoo_artist.g.dart';
 @freezed
 class TattooArtist with _$TattooArtist {
   factory TattooArtist({
-    required String tattooArtistId,
+    required String id,
     required String artistName,
     @Default(false) bool showDisplayName,
     required String displayName,

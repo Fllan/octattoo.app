@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:octattoo_app/core/utils/logger.dart';
-import 'package:octattoo_app/src/onboarding/domain/workplace.dart';
+import 'package:octattoo_app/src/app/workplaces/domain/workplace.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'firebase_workplaces_repository.g.dart';
