@@ -1,0 +1,19 @@
+{
+  "moduleName": "octattoo",
+  "tables": [],
+  "installedModules": [
+    {
+      "module": "serverpod",
+      "version": "20240516151843329"
+    },
+    {
+      "module": "serverpod_auth",
+      "version": "20240520102713718"
+    },
+    {
+      "module": "octattoo",
+      "version": "20250329170650493"
+    }
+  ],
+  "migrationApiVersion": 1
+}
