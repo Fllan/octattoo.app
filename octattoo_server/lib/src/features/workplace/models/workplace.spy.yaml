@@ -1,0 +1,10 @@
+### A Workplace is a place where TattooArtists work (i.e. Tattoo Shop)
+class: Workplace
+table: workplace
+fields:
+    name: String
+    address: Address?, relation
+    isPublic: bool
+    createdAt: DateTime
+    updatedAt: DateTime
+    managedBy: List<TattooArtist>?, relation

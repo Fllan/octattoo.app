@@ -1,0 +1,15 @@
+### An Availability is a timeframe set by a User to manage the TattooArtist availabilities
+class: Availability
+table: availability
+fields:
+    createdBy: User?, relation
+    createdAt: DateTime
+    workplace: Workplace?, relation(optional)
+    startDate: DateTime
+    endDate: DateTime?
+    startTime: DateTime
+    endTime: DateTime?
+    isFullDay: bool
+    isRecurring: bool
+    type: AvailabilityType
+    title: String?

@@ -1,0 +1,13 @@
+### A TattooArtist is a User with capability to master ink
+class: TattooArtist
+table: tattoo_artist
+fields:
+    ### A User can have several TattooArtist
+    user: User?, relation
+    company: Company?, relation(optional)
+    createdAt: DateTime
+    updatedAt: DateTime
+    bio: String?
+    artistName: String
+    showRealNames: bool
+    showPronoun: bool

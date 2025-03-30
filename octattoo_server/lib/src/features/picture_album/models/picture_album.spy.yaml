@@ -1,0 +1,8 @@
+### A PictureAlbum is an album of related pictures
+class: PictureAlbum
+table: picture_album
+fields:
+    createdBy: User?, relation
+    pictures: List<Picture>?, relation
+    createdAt: DateTime
+    updatedAt: DateTime

@@ -1,0 +1,13 @@
+### A Customer represents a human with a business relation with a TattooArtist
+class: Customer
+table: customer
+fields:
+    tattooArtist: TattooArtist?, relation
+    email: String?
+    phone: String?
+    address: Address?, relation(optional)
+    createdAt: DateTime
+    updatedAt: DateTime
+    firstName: String
+    lastName: String?
+    tags: List<CustomerTag>?
