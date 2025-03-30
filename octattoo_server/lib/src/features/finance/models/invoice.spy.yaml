@@ -1,0 +1,11 @@
+### An Invoice from a TattooArtist to a Customer to get payment
+class: Invoice
+table: invoice
+fields:
+    customer: Customer?, relation
+    tattooArtist: TattooArtist?, relation
+    workplace: Workplace?, relation(optional)
+    tattooProject: TattooProject?, relation(optional)
+    quotation: Quotation?, relation(optional)
+    price: int
+    status: WorkflowStatus

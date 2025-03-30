@@ -1,0 +1,7 @@
+enum: WorkflowStatus
+serialized: byName
+values:
+    - draft
+    - submitted
+    - refused
+    - accepted

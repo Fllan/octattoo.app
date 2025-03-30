@@ -1,0 +1,16 @@
+### A User is the human using the app
+class: User
+table: user
+fields:
+    createdAt: DateTime
+    updatedAt: DateTime
+    firstName: String?
+    lastName: String?
+    pronoun: String?
+    userInfo: module:auth:UserInfo?, relation
+    address: Address?, relation(optional)
+
+indexes:
+    user_info_id_unique_idx:
+        fields: userInfoId
+        unique: true

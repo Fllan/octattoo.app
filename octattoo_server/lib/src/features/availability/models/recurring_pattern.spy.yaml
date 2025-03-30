@@ -1,0 +1,16 @@
+### A RecurringPattern is a description of the recurrence
+class: RecurringPattern
+table: recurring_pattern
+fields:
+    availability: Availability?, relation
+    recurringType: RecurringType
+    ### If recurringType.daily and separationCount = 2 it means every 2 days
+    separationCount: int?
+    ### 1 for monday, 2 for tuesday, ...
+    dayOfWeek: int?
+    ### 1 for the first week, -1 for the last week of the month, ...
+    weekOfMonth: int?
+    ### 1 for the first day, -1 for the last day of the month, ...
+    dayOfMonth: int?
+    ### 1 for january, 2 for february, ...
+    monthOfYear: int?

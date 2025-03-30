@@ -1,0 +1,6 @@
+### A picture is a file image uploaded by a User
+class: Picture
+table: picture
+fields:
+    owner: User?, relation
+    path: String

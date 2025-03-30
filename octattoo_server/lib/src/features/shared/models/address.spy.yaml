@@ -1,0 +1,8 @@
+class: Address
+table: address
+fields:
+    street: String
+    city: String
+    postalCode: String
+    country: String
+    note: String?

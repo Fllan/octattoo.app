@@ -1,0 +1,9 @@
+### An Appointment is when a Tattoo Artist and a Customer meet at a Workplace
+class: Appointment
+table: appointment
+fields:
+    tattooArtist: TattooArtist?, relation
+    workplace: Workplace?, relation
+    tattooProject: TattooProject?, relation(optional)
+    start: DateTime
+    end: DateTime

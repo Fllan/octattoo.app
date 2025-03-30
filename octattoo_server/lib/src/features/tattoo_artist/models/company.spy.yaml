@@ -1,0 +1,11 @@
+### A Company is owned by a TattooArtist
+class: Company
+table: company
+fields:
+    owner: TattooArtist?, relation
+    createdAt: DateTime
+    updatedAt: DateTime
+    name: String
+    vat: int?
+    ### The identifier of the company (SIREN, VAT number, ...)
+    officialId: String?

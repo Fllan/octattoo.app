@@ -1,0 +1,9 @@
+### A CustomerTag is a tag created by a TattooArtist to manage customers
+class: CustomerTag
+table: customer_tag
+fields:
+    name: String
+    description: String?
+    createdAt: DateTime
+    updatedAt: DateTime
+    owner: TattooArtist?, relation

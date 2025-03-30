@@ -1,0 +1,13 @@
+### A quotation from a TattooArtist to a Customer
+class: Quotation
+table: quotation
+fields:
+    customer: Customer?, relation
+    tattooArtist: TattooArtist?, relation
+    workplace: Workplace?, relation(optional)
+    tattooProject: TattooProject?, relation(optional)
+    price: int
+    createdAt: DateTime
+    ### Quotation is valid for 10 days started at createdAt
+    duration: int
+    status: WorkflowStatus

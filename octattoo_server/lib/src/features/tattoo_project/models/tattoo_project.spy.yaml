@@ -1,0 +1,12 @@
+### A TattooProject is a tattoo project between a Customer and a TattooArtist
+class: TattooProject
+table: tattoo_project
+fields:
+    tattooArtist: TattooArtist?, relation
+    customer: Customer?, relation
+    name: String
+    description: String
+    album: PictureAlbum?, relation
+    position: String?
+    createdAt: DateTime
+    updatedAt: DateTime

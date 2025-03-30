@@ -1,0 +1,13 @@
+### A Flash is a drawing for a tattoo initiated by a TattooArtist
+class: Flash
+table: flash
+fields:
+    createdBy: TattooArtist?, relation
+    name: String
+    description: String
+    album: PictureAlbum?, relation
+    isAvailable: bool
+    suggestedPosition: String?
+    createdAt: DateTime
+    updatedAt: DateTime
+    estimatedPrice: int?

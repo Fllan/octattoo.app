@@ -1,0 +1,7 @@
+enum: RecurringType
+serialized: byName
+values:
+    - daily
+    - weekly
+    - monthly
+    - yearly

@@ -1,8 +1,0 @@
-class: User
-table: user
-fields:
-    createdAt: DateTime
-    updatedAt: DateTime
-    firstName: String?
-    lastName: String?
-    

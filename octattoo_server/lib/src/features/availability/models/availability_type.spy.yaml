@@ -1,0 +1,6 @@
+enum: AvailabilityType
+serialized: byName
+values:
+ - guest
+ - permanent
+ - off
