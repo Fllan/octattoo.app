@@ -46,4 +46,36 @@ class AuthService {
       return left(e.toString());
     }
   }
+
+  Future<Either<String, UserInfo>> loginWithEmail({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final result =
+          await client.modules.auth.email.authenticate(email, password);
+
+      if (!result.success) {
+        return left("Could not login");
+      }
+      if (result.userInfo == null) {
+        return left("User info null");
+      }
+      if (result.key == null || result.keyId == null) {
+        return left("No authentication token found");
+      }
+
+      await sessionManager.registerSignedInUser(
+        result.userInfo!,
+        result.keyId!,
+        result.key!,
+      );
+
+      return right(result.userInfo!);
+    } catch (e, st) {
+      print(e);
+      print(st);
+      return left(e.toString());
+    }
+  }
 }

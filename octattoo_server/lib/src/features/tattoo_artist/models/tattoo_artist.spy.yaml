@@ -7,7 +7,7 @@ fields:
     company: Company?, relation(optional)
     createdAt: DateTime
     updatedAt: DateTime
-    bio: String?
+    bio: String
     artistName: String
     showRealNames: bool
     showPronoun: bool

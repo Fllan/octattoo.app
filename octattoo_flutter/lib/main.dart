@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:octattoo_flutter/core/providers/session_manager_provider.dart';
 import 'package:octattoo_flutter/features/authentication/providers/auth_service_provider.dart';
-import 'package:serverpod_auth_server/serverpod_auth_server.dart';
 
 void main() {
   // Need to call this as we are using Flutter bindings before runApp is called.
@@ -16,12 +14,6 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isSignedIn = ref.watch(sessionManagerProvider).isSignedIn;
-    UserInfo? signedInUser;
-    if (isSignedIn) {
-      signedInUser =
-          ref.watch(sessionManagerProvider).signedInUser as UserInfo?;
-    }
     return MaterialApp(
       title: 'Serverpod Demo',
       theme: ThemeData(
@@ -39,9 +31,9 @@ class MyApp extends ConsumerWidget {
                   ElevatedButton(
                     onPressed: () {
                       ref.read(authServiceProvider).registerWithEmail(
-                            email: "test@fllan.net",
+                            email: "test1@fllan.net",
                             password: "soleil123",
-                            username: "test fllan",
+                            username: "fllan1",
                           );
                     },
                     child: Text("Register With Email"),
@@ -50,16 +42,28 @@ class MyApp extends ConsumerWidget {
                   ElevatedButton(
                     onPressed: () {
                       ref.read(authServiceProvider).confirmEmailRegister(
-                            email: "test@fllan.net",
-                            verificationCode: "Ru3DRg3s",
+                            email: "test1@fllan.net",
+                            verificationCode: "utiC22oZ",
                           );
                     },
                     child: Text("Confirm Email"),
                   ),
                   SizedBox(height: 20),
-                  Visibility(
-                    visible: isSignedIn,
-                    child: Text("User logged in : $signedInUser"),
+                  ElevatedButton(
+                    onPressed: () async {
+                      final userInfo =
+                          await ref.read(authServiceProvider).loginWithEmail(
+                                email: "test1@fllan.net",
+                                password: "soleil123",
+                              );
+
+                      userInfo.fold((error) {
+                        print(error);
+                      }, (userInfo) {
+                        print(userInfo);
+                      });
+                    },
+                    child: Text("Login with Email"),
                   ),
                 ],
               ),

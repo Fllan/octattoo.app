@@ -38,20 +38,29 @@ void run(List<String> args) async {
   */
   auth.AuthConfig.set(
     auth.AuthConfig(
-      allowUnsecureRandom: false,
-      sendValidationEmail: (session, email, validationCode) async {
-        // Send the validation email to the user.
-        // Return `true` if the email was successfully sent, otherwise `false`.
-        print("ValidationCode: $validationCode");
-        return true;
-      },
-      sendPasswordResetEmail: (session, email, validationCode) async {
-        // Send the password reset email to the user.
-        // Return `true` if the email was successfully sent, otherwise `false`.
-        print("ValidationCode: $validationCode");
-        return true;
-      },
-    ),
+        allowUnsecureRandom: false,
+        sendValidationEmail: (session, email, validationCode) async {
+          // Send the validation email to the user.
+          // Return `true` if the email was successfully sent, otherwise `false`.
+          print("ValidationCode: $validationCode");
+          return true;
+        },
+        sendPasswordResetEmail: (session, email, validationCode) async {
+          // Send the password reset email to the user.
+          // Return `true` if the email was successfully sent, otherwise `false`.
+          print("ValidationCode: $validationCode");
+          return true;
+        },
+        onUserCreated: (session, userInfo) async {
+          if (userInfo.id != null) {
+            final user = User(
+              createdAt: DateTime.now(),
+              updatedAt: DateTime.now(),
+              userInfoId: userInfo.id!,
+            );
+            await User.db.insertRow(session, user);
+          }
+        }),
   );
 
   // Start the server.

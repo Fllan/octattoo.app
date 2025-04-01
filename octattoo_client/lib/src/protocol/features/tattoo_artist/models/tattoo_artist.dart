@@ -23,7 +23,7 @@ abstract class TattooArtist implements _i1.SerializableModel {
     this.company,
     required this.createdAt,
     required this.updatedAt,
-    this.bio,
+    required this.bio,
     required this.artistName,
     required this.showRealNames,
     required this.showPronoun,
@@ -37,7 +37,7 @@ abstract class TattooArtist implements _i1.SerializableModel {
     _i3.Company? company,
     required DateTime createdAt,
     required DateTime updatedAt,
-    String? bio,
+    required String bio,
     required String artistName,
     required bool showRealNames,
     required bool showPronoun,
@@ -60,7 +60,7 @@ abstract class TattooArtist implements _i1.SerializableModel {
           _i1.DateTimeJsonExtension.fromJson(jsonSerialization['createdAt']),
       updatedAt:
           _i1.DateTimeJsonExtension.fromJson(jsonSerialization['updatedAt']),
-      bio: jsonSerialization['bio'] as String?,
+      bio: jsonSerialization['bio'] as String,
       artistName: jsonSerialization['artistName'] as String,
       showRealNames: jsonSerialization['showRealNames'] as bool,
       showPronoun: jsonSerialization['showPronoun'] as bool,
@@ -85,7 +85,7 @@ abstract class TattooArtist implements _i1.SerializableModel {
 
   DateTime updatedAt;
 
-  String? bio;
+  String bio;
 
   String artistName;
 
@@ -119,7 +119,7 @@ abstract class TattooArtist implements _i1.SerializableModel {
       if (company != null) 'company': company?.toJson(),
       'createdAt': createdAt.toJson(),
       'updatedAt': updatedAt.toJson(),
-      if (bio != null) 'bio': bio,
+      'bio': bio,
       'artistName': artistName,
       'showRealNames': showRealNames,
       'showPronoun': showPronoun,
@@ -143,7 +143,7 @@ class _TattooArtistImpl extends TattooArtist {
     _i3.Company? company,
     required DateTime createdAt,
     required DateTime updatedAt,
-    String? bio,
+    required String bio,
     required String artistName,
     required bool showRealNames,
     required bool showPronoun,
@@ -173,7 +173,7 @@ class _TattooArtistImpl extends TattooArtist {
     Object? company = _Undefined,
     DateTime? createdAt,
     DateTime? updatedAt,
-    Object? bio = _Undefined,
+    String? bio,
     String? artistName,
     bool? showRealNames,
     bool? showPronoun,
@@ -186,7 +186,7 @@ class _TattooArtistImpl extends TattooArtist {
       company: company is _i3.Company? ? company : this.company?.copyWith(),
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      bio: bio is String? ? bio : this.bio,
+      bio: bio ?? this.bio,
       artistName: artistName ?? this.artistName,
       showRealNames: showRealNames ?? this.showRealNames,
       showPronoun: showPronoun ?? this.showPronoun,
