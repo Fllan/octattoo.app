@@ -7,5 +7,6 @@ part 'session_manager_provider.g.dart';
 
 @riverpod
 Raw<SessionManager> sessionManager(Ref ref) {
-  return SessionManager(caller: ref.read(clientProvider).modules.auth);
+  final client = ref.watch(clientProvider);
+  return SessionManager(caller: client.modules.auth);
 }

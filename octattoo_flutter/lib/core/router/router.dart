@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:octattoo_flutter/core/providers/serverpod_helper.dart';
+import 'package:octattoo_flutter/core/router/app_startup.dart';
 import 'package:octattoo_flutter/core/router/destinations/primary_destinations.dart';
 import 'package:octattoo_flutter/core/router/routes/app_routes.dart';
 import 'package:octattoo_flutter/core/router/routes/guest_routes.dart';
@@ -10,6 +12,10 @@ part 'router.g.dart';
 
 @riverpod
 GoRouter router(Ref ref) {
+  final appStartupState = ref.watch(appStartupProvider);
+  final sessionManager = ref.watch(serverpodHelperProvider).sessionManager;
+
+  final rootNavigatorKey = GlobalKey<NavigatorState>();
   final shellNavigatorSignInKey =
       GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorSignIn');
   final shellNavigatorRegisterKey =
@@ -20,7 +26,37 @@ GoRouter router(Ref ref) {
       GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorCustomers');
 
   return GoRouter(
+    initialLocation: '/startup',
+    navigatorKey: rootNavigatorKey,
+    refreshListenable: sessionManager,
+    debugLogDiagnostics: false,
+    redirect: (context, state) {
+      if (appStartupState.isLoading || appStartupState.hasError) {
+        print("appStartupState.isLoading || appStartupState.hasError");
+        return '/startup';
+      }
+
+      print("appStartup completed");
+
+      final isLoggedIn = sessionManager.isSignedIn;
+
+      if (!isLoggedIn) {
+        return GuestRoutes.signIn.path;
+      } else {
+        return AppRoutes.appointments.path;
+      }
+    },
     routes: [
+      GoRoute(
+        path: '/startup',
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: AppStartupWidget(
+            // * This is just a placeholder
+            // * The loaded route will be managed by GoRouter on state change
+            onLoaded: (_) => const SizedBox.shrink(),
+          ),
+        ),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           List<PrimaryDestination> guestDestinations =

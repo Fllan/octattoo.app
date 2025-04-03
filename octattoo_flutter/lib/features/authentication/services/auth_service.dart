@@ -54,7 +54,7 @@ class AuthService {
 
   Future<Either<String, void>> logout() async {
     try {
-      await client.modules.auth.status.signOutDevice();
+      await sessionManager.signOutDevice();
       return right(null);
     } on Exception catch (e, st) {
       print(e);

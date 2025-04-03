@@ -1,4 +1,3 @@
-import 'package:octattoo_flutter/core/providers/session_manager_provider.dart';
 import 'package:octattoo_flutter/features/authentication/models/auth_state.dart';
 import 'package:octattoo_flutter/features/authentication/providers/auth_service_provider.dart';
 import 'package:octattoo_flutter/features/user/providers/user_service_provider.dart';
@@ -14,8 +13,6 @@ class Auth extends _$Auth {
   }
 
   Future<void> init() async {
-    await ref.read(sessionManagerProvider).initialize();
-
     final userInfoResult = ref.read(authServiceProvider).currentUserInfo();
     userInfoResult.fold((error) {
       state = AuthStateError(error: error);

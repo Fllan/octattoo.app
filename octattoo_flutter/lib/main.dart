@@ -1,145 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:octattoo_flutter/features/authentication/models/auth_state.dart';
-import 'package:octattoo_flutter/features/authentication/providers/auth_provider.dart';
-import 'package:octattoo_flutter/features/authentication/providers/auth_service_provider.dart';
-import 'package:octattoo_flutter/features/user/providers/user_service_provider.dart';
+import 'package:octattoo_flutter/core/l10n_extensions.dart';
+import 'package:octattoo_flutter/core/router/router.dart';
+// ignore: depend_on_referenced_packages
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 void main() {
-  // Need to call this as we are using Flutter bindings before runApp is called.
+  // * Need to call this as we are using Flutter bindings before runApp is called.
   WidgetsFlutterBinding.ensureInitialized();
 
+  // * Turn off the # in the URLs on the web
+  usePathUrlStrategy();
+
+  // * Register error handlers. For more info, see:
+  // * https://docs.flutter.dev/testing/errors
+  registerErrorHandlers();
+
+  // * Entry point of the app
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends ConsumerStatefulWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  ConsumerState<MyApp> createState() => _MyAppState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final goRouter = ref.watch(routerProvider);
 
-class _MyAppState extends ConsumerState<MyApp> {
-  bool booting = true;
-
-  @override
-  void initState() {
-    init();
-    super.initState();
-  }
-
-  init() async {
-    await ref.read(authProvider.notifier).init();
-    setState(() {
-      booting = false;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Serverpod Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Consumer(
-        builder: (context, ref, _) {
-          if (booting) {
-            return Scaffold(body: Center(child: CircularProgressIndicator()));
-          } else {
-            final authState = ref.watch(authProvider);
-            return Scaffold(
-              body: Center(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Builder(builder: (context) {
-                      switch (authState) {
-                        case AuthStateSuccess():
-                          return Text(
-                              "Hello User : ${authState.user.userInfo?.userName} !");
-                        case AuthStateGuest():
-                          return Text("Hello Guest !");
-                        default:
-                          return Text("...");
-                      }
-                    }),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () async {
-                        ref.read(authServiceProvider).registerWithEmail(
-                              email: "test@fllan.net",
-                              password: "soleil123",
-                              username: "fllan1",
-                            );
-                      },
-                      child: Text("Register With Email"),
-                    ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        ref.read(authServiceProvider).confirmEmailRegister(
-                              email: "test@fllan.net",
-                              verificationCode: "gpdZ4uw5",
-                            );
-                      },
-                      child: Text("Confirm Email"),
-                    ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        ref.read(authProvider.notifier).loginWithEmail(
-                              email: "test@fllan.net",
-                              password: "soleil123",
-                            );
-                      },
-                      child: Text("Login with Email"),
-                    ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        ref.read(authProvider.notifier).logout();
-                      },
-                      child: Text("Logout"),
-                    ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () async {
-                        final result =
-                            await ref.read(userServiceProvider).currentUser();
-                        result.fold((error) {
-                          print(error);
-                        }, (user) {
-                          print(user);
-                        });
-                      },
-                      child:
-                          Text("ref.read(userServiceProvider).currentUser()"),
-                    ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        final result =
-                            ref.read(authServiceProvider).currentUserInfo();
-                        result.fold((error) {
-                          print(error);
-                        }, (userInfo) {
-                          print(userInfo);
-                        });
-                      },
-                      child: Text(
-                          "ref.read(authServiceProvider).currentUserInfo()"),
-                    ),
-                    SizedBox(height: 20),
-                  ],
-                ),
-              ),
-            );
-          }
-        },
-      ),
+    return MaterialApp.router(
+      routerConfig: goRouter,
+      debugShowCheckedModeBanner: false,
     );
   }
+}
+
+void registerErrorHandlers() {
+  // * Show some error UI if any uncaught exception happens
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.presentError(details);
+    debugPrint(details.toString());
+  };
+
+  // * Handle errors from the underlying platform/OS
+  PlatformDispatcher.instance.onError = (Object error, StackTrace stack) {
+    debugPrint(error.toString());
+    return true;
+  };
+
+  // * Show some error UI when any widget in the app fails to build
+  ErrorWidget.builder = (FlutterErrorDetails details) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        title: Text('An error occurred'.hardcoded),
+      ),
+      body: Center(child: Text(details.toString())),
+    );
+  };
 }
