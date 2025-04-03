@@ -29,7 +29,6 @@ class _MyAppState extends ConsumerState<MyApp> {
   }
 
   init() async {
-    print("await ref.read(authProvider.notifier).init();");
     await ref.read(authProvider.notifier).init();
     setState(() {
       booting = false;
