@@ -6,11 +6,11 @@ class UserService {
 
   const UserService(this.client);
 
-  Future<Either<String, User>> currentUser() async {
+  Future<Either<String, User?>> currentUser() async {
     try {
       final user = await client.user.currentUser();
       if (user == null) {
-        return left("Not authenticated");
+        return right(null);
       }
       return right(user);
     } on Exception catch (e, st) {

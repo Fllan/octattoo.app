@@ -90,31 +90,18 @@ class _MyAppState extends ConsumerState<MyApp> {
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () async {
-                        final userInfo =
-                            await ref.read(authServiceProvider).loginWithEmail(
-                                  email: "test@fllan.net",
-                                  password: "soleil123",
-                                );
-
-                        userInfo.fold((error) {
-                          print(error);
-                        }, (userInfo) {
-                          print(userInfo);
-                        });
+                      onPressed: () {
+                        ref.read(authProvider.notifier).loginWithEmail(
+                              email: "test@fllan.net",
+                              password: "soleil123",
+                            );
                       },
                       child: Text("Login with Email"),
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () async {
-                        final result =
-                            await ref.read(authServiceProvider).logout();
-                        result.fold((error) {
-                          print(error);
-                        }, (_) {
-                          print("LOGOOOOOUT");
-                        });
+                      onPressed: () {
+                        ref.read(authProvider.notifier).logout();
                       },
                       child: Text("Logout"),
                     ),

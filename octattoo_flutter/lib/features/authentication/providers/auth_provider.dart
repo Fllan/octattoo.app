@@ -1,4 +1,3 @@
-import 'package:octattoo_client/octattoo_client.dart';
 import 'package:octattoo_flutter/core/providers/session_manager_provider.dart';
 import 'package:octattoo_flutter/features/authentication/models/auth_state.dart';
 import 'package:octattoo_flutter/features/authentication/providers/auth_service_provider.dart';
@@ -15,39 +14,61 @@ class Auth extends _$Auth {
   }
 
   Future<void> init() async {
-    print("1");
     await ref.read(sessionManagerProvider).initialize();
-    print("1 : Session initialized");
-    print("2");
 
     final userInfoResult = ref.read(authServiceProvider).currentUserInfo();
+    userInfoResult.fold((error) {
+      state = AuthStateError(error: error);
+    }, (userInfo) async {
+      if (userInfo != null) {
+        final userResult = await ref.read(userServiceProvider).currentUser();
+        userResult.fold((error) {
+          state = AuthStateError(error: error);
+        }, (user) {
+          if (user == null) {
+            state = AuthStateGuest();
+          } else {
+            state = AuthStateSuccess(user: user);
+          }
+        });
+      } else {
+        state = AuthStateGuest();
+      }
+    });
+  }
+
+  Future<void> loginWithEmail({
+    required String email,
+    required String password,
+  }) async {
+    final userInfoResult = await ref
+        .read(authServiceProvider)
+        .loginWithEmail(email: email, password: password);
     userInfoResult.fold(
       (error) {
         state = AuthStateError(error: error);
       },
       (userInfo) async {
-        if (userInfo != null) {
-          final userResult = await ref.read(userServiceProvider).currentUser();
-          userResult.fold(
-            (error) {
-              state = AuthStateError(error: error);
-            },
-            (user) {
-              state = AuthStateSuccess(user: user);
-            },
-          );
-        } else {
-          state = AuthStateGuest();
-        }
+        final userResult = await ref.read(userServiceProvider).currentUser();
+        userResult.fold((error) {
+          state = AuthStateError(error: error);
+        }, (user) {
+          if (user == null) {
+            state = AuthStateGuest();
+          } else {
+            state = AuthStateSuccess(user: user);
+          }
+        });
       },
     );
   }
 
-  void setUser(User user) {
-    state = AuthStateSuccess(user: user);
-  }
-
-  void logoutUser() {
-    state = AuthStateGuest();
+  Future<void> logout() async {
+    final result = await ref.read(authServiceProvider).logout();
+    result.fold((error) {
+      state = AuthStateError(error: error);
+    }, (_) {
+      state = AuthStateGuest();
+    });
   }
 }
