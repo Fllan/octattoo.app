@@ -6,9 +6,7 @@ import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart
 part 'session_manager_provider.g.dart';
 
 @riverpod
-// ignore: unsupported_provider_value
-SessionManager sessionManager(Ref ref) {
-  return SessionManager(
-    caller: ref.read(clientProvider).modules.auth,
-  );
+Raw<SessionManager> sessionManager(Ref ref) {
+  final client = ref.watch(clientProvider);
+  return SessionManager(caller: client.modules.auth);
 }
