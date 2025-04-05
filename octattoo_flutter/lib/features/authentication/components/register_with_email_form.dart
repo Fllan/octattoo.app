@@ -9,9 +9,8 @@ import 'package:octattoo_flutter/core/shared/components/buttons/primary_button.d
 import 'package:octattoo_flutter/core/shared/components/buttons/tertiary_button.dart';
 import 'package:octattoo_flutter/core/shared/components/form_fields/app_text_form_field.dart';
 import 'package:octattoo_flutter/core/shared/components/form_fields/password_text_field.dart';
-import 'package:octattoo_flutter/core/shared/components/material_text.dart';
 import 'package:octattoo_flutter/core/utils/validation_utils.dart';
-import 'package:octattoo_flutter/features/authentication/components/register_form_controller.dart';
+import 'package:octattoo_flutter/features/authentication/components/register_with_email_form_controller.dart';
 
 class RegisterForm extends ConsumerStatefulWidget {
   const RegisterForm({super.key});
@@ -36,9 +35,9 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
   }
 
   Future<void> validateForm() async {
-    final registerFormController =
-        ref.read(registerFormControllerProvider.notifier);
-    final isValid = registerFormController.formValidator(
+    final registerWithEmailFormController =
+        ref.read(registerWithEmailFormControllerProvider.notifier);
+    final isValid = registerWithEmailFormController.formValidator(
       email: emailController.text,
       password: passwordController.text,
       confirmedPassword: confirmedPasswordController.text,
@@ -52,13 +51,33 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    final AsyncValue<void> state = ref.watch(registerFormControllerProvider);
+    final AsyncValue<void> state =
+        ref.watch(registerWithEmailFormControllerProvider);
+
+    // ref.listen<AsyncValue>(
+    //   registerWithEmailFormControllerProvider,
+    //   (_, state) => state.showSnackbarOnError(context),
+    // );
     ref.listen<AsyncValue>(
-      registerFormControllerProvider,
-      (_, state) => state.showSnackbarOnError(context),
+      registerWithEmailFormControllerProvider,
+      (previous, next) async {
+        next.showSnackbarOnError(context);
+
+        if (previous?.isLoading == true && next.hasError == false) {
+          await showDialog(
+            context: context,
+            builder: (context) => EmailValidationDialog(
+              email: emailController.text,
+              password: passwordController.text,
+            ),
+          );
+        }
+      },
     );
+
     final registerFormController =
-        ref.read(registerFormControllerProvider.notifier);
+        ref.read(registerWithEmailFormControllerProvider.notifier);
+
     return Align(
       alignment: Alignment.center,
       child: SizedBox(
@@ -92,9 +111,10 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                       PasswordTextFormField(
                         label: 'Confirm password'.hardcoded,
                         controller: confirmedPasswordController,
-                        onFieldSubmitted: (_) => registerFormController.submit(
-                            email: emailController.text,
-                            password: passwordController.text),
+                        onFieldSubmitted: (_) =>
+                            registerFormController.submitEmailForm(
+                                email: emailController.text,
+                                password: passwordController.text),
                         validator: (value) =>
                             ValidationUtils.confirmPasswordValidator(
                                 value, passwordController.text),
@@ -107,9 +127,10 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                               icon: const Icon(Icons.app_registration),
                               onPressed: state.isLoading || !isValidForm
                                   ? null
-                                  : () => registerFormController.submit(
-                                      email: emailController.text,
-                                      password: passwordController.text),
+                                  : () =>
+                                      registerFormController.submitEmailForm(
+                                          email: emailController.text,
+                                          password: passwordController.text),
                               label: state.isLoading
                                   ? const CircularProgressIndicator()
                                   : Text('Sign Up'.hardcoded),
@@ -136,6 +157,63 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class EmailValidationDialog extends ConsumerWidget {
+  final String email;
+  final String password;
+
+  const EmailValidationDialog({
+    super.key,
+    required this.email,
+    required this.password,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final codeController = TextEditingController();
+    final registerFormController =
+        ref.read(registerWithEmailFormControllerProvider.notifier);
+    // Watch the state for the validation step
+    final AsyncValue<void> state =
+        ref.watch(registerWithEmailFormControllerProvider);
+
+    return AlertDialog(
+      title: Text('Enter Verification Code'.hardcoded),
+      content: AppTextFormField(
+        controller: codeController,
+        validator: (_) => null,
+        label: "Code".hardcoded,
+        keyboardType: TextInputType.text,
+        hasAutoFocus: true,
+      ),
+      actions: [
+        TertiaryButton(
+          label: Text("Cancel".hardcoded),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        PrimaryButton(
+          icon: const Icon(Icons.how_to_reg),
+          label: state.isLoading
+              ? const CircularProgressIndicator()
+              : Text("Verify email".hardcoded),
+          onPressed: state.isLoading
+              ? null
+              : () async {
+                  final code = codeController.text.trim();
+                  await registerFormController.submitValidationCode(
+                    email: email,
+                    password: password,
+                    verificationCode: code,
+                  );
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                  }
+                },
+        ),
+      ],
     );
   }
 }

@@ -82,17 +82,19 @@ class AuthService {
     }
   }
 
-  Future<Either<String, UserInfo>> confirmEmailRegister({
+  Future<Either<String, UserInfo>> confirmRegisteredEmail({
     required String email,
+    required String password,
     required String verificationCode,
   }) async {
     try {
-      final result = await client.modules.auth.email
+      final creationResult = await client.modules.auth.email
           .createAccount(email, verificationCode);
-      if (result == null) {
-        return left("Could not create account.");
+      if (creationResult == null) {
+        return left("Could not confirm email.");
       }
-      return right(result);
+      await loginWithEmail(email: email, password: password);
+      return right(creationResult);
     } on Exception catch (e, st) {
       print(e);
       print(st);
