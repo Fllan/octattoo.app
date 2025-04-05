@@ -40,8 +40,20 @@ GoRouter router(Ref ref) {
 
       final isLoggedIn = sessionManager.isSignedIn;
 
+      final isSigningIn =
+          state.uri.pathSegments.first == GuestRoutes.signIn.name;
+      final isRegistering =
+          state.uri.pathSegments.first == GuestRoutes.register.name;
+      final isForgotPassword =
+          state.uri.pathSegments.first == GuestRoutes.forgotPassword.name;
+      final isGuest = isSigningIn || isRegistering || isForgotPassword;
+
       if (!isLoggedIn) {
-        return GuestRoutes.signIn.path;
+        if (!isGuest) {
+          return GuestRoutes.signIn.path;
+        } else {
+          return null;
+        }
       } else {
         return AppRoutes.appointments.path;
       }
