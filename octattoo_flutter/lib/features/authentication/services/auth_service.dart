@@ -64,9 +64,9 @@ class AuthService {
   }
 
   Future<Either<String, void>> registerWithEmail({
+    required String username,
     required String email,
     required String password,
-    required String username,
   }) async {
     try {
       final result = await client.modules.auth.email
