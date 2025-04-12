@@ -12,6 +12,7 @@ part 'serverpod_helper.g.dart';
 
 class ServerpodHelper {
   ServerpodHelper(this.client, this.sessionManager) {
+    print("ServerpodHelper sessionManager.initialize()");
     sessionManager.initialize();
   }
 

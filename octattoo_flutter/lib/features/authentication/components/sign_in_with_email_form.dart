@@ -13,14 +13,15 @@ import 'package:octattoo_flutter/core/utils/validation_utils.dart';
 import 'package:octattoo_flutter/core/shared/components/form_fields/app_text_form_field.dart';
 import 'package:octattoo_flutter/features/authentication/components/sign_in_form_controller.dart';
 
-class SignInForm extends ConsumerStatefulWidget {
-  const SignInForm({super.key});
+class SignInWithEmailForm extends ConsumerStatefulWidget {
+  const SignInWithEmailForm({super.key});
 
   @override
-  ConsumerState<SignInForm> createState() => _SignInFormState();
+  ConsumerState<SignInWithEmailForm> createState() =>
+      _SignInWithEmailFormState();
 }
 
-class _SignInFormState extends ConsumerState<SignInForm> {
+class _SignInWithEmailFormState extends ConsumerState<SignInWithEmailForm> {
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -54,6 +55,7 @@ class _SignInFormState extends ConsumerState<SignInForm> {
       signInFormControllerProvider,
       (_, state) => state.showSnackbarOnError(context),
     );
+
     final signInFormController =
         ref.read(signInFormControllerProvider.notifier);
 
@@ -81,10 +83,11 @@ class _SignInFormState extends ConsumerState<SignInForm> {
                 onFieldSubmitted: (_) => {},
               ),
               gapH32,
+              gapH16,
               Row(
                 children: [
                   Expanded(
-                    child: PrimaryButton(
+                    child: SecondaryButton(
                       icon: const Icon(Icons.login),
                       onPressed: state.isLoading || !isValidForm
                           ? null

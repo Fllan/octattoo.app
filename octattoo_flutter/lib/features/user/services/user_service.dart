@@ -1,4 +1,3 @@
-import 'package:fpdart/fpdart.dart';
 import 'package:octattoo_client/octattoo_client.dart';
 
 class UserService {
@@ -6,17 +5,17 @@ class UserService {
 
   const UserService(this.client);
 
-  Future<Either<String, User?>> currentUser() async {
+  Future<User?> currentUser() async {
     try {
       final user = await client.user.currentUser();
       if (user == null) {
-        return right(null);
+        return null;
       }
-      return right(user);
+      return user;
     } on Exception catch (e, st) {
       print(e);
       print(st);
-      return left(e.toString());
+      throw Exception(e.toString());
     }
   }
 }

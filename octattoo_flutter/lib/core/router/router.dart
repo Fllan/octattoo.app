@@ -6,6 +6,8 @@ import 'package:octattoo_flutter/core/router/app_startup.dart';
 import 'package:octattoo_flutter/core/router/destinations/primary_destinations.dart';
 import 'package:octattoo_flutter/core/router/routes/app_routes.dart';
 import 'package:octattoo_flutter/core/router/routes/guest_routes.dart';
+import 'package:octattoo_flutter/features/authentication/models/auth_state.dart';
+import 'package:octattoo_flutter/features/authentication/providers/auth_state_notifier_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'router.g.dart';
@@ -20,6 +22,12 @@ GoRouter router(Ref ref) {
       GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorSignIn');
   final shellNavigatorRegisterKey =
       GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorRegister');
+  final shellNavigatorVerificationCodeKey = GlobalKey<NavigatorState>(
+      debugLabel: 'ShellNavigatorVerificationCodeKey');
+  final shellNavigatorForgotPasswordKey =
+      GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorForgotPassword');
+  final shellNavigatorResetPasswordKey =
+      GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorResetPassword');
   final shellNavigatorAppointmentsKey =
       GlobalKey<NavigatorState>(debugLabel: 'ShellNavigatorAppointments');
   final shellNavigatorCustomersKey =
@@ -40,16 +48,37 @@ GoRouter router(Ref ref) {
 
       final isLoggedIn = sessionManager.isSignedIn;
 
+      final authState = ref.watch(authStateNotifierProvider);
+
       final isSigningIn =
           state.uri.pathSegments.first == GuestRoutes.signIn.name;
       final isRegistering =
           state.uri.pathSegments.first == GuestRoutes.register.name;
-      final isForgotPassword =
+      final isForgettingPassword =
           state.uri.pathSegments.first == GuestRoutes.forgotPassword.name;
-      final isGuest = isSigningIn || isRegistering || isForgotPassword;
+      final isGuest = isSigningIn || isRegistering || isForgettingPassword;
+      final isVerifyingCode =
+          state.uri.pathSegments.first == GuestRoutes.verificationCode.name;
+      final isResettingPassword =
+          state.uri.pathSegments.first == GuestRoutes.resetPassword.name;
+
+      if (authState is AuthStateAccountCreationRequested ||
+          authState is AuthStateEmailValidationPending) {
+        if (!isVerifyingCode) {
+          return GuestRoutes.verificationCode.path;
+        }
+        return null;
+      }
+
+      if (authState is AuthStatePasswordResetRequested) {
+        if (!isResettingPassword) {
+          return GuestRoutes.resetPassword.path;
+        }
+        return null;
+      }
 
       if (!isLoggedIn) {
-        if (!isGuest) {
+        if (!isGuest || authState is AuthStateSignedIn) {
           return GuestRoutes.signIn.path;
         } else {
           return null;
@@ -87,14 +116,26 @@ GoRouter router(Ref ref) {
                 path: GuestRoutes.signIn.path,
                 name: GuestRoutes.signIn.name,
                 builder: (context, state) => GuestRoutes.signIn.screen,
-                routes: [
-                  GoRoute(
-                    path: GuestRoutes.forgotPassword.path,
-                    name: GuestRoutes.forgotPassword.name,
-                    pageBuilder: (context, state) => NoTransitionPage(
-                        child: GuestRoutes.forgotPassword.screen),
-                  ),
-                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: shellNavigatorForgotPasswordKey,
+            routes: [
+              GoRoute(
+                path: GuestRoutes.forgotPassword.path,
+                name: GuestRoutes.forgotPassword.name,
+                builder: (context, state) => GuestRoutes.forgotPassword.screen,
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: shellNavigatorResetPasswordKey,
+            routes: [
+              GoRoute(
+                path: GuestRoutes.resetPassword.path,
+                name: GuestRoutes.resetPassword.name,
+                builder: (context, state) => GuestRoutes.resetPassword.screen,
               ),
             ],
           ),
@@ -105,6 +146,17 @@ GoRouter router(Ref ref) {
                 path: GuestRoutes.register.path,
                 name: GuestRoutes.register.name,
                 builder: (context, state) => GuestRoutes.register.screen,
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: shellNavigatorVerificationCodeKey,
+            routes: [
+              GoRoute(
+                path: GuestRoutes.verificationCode.path,
+                name: GuestRoutes.verificationCode.name,
+                builder: (context, state) =>
+                    GuestRoutes.verificationCode.screen,
               ),
             ],
           ),
@@ -160,5 +212,9 @@ GoRouter router(Ref ref) {
         ],
       ),
     ],
+    errorBuilder: (context, state) => Scaffold(
+      // Basic error page
+      body: Center(child: Text('Page not found: ${state.error}')),
+    ),
   );
 }

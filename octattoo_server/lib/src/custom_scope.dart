@@ -5,4 +5,5 @@ class CustomScope extends Scope {
 
   static const tattooArtist = CustomScope('tattooArtist');
   static const customer = CustomScope('customer');
+  static const betaTesterPlan = CustomScope('betaTesterPlan');
 }

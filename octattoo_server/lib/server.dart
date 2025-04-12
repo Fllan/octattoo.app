@@ -1,4 +1,5 @@
 import 'package:mailer/smtp_server/gmail.dart';
+import 'package:octattoo_server/src/custom_scope.dart';
 import 'package:serverpod/serverpod.dart';
 
 import 'package:octattoo_server/src/web/routes/root.dart';
@@ -53,7 +54,7 @@ void run(List<String> args) async {
           final message = mailer.Message()
             ..from = mailer.Address(gmailEmail)
             ..recipients.add(email)
-            ..subject = 'Verification code for Serverpod'
+            ..subject = 'Verification code for Octattoo.app'
             ..html = 'Your verification code is: $validationCode';
 
           // Send the email message.
@@ -67,9 +68,28 @@ void run(List<String> args) async {
           return true;
         },
         sendPasswordResetEmail: (session, email, validationCode) async {
-          // Send the password reset email to the user.
-          // Return `true` if the email was successfully sent, otherwise `false`.
-          print("ValidationCode: $validationCode");
+          // Retrieve the credentials
+          final gmailEmail = session.serverpod.getPassword('gmailEmail')!;
+          final gmailPassword = session.serverpod.getPassword('gmailPassword')!;
+
+          // Create a SMTP client for Gmail.
+          final smtpServer = gmail(gmailEmail, gmailPassword);
+
+          // Create an email message with the validation code.
+          final message = mailer.Message()
+            ..from = mailer.Address(gmailEmail)
+            ..recipients.add(email)
+            ..subject = 'Verification code for Octattoo.app'
+            ..html = 'Your verification code is: $validationCode';
+
+          // Send the email message.
+          try {
+            await mailer.send(message, smtpServer);
+          } catch (_) {
+            // Return false if the email could not be sent.
+            return false;
+          }
+
           return true;
         },
         onUserCreated: (session, userInfo) async {
@@ -80,6 +100,23 @@ void run(List<String> args) async {
               userInfoId: userInfo.id!,
             );
             await User.db.insertRow(session, user);
+
+            // Assign scopes based on email
+            if (userInfo.email == "florent@lanternier.net") {
+              // Admin scope for your email
+              await auth.Users.updateUserScopes(
+                session,
+                userInfo.id!,
+                {Scope.admin, CustomScope.tattooArtist},
+              );
+            } else {
+              // tattooArtist scope for everyone else
+              await auth.Users.updateUserScopes(
+                session,
+                userInfo.id!,
+                {CustomScope.tattooArtist, CustomScope.betaTesterPlan},
+              );
+            }
           }
         }),
   );

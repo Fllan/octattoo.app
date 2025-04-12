@@ -12,14 +12,15 @@ import 'package:octattoo_flutter/core/shared/components/form_fields/password_tex
 import 'package:octattoo_flutter/core/utils/validation_utils.dart';
 import 'package:octattoo_flutter/features/authentication/components/register_with_email_form_controller.dart';
 
-class RegisterForm extends ConsumerStatefulWidget {
-  const RegisterForm({super.key});
+class RegisterWithEmailForm extends ConsumerStatefulWidget {
+  const RegisterWithEmailForm({super.key});
 
   @override
-  ConsumerState<RegisterForm> createState() => _RegisterFormState();
+  ConsumerState<RegisterWithEmailForm> createState() =>
+      _RegisterWithEmailFormState();
 }
 
-class _RegisterFormState extends ConsumerState<RegisterForm> {
+class _RegisterWithEmailFormState extends ConsumerState<RegisterWithEmailForm> {
   final key = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -54,24 +55,10 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
     final AsyncValue<void> state =
         ref.watch(registerWithEmailFormControllerProvider);
 
-    // ref.listen<AsyncValue>(
-    //   registerWithEmailFormControllerProvider,
-    //   (_, state) => state.showSnackbarOnError(context),
-    // );
     ref.listen<AsyncValue>(
       registerWithEmailFormControllerProvider,
       (previous, next) async {
         next.showSnackbarOnError(context);
-
-        if (previous?.isLoading == true && next.hasError == false) {
-          await showDialog(
-            context: context,
-            builder: (context) => EmailValidationDialog(
-              email: emailController.text,
-              password: passwordController.text,
-            ),
-          );
-        }
       },
     );
 
@@ -96,6 +83,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      gapH32,
                       AppTextFormField(
                         controller: emailController,
                         validator: ValidationUtils.emailValidator,
@@ -157,63 +145,6 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class EmailValidationDialog extends ConsumerWidget {
-  final String email;
-  final String password;
-
-  const EmailValidationDialog({
-    super.key,
-    required this.email,
-    required this.password,
-  });
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final codeController = TextEditingController();
-    final registerFormController =
-        ref.read(registerWithEmailFormControllerProvider.notifier);
-    // Watch the state for the validation step
-    final AsyncValue<void> state =
-        ref.watch(registerWithEmailFormControllerProvider);
-
-    return AlertDialog(
-      title: Text('Enter Verification Code'.hardcoded),
-      content: AppTextFormField(
-        controller: codeController,
-        validator: (_) => null,
-        label: "Code".hardcoded,
-        keyboardType: TextInputType.text,
-        hasAutoFocus: true,
-      ),
-      actions: [
-        TertiaryButton(
-          label: Text("Cancel".hardcoded),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        PrimaryButton(
-          icon: const Icon(Icons.how_to_reg),
-          label: state.isLoading
-              ? const CircularProgressIndicator()
-              : Text("Verify email".hardcoded),
-          onPressed: state.isLoading
-              ? null
-              : () async {
-                  final code = codeController.text.trim();
-                  await registerFormController.submitValidationCode(
-                    email: email,
-                    password: password,
-                    verificationCode: code,
-                  );
-                  if (context.mounted) {
-                    Navigator.of(context).pop();
-                  }
-                },
-        ),
-      ],
     );
   }
 }

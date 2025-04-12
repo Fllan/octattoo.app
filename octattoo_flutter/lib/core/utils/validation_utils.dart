@@ -22,6 +22,16 @@ class ValidationUtils {
     return null;
   }
 
+  static String? verificationCodeValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Please enter the verification code sent by email.".hardcoded;
+    }
+    if (value.length != 8) {
+      return 'Verification code is 8 characters long'.hardcoded;
+    }
+    return null;
+  }
+
   static String? emailValidator(String? value) {
     const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
         r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'

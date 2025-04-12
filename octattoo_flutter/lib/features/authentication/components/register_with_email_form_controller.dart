@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:octattoo_flutter/features/authentication/providers/auth_service_provider.dart';
+import 'package:octattoo_flutter/features/authentication/providers/auth_state_notifier_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'register_with_email_form_controller.g.dart';
@@ -12,31 +12,16 @@ class RegisterWithEmailFormController
     // nothing to do
   }
 
-  Future<bool> submitValidationCode({
+  void submitEmailForm({
     required String email,
     required String password,
-    required String verificationCode,
   }) async {
-    final authServive = ref.watch(authServiceProvider);
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() => authServive.confirmRegisteredEmail(
-          email: email,
-          password: password,
-          verificationCode: verificationCode,
-        ));
-    return state.hasError == false;
-  }
-
-  Future<bool> submitEmailForm(
-      {required String email, required String password}) async {
-    final authService = ref.watch(authServiceProvider);
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() => authService.registerWithEmail(
-          username: email,
-          email: email,
-          password: password,
-        ));
-    return state.hasError == false;
+    final username = email;
+    ref.read(authStateNotifierProvider.notifier).setAccountCreationRequested(
+          username,
+          email,
+          password,
+        );
   }
 
   bool formValidator({

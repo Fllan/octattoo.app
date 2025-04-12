@@ -1,6 +1,5 @@
-import 'package:fpdart/fpdart.dart';
 import 'package:octattoo_client/octattoo_client.dart';
-// ignore: depend_on_referenced_packages
+import 'package:octattoo_flutter/core/l10n_extensions.dart';
 import 'package:serverpod_auth_client/serverpod_auth_client.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
@@ -10,17 +9,17 @@ class AuthService {
 
   const AuthService(this.client, this.sessionManager);
 
-  Either<String, UserInfo?> currentUserInfo() {
+  UserInfo? currentUserInfo() {
     try {
-      return right(sessionManager.signedInUser);
-    } on Exception catch (e, st) {
+      return sessionManager.signedInUser;
+    } catch (e, st) {
       print(e);
       print(st);
-      return left(e.toString());
+      throw Exception(e.toString());
     }
   }
 
-  Future<Either<String, UserInfo>> loginWithEmail({
+  Future<UserInfo> loginWithEmail({
     required String email,
     required String password,
   }) async {
@@ -29,13 +28,13 @@ class AuthService {
           await client.modules.auth.email.authenticate(email, password);
 
       if (!result.success) {
-        return left("Could not login");
+        throw Exception("Could not login".hardcoded);
       }
       if (result.userInfo == null) {
-        return left("Authentication not successful");
+        throw Exception("Authentication not successful".hardcoded);
       }
       if (result.key == null || result.keyId == null) {
-        return left("No authentication token found");
+        throw Exception("No authentication token found".hardcoded);
       }
 
       await sessionManager.registerSignedInUser(
@@ -44,26 +43,25 @@ class AuthService {
         result.key!,
       );
 
-      return right(result.userInfo!);
+      return result.userInfo!;
     } catch (e, st) {
       print(e);
       print(st);
-      return left(e.toString());
+      throw Exception(e.toString());
     }
   }
 
-  Future<Either<String, void>> logout() async {
+  Future<void> signOutDevice() async {
     try {
       await sessionManager.signOutDevice();
-      return right(null);
-    } on Exception catch (e, st) {
+    } catch (e, st) {
       print(e);
       print(st);
-      return left(e.toString());
+      throw Exception(e.toString());
     }
   }
 
-  Future<Either<String, void>> registerWithEmail({
+  Future<void> registerWithEmail({
     required String username,
     required String email,
     required String password,
@@ -72,17 +70,16 @@ class AuthService {
       final result = await client.modules.auth.email
           .createAccountRequest(username, email, password);
       if (!result) {
-        return left("Could not create account.");
+        throw Exception("Could not create account.".hardcoded);
       }
-      return right(null);
-    } on Exception catch (e, st) {
+    } catch (e, st) {
       print(e);
       print(st);
-      return left(e.toString());
+      throw Exception(e.toString());
     }
   }
 
-  Future<Either<String, UserInfo>> confirmRegisteredEmail({
+  Future<UserInfo> confirmRegisteredEmail({
     required String email,
     required String password,
     required String verificationCode,
@@ -91,14 +88,49 @@ class AuthService {
       final creationResult = await client.modules.auth.email
           .createAccount(email, verificationCode);
       if (creationResult == null) {
-        return left("Could not confirm email.");
+        throw Exception("Could not confirm email.".hardcoded);
       }
       await loginWithEmail(email: email, password: password);
-      return right(creationResult);
-    } on Exception catch (e, st) {
+      return creationResult;
+    } catch (e, st) {
       print(e);
       print(st);
-      return left(e.toString());
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<void> sendResetPasswordEmail({
+    required String email,
+  }) async {
+    try {
+      final result =
+          await client.modules.auth.email.initiatePasswordReset(email);
+      if (!result) {
+        throw Exception("Could not send password reset email".hardcoded);
+      }
+    } catch (e, st) {
+      print(e);
+      print(st);
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<void> resetPassword({
+    required String email,
+    required String password,
+    required String verificationCode,
+  }) async {
+    try {
+      final resetResult = await client.modules.auth.email
+          .resetPassword(verificationCode, password);
+      if (!resetResult) {
+        throw Exception("Could not reset password".hardcoded);
+      }
+      await loginWithEmail(email: email, password: password);
+    } catch (e, st) {
+      print(e);
+      print(st);
+      throw Exception(e.toString());
     }
   }
 }

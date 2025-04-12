@@ -1040,7 +1040,7 @@ packages:
     source: hosted
     version: "2.4.0"
   serverpod_auth_client:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: serverpod_auth_client
       sha256: dc91bf25c62c18b7a23299b656d88d7d3ba4d00dc02b54b221f8ad71bfe841a5

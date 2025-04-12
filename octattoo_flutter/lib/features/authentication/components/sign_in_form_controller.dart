@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:octattoo_flutter/features/authentication/providers/auth_service_provider.dart';
+import 'package:octattoo_flutter/features/authentication/providers/auth_state_notifier_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sign_in_form_controller.g.dart';
@@ -11,12 +11,14 @@ class SignInFormController extends _$SignInFormController {
     // nothing to do
   }
 
-  Future<bool> submit({required String email, required String password}) async {
-    final authRepository = ref.read(authServiceProvider);
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(
-        () => authRepository.loginWithEmail(email: email, password: password));
-    return state.hasError == false;
+  void submit({
+    required String email,
+    required String password,
+  }) {
+    ref.read(authStateNotifierProvider.notifier).loginWithEmail(
+          email,
+          password,
+        );
   }
 
   bool formValidator({

@@ -8,6 +8,7 @@ part 'auth_service_provider.g.dart';
 
 @riverpod
 AuthService authService(Ref ref) {
+  print("AuthServiceProvider init");
   return AuthService(
     ref.read(clientProvider),
     ref.read(sessionManagerProvider),
