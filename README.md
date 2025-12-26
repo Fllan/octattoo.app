@@ -6,6 +6,11 @@
 
 <p align="center"><strong>Tattoo & stay organized!</strong></p>
 
+<p align="center">
+  <a href="README.md">🇬🇧 English</a> •
+  <a href="README.fr.md">🇫🇷 Français</a>
+</p>
+
 ---
 
 ## What is octattoo.app?
