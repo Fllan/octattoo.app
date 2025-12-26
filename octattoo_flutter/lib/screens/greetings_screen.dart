@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:octattoo_flutter/l10n/app_localizations.dart';
 
 import '../main.dart';
 
@@ -50,6 +51,8 @@ class _GreetingsScreenState extends State<GreetingsScreen> {
               child: const Text('Sign out'),
             ),
           ],
+          const SizedBox(height: 32),
+          Text(AppLocalizations.of(context)!.helloWorld),
           const SizedBox(height: 32),
           TextField(
             controller: _textEditingController,

@@ -27,6 +27,9 @@ dependencies:
   cupertino_icons: ^1.0.5
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any
   octattoo_client:
     path: ../octattoo_client
   serverpod_auth_idp_flutter: 3.1.1
@@ -42,6 +45,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  generate: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

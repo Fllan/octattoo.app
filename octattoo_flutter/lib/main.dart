@@ -1,5 +1,6 @@
 import 'package:octattoo_client/octattoo_client.dart';
 import 'package:flutter/material.dart';
+import 'package:octattoo_flutter/l10n/app_localizations.dart';
 import 'package:octattoo_flutter/screens/sign_in_screen.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
@@ -53,6 +54,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Serverpod Demo',
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: Locale('fr'),
       theme: ThemeData(primarySwatch: Colors.blue),
       home: const MyHomePage(title: 'Serverpod Example'),
     );
