@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_flutter/src/screens/appointments_screen.dart';
-import 'package:octattoo_flutter/src/screens/artist_profile_screen.dart';
+import 'package:octattoo_flutter/src/artist_profile/artist_profile_screen.dart';
 import 'package:octattoo_flutter/src/screens/authentication_screen.dart';
 import 'package:octattoo_flutter/src/screens/customers_screen.dart';
 import 'package:octattoo_flutter/src/screens/settings_screen.dart';
-import 'package:octattoo_flutter/src/navigation/scaffold_with_modal_drawer.dart';
+import 'package:octattoo_flutter/src/navigation/scaffold_with_nav_bar.dart';
 
 part 'routes.g.dart';
 
@@ -61,7 +61,7 @@ class AppShellRouteData extends StatefulShellRouteData {
     StatefulNavigationShell navigationShell,
     List<Widget> children,
   ) {
-    return ScaffoldWithModalDrawer(
+    return ScaffoldWithNavBar(
       navigationShell: navigationShell,
       children: children,
     );
