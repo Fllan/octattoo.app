@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:octattoo_flutter/core/serverpod_client_service.dart';
 import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
+import 'package:octattoo_flutter/src/shared/material_text.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -15,16 +16,16 @@ class WelcomeScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: .center,
             children: [
-              Text(
+              MaterialText.headlineMedium(
                 'Welcome to Octattoo App',
-                style: Theme.of(context).textTheme.headlineMedium,
+                context,
               ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
                   await client.auth.signOutDevice();
                 },
-                child: const Text('Sign out'),
+                child: MaterialText.labelLarge('Sign out', context),
               ),
             ],
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_flutter/src/navigation/nav_destination.dart';
 import 'package:octattoo_flutter/src/shared/l10n_extensions.dart';
+import 'package:octattoo_flutter/src/shared/material_text.dart';
 
 class ScaffoldWithModalDrawer extends StatelessWidget {
   const ScaffoldWithModalDrawer({
@@ -18,8 +19,9 @@ class ScaffoldWithModalDrawer extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: MaterialText.titleLarge(
             appNavDestinations[navigationShell.currentIndex].label,
+            context,
           ),
           leading: Builder(
             builder: (context) => IconButton(
@@ -41,15 +43,15 @@ class ScaffoldWithModalDrawer extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(28, 16, 16, 10),
-              child: Text(
+              child: MaterialText.titleSmall(
                 'octattoo.app'.hardcoded,
-                style: Theme.of(context).textTheme.titleSmall,
+                context,
               ),
             ),
             ...appNavDestinations.map(
               (dest) => NavigationDrawerDestination(
                 icon: Icon(dest.icon),
-                label: Text(dest.label.hardcoded),
+                label: MaterialText.labelLarge(dest.label.hardcoded, context),
               ),
             ),
           ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:octattoo_flutter/src/shared/material_text.dart';
 
 enum ButtonType {
   elevated,
@@ -140,7 +141,7 @@ class AsyncButtonWithIcon extends StatelessWidget {
                 height: 20,
                 child: CircularProgressIndicator(strokeWidth: 2.0),
               )
-            : Text(label); // Only pass the label as the child
+            : MaterialText.labelLarge(label, context); // Only pass the label as the child
 
         return _buildButton(child, isLoading);
       },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:octattoo_flutter/src/shared/material_text.dart';
 
 class CustomersScreen extends StatelessWidget {
   const CustomersScreen({super.key});
@@ -7,10 +8,10 @@ class CustomersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Customers'),
+        title: MaterialText.titleLarge('Customers', context),
       ),
-      body: const Center(
-        child: Text('Customers Screen - Coming Soon'),
+      body: Center(
+        child: MaterialText.bodyMedium('Customers Screen - Coming Soon', context),
       ),
     );
   }

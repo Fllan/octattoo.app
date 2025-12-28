@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:octattoo_flutter/src/shared/gaps.dart';
 import 'package:octattoo_flutter/src/shared/l10n_extensions.dart';
+import 'package:octattoo_flutter/src/shared/material_text.dart';
 
 class ArtistProfileScreen extends StatelessWidget {
   const ArtistProfileScreen({super.key});
@@ -12,12 +13,13 @@ class ArtistProfileScreen extends StatelessWidget {
       children: [
         ListTile(
           leading: Icon(Icons.person),
-          title: Text(
+          title: MaterialText.titleMedium(
             'Identity'.hardcoded,
-            style: Theme.of(context).textTheme.titleMedium,
+            context,
           ),
-          subtitle: Text(
+          subtitle: MaterialText.bodyMedium(
             'Manage your artist identity information'.hardcoded,
+            context,
           ),
           onTap: () {
             Navigator.push(
@@ -30,12 +32,13 @@ class ArtistProfileScreen extends StatelessWidget {
         ),
         ListTile(
           leading: Icon(Icons.storefront),
-          title: Text(
+          title: MaterialText.titleMedium(
             'Workplace'.hardcoded,
-            style: Theme.of(context).textTheme.titleMedium,
+            context,
           ),
-          subtitle: Text(
+          subtitle: MaterialText.bodyMedium(
             'Manage the places where you work'.hardcoded,
+            context,
           ),
           onTap: () {
             Navigator.push(
@@ -66,9 +69,9 @@ class WorkplaceScreen extends StatelessWidget {
           crossAxisAlignment: .start,
           children: [
             gapH20,
-            Text(
+            MaterialText.titleMedium(
               'Workplace management coming soon!'.hardcoded,
-              style: Theme.of(context).textTheme.titleMedium,
+              context,
             ),
             gapH20,
             Row(
@@ -78,7 +81,7 @@ class WorkplaceScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text('Back'.hardcoded),
+                  child: MaterialText.labelLarge('Back'.hardcoded, context),
                 ),
               ],
             ),
@@ -119,7 +122,7 @@ class IdentityScreen extends StatelessWidget {
                     gapH8,
                     ElevatedButton(
                       onPressed: () {},
-                      child: Text('Change avatar'.hardcoded),
+                      child: MaterialText.labelLarge('Change avatar'.hardcoded, context),
                     ),
                   ],
                 ),
@@ -142,16 +145,16 @@ class IdentityScreen extends StatelessWidget {
                     gapH8,
                     ElevatedButton(
                       onPressed: () {},
-                      child: Text('Change banner'.hardcoded),
+                      child: MaterialText.labelLarge('Change banner'.hardcoded, context),
                     ),
                   ],
                 ),
               ],
             ),
             gapH20,
-            Text(
+            MaterialText.titleSmall(
               'Artist name'.hardcoded,
-              style: Theme.of(context).textTheme.titleSmall,
+              context,
             ),
             gapH8,
             TextField(
@@ -162,9 +165,9 @@ class IdentityScreen extends StatelessWidget {
               ),
             ),
             gapH20,
-            Text(
+            MaterialText.titleSmall(
               'Bio'.hardcoded,
-              style: Theme.of(context).textTheme.titleSmall,
+              context,
             ),
             gapH8,
             TextField(
@@ -182,7 +185,7 @@ class IdentityScreen extends StatelessWidget {
               children: [
                 FilledButton(
                   onPressed: () {},
-                  child: Text('Save'.hardcoded),
+                  child: MaterialText.labelLarge('Save'.hardcoded, context),
                 ),
               ],
             ),

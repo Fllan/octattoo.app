@@ -38,11 +38,14 @@ class SettingsScreen extends StatelessWidget {
                   ...SupportedLocales.all.map((locale) {
                     final isSelected = currentLocale == locale;
                     return ListTile(
-                      leading: Text(
+                      leading: MaterialText.headlineMedium(
                         SupportedLocales.flag(locale),
-                        style: const TextStyle(fontSize: 24),
+                        context,
                       ),
-                      title: Text(SupportedLocales.displayName(locale)),
+                      title: MaterialText.bodyMedium(
+                        SupportedLocales.displayName(locale),
+                        context,
+                      ),
                       trailing: isSelected
                           ? Icon(
                               Icons.check_circle,
@@ -99,9 +102,9 @@ class SettingsScreen extends StatelessWidget {
             valueListenable: localeController.listenable,
             builder: (context, currentLocale, _) {
               return ListTile(
-                leading: Text(
+                leading: MaterialText.headlineMedium(
                   SupportedLocales.flag(currentLocale),
-                  style: const TextStyle(fontSize: 24),
+                  context,
                 ),
                 title: MaterialText.bodyMedium('Language'.hardcoded, context),
                 subtitle: MaterialText.bodySmall(
