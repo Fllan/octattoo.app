@@ -1,6 +1,10 @@
 import 'package:octattoo_client/octattoo_client.dart';
 import 'package:flutter/material.dart';
+import 'package:octattoo_flutter/core/locale/memory_locale_repository.dart';
+import 'package:octattoo_flutter/core/locale/locale_controller.dart';
 import 'package:octattoo_flutter/core/serverpod_client_service.dart';
+import 'package:octattoo_flutter/core/theme/memory_theme_repository.dart';
+import 'package:octattoo_flutter/core/theme/theme_controller.dart';
 import 'package:octattoo_flutter/src/octattoo_app.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 import 'config/app_config.dart';
@@ -37,5 +41,18 @@ void main() async {
 
   await ServerpodClientService().initialize(serverUrl);
 
-  runApp(const OctattooApp());
+  // Initialize theme controller
+  final themeController = ThemeController(MemoryThemeRepository());
+  await themeController.initialize();
+
+  // Initialize locale controller
+  final localeController = LocaleController(MemoryLocaleRepository());
+  await localeController.initialize();
+
+  runApp(
+    OctattooApp(
+      themeController: themeController,
+      localeController: localeController,
+    ),
+  );
 }
