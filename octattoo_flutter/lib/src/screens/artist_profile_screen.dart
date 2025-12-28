@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:octattoo_flutter/src/shared/gaps.dart';
 import 'package:octattoo_flutter/src/shared/l10n_extensions.dart';
 import 'package:octattoo_flutter/src/shared/material_text.dart';
+import 'package:octattoo_flutter/src/workplaces/add_workplace.dart';
 
 class ArtistProfileScreen extends StatelessWidget {
   const ArtistProfileScreen({super.key});
@@ -66,25 +67,9 @@ class WorkplaceScreen extends StatelessWidget {
       body: Padding(
         padding: EdgeInsetsGeometry.symmetric(horizontal: 12.0),
         child: Column(
-          crossAxisAlignment: .start,
+          crossAxisAlignment: .center,
           children: [
-            gapH20,
-            MaterialText.titleMedium(
-              'Workplace management coming soon!'.hardcoded,
-              context,
-            ),
-            gapH20,
-            Row(
-              mainAxisAlignment: .end,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: MaterialText.labelLarge('Back'.hardcoded, context),
-                ),
-              ],
-            ),
+            AddWorkplace(),
           ],
         ),
       ),
@@ -122,7 +107,7 @@ class IdentityScreen extends StatelessWidget {
                     gapH8,
                     ElevatedButton(
                       onPressed: () {},
-                      child: MaterialText.labelLarge('Change avatar'.hardcoded, context),
+                      child: Text('Change avatar'.hardcoded),
                     ),
                   ],
                 ),
@@ -145,17 +130,14 @@ class IdentityScreen extends StatelessWidget {
                     gapH8,
                     ElevatedButton(
                       onPressed: () {},
-                      child: MaterialText.labelLarge('Change banner'.hardcoded, context),
+                      child: Text('Change banner'.hardcoded),
                     ),
                   ],
                 ),
               ],
             ),
             gapH20,
-            MaterialText.titleSmall(
-              'Artist name'.hardcoded,
-              context,
-            ),
+            MaterialText.titleSmall('Artist name'.hardcoded, context),
             gapH8,
             TextField(
               decoration: InputDecoration(
@@ -165,10 +147,7 @@ class IdentityScreen extends StatelessWidget {
               ),
             ),
             gapH20,
-            MaterialText.titleSmall(
-              'Bio'.hardcoded,
-              context,
-            ),
+            MaterialText.titleSmall('Bio'.hardcoded, context),
             gapH8,
             TextField(
               maxLines: 3,
