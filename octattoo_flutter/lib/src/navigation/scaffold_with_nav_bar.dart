@@ -20,36 +20,18 @@ class ScaffoldWithNavBar extends StatelessWidget {
           index: navigationShell.currentIndex,
           children: children,
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
-          selectedItemColor: Theme.of(context).colorScheme.secondary,
-          selectedIconTheme: IconThemeData(
-            color: Theme.of(context).colorScheme.onSecondaryContainer,
-          ),
-          selectedLabelStyle: TextStyle(
-            color: Theme.of(context).colorScheme.secondary,
-          ),
-          unselectedItemColor: Theme.of(context).colorScheme.onSurfaceVariant,
-          unselectedLabelStyle: TextStyle(
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
-          ),
-          unselectedIconTheme: IconThemeData(
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
-          ),
-          type: .shifting,
-          useLegacyColorScheme: true,
-          showUnselectedLabels: true,
-          items: appNavDestinations
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: navigationShell.currentIndex,
+          onDestinationSelected: (int index) => _onTap(context, index),
+          destinations: appNavDestinations
               .map(
-                (dest) => BottomNavigationBarItem(
+                (dest) => NavigationDestination(
                   icon: Icon(dest.icon),
                   label: dest.label,
-                  activeIcon: Icon(dest.activeIcon),
+                  selectedIcon: Icon(dest.selectedIcon),
                 ),
               )
               .toList(),
-          currentIndex: navigationShell.currentIndex,
-          onTap: (int index) => _onTap(context, index),
         ),
       ),
     );
