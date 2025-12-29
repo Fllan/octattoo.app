@@ -20,10 +20,16 @@ class ScaffoldWithNavBar extends StatelessWidget {
         children: children,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
+        unselectedLabelStyle: TextStyle(
+          color: Theme.of(context).colorScheme.onSurface,
+        ),
+        type: .shifting,
+        useLegacyColorScheme: false,
+        showUnselectedLabels: true,
         items: appNavDestinations
             .map(
               (dest) => BottomNavigationBarItem(
+                backgroundColor: Theme.of(context).colorScheme.surface,
                 icon: Icon(dest.icon),
                 label: dest.label,
               ),

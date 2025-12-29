@@ -3,8 +3,8 @@ import 'package:octattoo_flutter/src/shared/gaps.dart';
 import 'package:octattoo_flutter/src/shared/l10n_extensions.dart';
 import 'package:octattoo_flutter/src/shared/material_text.dart';
 
-class IdentityScreen extends StatelessWidget {
-  const IdentityScreen({
+class PublicProfileScreen extends StatelessWidget {
+  const PublicProfileScreen({
     super.key,
   });
 

@@ -4,7 +4,12 @@ import 'package:flutter/material.dart';
 class AppThemeData {
   AppThemeData._();
 
-  static const Color _seedColor = Color(0xff6750a4); // M3 Baseline
+  static const Color _seedColor = Color.fromARGB(
+    255,
+    31,
+    211,
+    127,
+  ); // M3 Baseline
 
   static ThemeData get light {
     return ThemeData(

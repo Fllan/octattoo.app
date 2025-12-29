@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:octattoo_flutter/src/features/artist_profile/public_profile_screen.dart';
 import 'package:octattoo_flutter/src/features/artist_profile/workplace_details_screen.dart';
 import 'package:octattoo_flutter/src/features/artist_profile/workplaces_screen.dart';
 import 'package:octattoo_flutter/src/features/appointments/appointments_screen.dart';
 import 'package:octattoo_flutter/src/features/artist_profile/artist_profile_screen.dart';
-import 'package:octattoo_flutter/src/features/appointments/authentication_screen.dart';
+import 'package:octattoo_flutter/src/features/authentication/authentication_screen.dart';
 import 'package:octattoo_flutter/src/features/customers/customers_screen.dart';
 import 'package:octattoo_flutter/src/features/settings/settings_screen.dart';
 import 'package:octattoo_flutter/src/navigation/scaffold_with_nav_bar.dart';
@@ -24,36 +25,37 @@ class AuthenticationRoute extends GoRouteData with $AuthenticationRoute {
   branches: <TypedStatefulShellBranch<StatefulShellBranchData>>[
     TypedStatefulShellBranch<CustomersBranchData>(
       routes: <TypedRoute<RouteData>>[
-        TypedGoRoute<CustomersRouteData>(
+        TypedGoRoute<CustomersRoute>(
           path: '/customers',
         ),
       ],
     ),
     TypedStatefulShellBranch<AppointmentsBranchData>(
       routes: [
-        TypedGoRoute<AppointmentsRouteData>(
+        TypedGoRoute<AppointmentsRoute>(
           path: '/appointments',
         ),
       ],
     ),
     TypedStatefulShellBranch<ArtistProfileBranchData>(
       routes: [
-        TypedGoRoute<ArtistProfileRouteData>(
+        TypedGoRoute<ArtistProfileRoute>(
           path: '/artist-profile',
           routes: <TypedRoute<RouteData>>[
-            TypedGoRoute<WorkplacesRouteData>(
+            TypedGoRoute<WorkplacesRoute>(
               path: 'workplaces',
               routes: <TypedRoute<RouteData>>[
-                TypedGoRoute<WorkplaceDetailsRouteData>(path: ':id'),
+                TypedGoRoute<WorkplaceDetailsRoute>(path: ':id'),
               ],
             ),
+            TypedGoRoute<PublicProfileRoute>(path: 'public-profile'),
           ],
         ),
       ],
     ),
     TypedStatefulShellBranch<SettingsBranchData>(
       routes: [
-        TypedGoRoute<SettingsRouteData>(
+        TypedGoRoute<SettingsRoute>(
           path: '/settings',
         ),
       ],
@@ -110,41 +112,40 @@ class SettingsBranchData extends StatefulShellBranchData {
 // ROUTE DATA (The actual routes)
 // ============================================================================
 
-class CustomersRouteData extends GoRouteData with $CustomersRouteData {
-  const CustomersRouteData();
+class CustomersRoute extends GoRouteData with $CustomersRoute {
+  const CustomersRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const CustomersScreen();
 }
 
-class AppointmentsRouteData extends GoRouteData with $AppointmentsRouteData {
-  const AppointmentsRouteData();
+class AppointmentsRoute extends GoRouteData with $AppointmentsRoute {
+  const AppointmentsRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const AppointmentsScreen();
 }
 
-class ArtistProfileRouteData extends GoRouteData with $ArtistProfileRouteData {
-  const ArtistProfileRouteData();
+class ArtistProfileRoute extends GoRouteData with $ArtistProfileRoute {
+  const ArtistProfileRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const ArtistProfileScreen();
 }
 
-class WorkplacesRouteData extends GoRouteData with $WorkplacesRouteData {
-  const WorkplacesRouteData();
+class WorkplacesRoute extends GoRouteData with $WorkplacesRoute {
+  const WorkplacesRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const WorkplacesScreen();
 }
 
-class WorkplaceDetailsRouteData extends GoRouteData
-    with $WorkplaceDetailsRouteData {
-  WorkplaceDetailsRouteData({required this.id});
+class WorkplaceDetailsRoute extends GoRouteData with $WorkplaceDetailsRoute {
+  WorkplaceDetailsRoute({required this.id});
 
   final String id;
 
@@ -154,8 +155,16 @@ class WorkplaceDetailsRouteData extends GoRouteData
   }
 }
 
-class SettingsRouteData extends GoRouteData with $SettingsRouteData {
-  const SettingsRouteData();
+class PublicProfileRoute extends GoRouteData with $PublicProfileRoute {
+  const PublicProfileRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const PublicProfileScreen();
+}
+
+class SettingsRoute extends GoRouteData with $SettingsRoute {
+  const SettingsRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) =>
