@@ -14,29 +14,43 @@ class ScaffoldWithNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: navigationShell.currentIndex,
-        children: children,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        unselectedLabelStyle: TextStyle(
-          color: Theme.of(context).colorScheme.onSurface,
+    return SafeArea(
+      child: Scaffold(
+        body: IndexedStack(
+          index: navigationShell.currentIndex,
+          children: children,
         ),
-        type: .shifting,
-        useLegacyColorScheme: false,
-        showUnselectedLabels: true,
-        items: appNavDestinations
-            .map(
-              (dest) => BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).colorScheme.surface,
-                icon: Icon(dest.icon),
-                label: dest.label,
-              ),
-            )
-            .toList(),
-        currentIndex: navigationShell.currentIndex,
-        onTap: (int index) => _onTap(context, index),
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+          selectedItemColor: Theme.of(context).colorScheme.secondary,
+          selectedIconTheme: IconThemeData(
+            color: Theme.of(context).colorScheme.onSecondaryContainer,
+          ),
+          selectedLabelStyle: TextStyle(
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+          unselectedItemColor: Theme.of(context).colorScheme.onSurfaceVariant,
+          unselectedLabelStyle: TextStyle(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
+          unselectedIconTheme: IconThemeData(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
+          type: .shifting,
+          useLegacyColorScheme: true,
+          showUnselectedLabels: true,
+          items: appNavDestinations
+              .map(
+                (dest) => BottomNavigationBarItem(
+                  icon: Icon(dest.icon),
+                  label: dest.label,
+                  activeIcon: Icon(dest.activeIcon),
+                ),
+              )
+              .toList(),
+          currentIndex: navigationShell.currentIndex,
+          onTap: (int index) => _onTap(context, index),
+        ),
       ),
     );
   }

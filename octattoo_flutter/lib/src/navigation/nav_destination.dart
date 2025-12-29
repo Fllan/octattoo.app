@@ -6,32 +6,38 @@ class NavDestination {
     required this.index,
     required this.label,
     required this.icon,
+    required this.activeIcon,
   });
 
   final int index;
   final String label;
   final IconData icon;
+  final IconData activeIcon;
 }
 
 List<NavDestination> appNavDestinations = [
   NavDestination(
     index: 0,
     label: 'Customers'.hardcoded,
-    icon: Icons.people,
+    icon: Icons.people_alt_outlined,
+    activeIcon: Icons.people_alt,
   ),
   NavDestination(
     index: 1,
     label: 'Appointments'.hardcoded,
-    icon: Icons.calendar_today,
+    icon: Icons.calendar_today_outlined,
+    activeIcon: Icons.calendar_today,
   ),
   NavDestination(
     index: 2,
     label: 'Artist Profile'.hardcoded,
-    icon: Icons.person,
+    icon: Icons.person_outline,
+    activeIcon: Icons.person,
   ),
   NavDestination(
     index: 3,
     label: 'Settings'.hardcoded,
-    icon: Icons.settings,
+    icon: Icons.settings_outlined,
+    activeIcon: Icons.settings,
   ),
 ];
