@@ -43,7 +43,7 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
       routes: [
         GoRouteData.$route(
           path: '/customers',
-          factory: $CustomersRoute._fromState,
+          factory: $CustomersRouteData._fromState,
         ),
       ],
     ),
@@ -51,7 +51,7 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
       routes: [
         GoRouteData.$route(
           path: '/appointments',
-          factory: $AppointmentsRoute._fromState,
+          factory: $AppointmentsRouteData._fromState,
         ),
       ],
     ),
@@ -59,7 +59,19 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
       routes: [
         GoRouteData.$route(
           path: '/artist-profile',
-          factory: $ArtistProfileRoute._fromState,
+          factory: $ArtistProfileRouteData._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'workplaces',
+              factory: $WorkplacesRouteData._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: ':id',
+                  factory: $WorkplaceDetailsRouteData._fromState,
+                ),
+              ],
+            ),
+          ],
         ),
       ],
     ),
@@ -67,7 +79,7 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
       routes: [
         GoRouteData.$route(
           path: '/settings',
-          factory: $SettingsRoute._fromState,
+          factory: $SettingsRouteData._fromState,
         ),
       ],
     ),
@@ -79,9 +91,9 @@ extension $AppShellRouteDataExtension on AppShellRouteData {
       const AppShellRouteData();
 }
 
-mixin $CustomersRoute on GoRouteData {
-  static CustomersRoute _fromState(GoRouterState state) =>
-      const CustomersRoute();
+mixin $CustomersRouteData on GoRouteData {
+  static CustomersRouteData _fromState(GoRouterState state) =>
+      const CustomersRouteData();
 
   @override
   String get location => GoRouteData.$location('/customers');
@@ -100,9 +112,9 @@ mixin $CustomersRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin $AppointmentsRoute on GoRouteData {
-  static AppointmentsRoute _fromState(GoRouterState state) =>
-      const AppointmentsRoute();
+mixin $AppointmentsRouteData on GoRouteData {
+  static AppointmentsRouteData _fromState(GoRouterState state) =>
+      const AppointmentsRouteData();
 
   @override
   String get location => GoRouteData.$location('/appointments');
@@ -121,9 +133,9 @@ mixin $AppointmentsRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin $ArtistProfileRoute on GoRouteData {
-  static ArtistProfileRoute _fromState(GoRouterState state) =>
-      const ArtistProfileRoute();
+mixin $ArtistProfileRouteData on GoRouteData {
+  static ArtistProfileRouteData _fromState(GoRouterState state) =>
+      const ArtistProfileRouteData();
 
   @override
   String get location => GoRouteData.$location('/artist-profile');
@@ -142,8 +154,55 @@ mixin $ArtistProfileRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin $SettingsRoute on GoRouteData {
-  static SettingsRoute _fromState(GoRouterState state) => const SettingsRoute();
+mixin $WorkplacesRouteData on GoRouteData {
+  static WorkplacesRouteData _fromState(GoRouterState state) =>
+      const WorkplacesRouteData();
+
+  @override
+  String get location => GoRouteData.$location('/artist-profile/workplaces');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $WorkplaceDetailsRouteData on GoRouteData {
+  static WorkplaceDetailsRouteData _fromState(GoRouterState state) =>
+      WorkplaceDetailsRouteData(id: state.pathParameters['id']!);
+
+  WorkplaceDetailsRouteData get _self => this as WorkplaceDetailsRouteData;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/artist-profile/workplaces/${Uri.encodeComponent(_self.id)}',
+  );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $SettingsRouteData on GoRouteData {
+  static SettingsRouteData _fromState(GoRouterState state) =>
+      const SettingsRouteData();
 
   @override
   String get location => GoRouteData.$location('/settings');

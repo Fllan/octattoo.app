@@ -10,6 +10,7 @@ final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 final client = ServerpodClientService().client;
 
 final router = GoRouter(
+  debugLogDiagnostics: true,
   routes: $appRoutes,
   navigatorKey: rootNavigatorKey,
   refreshListenable: client.auth.authInfoListenable,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:octattoo_flutter/src/workplaces/add_workplace.dart';
+import 'package:octattoo_flutter/src/features/workplaces/add_workplace.dart';
 
-class WorkplaceScreen extends StatelessWidget {
-  const WorkplaceScreen({
+class WorkplacesScreen extends StatelessWidget {
+  const WorkplacesScreen({
     super.key,
   });
 

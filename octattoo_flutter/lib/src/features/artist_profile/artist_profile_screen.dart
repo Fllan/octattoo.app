@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:octattoo_flutter/src/artist_profile/identity_screen.dart';
-import 'package:octattoo_flutter/src/artist_profile/workplace_screen.dart';
+import 'package:octattoo_flutter/core/router/routes.dart';
+import 'package:octattoo_flutter/src/features/artist_profile/identity_screen.dart';
 import 'package:octattoo_flutter/src/shared/l10n_extensions.dart';
 import 'package:octattoo_flutter/src/shared/material_text.dart';
 
@@ -41,14 +41,7 @@ class ArtistProfileScreen extends StatelessWidget {
             'Manage the places where you work'.hardcoded,
             context,
           ),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => WorkplaceScreen(),
-              ),
-            );
-          },
+          onTap: () => WorkplacesRouteData().go(context),
         ),
       ],
     );
