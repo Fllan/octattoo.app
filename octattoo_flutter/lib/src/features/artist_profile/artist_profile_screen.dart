@@ -33,7 +33,7 @@ class ArtistProfileScreen extends StatelessWidget {
             'Manage the places where you work'.hardcoded,
             context,
           ),
-          onTap: () => WorkplacesRoute().go(context),
+          onTap: () => MyWorkplacesRoute().go(context),
         ),
       ],
     );

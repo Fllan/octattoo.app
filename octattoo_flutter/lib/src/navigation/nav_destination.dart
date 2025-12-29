@@ -18,9 +18,9 @@ class NavDestination {
 List<NavDestination> appNavDestinations = [
   NavDestination(
     index: 0,
-    label: 'Customers'.hardcoded,
-    icon: Icons.people_alt_outlined,
-    selectedIcon: Icons.people_alt,
+    label: 'Projects'.hardcoded,
+    icon: Icons.dashboard_outlined,
+    selectedIcon: Icons.dashboard,
   ),
   NavDestination(
     index: 1,
@@ -36,8 +36,8 @@ List<NavDestination> appNavDestinations = [
   ),
   NavDestination(
     index: 3,
-    label: 'Settings'.hardcoded,
-    icon: Icons.settings_outlined,
-    selectedIcon: Icons.settings,
+    label: 'More'.hardcoded,
+    icon: Icons.more_horiz_outlined,
+    selectedIcon: Icons.more_horiz,
   ),
 ];

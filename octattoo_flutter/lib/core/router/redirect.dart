@@ -14,7 +14,7 @@ class RedirectRoute extends GoRouteData {
       return const AuthenticationRoute().location;
     }
     if (isLoggedIn && loggingIn) {
-      return const AppointmentsRoute().location;
+      return const ArtistProfileRoute().location;
     }
     return null;
   }

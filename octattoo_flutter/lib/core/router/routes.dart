@@ -1,32 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:octattoo_flutter/src/features/appointments/add_appointment_screen.dart';
+import 'package:octattoo_flutter/src/features/appointments/appointment_details_screen.dart';
+import 'package:octattoo_flutter/src/features/appointments/appointments_screen.dart';
+import 'package:octattoo_flutter/src/features/appointments/edit_appointment_screen.dart';
+import 'package:octattoo_flutter/src/features/artist_profile/add_availability_screen.dart';
+import 'package:octattoo_flutter/src/features/artist_profile/add_workplace_screen.dart';
+import 'package:octattoo_flutter/src/features/artist_profile/artist_profile_screen.dart';
+import 'package:octattoo_flutter/src/features/artist_profile/availabilities_screen.dart';
+import 'package:octattoo_flutter/src/features/artist_profile/edit_availability_screen.dart';
+import 'package:octattoo_flutter/src/features/artist_profile/edit_workplace_screen.dart';
 import 'package:octattoo_flutter/src/features/artist_profile/public_profile_screen.dart';
 import 'package:octattoo_flutter/src/features/artist_profile/workplace_details_screen.dart';
 import 'package:octattoo_flutter/src/features/artist_profile/workplaces_screen.dart';
-import 'package:octattoo_flutter/src/features/appointments/appointments_screen.dart';
-import 'package:octattoo_flutter/src/features/artist_profile/artist_profile_screen.dart';
 import 'package:octattoo_flutter/src/features/authentication/authentication_screen.dart';
+import 'package:octattoo_flutter/src/features/customers/add_customer_screen.dart';
+import 'package:octattoo_flutter/src/features/customers/customer_details_screen.dart';
 import 'package:octattoo_flutter/src/features/customers/customers_screen.dart';
+import 'package:octattoo_flutter/src/features/customers/edit_customer_screen.dart';
+import 'package:octattoo_flutter/src/features/inventory/inventory_screen.dart';
+import 'package:octattoo_flutter/src/features/invoices/invoices_screen.dart';
+import 'package:octattoo_flutter/src/features/more_screen.dart';
+import 'package:octattoo_flutter/src/features/projects/add_project_screen.dart';
+import 'package:octattoo_flutter/src/features/projects/edit_project_screen.dart';
+import 'package:octattoo_flutter/src/features/projects/project_details_screen.dart';
+import 'package:octattoo_flutter/src/features/projects/projects_screen.dart';
+import 'package:octattoo_flutter/src/features/quotes/quotes_screen.dart';
 import 'package:octattoo_flutter/src/features/settings/settings_screen.dart';
 import 'package:octattoo_flutter/src/navigation/scaffold_with_nav_bar.dart';
 
 part 'routes.g.dart';
-
-@TypedGoRoute<AuthenticationRoute>(path: '/authentication')
-class AuthenticationRoute extends GoRouteData with $AuthenticationRoute {
-  const AuthenticationRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const AuthenticationScreen();
-}
+part 'routes/branch_data.dart';
+part 'routes/auth_routes.dart';
+part 'routes/artist_profile_routes.dart';
+part 'routes/appointments_routes.dart';
+part 'routes/customers_routes.dart';
+part 'routes/projects_routes.dart';
+part 'routes/more_routes.dart';
 
 @TypedStatefulShellRoute<AppShellRouteData>(
   branches: <TypedStatefulShellBranch<StatefulShellBranchData>>[
     TypedStatefulShellBranch<CustomersBranchData>(
       routes: <TypedRoute<RouteData>>[
-        TypedGoRoute<CustomersRoute>(
-          path: '/customers',
+        TypedGoRoute<ProjectsRoute>(
+          path: '/projects',
+          routes: <TypedRoute<RouteData>>[
+            TypedGoRoute<ProjectDetailsRoute>(path: ':projectId'),
+            TypedGoRoute<AddProjectRoute>(path: 'add'),
+            TypedGoRoute<EditProjectRoute>(path: 'edit/:projectId'),
+          ],
         ),
       ],
     ),
@@ -34,6 +56,11 @@ class AuthenticationRoute extends GoRouteData with $AuthenticationRoute {
       routes: [
         TypedGoRoute<AppointmentsRoute>(
           path: '/appointments',
+          routes: <TypedRoute<RouteData>>[
+            TypedGoRoute<AppointmentDetailsRoute>(path: ':appointmentId'),
+            TypedGoRoute<AddAppointmentRoute>(path: 'add'),
+            TypedGoRoute<EditAppointmentRoute>(path: 'edit/:appointmentId'),
+          ],
         ),
       ],
     ),
@@ -42,21 +69,50 @@ class AuthenticationRoute extends GoRouteData with $AuthenticationRoute {
         TypedGoRoute<ArtistProfileRoute>(
           path: '/artist-profile',
           routes: <TypedRoute<RouteData>>[
-            TypedGoRoute<WorkplacesRoute>(
-              path: 'workplaces',
+            TypedGoRoute<PublicProfileRoute>(path: 'public-profile'),
+            TypedGoRoute<MyWorkplacesRoute>(
+              path: 'my-workplaces',
               routes: <TypedRoute<RouteData>>[
-                TypedGoRoute<WorkplaceDetailsRoute>(path: ':id'),
+                TypedGoRoute<EditWorkplaceRoute>(path: 'edit/:workplaceId'),
+                TypedGoRoute<AddWorkplaceRoute>(path: 'add'),
+                TypedGoRoute<WorkplaceDetailsRoute>(
+                  path: ':id',
+                  routes: <TypedRoute<RouteData>>[
+                    TypedGoRoute<AvailabilitiesRoute>(
+                      path: 'availabilities',
+                      routes: <TypedRoute<RouteData>>[
+                        TypedGoRoute<AddAvailabilityRoute>(path: 'add'),
+                        TypedGoRoute<EditAvailabilityRoute>(
+                          path: 'edit/:availabilityId',
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ],
             ),
-            TypedGoRoute<PublicProfileRoute>(path: 'public-profile'),
           ],
         ),
       ],
     ),
-    TypedStatefulShellBranch<SettingsBranchData>(
+    TypedStatefulShellBranch<MoreBranchData>(
       routes: [
-        TypedGoRoute<SettingsRoute>(
-          path: '/settings',
+        TypedGoRoute<MoreRoute>(
+          path: '/more',
+          routes: <TypedRoute<RouteData>>[
+            TypedGoRoute<SettingsRoute>(path: 'settings'),
+            TypedGoRoute<InvoicesRoute>(path: 'invoices'),
+            TypedGoRoute<QuotesRoute>(path: 'quotes'),
+            TypedGoRoute<InventoryRoute>(path: 'inventory'),
+            TypedGoRoute<CustomersRoute>(
+              path: 'customers',
+              routes: <TypedRoute<RouteData>>[
+                TypedGoRoute<CustomerDetailsRoute>(path: ':customerId'),
+                TypedGoRoute<AddCustomerRoute>(path: 'add'),
+                TypedGoRoute<EditCustomerRoute>(path: 'edit/:customerId'),
+              ],
+            ),
+          ],
         ),
       ],
     ),
@@ -86,87 +142,4 @@ class AppShellRouteData extends StatefulShellRouteData {
       children: children,
     );
   }
-}
-
-// ============================================================================
-// BRANCH DATA (One for each tab)
-// ============================================================================
-
-class CustomersBranchData extends StatefulShellBranchData {
-  const CustomersBranchData();
-}
-
-class AppointmentsBranchData extends StatefulShellBranchData {
-  const AppointmentsBranchData();
-}
-
-class ArtistProfileBranchData extends StatefulShellBranchData {
-  const ArtistProfileBranchData();
-}
-
-class SettingsBranchData extends StatefulShellBranchData {
-  const SettingsBranchData();
-}
-
-// ============================================================================
-// ROUTE DATA (The actual routes)
-// ============================================================================
-
-class CustomersRoute extends GoRouteData with $CustomersRoute {
-  const CustomersRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const CustomersScreen();
-}
-
-class AppointmentsRoute extends GoRouteData with $AppointmentsRoute {
-  const AppointmentsRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const AppointmentsScreen();
-}
-
-class ArtistProfileRoute extends GoRouteData with $ArtistProfileRoute {
-  const ArtistProfileRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const ArtistProfileScreen();
-}
-
-class WorkplacesRoute extends GoRouteData with $WorkplacesRoute {
-  const WorkplacesRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const WorkplacesScreen();
-}
-
-class WorkplaceDetailsRoute extends GoRouteData with $WorkplaceDetailsRoute {
-  WorkplaceDetailsRoute({required this.id});
-
-  final String id;
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return WorkplaceDetailsScreen(id: id);
-  }
-}
-
-class PublicProfileRoute extends GoRouteData with $PublicProfileRoute {
-  const PublicProfileRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const PublicProfileScreen();
-}
-
-class SettingsRoute extends GoRouteData with $SettingsRoute {
-  const SettingsRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const SettingsScreen();
 }

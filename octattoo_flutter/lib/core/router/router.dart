@@ -15,4 +15,5 @@ final router = GoRouter(
   navigatorKey: rootNavigatorKey,
   refreshListenable: client.auth.authInfoListenable,
   redirect: RedirectRoute().redirect,
+  initialLocation: ArtistProfileRoute().location,
 );
