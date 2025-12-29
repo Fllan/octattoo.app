@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:octattoo_flutter/core/router/routes.dart';
 import 'package:octattoo_flutter/src/shared/material_text.dart';
 
 class CustomerDetailsScreen extends StatelessWidget {
@@ -13,7 +14,21 @@ class CustomerDetailsScreen extends StatelessWidget {
         title: MaterialText.titleLarge('Customer Details', context),
       ),
       body: Center(
-        child: MaterialText.bodyMedium('Customer Details Screen - Coming Soon\nCustomer ID: $customerId', context),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            MaterialText.bodyMedium('Customer Details Screen - Coming Soon\nCustomer ID: $customerId', context),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange,
+                foregroundColor: Colors.white,
+              ),
+              onPressed: () => EditCustomerRoute(customerId: customerId).go(context),
+              child: const Text('Edit Customer'),
+            ),
+          ],
+        ),
       ),
     );
   }

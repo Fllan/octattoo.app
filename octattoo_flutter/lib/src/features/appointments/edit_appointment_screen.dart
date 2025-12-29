@@ -10,10 +10,16 @@ class EditAppointmentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: MaterialText.titleLarge('Edit Appointment', context),
+        title: MaterialText.titleLarge(
+          '$appointmentId (Edit Appointment)',
+          context,
+        ),
       ),
       body: Center(
-        child: MaterialText.bodyMedium('Edit Appointment Screen - Coming Soon\nAppointment ID: $appointmentId', context),
+        child: MaterialText.bodyMedium(
+          'Edit Appointment Screen - Coming Soon\nAppointment ID: $appointmentId',
+          context,
+        ),
       ),
     );
   }

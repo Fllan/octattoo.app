@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:octattoo_flutter/core/router/routes.dart';
 import 'package:octattoo_flutter/src/shared/async_button.dart';
 import 'package:octattoo_flutter/src/shared/gaps.dart';
 import 'package:octattoo_flutter/src/shared/l10n_extensions.dart';
@@ -86,6 +87,7 @@ class AddWorkplace extends StatelessWidget {
               ),
               AsyncButton.elevated(
                 callback: () {
+                  AddWorkplaceRoute().go(context);
                   return Future.value();
                 },
                 label: 'New $title'.hardcoded,

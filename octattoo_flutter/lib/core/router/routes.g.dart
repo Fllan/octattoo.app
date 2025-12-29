@@ -20,16 +20,16 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
           factory: $ProjectsRoute._fromState,
           routes: [
             GoRouteData.$route(
-              path: ':projectId',
-              factory: $ProjectDetailsRoute._fromState,
-            ),
-            GoRouteData.$route(
               path: 'add',
               factory: $AddProjectRoute._fromState,
             ),
             GoRouteData.$route(
               path: 'edit/:projectId',
               factory: $EditProjectRoute._fromState,
+            ),
+            GoRouteData.$route(
+              path: ':projectId',
+              factory: $ProjectDetailsRoute._fromState,
             ),
           ],
         ),
@@ -42,16 +42,16 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
           factory: $AppointmentsRoute._fromState,
           routes: [
             GoRouteData.$route(
-              path: ':appointmentId',
-              factory: $AppointmentDetailsRoute._fromState,
-            ),
-            GoRouteData.$route(
               path: 'add',
               factory: $AddAppointmentRoute._fromState,
             ),
             GoRouteData.$route(
               path: 'edit/:appointmentId',
               factory: $EditAppointmentRoute._fromState,
+            ),
+            GoRouteData.$route(
+              path: ':appointmentId',
+              factory: $AppointmentDetailsRoute._fromState,
             ),
           ],
         ),
@@ -132,16 +132,16 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
               factory: $CustomersRoute._fromState,
               routes: [
                 GoRouteData.$route(
-                  path: ':customerId',
-                  factory: $CustomerDetailsRoute._fromState,
-                ),
-                GoRouteData.$route(
                   path: 'add',
                   factory: $AddCustomerRoute._fromState,
                 ),
                 GoRouteData.$route(
                   path: 'edit/:customerId',
                   factory: $EditCustomerRoute._fromState,
+                ),
+                GoRouteData.$route(
+                  path: ':customerId',
+                  factory: $CustomerDetailsRoute._fromState,
                 ),
               ],
             ),
@@ -162,31 +162,6 @@ mixin $ProjectsRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/projects');
-
-  @override
-  void go(BuildContext context) => context.go(location);
-
-  @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  @override
-  void replace(BuildContext context) => context.replace(location);
-}
-
-mixin $ProjectDetailsRoute on GoRouteData {
-  static ProjectDetailsRoute _fromState(GoRouterState state) =>
-      ProjectDetailsRoute(projectId: state.pathParameters['projectId']!);
-
-  ProjectDetailsRoute get _self => this as ProjectDetailsRoute;
-
-  @override
-  String get location => GoRouteData.$location(
-    '/projects/${Uri.encodeComponent(_self.projectId)}',
-  );
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -248,12 +223,16 @@ mixin $EditProjectRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin $AppointmentsRoute on GoRouteData {
-  static AppointmentsRoute _fromState(GoRouterState state) =>
-      const AppointmentsRoute();
+mixin $ProjectDetailsRoute on GoRouteData {
+  static ProjectDetailsRoute _fromState(GoRouterState state) =>
+      ProjectDetailsRoute(projectId: state.pathParameters['projectId']!);
+
+  ProjectDetailsRoute get _self => this as ProjectDetailsRoute;
 
   @override
-  String get location => GoRouteData.$location('/appointments');
+  String get location => GoRouteData.$location(
+    '/projects/${Uri.encodeComponent(_self.projectId)}',
+  );
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -269,18 +248,12 @@ mixin $AppointmentsRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin $AppointmentDetailsRoute on GoRouteData {
-  static AppointmentDetailsRoute _fromState(GoRouterState state) =>
-      AppointmentDetailsRoute(
-        appointmentId: state.pathParameters['appointmentId']!,
-      );
-
-  AppointmentDetailsRoute get _self => this as AppointmentDetailsRoute;
+mixin $AppointmentsRoute on GoRouteData {
+  static AppointmentsRoute _fromState(GoRouterState state) =>
+      const AppointmentsRoute();
 
   @override
-  String get location => GoRouteData.$location(
-    '/appointments/${Uri.encodeComponent(_self.appointmentId)}',
-  );
+  String get location => GoRouteData.$location('/appointments');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -328,6 +301,33 @@ mixin $EditAppointmentRoute on GoRouteData {
   @override
   String get location => GoRouteData.$location(
     '/appointments/edit/${Uri.encodeComponent(_self.appointmentId)}',
+  );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $AppointmentDetailsRoute on GoRouteData {
+  static AppointmentDetailsRoute _fromState(GoRouterState state) =>
+      AppointmentDetailsRoute(
+        appointmentId: state.pathParameters['appointmentId']!,
+      );
+
+  AppointmentDetailsRoute get _self => this as AppointmentDetailsRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/appointments/${Uri.encodeComponent(_self.appointmentId)}',
   );
 
   @override
@@ -680,31 +680,6 @@ mixin $CustomersRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin $CustomerDetailsRoute on GoRouteData {
-  static CustomerDetailsRoute _fromState(GoRouterState state) =>
-      CustomerDetailsRoute(customerId: state.pathParameters['customerId']!);
-
-  CustomerDetailsRoute get _self => this as CustomerDetailsRoute;
-
-  @override
-  String get location => GoRouteData.$location(
-    '/more/customers/${Uri.encodeComponent(_self.customerId)}',
-  );
-
-  @override
-  void go(BuildContext context) => context.go(location);
-
-  @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  @override
-  void replace(BuildContext context) => context.replace(location);
-}
-
 mixin $AddCustomerRoute on GoRouteData {
   static AddCustomerRoute _fromState(GoRouterState state) =>
       const AddCustomerRoute();
@@ -735,6 +710,31 @@ mixin $EditCustomerRoute on GoRouteData {
   @override
   String get location => GoRouteData.$location(
     '/more/customers/edit/${Uri.encodeComponent(_self.customerId)}',
+  );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $CustomerDetailsRoute on GoRouteData {
+  static CustomerDetailsRoute _fromState(GoRouterState state) =>
+      CustomerDetailsRoute(customerId: state.pathParameters['customerId']!);
+
+  CustomerDetailsRoute get _self => this as CustomerDetailsRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/more/customers/${Uri.encodeComponent(_self.customerId)}',
   );
 
   @override

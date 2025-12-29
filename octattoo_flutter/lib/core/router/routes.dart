@@ -45,9 +45,9 @@ part 'routes/more_routes.dart';
         TypedGoRoute<ProjectsRoute>(
           path: '/projects',
           routes: <TypedRoute<RouteData>>[
-            TypedGoRoute<ProjectDetailsRoute>(path: ':projectId'),
             TypedGoRoute<AddProjectRoute>(path: 'add'),
             TypedGoRoute<EditProjectRoute>(path: 'edit/:projectId'),
+            TypedGoRoute<ProjectDetailsRoute>(path: ':projectId'),
           ],
         ),
       ],
@@ -57,9 +57,9 @@ part 'routes/more_routes.dart';
         TypedGoRoute<AppointmentsRoute>(
           path: '/appointments',
           routes: <TypedRoute<RouteData>>[
-            TypedGoRoute<AppointmentDetailsRoute>(path: ':appointmentId'),
             TypedGoRoute<AddAppointmentRoute>(path: 'add'),
             TypedGoRoute<EditAppointmentRoute>(path: 'edit/:appointmentId'),
+            TypedGoRoute<AppointmentDetailsRoute>(path: ':appointmentId'),
           ],
         ),
       ],
@@ -107,9 +107,9 @@ part 'routes/more_routes.dart';
             TypedGoRoute<CustomersRoute>(
               path: 'customers',
               routes: <TypedRoute<RouteData>>[
-                TypedGoRoute<CustomerDetailsRoute>(path: ':customerId'),
                 TypedGoRoute<AddCustomerRoute>(path: 'add'),
                 TypedGoRoute<EditCustomerRoute>(path: 'edit/:customerId'),
+                TypedGoRoute<CustomerDetailsRoute>(path: ':customerId'),
               ],
             ),
           ],
