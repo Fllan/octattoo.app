@@ -1,10 +1,8 @@
 import 'package:octattoo_client/octattoo_client.dart';
 import 'package:flutter/material.dart';
-import 'package:octattoo_flutter/core/locale/memory_locale_repository.dart';
-import 'package:octattoo_flutter/core/locale/locale_controller.dart';
 import 'package:octattoo_flutter/core/serverpod_client_service.dart';
-import 'package:octattoo_flutter/core/theme/memory_theme_repository.dart';
-import 'package:octattoo_flutter/core/theme/theme_controller.dart';
+import 'package:octattoo_flutter/core/settings/app_settings_provider.dart';
+import 'package:octattoo_flutter/core/settings/memory_settings_repository.dart';
 import 'package:octattoo_flutter/src/octattoo_app.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -43,18 +41,13 @@ void main() async {
 
   await ServerpodClientService().initialize(serverUrl);
 
-  // Initialize theme controller
-  final themeController = ThemeController(MemoryThemeRepository());
-  await themeController.initialize();
-
-  // Initialize locale controller
-  final localeController = LocaleController(MemoryLocaleRepository());
-  await localeController.initialize();
+  // Create settings repository (can be swapped for SharedPreferences later)
+  final settingsRepository = MemorySettingsRepository();
 
   runApp(
-    OctattooApp(
-      themeController: themeController,
-      localeController: localeController,
+    AppSettingsProvider(
+      repository: settingsRepository,
+      child: const OctattooApp(),
     ),
   );
 }

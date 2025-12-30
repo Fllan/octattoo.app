@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:octattoo_flutter/core/locale/locale_provider.dart';
 import 'package:octattoo_flutter/core/locale/supported_locales.dart';
 import 'package:octattoo_flutter/core/serverpod_client_service.dart';
-import 'package:octattoo_flutter/core/theme/theme_provider.dart';
+import 'package:octattoo_flutter/core/settings/app_settings_provider.dart';
 import 'package:octattoo_flutter/src/shared/async_button.dart';
 import 'package:octattoo_flutter/src/shared/gaps.dart';
 import 'package:octattoo_flutter/src/shared/l10n_extensions.dart';
@@ -13,14 +12,17 @@ class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   void _showLanguageBottomSheet(BuildContext context) {
-    final localeController = LocaleProvider.of(context);
+    // Use read() for callbacks - no rebuild dependency needed
+    final settings = AppSettingsProvider.read(context);
 
     showModalBottomSheet(
       context: context,
-      builder: (context) {
-        return ValueListenableBuilder<Locale>(
-          valueListenable: localeController.listenable,
-          builder: (context, currentLocale, _) {
+      builder: (sheetContext) {
+        // ListenableBuilder for the sheet's local rebuild
+        return ListenableBuilder(
+          listenable: settings,
+          builder: (context, _) {
+            final currentLocale = settings.locale;
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -53,7 +55,7 @@ class SettingsScreen extends StatelessWidget {
                             )
                           : null,
                       onTap: () {
-                        localeController.setLocale(locale);
+                        settings.setLocale(locale);
                         Navigator.pop(context);
                       },
                     );
@@ -70,8 +72,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final client = ServerpodClientService().client;
-    final themeController = ThemeProvider.of(context);
-    final localeController = LocaleProvider.of(context);
+    final settings = AppSettingsProvider.of(context);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -81,40 +82,30 @@ class SettingsScreen extends StatelessWidget {
           gapH32,
           MaterialText.titleSmall('Appearance'.hardcoded, context),
           gapH8,
-          ValueListenableBuilder<ThemeMode>(
-            valueListenable: themeController.listenable,
-            builder: (context, themeMode, _) {
-              return SwitchListTile(
-                value: themeMode == ThemeMode.dark,
-                onChanged: (_) => themeController.toggle(),
-                title: MaterialText.bodyMedium(
-                  'Switch light'.hardcoded,
-                  context,
-                ),
-                subtitle: MaterialText.bodySmall(
-                  'Current: ${themeMode.name}'.hardcoded,
-                  context,
-                ),
-              );
-            },
+          SwitchListTile(
+            value: settings.themeMode == ThemeMode.dark,
+            onChanged: (_) => settings.toggleTheme(),
+            title: MaterialText.bodyMedium(
+              'Switch light'.hardcoded,
+              context,
+            ),
+            subtitle: MaterialText.bodySmall(
+              'Current: ${settings.themeMode.name}'.hardcoded,
+              context,
+            ),
           ),
-          ValueListenableBuilder<Locale>(
-            valueListenable: localeController.listenable,
-            builder: (context, currentLocale, _) {
-              return ListTile(
-                leading: MaterialText.headlineMedium(
-                  SupportedLocales.flag(currentLocale),
-                  context,
-                ),
-                title: MaterialText.bodyMedium('Language'.hardcoded, context),
-                subtitle: MaterialText.bodySmall(
-                  SupportedLocales.displayName(currentLocale),
-                  context,
-                ),
-                trailing: const Icon(Icons.chevron_right),
-                onTap: () => _showLanguageBottomSheet(context),
-              );
-            },
+          ListTile(
+            leading: MaterialText.headlineMedium(
+              SupportedLocales.flag(settings.locale),
+              context,
+            ),
+            title: MaterialText.bodyMedium('Language'.hardcoded, context),
+            subtitle: MaterialText.bodySmall(
+              SupportedLocales.displayName(settings.locale),
+              context,
+            ),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => _showLanguageBottomSheet(context),
           ),
           gapH20,
           MaterialText.titleSmall('Disconnection'.hardcoded, context),
