@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:octattoo_flutter/core/locale/supported_locales.dart';
-import 'package:octattoo_flutter/core/serverpod_client_service.dart';
 import 'package:octattoo_flutter/core/settings/app_settings_provider.dart';
 import 'package:octattoo_flutter/core/theme/theme_data.dart';
 import 'package:octattoo_flutter/src/shared/gaps.dart';
