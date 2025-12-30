@@ -11,6 +11,114 @@ import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
+  void _showColorBottomSheet(BuildContext context) {
+    // Use read() for callbacks - no rebuild dependency needed
+    final settings = AppSettingsProvider.read(context);
+
+    showModalBottomSheet(
+      context: context,
+      builder: (sheetContext) {
+        // ListenableBuilder for the sheet's local rebuild
+        return ListenableBuilder(
+          listenable: settings,
+          builder: (context, _) {
+            final currentThemeMode = settings.themeMode;
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: MaterialText.titleMedium(
+                      'Select Theme'.hardcoded,
+                      context,
+                    ),
+                  ),
+                  gapH12,
+                  ...ThemeMode.values.map((themeMode) {
+                    final isSelected = currentThemeMode == themeMode;
+                    return ListTile(
+                      title: MaterialText.bodyMedium(
+                        themeMode.name.hardcoded,
+                        context,
+                      ),
+                      trailing: isSelected
+                          ? Icon(
+                              Icons.check_circle,
+                              color: Theme.of(context).colorScheme.primary,
+                            )
+                          : null,
+                      onTap: () {
+                        settings.setThemeMode(themeMode);
+                        Navigator.pop(context);
+                      },
+                    );
+                  }),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _showModeBottomSheet(BuildContext context) {
+    // Use read() for callbacks - no rebuild dependency needed
+    final settings = AppSettingsProvider.read(context);
+
+    showModalBottomSheet(
+      context: context,
+      builder: (sheetContext) {
+        // ListenableBuilder for the sheet's local rebuild
+        return ListenableBuilder(
+          listenable: settings,
+          builder: (context, _) {
+            final currentThemeMode = settings.themeMode;
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: MaterialText.titleMedium(
+                      'Select Theme'.hardcoded,
+                      context,
+                    ),
+                  ),
+                  gapH12,
+                  ...ThemeMode.values.map((themeMode) {
+                    final isSelected = currentThemeMode == themeMode;
+                    return ListTile(
+                      title: MaterialText.bodyMedium(
+                        themeMode.name.hardcoded,
+                        context,
+                      ),
+                      trailing: isSelected
+                          ? Icon(
+                              Icons.check_circle,
+                              color: Theme.of(context).colorScheme.primary,
+                            )
+                          : null,
+                      onTap: () {
+                        settings.setThemeMode(themeMode);
+                        Navigator.pop(context);
+                      },
+                    );
+                  }),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
   void _showLanguageBottomSheet(BuildContext context) {
     // Use read() for callbacks - no rebuild dependency needed
     final settings = AppSettingsProvider.read(context);
@@ -82,30 +190,24 @@ class SettingsScreen extends StatelessWidget {
           gapH32,
           MaterialText.titleSmall('Appearance'.hardcoded, context),
           gapH8,
-          SwitchListTile(
-            value: settings.themeMode == ThemeMode.dark,
-            onChanged: (_) => settings.toggleTheme(),
-            title: MaterialText.bodyMedium(
-              'Switch light'.hardcoded,
-              context,
-            ),
-            subtitle: MaterialText.bodySmall(
-              'Current: ${settings.themeMode.name}'.hardcoded,
-              context,
-            ),
-          ),
           ListTile(
-            leading: MaterialText.headlineMedium(
-              SupportedLocales.flag(settings.locale),
-              context,
-            ),
-            title: MaterialText.bodyMedium('Language'.hardcoded, context),
-            subtitle: MaterialText.bodySmall(
-              SupportedLocales.displayName(settings.locale),
-              context,
-            ),
+            leading: Icon(Icons.language_outlined),
+            title: Text('Language'.hardcoded),
+            subtitle: Text(SupportedLocales.displayName(settings.locale)),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => _showLanguageBottomSheet(context),
+          ),
+          ListTile(
+            leading: Icon(Icons.brightness_6_outlined),
+            title: Text('Mode (light / dark)'.hardcoded),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => _showModeBottomSheet(context),
+          ),
+          ListTile(
+            leading: Icon(Icons.palette_outlined),
+            title: Text('Color'.hardcoded),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => _showColorBottomSheet(context),
           ),
           gapH20,
           MaterialText.titleSmall('Disconnection'.hardcoded, context),
