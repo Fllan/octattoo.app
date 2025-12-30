@@ -29,6 +29,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
   go_router: ^17.0.1
   intl: any
   octattoo_client:

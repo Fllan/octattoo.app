@@ -7,6 +7,7 @@ import 'package:octattoo_flutter/core/theme/memory_theme_repository.dart';
 import 'package:octattoo_flutter/core/theme/theme_controller.dart';
 import 'package:octattoo_flutter/src/octattoo_app.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'config/app_config.dart';
 
 /// Sets up a global client object that can be used to talk to the server from
@@ -21,6 +22,7 @@ late final Client client;
 late String serverUrl;
 
 void main() async {
+  usePathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
 
   // When you are running the app on a physical device, you need to set the
