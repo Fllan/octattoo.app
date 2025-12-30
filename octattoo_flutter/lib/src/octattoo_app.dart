@@ -12,10 +12,18 @@ class OctattooApp extends StatelessWidget {
     // InheritedNotifier automatically rebuilds when settings change
     final settings = AppSettingsProvider.of(context);
 
+    // Use extracted color schemes, fallback to defaults if not yet loaded
+    final lightScheme = settings.lightColorScheme;
+    final darkScheme = settings.darkColorScheme;
+
     return MaterialApp.router(
       title: 'octattoo.app',
-      theme: AppThemeData.light,
-      darkTheme: AppThemeData.dark,
+      theme: lightScheme != null
+          ? AppThemeData.fromColorScheme(lightScheme)
+          : AppThemeData.defaultLight,
+      darkTheme: darkScheme != null
+          ? AppThemeData.fromColorScheme(darkScheme)
+          : AppThemeData.defaultDark,
       themeMode: settings.themeMode,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,

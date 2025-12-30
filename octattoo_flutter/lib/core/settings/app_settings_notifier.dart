@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:octattoo_flutter/core/theme/theme_data.dart';
 
 import 'app_settings.dart';
 import 'app_settings_repository.dart';
@@ -11,12 +12,21 @@ class AppSettingsNotifier extends ChangeNotifier {
   final AppSettingsRepository _repository;
   AppSettings _settings = const AppSettings();
 
+  /// Cached color schemes extracted from the selected image
+  ColorScheme? _lightColorScheme;
+  ColorScheme? _darkColorScheme;
+
   /// Current settings (immutable snapshot)
   AppSettings get settings => _settings;
 
   /// Convenience getters
   ThemeMode get themeMode => _settings.themeMode;
   Locale get locale => _settings.locale;
+  ColorImage get colorImage => _settings.colorImage;
+
+  /// Color scheme getters
+  ColorScheme? get lightColorScheme => _lightColorScheme;
+  ColorScheme? get darkColorScheme => _darkColorScheme;
 
   /// Initialize: load saved settings from storage.
   /// Uses defaults immediately, then updates when loaded.
@@ -24,8 +34,22 @@ class AppSettingsNotifier extends ChangeNotifier {
     final loaded = await _repository.loadSettings();
     if (loaded != _settings) {
       _settings = loaded;
-      notifyListeners();
     }
+    // Extract color schemes from the current/loaded image
+    await _extractColorScheme(_settings.colorImage);
+    notifyListeners();
+  }
+
+  /// Extract color schemes from an image for both light and dark modes
+  Future<void> _extractColorScheme(ColorImage image) async {
+    _lightColorScheme = await ColorScheme.fromImageProvider(
+      provider: AssetImage(image.assetPath),
+      brightness: Brightness.light,
+    );
+    _darkColorScheme = await ColorScheme.fromImageProvider(
+      provider: AssetImage(image.assetPath),
+      brightness: Brightness.dark,
+    );
   }
 
   /// Update theme mode
@@ -53,6 +77,15 @@ class AppSettingsNotifier extends ChangeNotifier {
   Future<void> setLocale(Locale locale) async {
     if (_settings.locale == locale) return;
     _settings = _settings.copyWith(locale: locale);
+    notifyListeners();
+    await _repository.saveSettings(_settings);
+  }
+
+  /// Update color image and extract new color schemes
+  Future<void> setColorImage(ColorImage image) async {
+    if (_settings.colorImage == image) return;
+    _settings = _settings.copyWith(colorImage: image);
+    await _extractColorScheme(image);
     notifyListeners();
     await _repository.saveSettings(_settings);
   }
