@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:octattoo_flutter/src/features/appointments/add_appointment_screen.dart';
-import 'package:octattoo_flutter/src/features/appointments/appointment_details_screen.dart';
-import 'package:octattoo_flutter/src/features/appointments/appointments_screen.dart';
+import 'package:octattoo_flutter/src/features/appointments/presentation/screens/appointment_details_screen.dart';
+import 'package:octattoo_flutter/src/features/appointments/presentation/screens/appointments_screen.dart';
 import 'package:octattoo_flutter/src/features/appointments/edit_appointment_screen.dart';
 import 'package:octattoo_flutter/src/features/artist_profile/add_availability_screen.dart';
 import 'package:octattoo_flutter/src/features/artist_profile/add_workplace_screen.dart';
@@ -16,7 +16,7 @@ import 'package:octattoo_flutter/src/features/artist_profile/workplaces_screen.d
 import 'package:octattoo_flutter/src/features/authentication/authentication_screen.dart';
 import 'package:octattoo_flutter/src/features/customers/add_customer_screen.dart';
 import 'package:octattoo_flutter/src/features/customers/customer_details_screen.dart';
-import 'package:octattoo_flutter/src/features/customers/customers_screen.dart';
+import 'package:octattoo_flutter/src/features/customers/presentation/screens/customers_screen.dart';
 import 'package:octattoo_flutter/src/features/customers/edit_customer_screen.dart';
 import 'package:octattoo_flutter/src/features/inventory/inventory_screen.dart';
 import 'package:octattoo_flutter/src/features/invoices/invoices_screen.dart';
@@ -24,7 +24,7 @@ import 'package:octattoo_flutter/src/features/more_screen.dart';
 import 'package:octattoo_flutter/src/features/projects/add_project_screen.dart';
 import 'package:octattoo_flutter/src/features/projects/edit_project_screen.dart';
 import 'package:octattoo_flutter/src/features/projects/project_details_screen.dart';
-import 'package:octattoo_flutter/src/features/projects/projects_screen.dart';
+import 'package:octattoo_flutter/src/features/projects/presentation/screens/projects_screen.dart';
 import 'package:octattoo_flutter/src/features/quotes/quotes_screen.dart';
 import 'package:octattoo_flutter/src/features/settings/settings_screen.dart';
 import 'package:octattoo_flutter/src/navigation/scaffold_with_nav_bar.dart';

@@ -9,26 +9,34 @@ class OctattooApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // InheritedNotifier automatically rebuilds when settings change
-    final settings = AppSettingsProvider.of(context);
+    // Use read() to access settings without creating rebuild dependency
+    // The MaterialApp will be rebuilt when ListenableBuilder detects changes
+    final settings = AppSettingsProvider.read(context);
 
-    // Use extracted color schemes, fallback to defaults if not yet loaded
-    final lightScheme = settings.lightColorScheme;
-    final darkScheme = settings.darkColorScheme;
+    // Use ListenableBuilder for granular control over rebuilds
+    // Only rebuilds when settings actually change
+    return ListenableBuilder(
+      listenable: settings,
+      builder: (context, _) {
+        // Use extracted color schemes, fallback to defaults if not yet loaded
+        final lightScheme = settings.lightColorScheme;
+        final darkScheme = settings.darkColorScheme;
 
-    return MaterialApp.router(
-      title: 'octattoo.app',
-      theme: lightScheme != null
-          ? AppThemeData.fromColorScheme(lightScheme)
-          : AppThemeData.defaultLight,
-      darkTheme: darkScheme != null
-          ? AppThemeData.fromColorScheme(darkScheme)
-          : AppThemeData.defaultDark,
-      themeMode: settings.themeMode,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      locale: settings.locale,
-      routerConfig: router,
+        return MaterialApp.router(
+          title: 'octattoo.app',
+          theme: lightScheme != null
+              ? AppThemeData.fromColorScheme(lightScheme)
+              : AppThemeData.defaultLight,
+          darkTheme: darkScheme != null
+              ? AppThemeData.fromColorScheme(darkScheme)
+              : AppThemeData.defaultDark,
+          themeMode: settings.themeMode,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: settings.locale,
+          routerConfig: router,
+        );
+      },
     );
   }
 }
