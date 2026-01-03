@@ -1,6 +1,5 @@
 import 'package:octattoo_client/octattoo_client.dart';
 import 'package:flutter/material.dart';
-import 'package:octattoo_flutter/core/di/service_locator.dart';
 import 'package:octattoo_flutter/core/serverpod_client_service.dart';
 import 'package:octattoo_flutter/core/settings/app_settings_provider.dart';
 import 'package:octattoo_flutter/core/settings/memory_settings_repository.dart';
@@ -41,9 +40,6 @@ void main() async {
       : serverUrlFromEnv;
 
   await ServerpodClientService().initialize(serverUrl);
-
-  // Initialize dependency injection service locator
-  ServiceLocator.initialize();
 
   // Create settings repository (can be swapped for SharedPreferences later)
   final settingsRepository = MemorySettingsRepository();
