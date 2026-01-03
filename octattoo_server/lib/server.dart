@@ -29,6 +29,20 @@ void run(List<String> args) async {
         sendPasswordResetVerificationCode: _sendPasswordResetCode,
       ),
     ],
+    userProfileConfig: UserProfileConfig(
+      userImageGenerator: defaultUserImageGenerator,
+      onAfterUserProfileCreated:
+          (session, userProfile, {required transaction}) async {
+            final newTattooArtist = TattooArtist(
+              authUserId: userProfile.authUserId,
+            );
+            await TattooArtist.db.insertRow(
+              session,
+              newTattooArtist,
+              transaction: transaction,
+            );
+          },
+    ),
   );
 
   // Setup a default page at the web root.
