@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Serverpod Server with Migrations",
+            "name": "Serverpod Server)",
             "program": "bin/main.dart",
             "request": "launch",
             "type": "dart",

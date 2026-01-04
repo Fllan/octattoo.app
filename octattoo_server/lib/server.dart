@@ -1,12 +1,11 @@
 import 'dart:io';
 
-import 'package:octattoo_server/src/generated/features/tattoo_artist/tattoo_artist.dart';
-import 'package:serverpod/protocol.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_idp_server/core.dart';
 import 'package:serverpod_auth_idp_server/providers/email.dart';
 
 import 'src/generated/endpoints.dart';
+import 'src/generated/protocol.dart';
 import 'src/web/routes/app_config_route.dart';
 import 'src/web/routes/root.dart';
 
@@ -30,36 +29,6 @@ void run(List<String> args) async {
         sendPasswordResetVerificationCode: _sendPasswordResetCode,
       ),
     ],
-    userProfileConfig: UserProfileConfig(
-      userImageGenerator: defaultUserImageGenerator,
-      onAfterUserProfileCreated: (session, userProfile, {required transaction}) async {
-        final username =
-            '${userProfile.email!.split('@').first}_${userProfile.authUserId.toString().substring(0, 4)}';
-        await AuthServices.instance.userProfiles.setDefaultUserImage(
-          session,
-          userProfile.authUserId,
-          transaction: transaction,
-        );
-        await AuthServices.instance.userProfiles.changeUserName(
-          session,
-          userProfile.authUserId,
-          username,
-          transaction: transaction,
-        );
-        final artist = TattooArtist(
-          id: userProfile.authUserId,
-          authUserId: userProfile.authUserId,
-          artistName: username,
-          pictureUrl: userProfile.imageUrl
-              .toString(), //! I doubt this is correct as userProfile.imageUrl is just updated above with setDefaultUserImage
-        );
-        await TattooArtist.db.insertRow(
-          session,
-          artist,
-          transaction: transaction,
-        );
-      },
-    ),
   );
 
   // Setup a default page at the web root.

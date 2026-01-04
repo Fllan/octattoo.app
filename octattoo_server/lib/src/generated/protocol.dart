@@ -16,13 +16,7 @@ import 'package:serverpod_auth_idp_server/serverpod_auth_idp_server.dart'
     as _i3;
 import 'package:serverpod_auth_core_server/serverpod_auth_core_server.dart'
     as _i4;
-import 'exceptions/artist_name_taken.dart' as _i5;
-import 'features/tattoo_artist/tattoo_artist.dart' as _i6;
-import 'features/octattoo_base_class.dart' as _i7;
-import 'greetings/greeting.dart' as _i8;
-export 'exceptions/artist_name_taken.dart';
-export 'features/tattoo_artist/tattoo_artist.dart';
-export 'features/octattoo_base_class.dart';
+import 'greetings/greeting.dart' as _i5;
 export 'greetings/greeting.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
@@ -33,123 +27,6 @@ class Protocol extends _i1.SerializationManagerServer {
   static final Protocol _instance = Protocol._();
 
   static final List<_i2.TableDefinition> targetTableDefinitions = [
-    _i2.TableDefinition(
-      name: 'tattoo_artist',
-      dartName: 'TattooArtist',
-      schema: 'public',
-      module: 'octattoo',
-      columns: [
-        _i2.ColumnDefinition(
-          name: 'id',
-          columnType: _i2.ColumnType.uuid,
-          isNullable: false,
-          dartType: 'UuidValue?',
-          columnDefault: 'gen_random_uuid_v7()',
-        ),
-        _i2.ColumnDefinition(
-          name: 'createdAt',
-          columnType: _i2.ColumnType.timestampWithoutTimeZone,
-          isNullable: false,
-          dartType: 'DateTime',
-          columnDefault: 'CURRENT_TIMESTAMP',
-        ),
-        _i2.ColumnDefinition(
-          name: 'updatedAt',
-          columnType: _i2.ColumnType.timestampWithoutTimeZone,
-          isNullable: false,
-          dartType: 'DateTime',
-          columnDefault: 'CURRENT_TIMESTAMP',
-        ),
-        _i2.ColumnDefinition(
-          name: 'authUserId',
-          columnType: _i2.ColumnType.uuid,
-          isNullable: false,
-          dartType: 'UuidValue',
-        ),
-        _i2.ColumnDefinition(
-          name: 'artistName',
-          columnType: _i2.ColumnType.text,
-          isNullable: false,
-          dartType: 'String',
-          columnDefault: '\'\'::text',
-        ),
-        _i2.ColumnDefinition(
-          name: 'bio',
-          columnType: _i2.ColumnType.text,
-          isNullable: false,
-          dartType: 'String',
-          columnDefault: '\'\'::text',
-        ),
-        _i2.ColumnDefinition(
-          name: 'pictureUrl',
-          columnType: _i2.ColumnType.text,
-          isNullable: false,
-          dartType: 'String',
-          columnDefault: '\'\'::text',
-        ),
-        _i2.ColumnDefinition(
-          name: 'bannerUrl',
-          columnType: _i2.ColumnType.text,
-          isNullable: false,
-          dartType: 'String',
-          columnDefault: '\'\'::text',
-        ),
-      ],
-      foreignKeys: [
-        _i2.ForeignKeyDefinition(
-          constraintName: 'tattoo_artist_fk_0',
-          columns: ['authUserId'],
-          referenceTable: 'serverpod_auth_core_user',
-          referenceTableSchema: 'public',
-          referenceColumns: ['id'],
-          onUpdate: _i2.ForeignKeyAction.noAction,
-          onDelete: _i2.ForeignKeyAction.cascade,
-          matchType: null,
-        ),
-      ],
-      indexes: [
-        _i2.IndexDefinition(
-          indexName: 'tattoo_artist_pkey',
-          tableSpace: null,
-          elements: [
-            _i2.IndexElementDefinition(
-              type: _i2.IndexElementDefinitionType.column,
-              definition: 'id',
-            ),
-          ],
-          type: 'btree',
-          isUnique: true,
-          isPrimary: true,
-        ),
-        _i2.IndexDefinition(
-          indexName: 'auth_user_id_unique_idx',
-          tableSpace: null,
-          elements: [
-            _i2.IndexElementDefinition(
-              type: _i2.IndexElementDefinitionType.column,
-              definition: 'authUserId',
-            ),
-          ],
-          type: 'btree',
-          isUnique: true,
-          isPrimary: false,
-        ),
-        _i2.IndexDefinition(
-          indexName: 'artistName_unique_idx',
-          tableSpace: null,
-          elements: [
-            _i2.IndexElementDefinition(
-              type: _i2.IndexElementDefinitionType.column,
-              definition: 'artistName',
-            ),
-          ],
-          type: 'btree',
-          isUnique: true,
-          isPrimary: false,
-        ),
-      ],
-      managed: true,
-    ),
     ..._i3.Protocol.targetTableDefinitions,
     ..._i4.Protocol.targetTableDefinitions,
     ..._i2.Protocol.targetTableDefinitions,
@@ -182,30 +59,11 @@ class Protocol extends _i1.SerializationManagerServer {
       }
     }
 
-    if (t == _i5.ArtistNameTakenException) {
-      return _i5.ArtistNameTakenException.fromJson(data) as T;
+    if (t == _i5.Greeting) {
+      return _i5.Greeting.fromJson(data) as T;
     }
-    if (t == _i6.TattooArtist) {
-      return _i6.TattooArtist.fromJson(data) as T;
-    }
-    if (t == _i7.OctattooBaseClass) {
-      return _i7.OctattooBaseClass.fromJson(data) as T;
-    }
-    if (t == _i8.Greeting) {
-      return _i8.Greeting.fromJson(data) as T;
-    }
-    if (t == _i1.getType<_i5.ArtistNameTakenException?>()) {
-      return (data != null ? _i5.ArtistNameTakenException.fromJson(data) : null)
-          as T;
-    }
-    if (t == _i1.getType<_i6.TattooArtist?>()) {
-      return (data != null ? _i6.TattooArtist.fromJson(data) : null) as T;
-    }
-    if (t == _i1.getType<_i7.OctattooBaseClass?>()) {
-      return (data != null ? _i7.OctattooBaseClass.fromJson(data) : null) as T;
-    }
-    if (t == _i1.getType<_i8.Greeting?>()) {
-      return (data != null ? _i8.Greeting.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i5.Greeting?>()) {
+      return (data != null ? _i5.Greeting.fromJson(data) : null) as T;
     }
     try {
       return _i3.Protocol().deserialize<T>(data, t);
@@ -221,10 +79,7 @@ class Protocol extends _i1.SerializationManagerServer {
 
   static String? getClassNameForType(Type type) {
     return switch (type) {
-      _i5.ArtistNameTakenException => 'ArtistNameTakenException',
-      _i6.TattooArtist => 'TattooArtist',
-      _i7.OctattooBaseClass => 'OctattooBaseClass',
-      _i8.Greeting => 'Greeting',
+      _i5.Greeting => 'Greeting',
       _ => null,
     };
   }
@@ -239,13 +94,7 @@ class Protocol extends _i1.SerializationManagerServer {
     }
 
     switch (data) {
-      case _i5.ArtistNameTakenException():
-        return 'ArtistNameTakenException';
-      case _i6.TattooArtist():
-        return 'TattooArtist';
-      case _i7.OctattooBaseClass():
-        return 'OctattooBaseClass';
-      case _i8.Greeting():
+      case _i5.Greeting():
         return 'Greeting';
     }
     className = _i2.Protocol().getClassNameForObject(data);
@@ -269,17 +118,8 @@ class Protocol extends _i1.SerializationManagerServer {
     if (dataClassName is! String) {
       return super.deserializeByClassName(data);
     }
-    if (dataClassName == 'ArtistNameTakenException') {
-      return deserialize<_i5.ArtistNameTakenException>(data['data']);
-    }
-    if (dataClassName == 'TattooArtist') {
-      return deserialize<_i6.TattooArtist>(data['data']);
-    }
-    if (dataClassName == 'OctattooBaseClass') {
-      return deserialize<_i7.OctattooBaseClass>(data['data']);
-    }
     if (dataClassName == 'Greeting') {
-      return deserialize<_i8.Greeting>(data['data']);
+      return deserialize<_i5.Greeting>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);
@@ -315,10 +155,6 @@ class Protocol extends _i1.SerializationManagerServer {
       if (table != null) {
         return table;
       }
-    }
-    switch (t) {
-      case _i6.TattooArtist:
-        return _i6.TattooArtist.t;
     }
     return null;
   }

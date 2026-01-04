@@ -16,10 +16,8 @@ import 'package:serverpod_client/serverpod_client.dart' as _i2;
 import 'dart:async' as _i3;
 import 'package:serverpod_auth_core_client/serverpod_auth_core_client.dart'
     as _i4;
-import 'package:octattoo_client/src/protocol/features/tattoo_artist/tattoo_artist.dart'
-    as _i5;
-import 'package:octattoo_client/src/protocol/greetings/greeting.dart' as _i6;
-import 'protocol.dart' as _i7;
+import 'package:octattoo_client/src/protocol/greetings/greeting.dart' as _i5;
+import 'protocol.dart' as _i6;
 
 /// By extending [EmailIdpBaseEndpoint], the email identity provider endpoints
 /// are made available on the server and enable the corresponding sign-in widget
@@ -235,106 +233,6 @@ class EndpointJwtRefresh extends _i4.EndpointRefreshJwtTokens {
   );
 }
 
-/// {@category Endpoint}
-class EndpointAsset extends _i2.EndpointRef {
-  EndpointAsset(_i2.EndpointCaller caller) : super(caller);
-
-  @override
-  String get name => 'asset';
-
-  _i3.Future<String?> getUploadDescription(String path) =>
-      caller.callServerEndpoint<String?>(
-        'asset',
-        'getUploadDescription',
-        {'path': path},
-      );
-
-  _i3.Future<bool> verifyUpload(String path) => caller.callServerEndpoint<bool>(
-    'asset',
-    'verifyUpload',
-    {'path': path},
-  );
-
-  /// Gets the public URL for an asset at the specified path.
-  _i3.Future<Uri?> getAssetUrl(String path) => caller.callServerEndpoint<Uri?>(
-    'asset',
-    'getAssetUrl',
-    {'path': path},
-  );
-
-  /// Deletes an asset at the specified path and returns true if deletion was successful.
-  _i3.Future<bool> deleteAsset(String path) => caller.callServerEndpoint<bool>(
-    'asset',
-    'deleteAsset',
-    {'path': path},
-  );
-}
-
-/// {@category Endpoint}
-class EndpointTattooArtist extends _i2.EndpointRef {
-  EndpointTattooArtist(_i2.EndpointCaller caller) : super(caller);
-
-  @override
-  String get name => 'tattooArtist';
-
-  /// Gets the tattoo artist associated with the currently authenticated user.
-  _i3.Future<_i5.TattooArtist?> getCurrentTattooArtist() =>
-      caller.callServerEndpoint<_i5.TattooArtist?>(
-        'tattooArtist',
-        'getCurrentTattooArtist',
-        {},
-      );
-
-  /// Updates the tattoo artist.
-  _i3.Future<_i5.TattooArtist> updateTattooArtist(
-    _i5.TattooArtist updatedTattooArtist,
-  ) => caller.callServerEndpoint<_i5.TattooArtist>(
-    'tattooArtist',
-    'updateTattooArtist',
-    {'updatedTattooArtist': updatedTattooArtist},
-  );
-
-  _i3.Future<String?> getProfilePictureUploadDescription() =>
-      caller.callServerEndpoint<String?>(
-        'tattooArtist',
-        'getProfilePictureUploadDescription',
-        {},
-      );
-
-  _i3.Future<bool> verifyProfilePictureUpload() =>
-      caller.callServerEndpoint<bool>(
-        'tattooArtist',
-        'verifyProfilePictureUpload',
-        {},
-      );
-
-  _i3.Future<Uri?> getProfilePictureUrl() => caller.callServerEndpoint<Uri?>(
-    'tattooArtist',
-    'getProfilePictureUrl',
-    {},
-  );
-
-  _i3.Future<String?> getBannerPictureUploadDescription() =>
-      caller.callServerEndpoint<String?>(
-        'tattooArtist',
-        'getBannerPictureUploadDescription',
-        {},
-      );
-
-  _i3.Future<bool> verifyBannerPictureUpload() =>
-      caller.callServerEndpoint<bool>(
-        'tattooArtist',
-        'verifyBannerPictureUpload',
-        {},
-      );
-
-  _i3.Future<Uri?> getBannerPictureUrl() => caller.callServerEndpoint<Uri?>(
-    'tattooArtist',
-    'getBannerPictureUrl',
-    {},
-  );
-}
-
 /// This is an example endpoint that returns a greeting message through
 /// its [hello] method.
 /// {@category Endpoint}
@@ -345,8 +243,8 @@ class EndpointGreeting extends _i2.EndpointRef {
   String get name => 'greeting';
 
   /// Returns a personalized greeting message: "Hello {name}".
-  _i3.Future<_i6.Greeting> hello(String name) =>
-      caller.callServerEndpoint<_i6.Greeting>(
+  _i3.Future<_i5.Greeting> hello(String name) =>
+      caller.callServerEndpoint<_i5.Greeting>(
         'greeting',
         'hello',
         {'name': name},
@@ -384,7 +282,7 @@ class Client extends _i2.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
          host,
-         _i7.Protocol(),
+         _i6.Protocol(),
          securityContext: securityContext,
          streamingConnectionTimeout: streamingConnectionTimeout,
          connectionTimeout: connectionTimeout,
@@ -395,8 +293,6 @@ class Client extends _i2.ServerpodClientShared {
        ) {
     emailIdp = EndpointEmailIdp(this);
     jwtRefresh = EndpointJwtRefresh(this);
-    asset = EndpointAsset(this);
-    tattooArtist = EndpointTattooArtist(this);
     greeting = EndpointGreeting(this);
     modules = Modules(this);
   }
@@ -404,10 +300,6 @@ class Client extends _i2.ServerpodClientShared {
   late final EndpointEmailIdp emailIdp;
 
   late final EndpointJwtRefresh jwtRefresh;
-
-  late final EndpointAsset asset;
-
-  late final EndpointTattooArtist tattooArtist;
 
   late final EndpointGreeting greeting;
 
@@ -417,8 +309,6 @@ class Client extends _i2.ServerpodClientShared {
   Map<String, _i2.EndpointRef> get endpointRefLookup => {
     'emailIdp': emailIdp,
     'jwtRefresh': jwtRefresh,
-    'asset': asset,
-    'tattooArtist': tattooArtist,
     'greeting': greeting,
   };
 
