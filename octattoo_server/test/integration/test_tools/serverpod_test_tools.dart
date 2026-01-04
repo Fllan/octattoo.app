@@ -129,6 +129,8 @@ class TestEndpoints {
 
   late final _JwtRefreshEndpoint jwtRefresh;
 
+  late final _TattooArtistEndpoint tattooArtist;
+
   late final _GreetingEndpoint greeting;
 }
 
@@ -144,6 +146,10 @@ class _InternalTestEndpoints extends TestEndpoints
       serializationManager,
     );
     jwtRefresh = _JwtRefreshEndpoint(
+      endpoints,
+      serializationManager,
+    );
+    tattooArtist = _TattooArtistEndpoint(
       endpoints,
       serializationManager,
     );
@@ -442,6 +448,13 @@ class _JwtRefreshEndpoint {
       }
     });
   }
+}
+
+class _TattooArtistEndpoint {
+  _TattooArtistEndpoint(
+    _endpointDispatch,
+    _serializationManager,
+  );
 }
 
 class _GreetingEndpoint {

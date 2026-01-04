@@ -12,15 +12,18 @@
 // ignore_for_file: unnecessary_null_comparison
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:serverpod/serverpod.dart' as _i1;
+import '../../protocol.dart' as _i1;
+import 'package:serverpod/serverpod.dart' as _i2;
 import 'package:serverpod_auth_core_server/serverpod_auth_core_server.dart'
-    as _i2;
-import 'package:octattoo_server/src/generated/protocol.dart' as _i3;
+    as _i3;
+import 'package:octattoo_server/src/generated/protocol.dart' as _i4;
 
-abstract class TattooArtist
-    implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
+abstract class TattooArtist extends _i1.OctattooBaseClass
+    implements _i2.TableRow<_i2.UuidValue?>, _i2.ProtocolSerialization {
   TattooArtist._({
     this.id,
+    super.createdAt,
+    super.updatedAt,
     required this.authUserId,
     this.authUser,
     String? artistName,
@@ -33,9 +36,11 @@ abstract class TattooArtist
        bannerUrl = bannerUrl ?? '';
 
   factory TattooArtist({
-    int? id,
-    required _i1.UuidValue authUserId,
-    _i2.AuthUser? authUser,
+    _i2.UuidValue? id,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    required _i2.UuidValue authUserId,
+    _i3.AuthUser? authUser,
     String? artistName,
     String? bio,
     String? pictureUrl,
@@ -44,13 +49,21 @@ abstract class TattooArtist
 
   factory TattooArtist.fromJson(Map<String, dynamic> jsonSerialization) {
     return TattooArtist(
-      id: jsonSerialization['id'] as int?,
-      authUserId: _i1.UuidValueJsonExtension.fromJson(
+      id: jsonSerialization['id'] == null
+          ? null
+          : _i2.UuidValueJsonExtension.fromJson(jsonSerialization['id']),
+      createdAt: _i2.DateTimeJsonExtension.fromJson(
+        jsonSerialization['createdAt'],
+      ),
+      updatedAt: _i2.DateTimeJsonExtension.fromJson(
+        jsonSerialization['updatedAt'],
+      ),
+      authUserId: _i2.UuidValueJsonExtension.fromJson(
         jsonSerialization['authUserId'],
       ),
       authUser: jsonSerialization['authUser'] == null
           ? null
-          : _i3.Protocol().deserialize<_i2.AuthUser>(
+          : _i4.Protocol().deserialize<_i3.AuthUser>(
               jsonSerialization['authUser'],
             ),
       artistName: jsonSerialization['artistName'] as String,
@@ -65,11 +78,11 @@ abstract class TattooArtist
   static const db = TattooArtistRepository._();
 
   @override
-  int? id;
+  _i2.UuidValue? id;
 
-  _i1.UuidValue authUserId;
+  _i2.UuidValue authUserId;
 
-  _i2.AuthUser? authUser;
+  _i3.AuthUser? authUser;
 
   String artistName;
 
@@ -80,15 +93,18 @@ abstract class TattooArtist
   String bannerUrl;
 
   @override
-  _i1.Table<int?> get table => t;
+  _i2.Table<_i2.UuidValue?> get table => t;
 
   /// Returns a shallow copy of this [TattooArtist]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @override
+  @_i2.useResult
   TattooArtist copyWith({
-    int? id,
-    _i1.UuidValue? authUserId,
-    _i2.AuthUser? authUser,
+    Object? id,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    _i2.UuidValue? authUserId,
+    _i3.AuthUser? authUser,
     String? artistName,
     String? bio,
     String? pictureUrl,
@@ -98,7 +114,9 @@ abstract class TattooArtist
   Map<String, dynamic> toJson() {
     return {
       '__className__': 'TattooArtist',
-      if (id != null) 'id': id,
+      if (id != null) 'id': id?.toJson(),
+      'createdAt': createdAt.toJson(),
+      'updatedAt': updatedAt.toJson(),
       'authUserId': authUserId.toJson(),
       if (authUser != null) 'authUser': authUser?.toJson(),
       'artistName': artistName,
@@ -112,7 +130,9 @@ abstract class TattooArtist
   Map<String, dynamic> toJsonForProtocol() {
     return {
       '__className__': 'TattooArtist',
-      if (id != null) 'id': id,
+      if (id != null) 'id': id?.toJson(),
+      'createdAt': createdAt.toJson(),
+      'updatedAt': updatedAt.toJson(),
       'authUserId': authUserId.toJson(),
       if (authUser != null) 'authUser': authUser?.toJsonForProtocol(),
       'artistName': artistName,
@@ -122,17 +142,17 @@ abstract class TattooArtist
     };
   }
 
-  static TattooArtistInclude include({_i2.AuthUserInclude? authUser}) {
+  static TattooArtistInclude include({_i3.AuthUserInclude? authUser}) {
     return TattooArtistInclude._(authUser: authUser);
   }
 
   static TattooArtistIncludeList includeList({
-    _i1.WhereExpressionBuilder<TattooArtistTable>? where,
+    _i2.WhereExpressionBuilder<TattooArtistTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<TattooArtistTable>? orderBy,
+    _i2.OrderByBuilder<TattooArtistTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<TattooArtistTable>? orderByList,
+    _i2.OrderByListBuilder<TattooArtistTable>? orderByList,
     TattooArtistInclude? include,
   }) {
     return TattooArtistIncludeList._(
@@ -148,7 +168,7 @@ abstract class TattooArtist
 
   @override
   String toString() {
-    return _i1.SerializationManager.encode(this);
+    return _i2.SerializationManager.encode(this);
   }
 }
 
@@ -156,15 +176,19 @@ class _Undefined {}
 
 class _TattooArtistImpl extends TattooArtist {
   _TattooArtistImpl({
-    int? id,
-    required _i1.UuidValue authUserId,
-    _i2.AuthUser? authUser,
+    _i2.UuidValue? id,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    required _i2.UuidValue authUserId,
+    _i3.AuthUser? authUser,
     String? artistName,
     String? bio,
     String? pictureUrl,
     String? bannerUrl,
   }) : super._(
          id: id,
+         createdAt: createdAt,
+         updatedAt: updatedAt,
          authUserId: authUserId,
          authUser: authUser,
          artistName: artistName,
@@ -175,11 +199,13 @@ class _TattooArtistImpl extends TattooArtist {
 
   /// Returns a shallow copy of this [TattooArtist]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @_i2.useResult
   @override
   TattooArtist copyWith({
     Object? id = _Undefined,
-    _i1.UuidValue? authUserId,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    _i2.UuidValue? authUserId,
     Object? authUser = _Undefined,
     String? artistName,
     String? bio,
@@ -187,9 +213,11 @@ class _TattooArtistImpl extends TattooArtist {
     String? bannerUrl,
   }) {
     return TattooArtist(
-      id: id is int? ? id : this.id,
+      id: id is _i2.UuidValue? ? id : this.id,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
       authUserId: authUserId ?? this.authUserId,
-      authUser: authUser is _i2.AuthUser?
+      authUser: authUser is _i3.AuthUser?
           ? authUser
           : this.authUser?.copyWith(),
       artistName: artistName ?? this.artistName,
@@ -200,60 +228,82 @@ class _TattooArtistImpl extends TattooArtist {
   }
 }
 
-class TattooArtistUpdateTable extends _i1.UpdateTable<TattooArtistTable> {
+class TattooArtistUpdateTable extends _i2.UpdateTable<TattooArtistTable> {
   TattooArtistUpdateTable(super.table);
 
-  _i1.ColumnValue<_i1.UuidValue, _i1.UuidValue> authUserId(
-    _i1.UuidValue value,
-  ) => _i1.ColumnValue(
+  _i2.ColumnValue<DateTime, DateTime> createdAt(DateTime value) =>
+      _i2.ColumnValue(
+        table.createdAt,
+        value,
+      );
+
+  _i2.ColumnValue<DateTime, DateTime> updatedAt(DateTime value) =>
+      _i2.ColumnValue(
+        table.updatedAt,
+        value,
+      );
+
+  _i2.ColumnValue<_i2.UuidValue, _i2.UuidValue> authUserId(
+    _i2.UuidValue value,
+  ) => _i2.ColumnValue(
     table.authUserId,
     value,
   );
 
-  _i1.ColumnValue<String, String> artistName(String value) => _i1.ColumnValue(
+  _i2.ColumnValue<String, String> artistName(String value) => _i2.ColumnValue(
     table.artistName,
     value,
   );
 
-  _i1.ColumnValue<String, String> bio(String value) => _i1.ColumnValue(
+  _i2.ColumnValue<String, String> bio(String value) => _i2.ColumnValue(
     table.bio,
     value,
   );
 
-  _i1.ColumnValue<String, String> pictureUrl(String value) => _i1.ColumnValue(
+  _i2.ColumnValue<String, String> pictureUrl(String value) => _i2.ColumnValue(
     table.pictureUrl,
     value,
   );
 
-  _i1.ColumnValue<String, String> bannerUrl(String value) => _i1.ColumnValue(
+  _i2.ColumnValue<String, String> bannerUrl(String value) => _i2.ColumnValue(
     table.bannerUrl,
     value,
   );
 }
 
-class TattooArtistTable extends _i1.Table<int?> {
+class TattooArtistTable extends _i2.Table<_i2.UuidValue?> {
   TattooArtistTable({super.tableRelation}) : super(tableName: 'tattoo_artist') {
     updateTable = TattooArtistUpdateTable(this);
-    authUserId = _i1.ColumnUuid(
+    createdAt = _i2.ColumnDateTime(
+      'createdAt',
+      this,
+      hasDefault: true,
+    );
+    updatedAt = _i2.ColumnDateTime(
+      'updatedAt',
+      this,
+      hasDefault: true,
+    );
+    authUserId = _i2.ColumnUuid(
       'authUserId',
       this,
     );
-    artistName = _i1.ColumnString(
+    artistName = _i2.ColumnString(
       'artistName',
       this,
       hasDefault: true,
     );
-    bio = _i1.ColumnString(
+    bio = _i2.ColumnString(
       'bio',
       this,
       hasDefault: true,
     );
-    pictureUrl = _i1.ColumnString(
+    pictureUrl = _i2.ColumnString(
       'pictureUrl',
       this,
       hasDefault: true,
     );
-    bannerUrl = _i1.ColumnString(
+    bannerUrl = _i2.ColumnString(
       'bannerUrl',
       this,
       hasDefault: true,
@@ -262,34 +312,40 @@ class TattooArtistTable extends _i1.Table<int?> {
 
   late final TattooArtistUpdateTable updateTable;
 
-  late final _i1.ColumnUuid authUserId;
+  late final _i2.ColumnDateTime createdAt;
 
-  _i2.AuthUserTable? _authUser;
+  late final _i2.ColumnDateTime updatedAt;
 
-  late final _i1.ColumnString artistName;
+  late final _i2.ColumnUuid authUserId;
 
-  late final _i1.ColumnString bio;
+  _i3.AuthUserTable? _authUser;
 
-  late final _i1.ColumnString pictureUrl;
+  late final _i2.ColumnString artistName;
 
-  late final _i1.ColumnString bannerUrl;
+  late final _i2.ColumnString bio;
 
-  _i2.AuthUserTable get authUser {
+  late final _i2.ColumnString pictureUrl;
+
+  late final _i2.ColumnString bannerUrl;
+
+  _i3.AuthUserTable get authUser {
     if (_authUser != null) return _authUser!;
-    _authUser = _i1.createRelationTable(
+    _authUser = _i2.createRelationTable(
       relationFieldName: 'authUser',
       field: TattooArtist.t.authUserId,
-      foreignField: _i2.AuthUser.t.id,
+      foreignField: _i3.AuthUser.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
-          _i2.AuthUserTable(tableRelation: foreignTableRelation),
+          _i3.AuthUserTable(tableRelation: foreignTableRelation),
     );
     return _authUser!;
   }
 
   @override
-  List<_i1.Column> get columns => [
+  List<_i2.Column> get columns => [
     id,
+    createdAt,
+    updatedAt,
     authUserId,
     artistName,
     bio,
@@ -298,7 +354,7 @@ class TattooArtistTable extends _i1.Table<int?> {
   ];
 
   @override
-  _i1.Table? getRelationTable(String relationField) {
+  _i2.Table? getRelationTable(String relationField) {
     if (relationField == 'authUser') {
       return authUser;
     }
@@ -306,23 +362,23 @@ class TattooArtistTable extends _i1.Table<int?> {
   }
 }
 
-class TattooArtistInclude extends _i1.IncludeObject {
-  TattooArtistInclude._({_i2.AuthUserInclude? authUser}) {
+class TattooArtistInclude extends _i2.IncludeObject {
+  TattooArtistInclude._({_i3.AuthUserInclude? authUser}) {
     _authUser = authUser;
   }
 
-  _i2.AuthUserInclude? _authUser;
+  _i3.AuthUserInclude? _authUser;
 
   @override
-  Map<String, _i1.Include?> get includes => {'authUser': _authUser};
+  Map<String, _i2.Include?> get includes => {'authUser': _authUser};
 
   @override
-  _i1.Table<int?> get table => TattooArtist.t;
+  _i2.Table<_i2.UuidValue?> get table => TattooArtist.t;
 }
 
-class TattooArtistIncludeList extends _i1.IncludeList {
+class TattooArtistIncludeList extends _i2.IncludeList {
   TattooArtistIncludeList._({
-    _i1.WhereExpressionBuilder<TattooArtistTable>? where,
+    _i2.WhereExpressionBuilder<TattooArtistTable>? where,
     super.limit,
     super.offset,
     super.orderBy,
@@ -334,10 +390,10 @@ class TattooArtistIncludeList extends _i1.IncludeList {
   }
 
   @override
-  Map<String, _i1.Include?> get includes => include?.includes ?? {};
+  Map<String, _i2.Include?> get includes => include?.includes ?? {};
 
   @override
-  _i1.Table<int?> get table => TattooArtist.t;
+  _i2.Table<_i2.UuidValue?> get table => TattooArtist.t;
 }
 
 class TattooArtistRepository {
@@ -368,14 +424,14 @@ class TattooArtistRepository {
   /// );
   /// ```
   Future<List<TattooArtist>> find(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<TattooArtistTable>? where,
+    _i2.Session session, {
+    _i2.WhereExpressionBuilder<TattooArtistTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<TattooArtistTable>? orderBy,
+    _i2.OrderByBuilder<TattooArtistTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<TattooArtistTable>? orderByList,
-    _i1.Transaction? transaction,
+    _i2.OrderByListBuilder<TattooArtistTable>? orderByList,
+    _i2.Transaction? transaction,
     TattooArtistInclude? include,
   }) async {
     return session.db.find<TattooArtist>(
@@ -408,13 +464,13 @@ class TattooArtistRepository {
   /// );
   /// ```
   Future<TattooArtist?> findFirstRow(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<TattooArtistTable>? where,
+    _i2.Session session, {
+    _i2.WhereExpressionBuilder<TattooArtistTable>? where,
     int? offset,
-    _i1.OrderByBuilder<TattooArtistTable>? orderBy,
+    _i2.OrderByBuilder<TattooArtistTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<TattooArtistTable>? orderByList,
-    _i1.Transaction? transaction,
+    _i2.OrderByListBuilder<TattooArtistTable>? orderByList,
+    _i2.Transaction? transaction,
     TattooArtistInclude? include,
   }) async {
     return session.db.findFirstRow<TattooArtist>(
@@ -430,9 +486,9 @@ class TattooArtistRepository {
 
   /// Finds a single [TattooArtist] by its [id] or null if no such row exists.
   Future<TattooArtist?> findById(
-    _i1.Session session,
-    int id, {
-    _i1.Transaction? transaction,
+    _i2.Session session,
+    _i2.UuidValue id, {
+    _i2.Transaction? transaction,
     TattooArtistInclude? include,
   }) async {
     return session.db.findById<TattooArtist>(
@@ -449,9 +505,9 @@ class TattooArtistRepository {
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// insert, none of the rows will be inserted.
   Future<List<TattooArtist>> insert(
-    _i1.Session session,
+    _i2.Session session,
     List<TattooArtist> rows, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.insert<TattooArtist>(
       rows,
@@ -463,9 +519,9 @@ class TattooArtistRepository {
   ///
   /// The returned [TattooArtist] will have its `id` field set.
   Future<TattooArtist> insertRow(
-    _i1.Session session,
+    _i2.Session session,
     TattooArtist row, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.insertRow<TattooArtist>(
       row,
@@ -479,10 +535,10 @@ class TattooArtistRepository {
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// update, none of the rows will be updated.
   Future<List<TattooArtist>> update(
-    _i1.Session session,
+    _i2.Session session,
     List<TattooArtist> rows, {
-    _i1.ColumnSelections<TattooArtistTable>? columns,
-    _i1.Transaction? transaction,
+    _i2.ColumnSelections<TattooArtistTable>? columns,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.update<TattooArtist>(
       rows,
@@ -495,10 +551,10 @@ class TattooArtistRepository {
   /// Optionally, a list of [columns] can be provided to only update those
   /// columns. Defaults to all columns.
   Future<TattooArtist> updateRow(
-    _i1.Session session,
+    _i2.Session session,
     TattooArtist row, {
-    _i1.ColumnSelections<TattooArtistTable>? columns,
-    _i1.Transaction? transaction,
+    _i2.ColumnSelections<TattooArtistTable>? columns,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.updateRow<TattooArtist>(
       row,
@@ -510,10 +566,10 @@ class TattooArtistRepository {
   /// Updates a single [TattooArtist] by its [id] with the specified [columnValues].
   /// Returns the updated row or null if no row with the given id exists.
   Future<TattooArtist?> updateById(
-    _i1.Session session,
-    int id, {
-    required _i1.ColumnValueListBuilder<TattooArtistUpdateTable> columnValues,
-    _i1.Transaction? transaction,
+    _i2.Session session,
+    _i2.UuidValue id, {
+    required _i2.ColumnValueListBuilder<TattooArtistUpdateTable> columnValues,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.updateById<TattooArtist>(
       id,
@@ -525,15 +581,15 @@ class TattooArtistRepository {
   /// Updates all [TattooArtist]s matching the [where] expression with the specified [columnValues].
   /// Returns the list of updated rows.
   Future<List<TattooArtist>> updateWhere(
-    _i1.Session session, {
-    required _i1.ColumnValueListBuilder<TattooArtistUpdateTable> columnValues,
-    required _i1.WhereExpressionBuilder<TattooArtistTable> where,
+    _i2.Session session, {
+    required _i2.ColumnValueListBuilder<TattooArtistUpdateTable> columnValues,
+    required _i2.WhereExpressionBuilder<TattooArtistTable> where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<TattooArtistTable>? orderBy,
-    _i1.OrderByListBuilder<TattooArtistTable>? orderByList,
+    _i2.OrderByBuilder<TattooArtistTable>? orderBy,
+    _i2.OrderByListBuilder<TattooArtistTable>? orderByList,
     bool orderDescending = false,
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.updateWhere<TattooArtist>(
       columnValues: columnValues(TattooArtist.t.updateTable),
@@ -551,9 +607,9 @@ class TattooArtistRepository {
   /// This is an atomic operation, meaning that if one of the rows fail to
   /// be deleted, none of the rows will be deleted.
   Future<List<TattooArtist>> delete(
-    _i1.Session session,
+    _i2.Session session,
     List<TattooArtist> rows, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.delete<TattooArtist>(
       rows,
@@ -563,9 +619,9 @@ class TattooArtistRepository {
 
   /// Deletes a single [TattooArtist].
   Future<TattooArtist> deleteRow(
-    _i1.Session session,
+    _i2.Session session,
     TattooArtist row, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.deleteRow<TattooArtist>(
       row,
@@ -575,9 +631,9 @@ class TattooArtistRepository {
 
   /// Deletes all rows matching the [where] expression.
   Future<List<TattooArtist>> deleteWhere(
-    _i1.Session session, {
-    required _i1.WhereExpressionBuilder<TattooArtistTable> where,
-    _i1.Transaction? transaction,
+    _i2.Session session, {
+    required _i2.WhereExpressionBuilder<TattooArtistTable> where,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.deleteWhere<TattooArtist>(
       where: where(TattooArtist.t),
@@ -588,10 +644,10 @@ class TattooArtistRepository {
   /// Counts the number of rows matching the [where] expression. If omitted,
   /// will return the count of all rows in the table.
   Future<int> count(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<TattooArtistTable>? where,
+    _i2.Session session, {
+    _i2.WhereExpressionBuilder<TattooArtistTable>? where,
     int? limit,
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.count<TattooArtist>(
       where: where?.call(TattooArtist.t),
@@ -607,10 +663,10 @@ class TattooArtistAttachRowRepository {
   /// Creates a relation between the given [TattooArtist] and [AuthUser]
   /// by setting the [TattooArtist]'s foreign key `authUserId` to refer to the [AuthUser].
   Future<void> authUser(
-    _i1.Session session,
+    _i2.Session session,
     TattooArtist tattooArtist,
-    _i2.AuthUser authUser, {
-    _i1.Transaction? transaction,
+    _i3.AuthUser authUser, {
+    _i2.Transaction? transaction,
   }) async {
     if (tattooArtist.id == null) {
       throw ArgumentError.notNull('tattooArtist.id');

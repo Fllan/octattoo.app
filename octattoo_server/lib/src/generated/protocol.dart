@@ -17,8 +17,10 @@ import 'package:serverpod_auth_idp_server/serverpod_auth_idp_server.dart'
 import 'package:serverpod_auth_core_server/serverpod_auth_core_server.dart'
     as _i4;
 import 'features/tattoo_artist/tattoo_artist.dart' as _i5;
-import 'greetings/greeting.dart' as _i6;
+import 'features/octattoo_base_class.dart' as _i6;
+import 'greetings/greeting.dart' as _i7;
 export 'features/tattoo_artist/tattoo_artist.dart';
+export 'features/octattoo_base_class.dart';
 export 'greetings/greeting.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
@@ -37,10 +39,24 @@ class Protocol extends _i1.SerializationManagerServer {
       columns: [
         _i2.ColumnDefinition(
           name: 'id',
-          columnType: _i2.ColumnType.bigint,
+          columnType: _i2.ColumnType.uuid,
           isNullable: false,
-          dartType: 'int?',
-          columnDefault: 'nextval(\'tattoo_artist_id_seq\'::regclass)',
+          dartType: 'UuidValue?',
+          columnDefault: 'gen_random_uuid_v7()',
+        ),
+        _i2.ColumnDefinition(
+          name: 'createdAt',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+          columnDefault: 'CURRENT_TIMESTAMP',
+        ),
+        _i2.ColumnDefinition(
+          name: 'updatedAt',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+          columnDefault: 'CURRENT_TIMESTAMP',
         ),
         _i2.ColumnDefinition(
           name: 'authUserId',
@@ -154,14 +170,20 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i5.TattooArtist) {
       return _i5.TattooArtist.fromJson(data) as T;
     }
-    if (t == _i6.Greeting) {
-      return _i6.Greeting.fromJson(data) as T;
+    if (t == _i6.OctattooBaseClass) {
+      return _i6.OctattooBaseClass.fromJson(data) as T;
+    }
+    if (t == _i7.Greeting) {
+      return _i7.Greeting.fromJson(data) as T;
     }
     if (t == _i1.getType<_i5.TattooArtist?>()) {
       return (data != null ? _i5.TattooArtist.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i6.Greeting?>()) {
-      return (data != null ? _i6.Greeting.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i6.OctattooBaseClass?>()) {
+      return (data != null ? _i6.OctattooBaseClass.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i7.Greeting?>()) {
+      return (data != null ? _i7.Greeting.fromJson(data) : null) as T;
     }
     try {
       return _i3.Protocol().deserialize<T>(data, t);
@@ -178,7 +200,8 @@ class Protocol extends _i1.SerializationManagerServer {
   static String? getClassNameForType(Type type) {
     return switch (type) {
       _i5.TattooArtist => 'TattooArtist',
-      _i6.Greeting => 'Greeting',
+      _i6.OctattooBaseClass => 'OctattooBaseClass',
+      _i7.Greeting => 'Greeting',
       _ => null,
     };
   }
@@ -195,7 +218,9 @@ class Protocol extends _i1.SerializationManagerServer {
     switch (data) {
       case _i5.TattooArtist():
         return 'TattooArtist';
-      case _i6.Greeting():
+      case _i6.OctattooBaseClass():
+        return 'OctattooBaseClass';
+      case _i7.Greeting():
         return 'Greeting';
     }
     className = _i2.Protocol().getClassNameForObject(data);
@@ -222,8 +247,11 @@ class Protocol extends _i1.SerializationManagerServer {
     if (dataClassName == 'TattooArtist') {
       return deserialize<_i5.TattooArtist>(data['data']);
     }
+    if (dataClassName == 'OctattooBaseClass') {
+      return deserialize<_i6.OctattooBaseClass>(data['data']);
+    }
     if (dataClassName == 'Greeting') {
-      return deserialize<_i6.Greeting>(data['data']);
+      return deserialize<_i7.Greeting>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);

@@ -1,4 +1,5 @@
 class: TattooArtist
+extends: OctattooBaseClass
 table: tattoo_artist
 fields:
     authUser: module:serverpod_auth_core:AuthUser?, relation(onDelete=Cascade)

@@ -1,11 +1,11 @@
 import 'dart:io';
 
+import 'package:serverpod/protocol.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_idp_server/core.dart';
 import 'package:serverpod_auth_idp_server/providers/email.dart';
 
 import 'src/generated/endpoints.dart';
-import 'src/generated/protocol.dart';
 import 'src/web/routes/app_config_route.dart';
 import 'src/web/routes/root.dart';
 
@@ -33,14 +33,14 @@ void run(List<String> args) async {
       userImageGenerator: defaultUserImageGenerator,
       onAfterUserProfileCreated:
           (session, userProfile, {required transaction}) async {
-            final newTattooArtist = TattooArtist(
-              authUserId: userProfile.authUserId,
-            );
-            await TattooArtist.db.insertRow(
-              session,
-              newTattooArtist,
-              transaction: transaction,
-            );
+            // final newTattooArtist = TattooArtist(
+            //   authUserId: userProfile.authUserId,
+            // );
+            // await TattooArtist.db.insertRow(
+            //   session,
+            //   newTattooArtist,
+            //   transaction: transaction,
+            // );
           },
     ),
   );

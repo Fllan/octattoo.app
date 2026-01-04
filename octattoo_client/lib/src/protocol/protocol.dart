@@ -12,12 +12,14 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'features/tattoo_artist/tattoo_artist.dart' as _i2;
-import 'greetings/greeting.dart' as _i3;
+import 'features/octattoo_base_class.dart' as _i3;
+import 'greetings/greeting.dart' as _i4;
 import 'package:serverpod_auth_idp_client/serverpod_auth_idp_client.dart'
-    as _i4;
-import 'package:serverpod_auth_core_client/serverpod_auth_core_client.dart'
     as _i5;
+import 'package:serverpod_auth_core_client/serverpod_auth_core_client.dart'
+    as _i6;
 export 'features/tattoo_artist/tattoo_artist.dart';
+export 'features/octattoo_base_class.dart';
 export 'greetings/greeting.dart';
 export 'client.dart';
 
@@ -58,20 +60,26 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i2.TattooArtist) {
       return _i2.TattooArtist.fromJson(data) as T;
     }
-    if (t == _i3.Greeting) {
-      return _i3.Greeting.fromJson(data) as T;
+    if (t == _i3.OctattooBaseClass) {
+      return _i3.OctattooBaseClass.fromJson(data) as T;
+    }
+    if (t == _i4.Greeting) {
+      return _i4.Greeting.fromJson(data) as T;
     }
     if (t == _i1.getType<_i2.TattooArtist?>()) {
       return (data != null ? _i2.TattooArtist.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i3.Greeting?>()) {
-      return (data != null ? _i3.Greeting.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i3.OctattooBaseClass?>()) {
+      return (data != null ? _i3.OctattooBaseClass.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i4.Greeting?>()) {
+      return (data != null ? _i4.Greeting.fromJson(data) : null) as T;
     }
     try {
-      return _i4.Protocol().deserialize<T>(data, t);
+      return _i5.Protocol().deserialize<T>(data, t);
     } on _i1.DeserializationTypeNotFoundException catch (_) {}
     try {
-      return _i5.Protocol().deserialize<T>(data, t);
+      return _i6.Protocol().deserialize<T>(data, t);
     } on _i1.DeserializationTypeNotFoundException catch (_) {}
     return super.deserialize<T>(data, t);
   }
@@ -79,7 +87,8 @@ class Protocol extends _i1.SerializationManager {
   static String? getClassNameForType(Type type) {
     return switch (type) {
       _i2.TattooArtist => 'TattooArtist',
-      _i3.Greeting => 'Greeting',
+      _i3.OctattooBaseClass => 'OctattooBaseClass',
+      _i4.Greeting => 'Greeting',
       _ => null,
     };
   }
@@ -96,14 +105,16 @@ class Protocol extends _i1.SerializationManager {
     switch (data) {
       case _i2.TattooArtist():
         return 'TattooArtist';
-      case _i3.Greeting():
+      case _i3.OctattooBaseClass():
+        return 'OctattooBaseClass';
+      case _i4.Greeting():
         return 'Greeting';
     }
-    className = _i4.Protocol().getClassNameForObject(data);
+    className = _i5.Protocol().getClassNameForObject(data);
     if (className != null) {
       return 'serverpod_auth_idp.$className';
     }
-    className = _i5.Protocol().getClassNameForObject(data);
+    className = _i6.Protocol().getClassNameForObject(data);
     if (className != null) {
       return 'serverpod_auth_core.$className';
     }
@@ -119,16 +130,19 @@ class Protocol extends _i1.SerializationManager {
     if (dataClassName == 'TattooArtist') {
       return deserialize<_i2.TattooArtist>(data['data']);
     }
+    if (dataClassName == 'OctattooBaseClass') {
+      return deserialize<_i3.OctattooBaseClass>(data['data']);
+    }
     if (dataClassName == 'Greeting') {
-      return deserialize<_i3.Greeting>(data['data']);
+      return deserialize<_i4.Greeting>(data['data']);
     }
     if (dataClassName.startsWith('serverpod_auth_idp.')) {
       data['className'] = dataClassName.substring(19);
-      return _i4.Protocol().deserializeByClassName(data);
+      return _i5.Protocol().deserializeByClassName(data);
     }
     if (dataClassName.startsWith('serverpod_auth_core.')) {
       data['className'] = dataClassName.substring(20);
-      return _i5.Protocol().deserializeByClassName(data);
+      return _i6.Protocol().deserializeByClassName(data);
     }
     return super.deserializeByClassName(data);
   }
