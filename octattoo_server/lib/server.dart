@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:octattoo_server/src/generated/features/tattoo_artist/tattoo_artist.dart';
 import 'package:serverpod/protocol.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_idp_server/core.dart';
@@ -33,14 +34,14 @@ void run(List<String> args) async {
       userImageGenerator: defaultUserImageGenerator,
       onAfterUserProfileCreated:
           (session, userProfile, {required transaction}) async {
-            // final newTattooArtist = TattooArtist(
-            //   authUserId: userProfile.authUserId,
-            // );
-            // await TattooArtist.db.insertRow(
-            //   session,
-            //   newTattooArtist,
-            //   transaction: transaction,
-            // );
+            final newTattooArtist = TattooArtist(
+              authUserId: userProfile.authUserId,
+            );
+            await TattooArtist.db.insertRow(
+              session,
+              newTattooArtist,
+              transaction: transaction,
+            );
           },
     ),
   );

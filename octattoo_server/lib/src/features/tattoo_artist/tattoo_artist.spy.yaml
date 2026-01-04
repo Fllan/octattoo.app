@@ -12,3 +12,6 @@ indexes:
   auth_user_id_unique_idx:
     fields: authUserId
     unique: true
+  artistName_unique_idx:
+    fields: artistName
+    unique: true
