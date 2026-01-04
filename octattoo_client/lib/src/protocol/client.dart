@@ -16,8 +16,10 @@ import 'package:serverpod_client/serverpod_client.dart' as _i2;
 import 'dart:async' as _i3;
 import 'package:serverpod_auth_core_client/serverpod_auth_core_client.dart'
     as _i4;
-import 'package:octattoo_client/src/protocol/greetings/greeting.dart' as _i5;
-import 'protocol.dart' as _i6;
+import 'package:octattoo_client/src/protocol/features/tattoo_artist/tattoo_artist.dart'
+    as _i5;
+import 'package:octattoo_client/src/protocol/greetings/greeting.dart' as _i6;
+import 'protocol.dart' as _i7;
 
 /// By extending [EmailIdpBaseEndpoint], the email identity provider endpoints
 /// are made available on the server and enable the corresponding sign-in widget
@@ -239,6 +241,68 @@ class EndpointTattooArtist extends _i2.EndpointRef {
 
   @override
   String get name => 'tattooArtist';
+
+  /// Gets the tattoo artist associated with the currently authenticated user.
+  _i3.Future<_i5.TattooArtist?> getCurrentTattooArtist() =>
+      caller.callServerEndpoint<_i5.TattooArtist?>(
+        'tattooArtist',
+        'getCurrentTattooArtist',
+        {},
+      );
+
+  /// Updates the tattoo artist.
+  _i3.Future<_i5.TattooArtist> updateTattooArtist(
+    _i5.TattooArtist updatedTattooArtist,
+  ) => caller.callServerEndpoint<_i5.TattooArtist>(
+    'tattooArtist',
+    'updateTattooArtist',
+    {'updatedTattooArtist': updatedTattooArtist},
+  );
+
+  /// Gets a direct file upload description for a profile picture.
+  _i3.Future<String?> getProfilePictureUploadDescription() =>
+      caller.callServerEndpoint<String?>(
+        'tattooArtist',
+        'getProfilePictureUploadDescription',
+        {},
+      );
+
+  /// Verifies a profile picture upload.
+  _i3.Future<bool> verifyProfilePictureUpload() =>
+      caller.callServerEndpoint<bool>(
+        'tattooArtist',
+        'verifyProfilePictureUpload',
+        {},
+      );
+
+  /// Gets the profile picture URL.
+  _i3.Future<Uri?> getProfilePictureUrl() => caller.callServerEndpoint<Uri?>(
+    'tattooArtist',
+    'getProfilePictureUrl',
+    {},
+  );
+
+  /// Gets a direct file upload description for a banner image.
+  _i3.Future<String?> getBannerUploadDescription() =>
+      caller.callServerEndpoint<String?>(
+        'tattooArtist',
+        'getBannerUploadDescription',
+        {},
+      );
+
+  /// Verifies a banner image upload.
+  _i3.Future<bool> verifyBannerUpload() => caller.callServerEndpoint<bool>(
+    'tattooArtist',
+    'verifyBannerUpload',
+    {},
+  );
+
+  /// Gets the banner image URL.
+  _i3.Future<Uri?> getBannerUrl() => caller.callServerEndpoint<Uri?>(
+    'tattooArtist',
+    'getBannerUrl',
+    {},
+  );
 }
 
 /// This is an example endpoint that returns a greeting message through
@@ -251,8 +315,8 @@ class EndpointGreeting extends _i2.EndpointRef {
   String get name => 'greeting';
 
   /// Returns a personalized greeting message: "Hello {name}".
-  _i3.Future<_i5.Greeting> hello(String name) =>
-      caller.callServerEndpoint<_i5.Greeting>(
+  _i3.Future<_i6.Greeting> hello(String name) =>
+      caller.callServerEndpoint<_i6.Greeting>(
         'greeting',
         'hello',
         {'name': name},
@@ -290,7 +354,7 @@ class Client extends _i2.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
          host,
-         _i6.Protocol(),
+         _i7.Protocol(),
          securityContext: securityContext,
          streamingConnectionTimeout: streamingConnectionTimeout,
          connectionTimeout: connectionTimeout,

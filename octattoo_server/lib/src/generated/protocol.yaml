@@ -9,5 +9,13 @@ emailIdp:
 jwtRefresh:
   - refreshAccessToken:
 tattooArtist:
+  - getCurrentTattooArtist:
+  - updateTattooArtist:
+  - getProfilePictureUploadDescription:
+  - verifyProfilePictureUpload:
+  - getProfilePictureUrl:
+  - getBannerUploadDescription:
+  - verifyBannerUpload:
+  - getBannerUrl:
 greeting:
   - hello:
