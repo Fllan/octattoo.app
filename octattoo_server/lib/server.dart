@@ -32,17 +32,33 @@ void run(List<String> args) async {
     ],
     userProfileConfig: UserProfileConfig(
       userImageGenerator: defaultUserImageGenerator,
-      onAfterUserProfileCreated:
-          (session, userProfile, {required transaction}) async {
-            final newTattooArtist = TattooArtist(
-              authUserId: userProfile.authUserId,
-            );
-            await TattooArtist.db.insertRow(
-              session,
-              newTattooArtist,
-              transaction: transaction,
-            );
-          },
+      onAfterUserProfileCreated: (session, userProfile, {required transaction}) async {
+        final username =
+            '${userProfile.email!.split('@').first}_${userProfile.authUserId.toString().substring(0, 4)}';
+        await AuthServices.instance.userProfiles.setDefaultUserImage(
+          session,
+          userProfile.authUserId,
+          transaction: transaction,
+        );
+        await AuthServices.instance.userProfiles.changeUserName(
+          session,
+          userProfile.authUserId,
+          username,
+          transaction: transaction,
+        );
+        final artist = TattooArtist(
+          id: userProfile.authUserId,
+          authUserId: userProfile.authUserId,
+          artistName: username,
+          pictureUrl: userProfile.imageUrl
+              .toString(), //! I doubt this is correct as userProfile.imageUrl is just updated above with setDefaultUserImage
+        );
+        await TattooArtist.db.insertRow(
+          session,
+          artist,
+          transaction: transaction,
+        );
+      },
     ),
   );
 

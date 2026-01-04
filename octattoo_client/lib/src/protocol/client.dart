@@ -236,6 +236,41 @@ class EndpointJwtRefresh extends _i4.EndpointRefreshJwtTokens {
 }
 
 /// {@category Endpoint}
+class EndpointAsset extends _i2.EndpointRef {
+  EndpointAsset(_i2.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'asset';
+
+  _i3.Future<String?> getUploadDescription(String path) =>
+      caller.callServerEndpoint<String?>(
+        'asset',
+        'getUploadDescription',
+        {'path': path},
+      );
+
+  _i3.Future<bool> verifyUpload(String path) => caller.callServerEndpoint<bool>(
+    'asset',
+    'verifyUpload',
+    {'path': path},
+  );
+
+  /// Gets the public URL for an asset at the specified path.
+  _i3.Future<Uri?> getAssetUrl(String path) => caller.callServerEndpoint<Uri?>(
+    'asset',
+    'getAssetUrl',
+    {'path': path},
+  );
+
+  /// Deletes an asset at the specified path and returns true if deletion was successful.
+  _i3.Future<bool> deleteAsset(String path) => caller.callServerEndpoint<bool>(
+    'asset',
+    'deleteAsset',
+    {'path': path},
+  );
+}
+
+/// {@category Endpoint}
 class EndpointTattooArtist extends _i2.EndpointRef {
   EndpointTattooArtist(_i2.EndpointCaller caller) : super(caller);
 
@@ -259,7 +294,6 @@ class EndpointTattooArtist extends _i2.EndpointRef {
     {'updatedTattooArtist': updatedTattooArtist},
   );
 
-  /// Gets a direct file upload description for a profile picture.
   _i3.Future<String?> getProfilePictureUploadDescription() =>
       caller.callServerEndpoint<String?>(
         'tattooArtist',
@@ -267,7 +301,6 @@ class EndpointTattooArtist extends _i2.EndpointRef {
         {},
       );
 
-  /// Verifies a profile picture upload.
   _i3.Future<bool> verifyProfilePictureUpload() =>
       caller.callServerEndpoint<bool>(
         'tattooArtist',
@@ -275,32 +308,29 @@ class EndpointTattooArtist extends _i2.EndpointRef {
         {},
       );
 
-  /// Gets the profile picture URL.
   _i3.Future<Uri?> getProfilePictureUrl() => caller.callServerEndpoint<Uri?>(
     'tattooArtist',
     'getProfilePictureUrl',
     {},
   );
 
-  /// Gets a direct file upload description for a banner image.
-  _i3.Future<String?> getBannerUploadDescription() =>
+  _i3.Future<String?> getBannerPictureUploadDescription() =>
       caller.callServerEndpoint<String?>(
         'tattooArtist',
-        'getBannerUploadDescription',
+        'getBannerPictureUploadDescription',
         {},
       );
 
-  /// Verifies a banner image upload.
-  _i3.Future<bool> verifyBannerUpload() => caller.callServerEndpoint<bool>(
-    'tattooArtist',
-    'verifyBannerUpload',
-    {},
-  );
+  _i3.Future<bool> verifyBannerPictureUpload() =>
+      caller.callServerEndpoint<bool>(
+        'tattooArtist',
+        'verifyBannerPictureUpload',
+        {},
+      );
 
-  /// Gets the banner image URL.
-  _i3.Future<Uri?> getBannerUrl() => caller.callServerEndpoint<Uri?>(
+  _i3.Future<Uri?> getBannerPictureUrl() => caller.callServerEndpoint<Uri?>(
     'tattooArtist',
-    'getBannerUrl',
+    'getBannerPictureUrl',
     {},
   );
 }
@@ -365,6 +395,7 @@ class Client extends _i2.ServerpodClientShared {
        ) {
     emailIdp = EndpointEmailIdp(this);
     jwtRefresh = EndpointJwtRefresh(this);
+    asset = EndpointAsset(this);
     tattooArtist = EndpointTattooArtist(this);
     greeting = EndpointGreeting(this);
     modules = Modules(this);
@@ -373,6 +404,8 @@ class Client extends _i2.ServerpodClientShared {
   late final EndpointEmailIdp emailIdp;
 
   late final EndpointJwtRefresh jwtRefresh;
+
+  late final EndpointAsset asset;
 
   late final EndpointTattooArtist tattooArtist;
 
@@ -384,6 +417,7 @@ class Client extends _i2.ServerpodClientShared {
   Map<String, _i2.EndpointRef> get endpointRefLookup => {
     'emailIdp': emailIdp,
     'jwtRefresh': jwtRefresh,
+    'asset': asset,
     'tattooArtist': tattooArtist,
     'greeting': greeting,
   };

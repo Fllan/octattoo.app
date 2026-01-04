@@ -1,0 +1,3 @@
+exception: ArtistNameTakenException
+fields:
+    message: String, default='Artist name is already taken.'
