@@ -1,0 +1,14 @@
+### Represents a period when a tattoo artist is unavailable
+class: Unavailability
+extends: BaseClass
+### Table for storing unavailability information
+table: unavailability
+fields:
+    ### Reference to the tattoo artist who is unavailable
+    tattooArtist: TattooArtist?, relation(name=artist_unavailabilities)
+    ### Start date and time of the unavailability
+    startDateTime: DateTime
+    ### End date and time of the unavailability
+    endDateTime: DateTime
+    ### Reason for the unavailability
+    reason: String, default=''

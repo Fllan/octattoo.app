@@ -13,11 +13,14 @@
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../auth/email_idp_endpoint.dart' as _i2;
 import '../auth/jwt_refresh_endpoint.dart' as _i3;
-import '../greetings/greeting_endpoint.dart' as _i4;
+import '../features/asset_endpoint.dart' as _i4;
+import '../features/tattoo_artist/tattoo_artist_endpoint.dart' as _i5;
+import '../features/user/user_endpoint.dart' as _i6;
+import '../greetings/greeting_endpoint.dart' as _i7;
 import 'package:serverpod_auth_idp_server/serverpod_auth_idp_server.dart'
-    as _i5;
+    as _i8;
 import 'package:serverpod_auth_core_server/serverpod_auth_core_server.dart'
-    as _i6;
+    as _i9;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -35,7 +38,25 @@ class Endpoints extends _i1.EndpointDispatch {
           'jwtRefresh',
           null,
         ),
-      'greeting': _i4.GreetingEndpoint()
+      'asset': _i4.AssetEndpoint()
+        ..initialize(
+          server,
+          'asset',
+          null,
+        ),
+      'tattooArtist': _i5.TattooArtistEndpoint()
+        ..initialize(
+          server,
+          'tattooArtist',
+          null,
+        ),
+      'user': _i6.UserEndpoint()
+        ..initialize(
+          server,
+          'user',
+          null,
+        ),
+      'greeting': _i7.GreetingEndpoint()
         ..initialize(
           server,
           'greeting',
@@ -236,6 +257,166 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
+    connectors['asset'] = _i1.EndpointConnector(
+      name: 'asset',
+      endpoint: endpoints['asset']!,
+      methodConnectors: {
+        'getUploadDescription': _i1.MethodConnector(
+          name: 'getUploadDescription',
+          params: {
+            'path': _i1.ParameterDescription(
+              name: 'path',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['asset'] as _i4.AssetEndpoint)
+                  .getUploadDescription(
+                    session,
+                    params['path'],
+                  ),
+        ),
+        'verifyUpload': _i1.MethodConnector(
+          name: 'verifyUpload',
+          params: {
+            'path': _i1.ParameterDescription(
+              name: 'path',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['asset'] as _i4.AssetEndpoint).verifyUpload(
+                session,
+                params['path'],
+              ),
+        ),
+        'getAssetUrl': _i1.MethodConnector(
+          name: 'getAssetUrl',
+          params: {
+            'path': _i1.ParameterDescription(
+              name: 'path',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['asset'] as _i4.AssetEndpoint).getAssetUrl(
+                session,
+                params['path'],
+              ),
+        ),
+        'deleteAsset': _i1.MethodConnector(
+          name: 'deleteAsset',
+          params: {
+            'path': _i1.ParameterDescription(
+              name: 'path',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['asset'] as _i4.AssetEndpoint).deleteAsset(
+                session,
+                params['path'],
+              ),
+        ),
+      },
+    );
+    connectors['tattooArtist'] = _i1.EndpointConnector(
+      name: 'tattooArtist',
+      endpoint: endpoints['tattooArtist']!,
+      methodConnectors: {
+        'getCurrentTattooArtist': _i1.MethodConnector(
+          name: 'getCurrentTattooArtist',
+          params: {},
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['tattooArtist'] as _i5.TattooArtistEndpoint)
+                  .getCurrentTattooArtist(session),
+        ),
+        'getProfilePictureUploadDescription': _i1.MethodConnector(
+          name: 'getProfilePictureUploadDescription',
+          params: {},
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['tattooArtist'] as _i5.TattooArtistEndpoint)
+                  .getProfilePictureUploadDescription(session),
+        ),
+        'verifyProfilePictureUpload': _i1.MethodConnector(
+          name: 'verifyProfilePictureUpload',
+          params: {},
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['tattooArtist'] as _i5.TattooArtistEndpoint)
+                  .verifyProfilePictureUpload(session),
+        ),
+        'getProfilePictureUrl': _i1.MethodConnector(
+          name: 'getProfilePictureUrl',
+          params: {},
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['tattooArtist'] as _i5.TattooArtistEndpoint)
+                  .getProfilePictureUrl(session),
+        ),
+        'getBannerPictureUploadDescription': _i1.MethodConnector(
+          name: 'getBannerPictureUploadDescription',
+          params: {},
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['tattooArtist'] as _i5.TattooArtistEndpoint)
+                  .getBannerPictureUploadDescription(session),
+        ),
+        'verifyBannerPictureUpload': _i1.MethodConnector(
+          name: 'verifyBannerPictureUpload',
+          params: {},
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['tattooArtist'] as _i5.TattooArtistEndpoint)
+                  .verifyBannerPictureUpload(session),
+        ),
+        'getBannerPictureUrl': _i1.MethodConnector(
+          name: 'getBannerPictureUrl',
+          params: {},
+          call:
+              (
+                _i1.Session session,
+                Map<String, dynamic> params,
+              ) async => (endpoints['tattooArtist'] as _i5.TattooArtistEndpoint)
+                  .getBannerPictureUrl(session),
+        ),
+      },
+    );
+    connectors['user'] = _i1.EndpointConnector(
+      name: 'user',
+      endpoint: endpoints['user']!,
+      methodConnectors: {},
+    );
     connectors['greeting'] = _i1.EndpointConnector(
       name: 'greeting',
       endpoint: endpoints['greeting']!,
@@ -253,16 +434,16 @@ class Endpoints extends _i1.EndpointDispatch {
               (
                 _i1.Session session,
                 Map<String, dynamic> params,
-              ) async => (endpoints['greeting'] as _i4.GreetingEndpoint).hello(
+              ) async => (endpoints['greeting'] as _i7.GreetingEndpoint).hello(
                 session,
                 params['name'],
               ),
         ),
       },
     );
-    modules['serverpod_auth_idp'] = _i5.Endpoints()
+    modules['serverpod_auth_idp'] = _i8.Endpoints()
       ..initializeEndpoints(server);
-    modules['serverpod_auth_core'] = _i6.Endpoints()
+    modules['serverpod_auth_core'] = _i9.Endpoints()
       ..initializeEndpoints(server);
   }
 }

@@ -10,19 +10,19 @@
 // ignore_for_file: invalid_use_of_internal_member
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:serverpod/serverpod.dart' as _i1;
+import 'package:serverpod_client/serverpod_client.dart' as _i1;
 
-class OctattooBaseClass
-    implements _i1.SerializableModel, _i1.ProtocolSerialization {
-  OctattooBaseClass({
+/// Base class for all entities
+class BaseClass implements _i1.SerializableModel {
+  BaseClass({
     this.id,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) : createdAt = createdAt ?? DateTime.now(),
        updatedAt = updatedAt ?? DateTime.now();
 
-  factory OctattooBaseClass.fromJson(Map<String, dynamic> jsonSerialization) {
-    return OctattooBaseClass(
+  factory BaseClass.fromJson(Map<String, dynamic> jsonSerialization) {
+    return BaseClass(
       id: jsonSerialization['id'] == null
           ? null
           : _i1.UuidValueJsonExtension.fromJson(jsonSerialization['id']),
@@ -35,21 +35,24 @@ class OctattooBaseClass
     );
   }
 
+  /// Unique identifier
   _i1.UuidValue? id;
 
+  /// Timestamp of creation
   DateTime createdAt;
 
+  /// Timestamp of last update
   DateTime updatedAt;
 
-  /// Returns a shallow copy of this [OctattooBaseClass]
+  /// Returns a shallow copy of this [BaseClass]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
-  OctattooBaseClass copyWith({
+  BaseClass copyWith({
     Object? id = _Undefined,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
-    return OctattooBaseClass(
+    return BaseClass(
       id: id is _i1.UuidValue? ? id : this.id,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -59,17 +62,7 @@ class OctattooBaseClass
   @override
   Map<String, dynamic> toJson() {
     return {
-      '__className__': 'OctattooBaseClass',
-      if (id != null) 'id': id?.toJson(),
-      'createdAt': createdAt.toJson(),
-      'updatedAt': updatedAt.toJson(),
-    };
-  }
-
-  @override
-  Map<String, dynamic> toJsonForProtocol() {
-    return {
-      '__className__': 'OctattooBaseClass',
+      '__className__': 'BaseClass',
       if (id != null) 'id': id?.toJson(),
       'createdAt': createdAt.toJson(),
       'updatedAt': updatedAt.toJson(),

@@ -1,17 +1,25 @@
+### Tattoo Artist model representing artists in the application
 class: TattooArtist
-extends: OctattooBaseClass
+extends: BaseClass
+### Table for storing tattoo artist information
 table: tattoo_artist
 fields:
-    authUser: module:serverpod_auth_core:AuthUser?, relation(onDelete=Cascade)
+    ### Reference to the user who owns the tattoo artist profile
+    user: User?, relation(name=user_tattoo_artists)
+    ### Name of the tattoo artist that must be unique for generated public profile URL (i.e. /octattoo.app/artist/artistName)
     artistName: String, default=''
+    ### Tattoo artist's biography
     bio: String, default=''
+    ### URL to the tattoo artist's profile picture
     pictureUrl: String, default=''
+    ### URL to the tattoo artist's banner image
     bannerUrl: String, default=''
+    ### List of availabilities associated with the tattoo artist
+    availabilities: List<Availability>?, relation(name=artist_availabilities)
+    unavailabilities: List<Unavailability>?, relation(name=artist_unavailabilities)
 
 indexes:
-  auth_user_id_unique_idx:
-    fields: authUserId
-    unique: true
-  artistName_unique_idx:
-    fields: artistName
-    unique: true
+    ### Unique index on the artistName
+    artistName_unique_idx:
+        fields: artistName
+        unique: true

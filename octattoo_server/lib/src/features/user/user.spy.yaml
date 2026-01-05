@@ -1,0 +1,24 @@
+### User model representing application users
+class: User
+extends: BaseClass
+### Table for storing user information
+table: user
+fields:
+    ### Reference to the authentication user
+    authUser: module:serverpod_auth_core:AuthUser?, relation(onDelete=Cascade)
+    ### User's first name
+    firstName: String, default=''
+    ### User's last name
+    lastName: String, default=''
+    ### User's pronoun
+    pronoun: String, default=''
+    ### Indicates if the user has completed onboarding
+    isOnboarded: bool, default=false
+    ### List of tattoo artists associated with the user
+    tattooArtists: List<TattooArtist>?, relation(name=user_tattoo_artists)
+
+indexes:
+    ### Unique index on the authUserId
+    auth_user_id_unique_idx:
+        fields: authUserId
+        unique: true

@@ -1,0 +1,8 @@
+### AvailabilityType enum representing types of availability
+enum: AvailabilityType
+serialized: byName
+values:
+    ### Tattoo artist works permanently at the workplace on a regular basis
+    - permanent
+    ### Tattoo artist is a guest at the workplace for a limited time
+    - guest

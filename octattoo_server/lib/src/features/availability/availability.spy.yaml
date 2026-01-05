@@ -1,0 +1,30 @@
+### Availability model representing the availability slots of tattoo artists at workplaces
+class: Availability
+extends: BaseClass
+### Table for storing availability information
+table: availability
+fields:
+    ### Reference to the tattoo artist associated with the availability
+    tattooArtist: TattooArtist?, relation(name=artist_availabilities)
+    ### Reference to the workplace associated with the availability
+    workplace: Workplace?, relation(name=workplace_availabilities)
+    ### Start date of the availability
+    startDate: DateTime
+    ### End date of the availability
+    endDate: DateTime?
+    ### Type of availability
+    type: AvailabilityType
+    ### Start time of the availability
+    startTime: DateTime
+    ### End time of the availability
+    endTime: DateTime?
+    ### List of recurring patterns associated with the availability
+    recurringPatterns: List<RecurringPattern>?, relation(name=availability_patterns)
+    ### Indicates if the availability is for the full day
+    isFullDay: bool, default=false
+    
+indexes:
+    ### Unique index to prevent overlapping availabilities for the same tattoo artist at the same workplace
+    availability_unique_idx:
+        fields: tattooArtistId, workplaceId, startDate, endDate
+        unique: true

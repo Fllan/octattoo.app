@@ -14,38 +14,38 @@ class TattooArtistEndpoint extends Endpoint {
   }
 
   /// Updates the tattoo artist.
-  Future<TattooArtist> updateTattooArtist(
-    Session session,
-    TattooArtist updatedTattooArtist,
-  ) async {
-    var existingTattooArtist = await TattooArtist.db.findById(
-      session,
-      updatedTattooArtist.id!,
-    );
-    if (existingTattooArtist == null) {
-      throw Exception('Tattoo artist not found');
-    }
-    // Ensure the authenticated user is updating their own profile
-    var authUserId = await _getAuthenticatedUserId(session);
-    if (authUserId != existingTattooArtist.authUserId) {
-      throw Exception('Unauthorized to update this tattoo artist');
-    }
-    // Ensure unique constraints are maintained
-    if (updatedTattooArtist.artistName != existingTattooArtist.artistName) {
-      var isAvailable = await _isArtistNameAvailable(
-        session,
-        updatedTattooArtist.artistName,
-      );
-      if (!isAvailable) {
-        throw Exception('Artist name is already taken');
-      }
-    }
-    final updatedRow = await TattooArtist.db.updateRow(
-      session,
-      updatedTattooArtist,
-    );
-    return updatedRow;
-  }
+  // Future<TattooArtist> updateTattooArtist(
+  //   Session session,
+  //   TattooArtist updatedTattooArtist,
+  // ) async {
+  //   var existingTattooArtist = await TattooArtist.db.findById(
+  //     session,
+  //     updatedTattooArtist.id!,
+  //   );
+  //   if (existingTattooArtist == null) {
+  //     throw Exception('Tattoo artist not found');
+  //   }
+  //   // Ensure the authenticated user is updating their own profile
+  //   var authUserId = await _getAuthenticatedUserId(session);
+  //   if (authUserId != existingTattooArtist.authUserId) {
+  //     throw Exception('Unauthorized to update this tattoo artist');
+  //   }
+  //   // Ensure unique constraints are maintained
+  //   if (updatedTattooArtist.artistName != existingTattooArtist.artistName) {
+  //     var isAvailable = await _isArtistNameAvailable(
+  //       session,
+  //       updatedTattooArtist.artistName,
+  //     );
+  //     if (!isAvailable) {
+  //       throw Exception('Artist name is already taken');
+  //     }
+  //   }
+  //   final updatedRow = await TattooArtist.db.updateRow(
+  //     session,
+  //     updatedTattooArtist,
+  //   );
+  //   return updatedRow;
+  // }
 
   /// Checks if the given artist name is available (not taken by another artist).
   @doNotGenerate

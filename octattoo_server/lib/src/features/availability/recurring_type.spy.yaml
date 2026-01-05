@@ -1,0 +1,8 @@
+### Enum representing types of recurring availability
+enum: RecurringType
+serialized: byName
+values:
+    - daily
+    - weekly
+    - monthly
+    - yearly

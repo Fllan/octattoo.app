@@ -1,0 +1,12 @@
+### Represents a workplace where tattoo artists can work
+class: Workplace
+extends: BaseClass
+### Table for storing workplace information
+table: workplace
+fields:
+    ### Name of the workplace
+    name: String
+    ### Address of the workplace
+    address: Address
+    ### List of availabilities associated with the workplace
+    availabilities: List<Availability>?, relation(name=workplace_availabilities)

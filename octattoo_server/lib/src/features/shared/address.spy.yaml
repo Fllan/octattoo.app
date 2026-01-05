@@ -1,0 +1,16 @@
+### Represents a physical address
+class: Address
+extends: BaseClass
+### Table for storing address information
+table: address
+fields:
+    ### Street address
+    street: String
+    ### City of the address
+    city: String
+    ### Postal code of the address
+    postalCode: String
+    ### Country of the address
+    country: String
+    ### Additional note for the address
+    note: String?

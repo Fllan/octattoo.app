@@ -1,0 +1,11 @@
+### Base class for all entities
+class: BaseClass
+fields:
+    ### Unique identifier
+    id: UuidValue?, defaultPersist=random_v7
+    ### Timestamp of creation
+    createdAt: DateTime, default=now
+    ### Timestamp of last update
+    updatedAt: DateTime, default=now
+    ### Timestamp of deletion
+    deletedAt: DateTime?

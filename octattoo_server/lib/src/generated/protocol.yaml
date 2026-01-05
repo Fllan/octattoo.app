@@ -8,5 +8,19 @@ emailIdp:
   - finishPasswordReset:
 jwtRefresh:
   - refreshAccessToken:
+asset:
+  - getUploadDescription:
+  - verifyUpload:
+  - getAssetUrl:
+  - deleteAsset:
+tattooArtist:
+  - getCurrentTattooArtist:
+  - getProfilePictureUploadDescription:
+  - verifyProfilePictureUpload:
+  - getProfilePictureUrl:
+  - getBannerPictureUploadDescription:
+  - verifyBannerPictureUpload:
+  - getBannerPictureUrl:
+user:
 greeting:
   - hello:

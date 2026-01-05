@@ -14,22 +14,24 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import '../../protocol.dart' as _i1;
 import 'package:serverpod/serverpod.dart' as _i2;
-import 'package:serverpod_auth_core_server/serverpod_auth_core_server.dart'
-    as _i3;
-import 'package:octattoo_server/src/generated/protocol.dart' as _i4;
+import '../../features/user/user.dart' as _i3;
+import '../../features/availability/availability.dart' as _i4;
+import 'package:octattoo_server/src/generated/protocol.dart' as _i5;
 
-abstract class TattooArtist extends _i1.OctattooBaseClass
+/// Tattoo Artist model representing artists in the application
+abstract class TattooArtist extends _i1.BaseClass
     implements _i2.TableRow<_i2.UuidValue?>, _i2.ProtocolSerialization {
   TattooArtist._({
     this.id,
     super.createdAt,
     super.updatedAt,
-    required this.authUserId,
-    this.authUser,
+    required this.userId,
+    this.user,
     String? artistName,
     String? bio,
     String? pictureUrl,
     String? bannerUrl,
+    this.availabilities,
   }) : artistName = artistName ?? '',
        bio = bio ?? '',
        pictureUrl = pictureUrl ?? '',
@@ -39,12 +41,13 @@ abstract class TattooArtist extends _i1.OctattooBaseClass
     _i2.UuidValue? id,
     DateTime? createdAt,
     DateTime? updatedAt,
-    required _i2.UuidValue authUserId,
-    _i3.AuthUser? authUser,
+    required _i2.UuidValue userId,
+    _i3.User? user,
     String? artistName,
     String? bio,
     String? pictureUrl,
     String? bannerUrl,
+    List<_i4.Availability>? availabilities,
   }) = _TattooArtistImpl;
 
   factory TattooArtist.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -58,18 +61,19 @@ abstract class TattooArtist extends _i1.OctattooBaseClass
       updatedAt: _i2.DateTimeJsonExtension.fromJson(
         jsonSerialization['updatedAt'],
       ),
-      authUserId: _i2.UuidValueJsonExtension.fromJson(
-        jsonSerialization['authUserId'],
-      ),
-      authUser: jsonSerialization['authUser'] == null
+      userId: _i2.UuidValueJsonExtension.fromJson(jsonSerialization['userId']),
+      user: jsonSerialization['user'] == null
           ? null
-          : _i4.Protocol().deserialize<_i3.AuthUser>(
-              jsonSerialization['authUser'],
-            ),
+          : _i5.Protocol().deserialize<_i3.User>(jsonSerialization['user']),
       artistName: jsonSerialization['artistName'] as String,
       bio: jsonSerialization['bio'] as String,
       pictureUrl: jsonSerialization['pictureUrl'] as String,
       bannerUrl: jsonSerialization['bannerUrl'] as String,
+      availabilities: jsonSerialization['availabilities'] == null
+          ? null
+          : _i5.Protocol().deserialize<List<_i4.Availability>>(
+              jsonSerialization['availabilities'],
+            ),
     );
   }
 
@@ -80,17 +84,25 @@ abstract class TattooArtist extends _i1.OctattooBaseClass
   @override
   _i2.UuidValue? id;
 
-  _i2.UuidValue authUserId;
+  _i2.UuidValue userId;
 
-  _i3.AuthUser? authUser;
+  /// Reference to the user who owns the tattoo artist profile
+  _i3.User? user;
 
+  /// Name of the tattoo artist that must be unique for generated public profile URL (i.e. /octattoo.app/artist/artistName)
   String artistName;
 
+  /// Tattoo artist's biography
   String bio;
 
+  /// URL to the tattoo artist's profile picture
   String pictureUrl;
 
+  /// URL to the tattoo artist's banner image
   String bannerUrl;
+
+  /// List of availabilities associated with the tattoo artist
+  List<_i4.Availability>? availabilities;
 
   @override
   _i2.Table<_i2.UuidValue?> get table => t;
@@ -103,12 +115,13 @@ abstract class TattooArtist extends _i1.OctattooBaseClass
     Object? id,
     DateTime? createdAt,
     DateTime? updatedAt,
-    _i2.UuidValue? authUserId,
-    _i3.AuthUser? authUser,
+    _i2.UuidValue? userId,
+    _i3.User? user,
     String? artistName,
     String? bio,
     String? pictureUrl,
     String? bannerUrl,
+    List<_i4.Availability>? availabilities,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -117,12 +130,16 @@ abstract class TattooArtist extends _i1.OctattooBaseClass
       if (id != null) 'id': id?.toJson(),
       'createdAt': createdAt.toJson(),
       'updatedAt': updatedAt.toJson(),
-      'authUserId': authUserId.toJson(),
-      if (authUser != null) 'authUser': authUser?.toJson(),
+      'userId': userId.toJson(),
+      if (user != null) 'user': user?.toJson(),
       'artistName': artistName,
       'bio': bio,
       'pictureUrl': pictureUrl,
       'bannerUrl': bannerUrl,
+      if (availabilities != null)
+        'availabilities': availabilities?.toJson(
+          valueToJson: (v) => v.toJson(),
+        ),
     };
   }
 
@@ -133,17 +150,27 @@ abstract class TattooArtist extends _i1.OctattooBaseClass
       if (id != null) 'id': id?.toJson(),
       'createdAt': createdAt.toJson(),
       'updatedAt': updatedAt.toJson(),
-      'authUserId': authUserId.toJson(),
-      if (authUser != null) 'authUser': authUser?.toJsonForProtocol(),
+      'userId': userId.toJson(),
+      if (user != null) 'user': user?.toJsonForProtocol(),
       'artistName': artistName,
       'bio': bio,
       'pictureUrl': pictureUrl,
       'bannerUrl': bannerUrl,
+      if (availabilities != null)
+        'availabilities': availabilities?.toJson(
+          valueToJson: (v) => v.toJsonForProtocol(),
+        ),
     };
   }
 
-  static TattooArtistInclude include({_i3.AuthUserInclude? authUser}) {
-    return TattooArtistInclude._(authUser: authUser);
+  static TattooArtistInclude include({
+    _i3.UserInclude? user,
+    _i4.AvailabilityIncludeList? availabilities,
+  }) {
+    return TattooArtistInclude._(
+      user: user,
+      availabilities: availabilities,
+    );
   }
 
   static TattooArtistIncludeList includeList({
@@ -179,22 +206,24 @@ class _TattooArtistImpl extends TattooArtist {
     _i2.UuidValue? id,
     DateTime? createdAt,
     DateTime? updatedAt,
-    required _i2.UuidValue authUserId,
-    _i3.AuthUser? authUser,
+    required _i2.UuidValue userId,
+    _i3.User? user,
     String? artistName,
     String? bio,
     String? pictureUrl,
     String? bannerUrl,
+    List<_i4.Availability>? availabilities,
   }) : super._(
          id: id,
          createdAt: createdAt,
          updatedAt: updatedAt,
-         authUserId: authUserId,
-         authUser: authUser,
+         userId: userId,
+         user: user,
          artistName: artistName,
          bio: bio,
          pictureUrl: pictureUrl,
          bannerUrl: bannerUrl,
+         availabilities: availabilities,
        );
 
   /// Returns a shallow copy of this [TattooArtist]
@@ -205,25 +234,27 @@ class _TattooArtistImpl extends TattooArtist {
     Object? id = _Undefined,
     DateTime? createdAt,
     DateTime? updatedAt,
-    _i2.UuidValue? authUserId,
-    Object? authUser = _Undefined,
+    _i2.UuidValue? userId,
+    Object? user = _Undefined,
     String? artistName,
     String? bio,
     String? pictureUrl,
     String? bannerUrl,
+    Object? availabilities = _Undefined,
   }) {
     return TattooArtist(
       id: id is _i2.UuidValue? ? id : this.id,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
-      authUserId: authUserId ?? this.authUserId,
-      authUser: authUser is _i3.AuthUser?
-          ? authUser
-          : this.authUser?.copyWith(),
+      userId: userId ?? this.userId,
+      user: user is _i3.User? ? user : this.user?.copyWith(),
       artistName: artistName ?? this.artistName,
       bio: bio ?? this.bio,
       pictureUrl: pictureUrl ?? this.pictureUrl,
       bannerUrl: bannerUrl ?? this.bannerUrl,
+      availabilities: availabilities is List<_i4.Availability>?
+          ? availabilities
+          : this.availabilities?.map((e0) => e0.copyWith()).toList(),
     );
   }
 }
@@ -243,12 +274,11 @@ class TattooArtistUpdateTable extends _i2.UpdateTable<TattooArtistTable> {
         value,
       );
 
-  _i2.ColumnValue<_i2.UuidValue, _i2.UuidValue> authUserId(
-    _i2.UuidValue value,
-  ) => _i2.ColumnValue(
-    table.authUserId,
-    value,
-  );
+  _i2.ColumnValue<_i2.UuidValue, _i2.UuidValue> userId(_i2.UuidValue value) =>
+      _i2.ColumnValue(
+        table.userId,
+        value,
+      );
 
   _i2.ColumnValue<String, String> artistName(String value) => _i2.ColumnValue(
     table.artistName,
@@ -284,8 +314,8 @@ class TattooArtistTable extends _i2.Table<_i2.UuidValue?> {
       this,
       hasDefault: true,
     );
-    authUserId = _i2.ColumnUuid(
-      'authUserId',
+    userId = _i2.ColumnUuid(
+      'userId',
       this,
     );
     artistName = _i2.ColumnString(
@@ -312,33 +342,78 @@ class TattooArtistTable extends _i2.Table<_i2.UuidValue?> {
 
   late final TattooArtistUpdateTable updateTable;
 
+  /// Timestamp of creation
   late final _i2.ColumnDateTime createdAt;
 
+  /// Timestamp of last update
   late final _i2.ColumnDateTime updatedAt;
 
-  late final _i2.ColumnUuid authUserId;
+  late final _i2.ColumnUuid userId;
 
-  _i3.AuthUserTable? _authUser;
+  /// Reference to the user who owns the tattoo artist profile
+  _i3.UserTable? _user;
 
+  /// Name of the tattoo artist that must be unique for generated public profile URL (i.e. /octattoo.app/artist/artistName)
   late final _i2.ColumnString artistName;
 
+  /// Tattoo artist's biography
   late final _i2.ColumnString bio;
 
+  /// URL to the tattoo artist's profile picture
   late final _i2.ColumnString pictureUrl;
 
+  /// URL to the tattoo artist's banner image
   late final _i2.ColumnString bannerUrl;
 
-  _i3.AuthUserTable get authUser {
-    if (_authUser != null) return _authUser!;
-    _authUser = _i2.createRelationTable(
-      relationFieldName: 'authUser',
-      field: TattooArtist.t.authUserId,
-      foreignField: _i3.AuthUser.t.id,
+  /// List of availabilities associated with the tattoo artist
+  _i4.AvailabilityTable? ___availabilities;
+
+  /// List of availabilities associated with the tattoo artist
+  _i2.ManyRelation<_i4.AvailabilityTable>? _availabilities;
+
+  _i3.UserTable get user {
+    if (_user != null) return _user!;
+    _user = _i2.createRelationTable(
+      relationFieldName: 'user',
+      field: TattooArtist.t.userId,
+      foreignField: _i3.User.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
-          _i3.AuthUserTable(tableRelation: foreignTableRelation),
+          _i3.UserTable(tableRelation: foreignTableRelation),
     );
-    return _authUser!;
+    return _user!;
+  }
+
+  _i4.AvailabilityTable get __availabilities {
+    if (___availabilities != null) return ___availabilities!;
+    ___availabilities = _i2.createRelationTable(
+      relationFieldName: '__availabilities',
+      field: TattooArtist.t.id,
+      foreignField: _i4.Availability.t.tattooArtistId,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i4.AvailabilityTable(tableRelation: foreignTableRelation),
+    );
+    return ___availabilities!;
+  }
+
+  _i2.ManyRelation<_i4.AvailabilityTable> get availabilities {
+    if (_availabilities != null) return _availabilities!;
+    var relationTable = _i2.createRelationTable(
+      relationFieldName: 'availabilities',
+      field: TattooArtist.t.id,
+      foreignField: _i4.Availability.t.tattooArtistId,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i4.AvailabilityTable(tableRelation: foreignTableRelation),
+    );
+    _availabilities = _i2.ManyRelation<_i4.AvailabilityTable>(
+      tableWithRelations: relationTable,
+      table: _i4.AvailabilityTable(
+        tableRelation: relationTable.tableRelation!.lastRelation,
+      ),
+    );
+    return _availabilities!;
   }
 
   @override
@@ -346,7 +421,7 @@ class TattooArtistTable extends _i2.Table<_i2.UuidValue?> {
     id,
     createdAt,
     updatedAt,
-    authUserId,
+    userId,
     artistName,
     bio,
     pictureUrl,
@@ -355,22 +430,34 @@ class TattooArtistTable extends _i2.Table<_i2.UuidValue?> {
 
   @override
   _i2.Table? getRelationTable(String relationField) {
-    if (relationField == 'authUser') {
-      return authUser;
+    if (relationField == 'user') {
+      return user;
+    }
+    if (relationField == 'availabilities') {
+      return __availabilities;
     }
     return null;
   }
 }
 
 class TattooArtistInclude extends _i2.IncludeObject {
-  TattooArtistInclude._({_i3.AuthUserInclude? authUser}) {
-    _authUser = authUser;
+  TattooArtistInclude._({
+    _i3.UserInclude? user,
+    _i4.AvailabilityIncludeList? availabilities,
+  }) {
+    _user = user;
+    _availabilities = availabilities;
   }
 
-  _i3.AuthUserInclude? _authUser;
+  _i3.UserInclude? _user;
+
+  _i4.AvailabilityIncludeList? _availabilities;
 
   @override
-  Map<String, _i2.Include?> get includes => {'authUser': _authUser};
+  Map<String, _i2.Include?> get includes => {
+    'user': _user,
+    'availabilities': _availabilities,
+  };
 
   @override
   _i2.Table<_i2.UuidValue?> get table => TattooArtist.t;
@@ -398,6 +485,8 @@ class TattooArtistIncludeList extends _i2.IncludeList {
 
 class TattooArtistRepository {
   const TattooArtistRepository._();
+
+  final attach = const TattooArtistAttachRepository._();
 
   final attachRow = const TattooArtistAttachRowRepository._();
 
@@ -657,28 +746,80 @@ class TattooArtistRepository {
   }
 }
 
+class TattooArtistAttachRepository {
+  const TattooArtistAttachRepository._();
+
+  /// Creates a relation between this [TattooArtist] and the given [Availability]s
+  /// by setting each [Availability]'s foreign key `tattooArtistId` to refer to this [TattooArtist].
+  Future<void> availabilities(
+    _i2.Session session,
+    TattooArtist tattooArtist,
+    List<_i4.Availability> availability, {
+    _i2.Transaction? transaction,
+  }) async {
+    if (availability.any((e) => e.id == null)) {
+      throw ArgumentError.notNull('availability.id');
+    }
+    if (tattooArtist.id == null) {
+      throw ArgumentError.notNull('tattooArtist.id');
+    }
+
+    var $availability = availability
+        .map((e) => e.copyWith(tattooArtistId: tattooArtist.id))
+        .toList();
+    await session.db.update<_i4.Availability>(
+      $availability,
+      columns: [_i4.Availability.t.tattooArtistId],
+      transaction: transaction,
+    );
+  }
+}
+
 class TattooArtistAttachRowRepository {
   const TattooArtistAttachRowRepository._();
 
-  /// Creates a relation between the given [TattooArtist] and [AuthUser]
-  /// by setting the [TattooArtist]'s foreign key `authUserId` to refer to the [AuthUser].
-  Future<void> authUser(
+  /// Creates a relation between the given [TattooArtist] and [User]
+  /// by setting the [TattooArtist]'s foreign key `userId` to refer to the [User].
+  Future<void> user(
     _i2.Session session,
     TattooArtist tattooArtist,
-    _i3.AuthUser authUser, {
+    _i3.User user, {
     _i2.Transaction? transaction,
   }) async {
     if (tattooArtist.id == null) {
       throw ArgumentError.notNull('tattooArtist.id');
     }
-    if (authUser.id == null) {
-      throw ArgumentError.notNull('authUser.id');
+    if (user.id == null) {
+      throw ArgumentError.notNull('user.id');
     }
 
-    var $tattooArtist = tattooArtist.copyWith(authUserId: authUser.id);
+    var $tattooArtist = tattooArtist.copyWith(userId: user.id);
     await session.db.updateRow<TattooArtist>(
       $tattooArtist,
-      columns: [TattooArtist.t.authUserId],
+      columns: [TattooArtist.t.userId],
+      transaction: transaction,
+    );
+  }
+
+  /// Creates a relation between this [TattooArtist] and the given [Availability]
+  /// by setting the [Availability]'s foreign key `tattooArtistId` to refer to this [TattooArtist].
+  Future<void> availabilities(
+    _i2.Session session,
+    TattooArtist tattooArtist,
+    _i4.Availability availability, {
+    _i2.Transaction? transaction,
+  }) async {
+    if (availability.id == null) {
+      throw ArgumentError.notNull('availability.id');
+    }
+    if (tattooArtist.id == null) {
+      throw ArgumentError.notNull('tattooArtist.id');
+    }
+
+    var $availability = availability.copyWith(tattooArtistId: tattooArtist.id);
+    await session.db.updateRow<_i4.Availability>(
+      $availability,
+      columns: [_i4.Availability.t.tattooArtistId],
       transaction: transaction,
     );
   }

@@ -13,7 +13,10 @@ class AuthenticationScreen extends StatelessWidget {
         body: Center(
           child: SignInWidget(
             client: client,
-            onAuthenticated: () {},
+            emailSignInWidget: EmailSignInWidget(
+              client: client,
+              startScreen: .startRegistration,
+            ),
           ),
         ),
       ),
